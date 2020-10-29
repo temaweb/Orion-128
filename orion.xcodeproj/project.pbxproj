@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A7AD3F3254B356E0056CB4E /* i8080.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AD3F2254B356E0056CB4E /* i8080.mm */; };
+		8A7AD3FE254B38C10056CB4E /* i8080.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* i8080.cpp */; };
+		8A7AD401254B38C40056CB4E /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C638254460C8008DAA6B /* Bus.cpp */; };
 		8AB9437C254A187200636CA0 /* i8080.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* i8080.cpp */; };
 		8AC0C6222543AE24008DAA6B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C6212543AE24008DAA6B /* main.cpp */; };
 		8AC0C63A254460C8008DAA6B /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C638254460C8008DAA6B /* Bus.cpp */; };
@@ -25,6 +28,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A7AD3E1254B353D0056CB4E /* behaviors.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = behaviors.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A7AD3E5254B353D0056CB4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A7AD3F2254B356E0056CB4E /* i8080.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = i8080.mm; sourceTree = "<group>"; };
 		8AB9437A254A187200636CA0 /* i8080.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = i8080.cpp; sourceTree = "<group>"; };
 		8AB9437B254A187200636CA0 /* i8080.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = i8080.hpp; sourceTree = "<group>"; };
 		8AC0C61E2543AE24008DAA6B /* orion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = orion; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,6 +40,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8A7AD3DE254B353D0056CB4E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AC0C61B2543AE24008DAA6B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -44,28 +57,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8AB94388254B29FD00636CA0 /* Cpu */ = {
+		8A7AD3E2254B353D0056CB4E /* behaviors */ = {
+			isa = PBXGroup;
+			children = (
+				8A7AD3ED254B35490056CB4E /* cpu */,
+				8A7AD3E5254B353D0056CB4E /* Info.plist */,
+			);
+			path = behaviors;
+			sourceTree = "<group>";
+		};
+		8A7AD3ED254B35490056CB4E /* cpu */ = {
+			isa = PBXGroup;
+			children = (
+				8A7AD3F2254B356E0056CB4E /* i8080.mm */,
+			);
+			path = cpu;
+			sourceTree = "<group>";
+		};
+		8AB94388254B29FD00636CA0 /* cpu */ = {
 			isa = PBXGroup;
 			children = (
 				8AB9437A254A187200636CA0 /* i8080.cpp */,
 				8AB9437B254A187200636CA0 /* i8080.hpp */,
 			);
-			path = Cpu;
+			path = cpu;
 			sourceTree = "<group>";
 		};
-		8AB9438A254B2A0400636CA0 /* Bus */ = {
+		8AB9438A254B2A0400636CA0 /* bus */ = {
 			isa = PBXGroup;
 			children = (
 				8AC0C638254460C8008DAA6B /* Bus.cpp */,
 				8AC0C639254460C8008DAA6B /* Bus.hpp */,
 			);
-			path = Bus;
+			path = bus;
 			sourceTree = "<group>";
 		};
 		8AC0C6152543AE24008DAA6B = {
 			isa = PBXGroup;
 			children = (
 				8AC0C6202543AE24008DAA6B /* orion */,
+				8A7AD3E2254B353D0056CB4E /* behaviors */,
 				8AC0C61F2543AE24008DAA6B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				8AC0C61E2543AE24008DAA6B /* orion */,
+				8A7AD3E1254B353D0056CB4E /* behaviors.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -81,8 +113,8 @@
 		8AC0C6202543AE24008DAA6B /* orion */ = {
 			isa = PBXGroup;
 			children = (
-				8AB94388254B29FD00636CA0 /* Cpu */,
-				8AB9438A254B2A0400636CA0 /* Bus */,
+				8AB94388254B29FD00636CA0 /* cpu */,
+				8AB9438A254B2A0400636CA0 /* bus */,
 				8AC0C6212543AE24008DAA6B /* main.cpp */,
 			);
 			path = orion;
@@ -91,6 +123,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8A7AD3E0254B353D0056CB4E /* behaviors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A7AD3E6254B353D0056CB4E /* Build configuration list for PBXNativeTarget "behaviors" */;
+			buildPhases = (
+				8A7AD3DD254B353D0056CB4E /* Sources */,
+				8A7AD3DE254B353D0056CB4E /* Frameworks */,
+				8A7AD3DF254B353D0056CB4E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = behaviors;
+			productName = behaviors;
+			productReference = 8A7AD3E1254B353D0056CB4E /* behaviors.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8AC0C61D2543AE24008DAA6B /* orion */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8AC0C6252543AE24008DAA6B /* Build configuration list for PBXNativeTarget "orion" */;
@@ -116,6 +165,9 @@
 			attributes = {
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
+					8A7AD3E0254B353D0056CB4E = {
+						CreatedOnToolsVersion = 12.1;
+					};
 					8AC0C61D2543AE24008DAA6B = {
 						CreatedOnToolsVersion = 12.0.1;
 					};
@@ -135,11 +187,32 @@
 			projectRoot = "";
 			targets = (
 				8AC0C61D2543AE24008DAA6B /* orion */,
+				8A7AD3E0254B353D0056CB4E /* behaviors */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		8A7AD3DF254B353D0056CB4E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		8A7AD3DD254B353D0056CB4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A7AD401254B38C40056CB4E /* Bus.cpp in Sources */,
+				8A7AD3F3254B356E0056CB4E /* i8080.mm in Sources */,
+				8A7AD3FE254B38C10056CB4E /* i8080.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AC0C61A2543AE24008DAA6B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,6 +226,38 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		8A7AD3E7254B353D0056CB4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = behaviors/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = temaweb.behaviors;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8A7AD3E8254B353D0056CB4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = behaviors/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = temaweb.behaviors;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		8AC0C6232543AE24008DAA6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -285,6 +390,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8A7AD3E6254B353D0056CB4E /* Build configuration list for PBXNativeTarget "behaviors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A7AD3E7254B353D0056CB4E /* Debug */,
+				8A7AD3E8254B353D0056CB4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8AC0C6192543AE24008DAA6B /* Build configuration list for PBXProject "orion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

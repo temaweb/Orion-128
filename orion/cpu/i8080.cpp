@@ -26,6 +26,8 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
         { "LXI",     10,       &i8080::LXID,     &i8080::IMM },
         { "STAX",    7,        &i8080::STAXD,    &i8080::IMP }
+        
+        
     };
 }
 
@@ -65,6 +67,11 @@ uint8_t i8080::read(uint16_t address)
 void i8080::write(uint16_t address, uint8_t data)
 {
     bus -> write(address, data);
+}
+
+void i8080::connect(Bus * bus)
+{
+    this -> bus = bus;
 }
 
 #pragma mark -
@@ -116,7 +123,8 @@ uint8_t i8080::NOP()
     return 0;
 }
 
-#pragma mark - Move, Load, Store
+#pragma mark -
+#pragma mark Move, Load, Store
 
 // Code: MOV r1, r2
 // Operation: (r2) → r1
@@ -302,18 +310,18 @@ uint8_t i8080::LHLD()
     return 0;
 }
 
-inline void exchange(uint8_t & x, uint8_t & y)
-{
-    x ^= y;
-    y ^= x;
-    x ^= y;
-}
-
 // Code: XCHG
 // Operation: (HL) ↔ (DE)
 // Description: Echange D & E, H & L registers
 uint8_t i8080::XCHG()
 {
+    auto exchange = [&](uint8_t x, uint8_t y)
+    {
+        x ^= y;
+        y ^= x;
+        x ^= y;
+    };
+    
     exchange(reg[D], reg[H]);
     exchange(reg[E], reg[L]);
     
