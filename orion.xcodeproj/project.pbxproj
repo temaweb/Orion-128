@@ -28,6 +28,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A4C1E4C254B47A600ED6E1E /* materials */ = {isa = PBXFileReference; lastKnownFileType = folder; path = materials; sourceTree = "<group>"; };
 		8A7AD3E1254B353D0056CB4E /* behaviors.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = behaviors.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7AD3E5254B353D0056CB4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A7AD3F2254B356E0056CB4E /* i8080.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = i8080.mm; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		8AC0C6152543AE24008DAA6B = {
 			isa = PBXGroup;
 			children = (
+				8A4C1E4C254B47A600ED6E1E /* materials */,
 				8AC0C6202543AE24008DAA6B /* orion */,
 				8A7AD3E2254B353D0056CB4E /* behaviors */,
 				8AC0C61F2543AE24008DAA6B /* Products */,
