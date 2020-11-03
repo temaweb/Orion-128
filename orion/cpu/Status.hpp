@@ -74,11 +74,21 @@ public:
     
     void SetAllFlags (uint16_t value)
     {
-        SetFlagSign   (value);
-        SetFlagZero   (value);
-        SetFlagAux    (value);
-        SetFlagCarry  (value);
-        SetFlagParity (value);
+        SetFlagCarry     (value);
+        SetAuxCarryFlags (value);
+    }
+    
+    void SetAuxCarryFlags (uint16_t value)
+    {
+        SetNoCarryFlags (value);
+        SetFlagAux      (value);
+    }
+    
+    void SetNoCarryFlags (uint16_t value)
+    {
+        SetFlagSign    (value);
+        SetFlagZero    (value);
+        SetFlagParity  (value);
     }
     
     uint8_t GetCarryFlag()

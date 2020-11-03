@@ -26,7 +26,7 @@ public:
     
 private:
     
-    uint8_t  reg[8];            // Registers        (B C D E H L M A)
+    uint8_t   reg[8];           // Registers        (B C D E H L M A)
     uint8_t * pairs[4];         // Pairs
                                 // 0x00 - B & C
                                 // 0x01 - D & E
@@ -65,22 +65,22 @@ private:
         SP
     };
     
-    enum
-    {
-        SS  = 0x07,
-        DD  = 0x38
-    };
+    uint8_t * readsrc();
+    uint8_t * readdst();
     
-    uint16_t readpair(uint8_t index);
-    void writepair(const uint8_t & index, const uint16_t & data);
-    void mutatepair(const uint8_t & index, std::function<void(uint16_t &)> mutator);
+    uint16_t readpair (uint8_t index);
+    void writepair (const uint8_t & index, const uint16_t & data);
+    void mutatepair (const uint8_t & index, std::function<void(uint16_t &)> mutator);
     
 // Bus communication
 private:
     
     Bus * bus = nullptr;
     
-    uint8_t read(uint16_t address);
+    uint8_t read ();
+    uint8_t read (uint16_t address);
+    
+    void write (uint8_t data);
     void write (uint16_t address, uint8_t data);
     
 private:
@@ -175,10 +175,11 @@ private:
 
     // Add
     
+    uint8_t ADD  (uint8_t value, uint8_t carry = 0x00);
+    uint8_t ADC  (uint8_t value);
+    
     uint8_t ADDR ();
     uint8_t ADDM ();
-    uint8_t ADDR (uint8_t carry);
-    uint8_t ADDM (uint8_t carry);
     uint8_t ADCR ();
     uint8_t ADCM ();
     uint8_t ADI  ();
@@ -186,6 +187,9 @@ private:
     uint8_t DAD  ();
     
     // Substract
+    
+    uint8_t SUB  (uint8_t value, uint8_t carry = 0x00);
+    uint8_t SBB  (uint8_t value);
     
     uint8_t SUBR ();
     uint8_t SUBM ();
@@ -195,6 +199,11 @@ private:
     uint8_t SBI  ();
     
     // Logical
+    
+    uint8_t ANA  (uint8_t value);
+    uint8_t XRA  (uint8_t value);
+    uint8_t ORA  (uint8_t value);
+    uint8_t CMP  (uint8_t value);
     
     uint8_t ANAR ();
     uint8_t XRAR ();

@@ -175,26 +175,60 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         
         // 0x8 - 0xF
         
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "HLT",     7,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVRM,    &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
+        { "ADD",     7,        &i8080::ADDM,    &i8080::HLM },
+        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
+        { "ADC",     7,        &i8080::ADCM,    &i8080::HLM },
+        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
         
         // 0x9 - 0xF
         
-        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
+        { "SUB",     7,        &i8080::SUBM,    &i8080::HLM },
+        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
+        { "SBB",     7,        &i8080::SBBM,    &i8080::HLM },
+        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
+        
+        // 0xA - 0xF
+        
+        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
+        { "ANA",     7,        &i8080::ANAM,    &i8080::HLM },
+        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
+        { "XRA",     7,        &i8080::XRAM,    &i8080::HLM },
+        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
     };
 }
 
@@ -238,6 +272,19 @@ void i8080::execute(int clock)
 #pragma mark -
 #pragma mark Pairs
 
+// Read source register
+uint8_t * i8080::readsrc()
+{
+    return &reg[op & 0x07];
+}
+
+// Read destination register
+uint8_t * i8080::readdst()
+{
+    return &reg[(op & 0x38) >> 3];
+}
+
+// Read registry pair as uint16_t
 uint16_t i8080::readpair(uint8_t index)
 {
     auto pair = pairs[index];
@@ -248,12 +295,14 @@ uint16_t i8080::readpair(uint8_t index)
     return (hi << 8) | lo;
 }
 
+// Write uint16_t to registry pair
 void i8080::writepair(const uint8_t & index, const uint16_t & data)
 {
     *(pairs[index] + 0) = (data >> 8) & 0xFF;
     *(pairs[index] + 1) = data & 0xFF;
 }
 
+// Mutate registry pair
 void i8080::mutatepair(const uint8_t & index, std::function<void(uint16_t &)> mutator)
 {
     uint16_t pair = readpair(index);
@@ -262,11 +311,21 @@ void i8080::mutatepair(const uint8_t & index, std::function<void(uint16_t &)> mu
 }
 
 #pragma mark -
-#pragma mark Bus
+#pragma mark Bus communication
+
+uint8_t i8080::read()
+{
+    return read(address);
+}
 
 uint8_t i8080::read(uint16_t address)
 {
     return bus -> read(address);
+}
+
+void i8080::write(uint8_t data)
+{
+    write(address, data);
 }
 
 void i8080::write(uint16_t address, uint8_t data)
@@ -280,17 +339,21 @@ void i8080::connect(Bus * bus)
 }
 
 #pragma mark -
+#pragma mark Addressing modes
 
+// No set address pointer
 void i8080::IMP()
 {
-    
+    // ~
 }
 
+// Set address pointer to accumulator
 void i8080::IND()
 {
     address = reg[A];
 }
 
+// Set address pointer to A16
 void i8080::DIR()
 {
     uint16_t lo = read(pc);
@@ -301,11 +364,13 @@ void i8080::DIR()
     address = (hi << 8) | lo;
 }
 
+// Set address pointer to D8
 void i8080::IMM()
 {
     address = pc++;
 }
 
+// Set address pointer to H & L registry pair
 void i8080::HLM()
 {
     uint16_t lo = reg[L];
@@ -322,7 +387,7 @@ void i8080::HLM()
 // Description: Move register to register
 uint8_t i8080::MOVRR()
 {
-    reg[(op & DD) >> 3] = reg[op & SS];
+    *readdst() = *readsrc();
     return 0;
 }
 
@@ -331,8 +396,8 @@ uint8_t i8080::MOVRR()
 // Description: Move register to memory
 uint8_t i8080::MOVMR()
 {
-    auto src = reg[op & SS];
-    write(address, src);
+    auto src = readsrc();
+    write(*src);
     
     return 0;
 }
@@ -342,7 +407,7 @@ uint8_t i8080::MOVMR()
 // Description: Move memory to register
 uint8_t i8080::MOVRM()
 {
-    reg[(op & DD) >> 3] = read(address);
+    *readdst() = read();
     return 0;
 }
 
@@ -351,8 +416,7 @@ uint8_t i8080::MOVRM()
 // Description: Move immediate register
 uint8_t i8080::MVIR()
 {
-    reg[(op & DD) >> 3] = read(address);
-    return 0;
+    return MOVRM();
 }
 
 // Code: MVI M, D8
@@ -360,7 +424,7 @@ uint8_t i8080::MVIR()
 // Description: Move immediate memory
 uint8_t i8080::MVIM()
 {
-    auto src = read(address);
+    auto src = read();
     
     uint16_t lo = reg[L];
     uint16_t hi = reg[H];
@@ -417,7 +481,7 @@ uint8_t i8080::LDAX()
 // Description: Store A direct
 uint8_t i8080::STA()
 {
-    write(address, reg[A]);
+    write(reg[A]);
     return 0;
 }
 
@@ -426,7 +490,7 @@ uint8_t i8080::STA()
 // Description: Load A direct
 uint8_t i8080::LDA()
 {
-    reg[A] = read(address);
+    reg[A] = read();
     return 0;
 }
 
@@ -541,11 +605,10 @@ uint8_t RST  ()
 // Flags: S,Z,AC,P
 uint8_t i8080::INRR ()
 {
-    auto index = (op & DD) >> 3;
-    uint16_t value = reg[index];
-    reg[index] = ++value & 0x00FF;
+    uint16_t value = *readdst();
+    *readdst() = ++value & 0x00FF;
     
-    sr.SetAllFlags(value);
+    sr.SetAuxCarryFlags(value);
 
     return 0;
 }
@@ -556,10 +619,10 @@ uint8_t i8080::INRR ()
 // Flags: S,Z,AC,P
 uint8_t i8080::INRM ()
 {
-    uint16_t value = read(address);
-    value++;
-    write(address, value & 0x00FF);
-    sr.SetAllFlags(value);
+    uint16_t value = read();
+    write(++value & 0x00FF);
+
+    sr.SetAuxCarryFlags(value);
     
     return 0;
 }
@@ -570,11 +633,10 @@ uint8_t i8080::INRM ()
 // Flags: S,Z,AC,P
 uint8_t i8080::DCRR ()
 {
-    auto index = (op & DD) >> 3;
-    uint16_t value = reg[index];
-    reg[index] = --value & 0x00FF;
+    uint16_t value = *readdst();
+    *readdst() = --value & 0x00FF;
     
-    sr.SetAllFlags(value);
+    sr.SetAuxCarryFlags(value);
     
     return 0;
 }
@@ -585,10 +647,11 @@ uint8_t i8080::DCRR ()
 // Flags: S,Z,AC,P
 uint8_t i8080::DCRM ()
 {
-    uint16_t value = read(address);
+    uint16_t value = read();
     value--;
-    write(address, value & 0x00FF);
-    sr.SetAllFlags(value);
+    write(value & 0x00FF);
+
+    sr.SetAuxCarryFlags(value);
     
     return 0;
 }
@@ -616,13 +679,9 @@ uint8_t i8080::DCX  ()
 #pragma mark -
 #pragma mark Add
 
-// Code: ADD r
-// Operation: (A) + (r) → A
-// Description: Add register to A
-// Flags: S,Z,AC,P,C
-uint8_t i8080::ADDR (uint8_t carry)
+uint8_t i8080::ADD(uint8_t data, uint8_t carry)
 {
-    uint16_t tmp = reg[A] + reg[op & SS] + carry;
+    uint16_t tmp = reg[A] + (data + carry);
     reg[A] = tmp & 0x00FF;
     
     sr.SetAllFlags(tmp);
@@ -630,18 +689,10 @@ uint8_t i8080::ADDR (uint8_t carry)
     return 0;
 }
 
-// Code: ADD M
-// Operation: (A) + М → A
-// Description: Add memory to A
-// Flags: S,Z,AC,P,C
-uint8_t i8080::ADDM (uint8_t carry)
-{   
-    uint16_t tmp = reg[A] + read(address) + carry;
-    reg[A] = tmp & 0x00FF;
-    
-    sr.SetAllFlags(tmp);
-    
-    return 0;
+uint8_t i8080::ADC(uint8_t data)
+{
+    auto carry = sr.GetCarryFlag();
+    return ADD (carry, data);
 }
 
 // Code: ADD r
@@ -650,7 +701,8 @@ uint8_t i8080::ADDM (uint8_t carry)
 // Flags: S,Z,AC,P,C
 uint8_t i8080::ADDR ()
 {
-    return ADDR(0x00);
+    auto value = *readsrc();
+    return ADD(value);
 }
 
 // Code: ADD M
@@ -659,7 +711,8 @@ uint8_t i8080::ADDR ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::ADDM ()
 {
-    return ADDM(0x00);
+    auto value = read();
+    return ADD(value);
 }
 
 // Code: ADC r
@@ -668,8 +721,8 @@ uint8_t i8080::ADDM ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::ADCR ()
 {
-    uint8_t carry = sr.GetCarryFlag();
-    return ADDR(carry);
+    auto value = *readsrc();
+    return ADC(value);
 }
 
 // Code: ADC M
@@ -678,17 +731,17 @@ uint8_t i8080::ADCR ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::ADCM ()
 {
-    uint8_t carry = sr.GetCarryFlag();
-    return ADDM(carry);
+    auto value = read();
+    return ADC(value);
 }
 
 // Code: ADI D8
 // Operation: (A) + D8 → A
 // Description: Add immediate to A
 // Flags: S,Z,AC,P,C
-uint8_t i8080::ADI  ()
+uint8_t i8080::ADI ()
 {
-    return ADDM(0x00);
+    return ADDM(); // Address = D8
 }
 
 // Code: ACI D8
@@ -697,8 +750,7 @@ uint8_t i8080::ADI  ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::ACI  ()
 {
-    uint8_t carry = sr.GetCarryFlag();
-    return ADDM(carry);
+    return ADCM(); // Address = D8
 }
 
 // Code: DAD rp
@@ -721,23 +773,182 @@ uint8_t i8080::DAD  ()
 #pragma mark -
 #pragma mark Substract
 
-uint8_t i8080::SUBR () { return 0; }
-uint8_t i8080::SUBM () { return 0; }
-uint8_t i8080::SBBR () { return 0; }
-uint8_t i8080::SBBM () { return 0; }
-uint8_t i8080::SUI  () { return 0; }
-uint8_t i8080::SBI  () { return 0; }
+uint8_t i8080::SUB(uint8_t data, uint8_t carry)
+{
+    uint16_t tmp = reg[A] - (data - carry);
+    reg[A] = tmp & 0x00FF;
+    
+    sr.SetAllFlags(tmp);
+    
+    return 0;
+}
+
+uint8_t i8080::SBB(uint8_t data)
+{
+    auto carry = sr.GetCarryFlag();
+    return SUB (carry, data);
+}
+
+// Code: SUB r
+// Operation: (A) - (r) → A
+// Description: Substract register from A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::SUBR ()
+{
+    auto value = *readsrc();
+    return SUB(value);
+}
+
+// Code: SUB M
+// Operation: (A) – М → A
+// Description: Substract memory from A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::SUBM ()
+{
+    auto value = read();
+    return SUB(value);
+}
+
+// Code: SBB r
+// Operation: (A) - (r) - C → A
+// Description: Substract register from A with borrow
+// Flags: S,Z,AC,P,C
+uint8_t i8080::SBBR ()
+{
+    auto value = *readsrc();
+    return SBB(value);
+}
+
+// Code: SBB M
+// Operation: (A) – М - C → A
+// Description: Substract memory from A with borrow
+// Flags: S,Z,AC,P,C
+uint8_t i8080::SBBM ()
+{
+    auto value = read();
+    return SBB(value);
+}
+
+// Code: SUI D8
+// Operation: (A) - D8 → A
+// Description: Substract immediate from A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::SUI  ()
+{
+    return SUBM(); // Address = D8
+}
+
+// Code: DBI D8
+// Operation: (A) - D8 - C → A
+// Description: Substract immediate from A with borrow
+// Flags: S,Z,AC,P,C
+uint8_t i8080::SBI  ()
+{
+    return SBBM (); // Address = D8
+}
 
 #pragma mark -
 #pragma mark Logical
 
-uint8_t i8080::ANAR () { return 0; }
-uint8_t i8080::XRAR () { return 0; }
-uint8_t i8080::ORAR () { return 0; }
+uint8_t i8080::ANA  (uint8_t data)
+{
+    reg[A] &= data;
+    
+    sr.SetNoCarryFlags (reg[A]);
+    sr.SetFlagCarry    (0x00);
+    
+    return 0;
+}
+
+uint8_t i8080::XRA  (uint8_t data)
+{
+    reg[A] ^= data;
+    
+    sr.SetNoCarryFlags (reg[A]);
+    sr.SetFlagAux      (0x00);
+    sr.SetFlagCarry    (0x00);
+    
+    return 0;
+}
+
+uint8_t i8080::ORA  (uint8_t data)
+{
+    reg[A] |= data;
+    
+    sr.SetNoCarryFlags (reg[A]);
+    sr.SetFlagCarry    (0x00);
+    
+    return 0;
+}
+
+uint8_t i8080::CMP  (uint8_t value)
+{
+    // Do ~
+    
+    return 0;
+}
+
+// Code: ANA r
+// Operation: (A) & (r) → A
+// Description: And register with A
+// Flags: S,Z,AC=*,P,C=0
+uint8_t i8080::ANAR ()
+{
+    auto value = *readsrc();
+    return ANA(value);
+}
+
+// Code: ANA M
+// Operation: (A) & M → A
+// Description: And memory with A
+// Flags: S,Z,AC=*,P,C=0
+uint8_t i8080::ANAM ()
+{
+    auto value = read();
+    return ANA(value);
+}
+
+// Code: XRA r
+// Operation: (A) ^ r → A
+// Description: Exclusive or register with A
+// Flags: S,Z,AC=0,P,C=0
+uint8_t i8080::XRAR ()
+{
+    auto value = *readsrc();
+    return XRA(value);
+}
+
+// Code: XRA M
+// Operation: (A) ^ M → A
+// Description: Exclusive or memory with A
+// Flags: S,Z,AC=0,P,C=0
+uint8_t i8080::XRAM ()
+{
+    auto value = read();
+    return XRA(value);
+}
+
+// Code: ORA r
+// Operation: (A) | r → A
+// Description: Or register with A
+// Flags: S,Z,AC,P,C=0
+uint8_t i8080::ORAR ()
+{
+    auto value = *readsrc();
+    return ORA(value);
+}
+
+// Code: ORA M
+// Operation: (A) | М → A
+// Description: Or memory with A
+// Flags: S,Z,AC,P,C=0
+uint8_t i8080::ORAM ()
+{
+    auto value = *readsrc();
+    return ORA(value);
+}
+
 uint8_t i8080::CMPR () { return 0; }
-uint8_t i8080::ANAM () { return 0; }
-uint8_t i8080::XRAM () { return 0; }
-uint8_t i8080::ORAM () { return 0; }
 uint8_t i8080::CMPM () { return 0; }
 uint8_t i8080::ANI  () { return 0; }
 uint8_t i8080::XRI  () { return 0; }
