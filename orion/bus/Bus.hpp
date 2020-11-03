@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <cstdint>
+#include <string>
 #include <array>
 
 class Bus
@@ -22,6 +23,7 @@ public:
     
     uint8_t read(uint16_t offset) const;
     void write(uint16_t offset, uint8_t data);
+    void write(std::string data);
 };
 
 #endif /* Bus_hpp */

@@ -7,9 +7,15 @@
 
 #include "i8080.hpp"
 #include "Bus.hpp"
+#include <iostream>
 
-i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
+i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 {
+    pairs[BC] = reg + B;
+    pairs[DE] = reg + D;
+    pairs[HL] = reg + H;
+    pairs[SP] = (uint8_t *) &sp;
+    
     lookup =
     {
         // NAME      CYCLES    OPERATION         ADDRMOD
@@ -18,17 +24,17 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         // 0x0 - 0xF
         
         { "NOP",     4,        &i8080::NOP,      &i8080::IMP },
-        { "LXI",     10,       &i8080::LXIB,     &i8080::IMM },
-        { "STAX",    7,        &i8080::STAXB,    &i8080::IMP },
-        { "INX",     5,        &i8080::INXB,     &i8080::IMP },
+        { "LXI",     10,       &i8080::LXI,      &i8080::IMM },
+        { "STAX",    7,        &i8080::STAX,     &i8080::IMP },
+        { "INX",     5,        &i8080::INX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
         { "MVI",     5,        &i8080::MVIR,     &i8080::IMM },
         { "RLC",     4,        &i8080::RLC,      &i8080::IMP },
         { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
-        { "DAD",     10,       &i8080::DADB,     &i8080::IMP },
-        { "LDAX",    7,        &i8080::LDAXB,    &i8080::IND },
-        { "DCX",     5,        &i8080::DCXB,     &i8080::IMP },
+        { "DAD",     10,       &i8080::DAD,      &i8080::IMP },
+        { "LDAX",    7,        &i8080::LDAX,     &i8080::IND },
+        { "DCX",     5,        &i8080::DCX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
         { "MVI",     7,        &i8080::MVIR,     &i8080::IMM },
@@ -37,17 +43,17 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         // 0x1 - 0xF
         
         { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
-        { "LXI",     10,       &i8080::LXID,     &i8080::IMM },
-        { "STAX",    7,        &i8080::STAXD,    &i8080::IMP },
-        { "INX",     5,        &i8080::INXD,     &i8080::IMP },
+        { "LXI",     10,       &i8080::LXI,      &i8080::IMM },
+        { "STAX",    7,        &i8080::STAX,     &i8080::IMP },
+        { "INX",     5,        &i8080::INX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
         { "MVI",     5,        &i8080::MVIR,     &i8080::IMM },
         { "RAL",     4,        &i8080::RAL,      &i8080::IMP },
         { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
-        { "DAD",     10,       &i8080::DADD,     &i8080::IMP },
-        { "LDAX",    7,        &i8080::LDAXD,    &i8080::IND },
-        { "DCX",     5,        &i8080::DCXD,     &i8080::IMP },
+        { "DAD",     10,       &i8080::DAD,      &i8080::IMP },
+        { "LDAX",    7,        &i8080::LDAX,     &i8080::IND },
+        { "DCX",     5,        &i8080::DCX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
         { "MVI",     7,        &i8080::MVIR,     &i8080::IMM },
@@ -56,16 +62,17 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         // 0x2 - 0xF
         
         { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
-        { "LXI",     10,       &i8080::LXIH,     &i8080::IMM },
+        { "LXI",     10,       &i8080::LXI,      &i8080::IMM },
         { "SHLD",    16,       &i8080::SHLD,     &i8080::DIR },
-        { "INX",     5,        &i8080::INXH,     &i8080::IMP },
+        { "INX",     5,        &i8080::INX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
         { "MVI",     5,        &i8080::MVIR,     &i8080::IMM },
         { "DAA",     4,        &i8080::DAA,      &i8080::IMP },
-        { "DAD",     10,       &i8080::DADH,     &i8080::IMP },
+        { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
+        { "DAD",     10,       &i8080::DAD,      &i8080::IMP },
         { "LHLD",    16,       &i8080::LHLD,     &i8080::DIR },
-        { "DCX",     5,        &i8080::DCXH,     &i8080::IMP },
+        { "DCX",     5,        &i8080::DCX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
         { "MVI",     7,        &i8080::MVIR,     &i8080::IMM },
@@ -92,88 +99,102 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         
         // 0x4 - 0xF
         
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVRM,     &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVRM,     &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVRM,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVRM,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
         
         // 0x5 - 0xF
         
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVRM,     &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVRM,     &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,     &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVRM,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVRM,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
         
         // 0x6 - 0xF
         
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVRM,      &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVRM,      &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVRM,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVRM,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
         
         // 0x7 - 0xF
         
-        { "MOV",     7,        &i8080::MOVMR,      &i8080::HLM },
-        { "MOV",     7,        &i8080::MOVMR,      &i8080::HLM },
-        { "MOV",     7,        &i8080::MOVMR,      &i8080::HLM },
-        { "MOV",     7,        &i8080::MOVMR,      &i8080::HLM },
-        { "MOV",     7,        &i8080::MOVMR,      &i8080::HLM },
-        { "MOV",     7,        &i8080::MOVMR,      &i8080::HLM },
-        { "MOV",     7,        &i8080::HLT,        &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVMR,      &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     7,        &i8080::MOVRM,      &i8080::HLM },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
+        { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
+        { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
+        { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
+        { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
+        { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
+        { "MOV",     7,        &i8080::HLT,      &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVRM,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
         
         // 0x8 - 0xF
         
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
-        { "MOV",     5,        &i8080::MOVRR,      &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "HLT",     7,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        { "MOV",     7,        &i8080::MOVRM,    &i8080::HLM },
+        { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
+        
+        // 0x9 - 0xF
+        
+        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
     };
 }
 
@@ -201,9 +222,47 @@ void i8080::clock()
     
     // Execute operation and add extra cycles
     cycles += (this->*lookup[op].operate)();
+    
+    std::bitset<8> x(op);
+    std::cout << lookup[op].name << " " << x << std::endl;
+}
+
+void i8080::execute(int clock)
+{
+    for (int i=0; i < clock; i++)
+    {
+        this -> clock();
+    }
 }
 
 #pragma mark -
+#pragma mark Pairs
+
+uint16_t i8080::readpair(uint8_t index)
+{
+    auto pair = pairs[index];
+    
+    uint16_t hi = *(pair + 0);
+    uint16_t lo = *(pair + 1);
+
+    return (hi << 8) | lo;
+}
+
+void i8080::writepair(const uint8_t & index, const uint16_t & data)
+{
+    *(pairs[index] + 0) = (data >> 8) & 0xFF;
+    *(pairs[index] + 1) = data & 0xFF;
+}
+
+void i8080::mutatepair(const uint8_t & index, std::function<void(uint16_t &)> mutator)
+{
+    uint16_t pair = readpair(index);
+    mutator(pair);
+    writepair(index, pair);
+}
+
+#pragma mark -
+#pragma mark Bus
 
 uint8_t i8080::read(uint16_t address)
 {
@@ -229,7 +288,7 @@ void i8080::IMP()
 
 void i8080::IND()
 {
-    address = a;
+    address = reg[A];
 }
 
 void i8080::DIR()
@@ -263,7 +322,7 @@ void i8080::HLM()
 // Description: Move register to register
 uint8_t i8080::MOVRR()
 {
-    reg[(op & DDD) >> 3] = reg[op & SSS];
+    reg[(op & DD) >> 3] = reg[op & SS];
     return 0;
 }
 
@@ -272,7 +331,7 @@ uint8_t i8080::MOVRR()
 // Description: Move register to memory
 uint8_t i8080::MOVMR()
 {
-    auto src = reg[op & SSS];
+    auto src = reg[op & SS];
     write(address, src);
     
     return 0;
@@ -283,7 +342,7 @@ uint8_t i8080::MOVMR()
 // Description: Move memory to register
 uint8_t i8080::MOVRM()
 {
-    reg[(op & DDD) >> 3] = read(address);
+    reg[(op & DD) >> 3] = read(address);
     return 0;
 }
 
@@ -292,7 +351,7 @@ uint8_t i8080::MOVRM()
 // Description: Move immediate register
 uint8_t i8080::MVIR()
 {
-    reg[(op & DDD) >> 3] = read(address);
+    reg[(op & DD) >> 3] = read(address);
     return 0;
 }
 
@@ -314,36 +373,13 @@ uint8_t i8080::MVIM()
 // Code: LXI RP
 // Operation: D16 → RP
 // Description: Load immediate register pair B & C
-uint8_t i8080::LXIB()
+uint8_t i8080::LXI()
 {
-    reg[C] = read(address + 0);
-    reg[B] = read(address + 1);
+    auto index = (op & 0x30) >> 4;
+    auto pair  = pairs[index];
     
-    pc++;
-    
-    return 0;
-}
-
-// Code: LXI RP
-// Operation: D16 → RP
-// Description: Load immediate register pair D & E
-uint8_t i8080::LXID()
-{
-    reg[E] = read(address + 0);
-    reg[D] = read(address + 1);
-    
-    pc++;
-    
-    return 0;
-}
-
-// Code: LXI RP
-// Operation: D16 → RP
-// Description: Load immediate register pair H & L
-uint8_t i8080::LXIH()
-{
-    reg[L] = read(address + 0);
-    reg[H] = read(address + 1);
+    *(pair + 0) = read(address + 1); // HI
+    *(pair + 1) = read(address + 0); // LO
     
     pc++;
     
@@ -353,38 +389,12 @@ uint8_t i8080::LXIH()
 // Code: STAX B
 // Operation: (A) → [(RP)]
 // Description: Store A indent
-uint8_t i8080::STAXB()
+uint8_t i8080::STAX()
 {
-    uint16_t lo = reg[C];
-    uint16_t hi = reg[B];
+    auto pair = (op & (1 << 5)) >> 5;
+    auto data = readpair(pair);
 
-    write((hi << 8) | lo, a);
-    
-    return 0;
-}
-
-// Code: STAX D
-// Operation: (A) → [(RP)]
-// Description: Store A indent
-uint8_t i8080::STAXD()
-{
-    uint16_t lo = reg[E];
-    uint16_t hi = reg[D];
-
-    write((hi << 8) | lo, a);
-    
-    return 0;
-}
-
-// Code: LDAX B
-// Operation: [(RP)] → A
-// Description: Load A indirect
-uint8_t i8080::LDAXB()
-{
-    uint16_t lo = reg[C];
-    uint16_t hi = reg[B];
-
-    a = read((hi << 8) | lo);
+    write(data, reg[A]);
     
     return 0;
 }
@@ -392,12 +402,12 @@ uint8_t i8080::LDAXB()
 // Code: LDAX D
 // Operation: [(RP)] → A
 // Description: Load A indirect
-uint8_t i8080::LDAXD()
+uint8_t i8080::LDAX()
 {
-    uint16_t lo = reg[E];
-    uint16_t hi = reg[D];
-
-    a = read((hi << 8) | lo);
+    auto pair = (op & (1 << 5)) >> 5;
+    auto data = readpair(pair);
+    
+    reg[A] = read(data);
     
     return 0;
 }
@@ -407,7 +417,7 @@ uint8_t i8080::LDAXD()
 // Description: Store A direct
 uint8_t i8080::STA()
 {
-    write(address, a);
+    write(address, reg[A]);
     return 0;
 }
 
@@ -416,7 +426,7 @@ uint8_t i8080::STA()
 // Description: Load A direct
 uint8_t i8080::LDA()
 {
-    a = read(address);
+    reg[A] = read(address);
     return 0;
 }
 
@@ -447,7 +457,7 @@ uint8_t i8080::LHLD()
 // Description: Echange D & E, H & L registers
 uint8_t i8080::XCHG()
 {
-    auto exchange = [&](uint8_t x, uint8_t y)
+    auto exchange = [](uint8_t & x, uint8_t & y)
     {
         x ^= y;
         y ^= x;
@@ -473,9 +483,6 @@ uint8_t i8080::POPH  () { return 0; }
 uint8_t i8080::POP   () { return 0; }  // PSW
 uint8_t i8080::XTHL  () { return 0; }
 uint8_t i8080::SPHL  () { return 0; }
-uint8_t i8080::LXI   () { return 0; }  // SP
-uint8_t i8080::INX   () { return 0; }  // SP
-uint8_t i8080::DCX   () { return 0; }  // SP
 
 #pragma mark -
 #pragma mark Jump
@@ -528,30 +535,188 @@ uint8_t RST  ()
 #pragma mark -
 #pragma mark Increment and decrement
 
-uint8_t i8080::INRR () { return 0; }
-uint8_t i8080::INRM () { return 0; }
-uint8_t i8080::DCRR () { return 0; }
-uint8_t i8080::DCRM () { return 0; }
-uint8_t i8080::INXB () { return 0; }
-uint8_t i8080::INXD () { return 0; }
-uint8_t i8080::INXH () { return 0; }
-uint8_t i8080::DCXB () { return 0; }
-uint8_t i8080::DCXD () { return 0; }
-uint8_t i8080::DCXH () { return 0; }
+// Code: INR R
+// Operation: (r) + 1 → r
+// Description: Increment register
+// Flags: S,Z,AC,P
+uint8_t i8080::INRR ()
+{
+    auto index = (op & DD) >> 3;
+    uint16_t value = reg[index];
+    reg[index] = ++value & 0x00FF;
+    
+    sr.SetAllFlags(value);
+
+    return 0;
+}
+
+// Code: INR M
+// Operation: [(HL)] + 1 → [(HL)]
+// Description: Increment memory
+// Flags: S,Z,AC,P
+uint8_t i8080::INRM ()
+{
+    uint16_t value = read(address);
+    value++;
+    write(address, value & 0x00FF);
+    sr.SetAllFlags(value);
+    
+    return 0;
+}
+
+// Code: DCR r
+// Operation: (r) – 1 → r
+// Description: Decrement register
+// Flags: S,Z,AC,P
+uint8_t i8080::DCRR ()
+{
+    auto index = (op & DD) >> 3;
+    uint16_t value = reg[index];
+    reg[index] = --value & 0x00FF;
+    
+    sr.SetAllFlags(value);
+    
+    return 0;
+}
+
+// Code: DCR M
+// Operation: [(HL)] - 1 → [(HL)]
+// Description: Decrement memory
+// Flags: S,Z,AC,P
+uint8_t i8080::DCRM ()
+{
+    uint16_t value = read(address);
+    value--;
+    write(address, value & 0x00FF);
+    sr.SetAllFlags(value);
+    
+    return 0;
+}
+
+// Code: INX RP
+// Operation: (RP) + 1 → r
+// Description: Increment registry pair
+// Flags: -
+uint8_t i8080::INX  ()
+{
+    mutatepair((op & 0x30) >> 4, [](uint16_t & pair) { pair++; });
+    return 0;
+}
+
+// Code: DCX RP
+// Operation: (RP) - 1 → r
+// Description: Decrement registry pair
+// Flags: -
+uint8_t i8080::DCX  ()
+{
+    mutatepair((op & 0x30) >> 4, [](uint16_t & pair) { pair--; });
+    return 0;
+}
 
 #pragma mark -
 #pragma mark Add
 
-uint8_t i8080::ADDR () { return 0; }
-uint8_t i8080::ADDM () { return 0; }
-uint8_t i8080::ADCR () { return 0; }
-uint8_t i8080::ADCM () { return 0; }
-uint8_t i8080::ADI  () { return 0; }
-uint8_t i8080::ACI  () { return 0; }
-uint8_t i8080::DADB () { return 0; }
-uint8_t i8080::DADD () { return 0; }
-uint8_t i8080::DADH () { return 0; }
-uint8_t i8080::DAD  () { return 0; }
+// Code: ADD r
+// Operation: (A) + (r) → A
+// Description: Add register to A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::ADDR (uint8_t carry)
+{
+    uint16_t tmp = reg[A] + reg[op & SS] + carry;
+    reg[A] = tmp & 0x00FF;
+    
+    sr.SetAllFlags(tmp);
+    
+    return 0;
+}
+
+// Code: ADD M
+// Operation: (A) + М → A
+// Description: Add memory to A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::ADDM (uint8_t carry)
+{   
+    uint16_t tmp = reg[A] + read(address) + carry;
+    reg[A] = tmp & 0x00FF;
+    
+    sr.SetAllFlags(tmp);
+    
+    return 0;
+}
+
+// Code: ADD r
+// Operation: (A) + (r) → A
+// Description: Add register to A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::ADDR ()
+{
+    return ADDR(0x00);
+}
+
+// Code: ADD M
+// Operation: (A) + М → A
+// Description: Add memory to A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::ADDM ()
+{
+    return ADDM(0x00);
+}
+
+// Code: ADC r
+// Operation: (A) + (r) + C → A
+// Description: Add register to A with carry
+// Flags: S,Z,AC,P,C
+uint8_t i8080::ADCR ()
+{
+    uint8_t carry = sr.GetCarryFlag();
+    return ADDR(carry);
+}
+
+// Code: ADC M
+// Operation: (A) + М + С → A
+// Description: Add memory to A with carry
+// Flags: S,Z,AC,P,C
+uint8_t i8080::ADCM ()
+{
+    uint8_t carry = sr.GetCarryFlag();
+    return ADDM(carry);
+}
+
+// Code: ADI D8
+// Operation: (A) + D8 → A
+// Description: Add immediate to A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::ADI  ()
+{
+    return ADDM(0x00);
+}
+
+// Code: ACI D8
+// Operation: (A) + D8 + C → A
+// Description: Add immediate to A with carry
+// Flags: S,Z,AC,P,C
+uint8_t i8080::ACI  ()
+{
+    uint8_t carry = sr.GetCarryFlag();
+    return ADDM(carry);
+}
+
+// Code: DAD rp
+// Operation: (HL) + (RP) → HL
+// Description: Add part to H & L
+// Flags: C
+uint8_t i8080::DAD  ()
+{
+    uint16_t rpdata = readpair((op & 0x30) >> 4);
+    uint16_t hldata = readpair(HL);
+    
+    uint16_t tmp = rpdata + hldata;
+    
+    writepair(HL, tmp);
+    sr.SetFlagCarry(tmp);
+    
+    return 0;
+}
 
 #pragma mark -
 #pragma mark Substract

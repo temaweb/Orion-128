@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+#include "Status.hpp"
+
 class Bus;
 
 class i8080
@@ -24,19 +26,22 @@ public:
     
 private:
     
-    uint8_t  reg[6];            // Registers        (B C D E H L)
-    
-    uint8_t  a       = 0x00;    // Accumulator      (A)
-    uint8_t  sr      = 0x00;    // Status register  (S Z - AC - P - C)
+    uint8_t  reg[8];            // Registers        (B C D E H L M A)
+    uint8_t * pairs[4];         // Pairs
+                                // 0x00 - B & C
+                                // 0x01 - D & E
+                                // 0x02 - H & L
+                                // 0x03 - SP
     
     uint8_t  op      = 0x00;    // Operation code
     uint8_t  cycles  = 0x00;    // Cycle counter
 
-    
     uint16_t sp      = 0x0000;  // Stack pointer
     uint16_t pc      = 0x0000;  // Program counter
     
     uint16_t address = 0x0000;
+    
+    Status   sr;                // Status register
     
 private:
     
@@ -54,18 +59,21 @@ private:
     
     enum
     {
-        SSS = 0x07,
-        DDD = 0x38
+        BC,
+        DE,
+        HL,
+        SP
     };
     
-    enum Flags
+    enum
     {
-        Sign    = (1 << 7), // S
-        Zero    = (1 << 6), // Z
-        Aux     = (1 << 4), // AC
-        Parity  = (1 << 2), // P
-        Carry   = (1 << 0)  // C
+        SS  = 0x07,
+        DD  = 0x38
     };
+    
+    uint16_t readpair(uint8_t index);
+    void writepair(const uint8_t & index, const uint16_t & data);
+    void mutatepair(const uint8_t & index, std::function<void(uint16_t &)> mutator);
     
 // Bus communication
 private:
@@ -74,7 +82,6 @@ private:
     
     uint8_t read(uint16_t address);
     void write (uint16_t address, uint8_t data);
-    
     
 private:
     
@@ -93,13 +100,9 @@ private:
     uint8_t MOVRM ();
     uint8_t MVIR  ();
     uint8_t MVIM  ();
-    uint8_t LXIB  ();
-    uint8_t LXID  ();
-    uint8_t LXIH  ();
-    uint8_t STAXB ();
-    uint8_t STAXD ();
-    uint8_t LDAXB ();
-    uint8_t LDAXD ();
+    uint8_t LXI   ();
+    uint8_t STAX  ();
+    uint8_t LDAX  ();
     uint8_t STA   ();
     uint8_t LDA   ();
     uint8_t SHLD  ();
@@ -119,9 +122,6 @@ private:
     uint8_t POP   ();  // PSW
     uint8_t XTHL  ();
     uint8_t SPHL  ();
-    uint8_t LXI   ();  // SP
-    uint8_t INX   ();  // SP
-    uint8_t DCX   ();  // SP
 
     // Jump
     
@@ -170,24 +170,19 @@ private:
     uint8_t INRM ();
     uint8_t DCRR ();
     uint8_t DCRM ();
-    uint8_t INXB ();
-    uint8_t INXD ();
-    uint8_t INXH ();
-    uint8_t DCXB ();
-    uint8_t DCXD ();
-    uint8_t DCXH ();
-    
+    uint8_t INX  ();
+    uint8_t DCX  ();
+
     // Add
     
     uint8_t ADDR ();
     uint8_t ADDM ();
+    uint8_t ADDR (uint8_t carry);
+    uint8_t ADDM (uint8_t carry);
     uint8_t ADCR ();
     uint8_t ADCM ();
     uint8_t ADI  ();
     uint8_t ACI  ();
-    uint8_t DADB ();
-    uint8_t DADD ();
-    uint8_t DADH ();
     uint8_t DAD  ();
     
     // Substract
@@ -258,6 +253,7 @@ public:
     
     void clock();
     void connect(Bus * bus);
+    void execute(int clock);
 };
 
 #endif /* i8080_hpp */
