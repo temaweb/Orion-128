@@ -44,17 +44,17 @@ public:
     
     void SetFlagZero (uint16_t value)
     {
-        SetFlag(Z, value == 0x00);
+        SetFlag(Z, (value & 0x00FF) == 0x0000);
     }
     
     void SetFlagSign (uint16_t value)
     {
-        SetFlag(S, value & 0x80);
+        SetFlag(S, value & 0x0080);
     }
     
     void SetFlagAux (uint16_t value)
     {
-        SetFlag(AC, value > 0xF);
+        SetFlag(AC, value > 0x000F);
     }
     
     void SetFlagParity (uint16_t value)
@@ -69,7 +69,7 @@ public:
     
     void SetFlagCarry (uint16_t value)
     {
-        SetFlag(C, value > 255);
+        SetFlag(C, value > 0x00FF);
     }
     
     void SetAllFlags (uint16_t value)

@@ -229,6 +229,25 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
         { "XRA",     7,        &i8080::XRAM,    &i8080::HLM },
         { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
+        
+        // 0xB - 0xF
+        
+        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
+        { "ORA",     7,        &i8080::ORAM,    &i8080::HLM },
+        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
+        { "CMP",     7,        &i8080::CMPM,    &i8080::HLM },
+        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
     };
 }
 
@@ -396,8 +415,8 @@ uint8_t i8080::MOVRR()
 // Description: Move register to memory
 uint8_t i8080::MOVMR()
 {
-    auto src = readsrc();
-    write(*src);
+    auto value = *readsrc();
+    write(value);
     
     return 0;
 }
@@ -424,12 +443,12 @@ uint8_t i8080::MVIR()
 // Description: Move immediate memory
 uint8_t i8080::MVIM()
 {
-    auto src = read();
+    auto value = read();
     
     uint16_t lo = reg[L];
     uint16_t hi = reg[H];
 
-    write((hi << 8) | lo, src);
+    write((hi << 8) | lo, value);
     
     return 0;
 }
@@ -648,8 +667,7 @@ uint8_t i8080::DCRR ()
 uint8_t i8080::DCRM ()
 {
     uint16_t value = read();
-    value--;
-    write(value & 0x00FF);
+    write(--value & 0x00FF);
 
     sr.SetAuxCarryFlags(value);
     
@@ -681,7 +699,7 @@ uint8_t i8080::DCX  ()
 
 uint8_t i8080::ADD(uint8_t data, uint8_t carry)
 {
-    uint16_t tmp = reg[A] + (data + carry);
+    uint16_t tmp = (uint16_t) reg[A] + ((uint16_t) data + (uint16_t) carry);
     reg[A] = tmp & 0x00FF;
     
     sr.SetAllFlags(tmp);
@@ -775,7 +793,7 @@ uint8_t i8080::DAD  ()
 
 uint8_t i8080::SUB(uint8_t data, uint8_t carry)
 {
-    uint16_t tmp = reg[A] - (data - carry);
+    uint16_t tmp = (uint16_t) reg[A] - ((uint16_t) data - (uint16_t) carry);
     reg[A] = tmp & 0x00FF;
     
     sr.SetAllFlags(tmp);
@@ -883,7 +901,13 @@ uint8_t i8080::ORA  (uint8_t data)
 
 uint8_t i8080::CMP  (uint8_t value)
 {
-    // Do ~
+    uint16_t tmp = (uint16_t) reg[A] - (uint16_t) value;
+    
+    sr.SetFlagCarry (reg[A] >= value);
+    sr.SetFlagZero  (tmp);
+    sr.SetFlagAux   (tmp);
+    sr.SetFlagParity(tmp);
+    sr.SetFlagSign  (tmp);
     
     return 0;
 }
@@ -948,8 +972,26 @@ uint8_t i8080::ORAM ()
     return ORA(value);
 }
 
-uint8_t i8080::CMPR () { return 0; }
-uint8_t i8080::CMPM () { return 0; }
+// Code: CMP r
+// Operation: Compare
+// Description: Comapre register with A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::CMPR ()
+{
+    auto value = *readsrc();
+    return CMP(value);
+}
+
+// Code: CMP M
+// Operation: Compare
+// Description: Comapre memory with A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::CMPM ()
+{
+    auto value = read();
+    return CMP(value);
+}
+
 uint8_t i8080::ANI  () { return 0; }
 uint8_t i8080::XRI  () { return 0; }
 uint8_t i8080::ORI  () { return 0; }
