@@ -1229,7 +1229,7 @@ uint8_t i8080::SBBM ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::SUI  ()
 {
-    return SUBM(); // Address = D8
+    return SUBM();
 }
 
 // Code: DBI D8
@@ -1238,7 +1238,7 @@ uint8_t i8080::SUI  ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::SBI  ()
 {
-    return SBBM (); // Address = D8
+    return SBBM ();
 }
 
 #pragma mark -
@@ -1275,10 +1275,10 @@ uint8_t i8080::ORA  (uint8_t data)
     return 0;
 }
 
-uint8_t i8080::CMP  (uint8_t value)
+uint8_t i8080::CMP (uint8_t value)
 {
-    uint16_t acc = reg[A];
-    uint16_t tmp = acc - (uint16_t) value;
+    uint8_t  acc = reg[A];
+    uint16_t tmp = (uint16_t) acc - (uint16_t) value;
     
     sr.SetCarry  (acc < value);
     sr.SetZero   (acc == value);
@@ -1370,10 +1370,62 @@ uint8_t i8080::CMPM ()
     return CMP(value);
 }
 
-uint8_t i8080::ANI  () { return 0; }
-uint8_t i8080::XRI  () { return 0; }
-uint8_t i8080::ORI  () { return 0; }
-uint8_t i8080::CPI  () { return 0; }
+// Code: ANI 
+// Operation: (A) & D8 → A
+// Description: And immediate with A
+// Flags: S,Z,AC=*,P,C=0
+uint8_t i8080::ANI  ()
+{
+    uint16_t tmp = ((uint16_t) reg[A]) & ((uint16_t) read());
+    reg[A] = tmp & 0x00FF;
+    
+    sr.SetDecFlags (tmp);
+    sr.SetCarry    (0x00);
+    
+    return 0;
+}
+
+// Code: XRI
+// Operation: (A) ^ D8 → A
+// Description: Exclusive or immediate with A
+// Flags: S,Z,AC=0,P,C=0
+uint8_t i8080::XRI  ()
+{
+    uint16_t tmp = ((uint16_t) reg[A]) ^ ((uint16_t) read());
+    reg[A] = tmp & 0x00FF;
+    
+    sr.SetDecFlags (tmp);
+    sr.SetCarry    (0x00);
+    sr.SetAux      (0x00);
+    
+    return 0;
+}
+
+// Code: ORI
+// Operation: (A) | D8 → A
+// Description: Or immediate with A
+// Flags: S,Z,AC=0,P,C=0
+uint8_t i8080::ORI  ()
+{
+    uint16_t tmp = ((uint16_t) reg[A]) | ((uint16_t) read());
+    reg[A] = tmp & 0x00FF;
+    
+    sr.SetDecFlags (tmp);
+    sr.SetCarry    (0x00);
+    sr.SetAux      (0x00);
+    
+    return 0;
+}
+
+// Code: CPI
+// Operation: Compare
+// Description: Compare immediate with A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::CPI  ()
+{
+    uint8_t value = read();
+    return CMP(value);
+}
 
 #pragma mark -
 #pragma mark Rotate
