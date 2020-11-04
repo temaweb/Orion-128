@@ -10,26 +10,14 @@
 
 #include "i8080.hpp"
 
-void read(uint8_t s)
-{
-    std::cout << +s << std::endl;
-}
-
 int main(int argc, const char * argv[])
 {
-//    uint8_t data = 0b10101010;
-//    std::bitset<8> revert(data ^ 0xFF);
-//
-//    std::cout << (0 << 1) << std::endl;
-//    std::cout << (1 << 1) << std::endl;
-//    std::cout << (2 << 1) << std::endl;
-//    std::cout << (3 << 1) << std::endl;
-//
+    uint8_t data = 0b11000100;
     
-    uint8_t s = 0x00;
+    // (bool)(data & 0x80)
+    // data | 0x01
     
-    read(s++);
-    read(s++);
-    read(s);
+    std::cout << std::bitset<8>(data | true) << std::endl;
+    
     return 0;
 }

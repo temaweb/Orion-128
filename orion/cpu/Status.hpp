@@ -61,9 +61,14 @@ public:
     
 public:
     
+    void SetZero (bool flag)
+    {
+        SetFlag(Z, flag);
+    }
+    
     void SetZero (uint16_t value)
     {
-        SetFlag(Z, (value & 0x00FF) == 0x0000);
+        SetZero((value & 0x00FF) == 0x0000);
     }
     
     void SetSign (uint16_t value)
@@ -71,9 +76,14 @@ public:
         SetFlag(S, value & 0x0080);
     }
     
+    void SetAux (bool flag)
+    {
+        SetFlag(AC, flag);
+    }
+    
     void SetAux (uint16_t value)
     {
-        SetFlag(AC, value > 0x000F);
+        SetAux(value > 0x000F);
     }
     
     void SetParity (uint16_t value)
@@ -86,9 +96,14 @@ public:
         SetFlag(P, (~value) & 1);
     }
     
+    void SetCarry (bool flag)
+    {
+        SetFlag(C, flag);
+    }
+    
     void SetCarry (uint16_t value)
     {
-        SetFlag(C, value > 0x00FF);
+        SetCarry(value > 0x00FF);
     }
     
     void SetAllFlags (uint16_t value)

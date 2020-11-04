@@ -110,9 +110,9 @@ private:
     // Stack operations
     
     uint8_t PUSHR ();
-    uint8_t PUSH  ();  // PSW
+    uint8_t PUSH  ();
     uint8_t POPR  ();
-    uint8_t POP   ();  // PSW
+    uint8_t POP   ();
     uint8_t XTHL  ();
     uint8_t SPHL  ();
 
@@ -245,7 +245,7 @@ private:
     uint8_t NOP  ();
     uint8_t HLT  ();
     uint8_t XXX  ();
-    
+
 private:
     
     struct Command

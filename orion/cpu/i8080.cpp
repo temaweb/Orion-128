@@ -1134,7 +1134,7 @@ uint8_t i8080::ADCM ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::ADI ()
 {
-    return ADDM(); // Address = D8
+    return ADDM();
 }
 
 // Code: ACI D8
@@ -1143,7 +1143,7 @@ uint8_t i8080::ADI ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::ACI  ()
 {
-    return ADCM(); // Address = D8
+    return ADCM();
 }
 
 // Code: DAD rp
@@ -1246,31 +1246,35 @@ uint8_t i8080::SBI  ()
 
 uint8_t i8080::ANA  (uint8_t data)
 {
-    reg[A] &= data;
+    uint16_t tmp = ((uint16_t) reg[A]) & ((uint16_t) data);
+    reg[A] = tmp & 0x00FF;
     
-    sr.SetDecFlags (reg[A]);
-    sr.SetCarry    (0x00);
+    sr.SetDecFlags (tmp);
+    sr.SetCarry    (false);
     
     return 0;
 }
 
 uint8_t i8080::XRA  (uint8_t data)
 {
-    reg[A] ^= data;
+    uint16_t tmp = ((uint16_t) reg[A]) ^ ((uint16_t) data);
+    reg[A] = tmp & 0x00FF;
     
-    sr.SetDecFlags (reg[A]);
-    sr.SetAux      (0x00);
-    sr.SetCarry    (0x00);
+    sr.SetDecFlags (tmp);
+    sr.SetAux      (false);
+    sr.SetCarry    (false);
     
     return 0;
 }
 
 uint8_t i8080::ORA  (uint8_t data)
 {
-    reg[A] |= data;
+    uint16_t tmp = ((uint16_t) reg[A]) | ((uint16_t) data);
+    reg[A] = tmp & 0x00FF;
     
-    sr.SetDecFlags (reg[A]);
-    sr.SetCarry    (0x00);
+    sr.SetDecFlags (tmp);
+    sr.SetAux      (false);
+    sr.SetCarry    (false);
     
     return 0;
 }
@@ -1376,13 +1380,8 @@ uint8_t i8080::CMPM ()
 // Flags: S,Z,AC=*,P,C=0
 uint8_t i8080::ANI  ()
 {
-    uint16_t tmp = ((uint16_t) reg[A]) & ((uint16_t) read());
-    reg[A] = tmp & 0x00FF;
-    
-    sr.SetDecFlags (tmp);
-    sr.SetCarry    (0x00);
-    
-    return 0;
+    auto value = read();
+    return ANA(value);
 }
 
 // Code: XRI
@@ -1391,14 +1390,8 @@ uint8_t i8080::ANI  ()
 // Flags: S,Z,AC=0,P,C=0
 uint8_t i8080::XRI  ()
 {
-    uint16_t tmp = ((uint16_t) reg[A]) ^ ((uint16_t) read());
-    reg[A] = tmp & 0x00FF;
-    
-    sr.SetDecFlags (tmp);
-    sr.SetCarry    (0x00);
-    sr.SetAux      (0x00);
-    
-    return 0;
+    uint8_t value = read();
+    return XRA(value);
 }
 
 // Code: ORI
@@ -1407,14 +1400,8 @@ uint8_t i8080::XRI  ()
 // Flags: S,Z,AC=0,P,C=0
 uint8_t i8080::ORI  ()
 {
-    uint16_t tmp = ((uint16_t) reg[A]) | ((uint16_t) read());
-    reg[A] = tmp & 0x00FF;
-    
-    sr.SetDecFlags (tmp);
-    sr.SetCarry    (0x00);
-    sr.SetAux      (0x00);
-    
-    return 0;
+    uint8_t value = read();
+    return ORA(value);
 }
 
 // Code: CPI
@@ -1430,10 +1417,61 @@ uint8_t i8080::CPI  ()
 #pragma mark -
 #pragma mark Rotate
 
-uint8_t i8080::RLC  () { return 0; }
-uint8_t i8080::RRC  () { return 0; }
-uint8_t i8080::RAL  () { return 0; }
-uint8_t i8080::RAR  () { return 0; }
+// Code: RLC
+// Operation: C ← A7, A0 ← A7
+// Description: Rotate A left
+// Flags: C
+uint8_t i8080::RLC  ()
+{
+    uint8_t carry = (reg[A] & 0x80) >> 7;
+    reg[A] = (reg[A] << 1) | carry;
+    
+    sr.SetCarry((bool) carry);
+    
+    return 0;
+}
+
+// Code: RRC
+// Operation: A7 → A0, A0 → C
+// Description: Rotate A right
+// Flags: C
+uint8_t i8080::RRC  ()
+{
+    uint8_t carry = reg[A] & 0x01;
+    reg[A] = (reg[A] >> 1) | (carry << 7);
+    
+    sr.SetCarry((bool) carry);
+    
+    return 0;
+}
+
+// Code: RAL
+// Operation: A7 → C, C → A0
+// Description: Rotate A left through carry
+// Flags: C
+uint8_t i8080::RAL  ()
+{
+    uint8_t carry = (reg[A] & 0x80) >> 7;
+    reg[A] = (reg[A] << 1) | sr.GetCarry();
+    
+    sr.SetCarry((bool) carry);
+    
+    return 0;
+}
+
+// Code: RAL
+// Operation: A7 → C, C → A0
+// Description: Rotate A left through carry
+// Flags: C
+uint8_t i8080::RAR  ()
+{
+    uint8_t carry = reg[A] & 0x01;
+    reg[A] = (reg[A] >> 1) | (sr.GetCarry() << 7);
+    
+    sr.SetCarry((bool) carry);
+    
+    return 0;
+}
 
 #pragma mark -
 #pragma mark Special
