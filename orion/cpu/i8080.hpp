@@ -134,6 +134,9 @@ private:
     // Call
     
     uint8_t CALL ();
+    uint8_t CALL (uint8_t flag);
+    uint8_t CALN (uint8_t flag);
+    
     uint8_t CC   ();
     uint8_t CNC  ();
     uint8_t CZ   ();

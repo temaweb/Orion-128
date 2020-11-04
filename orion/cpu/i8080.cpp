@@ -756,15 +756,115 @@ uint8_t i8080::PCHL ()
 #pragma mark -
 #pragma mark Call
 
-uint8_t i8080::CALL () { return 0; }
-uint8_t i8080::CC   () { return 0; }
-uint8_t i8080::CNC  () { return 0; }
-uint8_t i8080::CZ   () { return 0; }
-uint8_t i8080::CNZ  () { return 0; }
-uint8_t i8080::CP   () { return 0; }
-uint8_t i8080::CM   () { return 0; }
-uint8_t i8080::CPE  () { return 0; }
-uint8_t i8080::CPO  () { return 0; }
+uint8_t i8080::CALL (uint8_t flag)
+{
+    if (flag == 0)
+    {
+        return 0;
+    }
+    
+    CALL();
+    return 6;
+}
+
+uint8_t i8080::CALN (uint8_t flag)
+{
+    return CALL(!flag);
+}
+
+// Code: CALL 
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], A16 → PC
+// Description: Call unconditional
+// Flags: -
+uint8_t i8080::CALL ()
+{
+    write(sp - 1, (pc >> 8) & 0xFF);
+    write(sp - 2,  pc & 0xFF);
+    
+    pc = address;
+    
+    return 0;
+}
+
+// Code: CC
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], A16 → PC
+// Description: Call on carry
+// Flags: -
+uint8_t i8080::CC   ()
+{
+    auto flag = sr.GetCarry();
+    return CALL(flag);
+}
+
+// Code: CNC
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], A16 → PC
+// Description: Call on no carry
+// Flags: -
+uint8_t i8080::CNC  ()
+{
+    auto flag = sr.GetCarry();
+    return CALN(flag);
+}
+
+// Code: CZ
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], A16 → PC
+// Description: Call on zero
+// Flags: -
+uint8_t i8080::CZ   ()
+{
+    auto flag = sr.GetZero();
+    return CALL(flag);
+}
+
+// Code: CNZ
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], A16 → PC
+// Description: Call on no zero
+// Flags: -
+uint8_t i8080::CNZ  ()
+{
+    auto flag = sr.GetZero();
+    return CALN(flag);
+}
+
+// Code: CP
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], A16 → PC
+// Description: Call on positive
+// Flags: -
+uint8_t i8080::CP   ()
+{
+    auto flag = sr.GetSign();
+    return CALN(flag);
+}
+
+// Code: CM
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], A16 → PC
+// Description: Call on minus
+// Flags: -
+uint8_t i8080::CM   ()
+{
+    auto flag = sr.GetSign();
+    return CALL(flag);
+}
+
+// Code: CPE
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], A16 → PC
+// Description: Call on parity even
+// Flags: -
+uint8_t i8080::CPE  ()
+{
+    auto flag = sr.GetParity();
+    return CALL(flag);
+}
+
+// Code: CPO
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], A16 → PC
+// Description: Call on parity odd
+// Flags: -
+uint8_t i8080::CPO  ()
+{
+    auto flag = sr.GetParity();
+    return CALN(flag);
+}
 
 #pragma mark -
 #pragma mark Return
