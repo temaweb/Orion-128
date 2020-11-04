@@ -109,13 +109,9 @@ private:
     
     // Stack operations
     
-    uint8_t PUSHB ();
-    uint8_t PUSHD ();
-    uint8_t PUSHH ();
+    uint8_t PUSHR ();
     uint8_t PUSH  ();  // PSW
-    uint8_t POPB  ();
-    uint8_t POPD  ();
-    uint8_t POPH  ();
+    uint8_t POPR  ();
     uint8_t POP   ();  // PSW
     uint8_t XTHL  ();
     uint8_t SPHL  ();
@@ -123,6 +119,8 @@ private:
     // Jump
     
     uint8_t JMP  ();
+    uint8_t JMP  (uint8_t flag);
+    uint8_t JMPN (uint8_t flag);
     uint8_t JC   ();
     uint8_t JNC  ();
     uint8_t JZ   ();

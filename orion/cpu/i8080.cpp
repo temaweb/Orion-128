@@ -376,10 +376,8 @@ void i8080::IND()
 // Set address pointer to A16
 void i8080::DIR()
 {
-    uint16_t lo = read(pc);
-    pc++;
-    uint16_t hi = read(pc);
-    pc++;
+    uint16_t lo = read(pc++);
+    uint16_t hi = read(pc++);
     
     address = (hi << 8) | lo;
 }
@@ -557,30 +555,203 @@ uint8_t i8080::XCHG()
 #pragma mark -
 #pragma mark Stack operations
 
-uint8_t i8080::PUSHB () { return 0; }
-uint8_t i8080::PUSHD () { return 0; }
-uint8_t i8080::PUSHH () { return 0; }
-uint8_t i8080::PUSH  () { return 0; }  // PSW
-uint8_t i8080::POPB  () { return 0; }
-uint8_t i8080::POPD  () { return 0; }
-uint8_t i8080::POPH  () { return 0; }
-uint8_t i8080::POP   () { return 0; }  // PSW
-uint8_t i8080::XTHL  () { return 0; }
-uint8_t i8080::SPHL  () { return 0; }
+// Code: PUSH rp
+// Operation: (RPH) → [(SP)- 1], (RPL) → [(SP)- 2]
+// Description: Push register pair on stack
+// Flags: -
+uint8_t i8080::PUSHR ()
+{
+    auto pair = pairs[(op & 0x30) >> 4];
+    
+    write(--sp, *(pair + 0));
+    write(--sp, *(pair + 1));
+    
+    return 0;
+}
+
+// Code: PUSH PSW
+// Operation: A → [(SP)- 1], (SR) → [(SP) - 2]
+// Description: Push program status word on stack
+// Flags: -
+uint8_t i8080::PUSH  ()
+{
+    write(--sp, reg[A]);
+    write(--sp, sr);
+    
+    return 0;
+}
+
+// Code: POP rp
+// Operation: [(SP)] → RPL, [(SP) + 1] → RPH
+// Description: Pop register pair off stack
+// Flags: -
+uint8_t i8080::POPR  ()
+{
+    auto pair = pairs[(op & 0x30) >> 4];
+    
+    *(pair + 1) = read(sp++);
+    *(pair + 0) = read(sp++);
+    
+    return 0;
+}
+
+// Code: POP PSW
+// Operation: [(SP)] → A, [(SP) + 1] → SR
+// Description: Pop register pair off stack
+// Flags: -
+uint8_t i8080::POP   ()
+{
+    reg[A] = read(sp++);
+    sr     = read(sp++);
+    
+    return 0;
+}
+
+// Code: XTHL
+// Operation: [(SP)] ↔ (L), [(SP)+1] ↔ (H)
+// Description: Exchange top of stack, H & L
+// Flags: -
+uint8_t i8080::XTHL  ()
+{
+    auto lo = read(sp + 0);
+    auto hi = read(sp + 1);
+    
+    write(sp + 0, reg[L]);
+    write(sp + 1, reg[H]);
+    
+    reg[L] = lo;
+    reg[H] = hi;
+    
+    return 0;
+}
+
+// Code: SPHL
+// Operation: (HL) → (SP)
+// Description: H & L to stack pointer
+// Flags: -
+uint8_t i8080::SPHL  ()
+{
+    sp = readpair(HL);
+    return 0;
+}
 
 #pragma mark -
 #pragma mark Jump
 
-uint8_t i8080::JMP  () { return 0; }
-uint8_t i8080::JC   () { return 0; }
-uint8_t i8080::JNC  () { return 0; }
-uint8_t i8080::JZ   () { return 0; }
-uint8_t i8080::JNZ  () { return 0; }
-uint8_t i8080::JP   () { return 0; }
-uint8_t i8080::JM   () { return 0; }
-uint8_t i8080::JPE  () { return 0; }
-uint8_t i8080::JPO  () { return 0; }
-uint8_t i8080::PCHL () { return 0; }
+uint8_t i8080::JMP (uint8_t flag)
+{
+    if (flag == 0)
+    {
+        return 0;
+    }
+    
+    return JMP();
+}
+
+uint8_t i8080::JMPN (uint8_t flag)
+{
+    return JMP(!flag);
+}
+
+// Code: JMP
+// Operation: [A16] → PC
+// Description: Jump unconditional
+// Flags: -
+uint8_t i8080::JMP  ()
+{
+    pc = address;
+    return 0;
+}
+
+// Code: JC
+// Operation: [A16] → PC
+// Description: Jump on carry
+// Flags: -
+uint8_t i8080::JC   ()
+{
+    auto flag = sr.GetCarry();
+    return JMP(flag);
+}
+
+// Code: JNC
+// Operation: [A16] → PC
+// Description: Jump on no carry
+// Flags: -
+uint8_t i8080::JNC  ()
+{
+    auto flag = sr.GetCarry();
+    return JMPN(flag);
+}
+
+// Code: JZ
+// Operation: [A16] → PC
+// Description: Jump on zero
+// Flags: -
+uint8_t i8080::JZ   ()
+{
+    auto flag = sr.GetZero();
+    return JMP(flag);
+}
+
+// Code: JNZ
+// Operation: [A16] → PC
+// Description: Jump on no zero
+// Flags: -
+uint8_t i8080::JNZ  ()
+{
+    auto flag = sr.GetZero();
+    return JMPN(flag);
+}
+
+// Code: JP
+// Operation: [A16] → PC
+// Description: Jump on positive
+// Flags: -
+uint8_t i8080::JP   ()
+{
+    auto flag = sr.GetSign();
+    return JMPN(flag);
+}
+
+// Code: JM
+// Operation: [A16] → PC
+// Description: Jump on minus
+// Flags: -
+uint8_t i8080::JM   ()
+{
+    auto flag = sr.GetSign();
+    return JMP(flag);
+}
+
+// Code: JPE
+// Operation: [A16] → PC
+// Description: Jump on parity even
+// Flags: -
+uint8_t i8080::JPE  ()
+{
+    auto flag = sr.GetParity();
+    return JMP(flag);
+}
+
+// Code: JPO
+// Operation: [A16] → PC
+// Description: Jump on parity odd
+// Flags: -
+uint8_t i8080::JPO  ()
+{
+    auto flag = sr.GetParity();
+    return JMPN(flag);
+}
+
+// Code: PCHL
+// Operation: (H) → PCH, (L) → PCL
+// Description: H & L to program counter
+// Flags: -
+uint8_t i8080::PCHL ()
+{
+    pc = readpair(HL);
+    return 0;
+}
 
 #pragma mark -
 #pragma mark Call
@@ -622,10 +793,8 @@ uint8_t i8080::RETN (uint8_t flag)
 // Flags: -
 uint8_t i8080::RET  ()
 {
-    uint16_t lo = read(sp);
-    sp++;
-    uint16_t hi = read(sp);
-    sp++;
+    uint16_t lo = read(sp++);
+    uint16_t hi = read(sp++);
 
     pc = (hi << 8) | lo;
     

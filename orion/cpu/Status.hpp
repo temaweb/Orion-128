@@ -15,7 +15,7 @@ class Status
 {
 private:
     
-    uint8_t sr = 0x00;
+    uint8_t sr = 0x02;
     
     enum Flags
     {
@@ -39,6 +39,25 @@ public:
     
     Status() {};
     ~Status() {};
+    
+public:
+    
+    Status& operator=(const uint8_t & status)
+    {
+        sr = status;
+        return *this;
+    }
+    
+    Status& operator=(uint8_t&& status)
+    {
+        sr = status;
+        return *this;
+    }
+    
+    operator uint8_t() const
+    {
+        return sr;
+    }
     
 public:
     
@@ -90,6 +109,8 @@ public:
         SetZero    (value);
         SetParity  (value);
     }
+    
+public:
     
     uint8_t GetCarry()
     {
