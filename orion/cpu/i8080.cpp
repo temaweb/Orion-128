@@ -5,9 +5,10 @@
 //  Created by Артём Оконечников on 29.10.2020.
 //
 
+#include <iostream>
+
 #include "i8080.hpp"
 #include "Bus.hpp"
-#include <iostream>
 
 i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 {
@@ -294,17 +295,17 @@ void i8080::execute(int clock)
 // Read source register
 uint8_t * i8080::readsrc()
 {
-    return &reg[op & 0x07];
+    return & reg[op & 0x07];
 }
 
 // Read destination register
 uint8_t * i8080::readdst()
 {
-    return &reg[(op & 0x38) >> 3];
+    return & reg[(op & 0x38) >> 3];
 }
 
 // Read registry pair as uint16_t
-uint16_t i8080::readpair(uint8_t index)
+uint16_t i8080::readpair(const uint8_t & index)
 {
     auto pair = pairs[index];
     
@@ -637,7 +638,7 @@ uint8_t i8080::RET  ()
 // Flags: -
 uint8_t i8080::RC   ()
 {
-    auto flag = sr.GetCarryFlag();
+    auto flag = sr.GetCarry();
     return RET(flag);
 }
 
@@ -647,7 +648,7 @@ uint8_t i8080::RC   ()
 // Flags: -
 uint8_t i8080::RNC  ()
 {
-    auto flag = sr.GetCarryFlag();
+    auto flag = sr.GetCarry();
     return RETN(flag);
 }
 
@@ -657,7 +658,7 @@ uint8_t i8080::RNC  ()
 // Flags: -
 uint8_t i8080::RZ   ()
 {
-    auto flag = sr.GetZeroFlag();
+    auto flag = sr.GetZero();
     return RET(flag);
 }
 
@@ -667,7 +668,7 @@ uint8_t i8080::RZ   ()
 // Flags: -
 uint8_t i8080::RNZ  ()
 {
-    auto flag = sr.GetZeroFlag();
+    auto flag = sr.GetZero();
     return RETN(flag);
 }
 
@@ -677,7 +678,7 @@ uint8_t i8080::RNZ  ()
 // Flags: -
 uint8_t i8080::RM   ()
 {
-    auto flag = sr.GetSignFlag();
+    auto flag = sr.GetSign();
     return RET(flag);
 }
 
@@ -687,7 +688,7 @@ uint8_t i8080::RM   ()
 // Flags: -
 uint8_t i8080::RP   ()
 {
-    auto flag = sr.GetSignFlag();
+    auto flag = sr.GetSign();
     return RETN(flag);
 }
 
@@ -697,7 +698,7 @@ uint8_t i8080::RP   ()
 // Flags: -
 uint8_t i8080::RPE  ()
 {
-    auto flag = sr.GetParityFlag();
+    auto flag = sr.GetParity();
     return RET(flag);
 }
 
@@ -707,7 +708,7 @@ uint8_t i8080::RPE  ()
 // Flags: -
 uint8_t i8080::RPO  ()
 {
-    auto flag = sr.GetParityFlag();
+    auto flag = sr.GetParity();
     return RETN(flag);
 }
 
@@ -731,7 +732,7 @@ uint8_t i8080::INRR ()
     uint16_t value = *readdst();
     *readdst() = ++value & 0x00FF;
     
-    sr.SetAuxCarryFlags(value);
+    sr.SetAuxFlags(value);
 
     return 0;
 }
@@ -745,7 +746,7 @@ uint8_t i8080::INRM ()
     uint16_t value = read();
     write(++value & 0x00FF);
 
-    sr.SetAuxCarryFlags(value);
+    sr.SetAuxFlags(value);
     
     return 0;
 }
@@ -759,7 +760,7 @@ uint8_t i8080::DCRR ()
     uint16_t value = *readdst();
     *readdst() = --value & 0x00FF;
     
-    sr.SetAuxCarryFlags(value);
+    sr.SetAuxFlags(value);
     
     return 0;
 }
@@ -773,7 +774,7 @@ uint8_t i8080::DCRM ()
     uint16_t value = read();
     write(--value & 0x00FF);
 
-    sr.SetAuxCarryFlags(value);
+    sr.SetAuxFlags(value);
     
     return 0;
 }
@@ -803,7 +804,8 @@ uint8_t i8080::DCX  ()
 
 uint8_t i8080::ADD(uint8_t data, uint8_t carry)
 {
-    uint16_t tmp = (uint16_t) reg[A] + ((uint16_t) data + (uint16_t) carry);
+    uint16_t acc = reg[A];
+    uint16_t tmp = acc + ((uint16_t) data + (uint16_t) carry);
     reg[A] = tmp & 0x00FF;
     
     sr.SetAllFlags(tmp);
@@ -813,7 +815,7 @@ uint8_t i8080::ADD(uint8_t data, uint8_t carry)
 
 uint8_t i8080::ADC(uint8_t data)
 {
-    auto carry = sr.GetCarryFlag();
+    auto carry = sr.GetCarry();
     return ADD (carry, data);
 }
 
@@ -887,7 +889,7 @@ uint8_t i8080::DAD  ()
     uint16_t tmp = rpdata + hldata;
     
     writepair(HL, tmp);
-    sr.SetFlagCarry(tmp);
+    sr.SetCarry(tmp);
     
     return 0;
 }
@@ -897,7 +899,8 @@ uint8_t i8080::DAD  ()
 
 uint8_t i8080::SUB(uint8_t data, uint8_t carry)
 {
-    uint16_t tmp = (uint16_t) reg[A] - ((uint16_t) data - (uint16_t) carry);
+    uint16_t acc = reg[A];
+    uint16_t tmp = acc - ((uint16_t) data - (uint16_t) carry);
     reg[A] = tmp & 0x00FF;
     
     sr.SetAllFlags(tmp);
@@ -907,7 +910,7 @@ uint8_t i8080::SUB(uint8_t data, uint8_t carry)
 
 uint8_t i8080::SBB(uint8_t data)
 {
-    auto carry = sr.GetCarryFlag();
+    auto carry = sr.GetCarry();
     return SUB (carry, data);
 }
 
@@ -976,8 +979,8 @@ uint8_t i8080::ANA  (uint8_t data)
 {
     reg[A] &= data;
     
-    sr.SetNoCarryFlags (reg[A]);
-    sr.SetFlagCarry    (0x00);
+    sr.SetDecFlags (reg[A]);
+    sr.SetCarry    (0x00);
     
     return 0;
 }
@@ -986,9 +989,9 @@ uint8_t i8080::XRA  (uint8_t data)
 {
     reg[A] ^= data;
     
-    sr.SetNoCarryFlags (reg[A]);
-    sr.SetFlagAux      (0x00);
-    sr.SetFlagCarry    (0x00);
+    sr.SetDecFlags (reg[A]);
+    sr.SetAux      (0x00);
+    sr.SetCarry    (0x00);
     
     return 0;
 }
@@ -997,21 +1000,23 @@ uint8_t i8080::ORA  (uint8_t data)
 {
     reg[A] |= data;
     
-    sr.SetNoCarryFlags (reg[A]);
-    sr.SetFlagCarry    (0x00);
+    sr.SetDecFlags (reg[A]);
+    sr.SetCarry    (0x00);
     
     return 0;
 }
 
 uint8_t i8080::CMP  (uint8_t value)
 {
-    uint16_t tmp = (uint16_t) reg[A] - (uint16_t) value;
+    uint16_t acc = reg[A];
+    uint16_t tmp = acc - (uint16_t) value;
     
-    sr.SetFlagCarry (reg[A] < value);
-    sr.SetFlagZero  (reg[A] == value);
-    sr.SetFlagAux   (tmp);
-    sr.SetFlagParity(tmp);
-    sr.SetFlagSign  (tmp);
+    sr.SetCarry  (acc < value);
+    sr.SetZero   (acc == value);
+    
+    sr.SetAux    (tmp);
+    sr.SetParity (tmp);
+    sr.SetSign   (tmp);
     
     return 0;
 }

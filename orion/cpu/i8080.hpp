@@ -26,12 +26,8 @@ public:
     
 private:
     
-    uint8_t   reg[8];           // Registers        (B C D E H L M A)
+    uint8_t   reg[8];           // Registers
     uint8_t * pairs[4];         // Pairs
-                                // 0x00 - B & C
-                                // 0x01 - D & E
-                                // 0x02 - H & L
-                                // 0x03 - SP
     
     uint8_t  op      = 0x00;    // Operation code
     uint8_t  cycles  = 0x00;    // Cycle counter
@@ -39,7 +35,7 @@ private:
     uint16_t sp      = 0x0000;  // Stack pointer
     uint16_t pc      = 0x0000;  // Program counter
     
-    uint16_t address = 0x0000;
+    uint16_t address = 0x0000;  // Current memory pointer
     
     Status   sr;                // Status register
     
@@ -47,35 +43,36 @@ private:
     
     enum
     {
-        B,
-        C,
-        D,
-        E,
-        H,
-        L,
-        M, // Memory
-        A  // Accumulator
+        B, //  0x00 - B
+        C, //  0x01 - C
+        D, //  0x02 - D
+        E, //  0x03 - E
+        H, //  0x04 - H
+        L, //  0x05 - L
+        M, //  0x06 - M - Memory (Not use)
+        A  //  0x07 - A - Accumulator
     };
     
     enum
     {
-        BC,
-        DE,
-        HL,
-        SP
+        BC, //  0x00 - B & C
+        DE, //  0x01 - D & E
+        HL, //  0x02 - H & L
+        SP  //  0x03 - SP
     };
     
     uint8_t * readsrc();
     uint8_t * readdst();
     
-    uint16_t readpair (uint8_t index);
-    void writepair (const uint8_t & index, const uint16_t & data);
-    void mutatepair (const uint8_t & index, std::function<void(uint16_t &)> mutator);
+    uint16_t readpair (const uint8_t & index);
+    void writepair    (const uint8_t & index, const uint16_t & data);
+    void mutatepair   (const uint8_t & index, std::function<void(uint16_t &)> mutator);
     
 // Bus communication
 private:
     
     Bus * bus = nullptr;
+    void connect(Bus * bus);
     
     uint8_t read ();
     uint8_t read (uint16_t address);
@@ -150,7 +147,7 @@ private:
     
     // Return
     
-    uint8_t RET (uint8_t flag);
+    uint8_t RET  (uint8_t flag);
     uint8_t RETN (uint8_t flag);
     
     uint8_t RET  ();
@@ -264,7 +261,6 @@ private:
 public:
     
     void clock();
-    void connect(Bus * bus);
     void execute(int clock);
 };
 

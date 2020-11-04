@@ -42,22 +42,22 @@ public:
     
 public:
     
-    void SetFlagZero (uint16_t value)
+    void SetZero (uint16_t value)
     {
         SetFlag(Z, (value & 0x00FF) == 0x0000);
     }
     
-    void SetFlagSign (uint16_t value)
+    void SetSign (uint16_t value)
     {
         SetFlag(S, value & 0x0080);
     }
     
-    void SetFlagAux (uint16_t value)
+    void SetAux (uint16_t value)
     {
         SetFlag(AC, value > 0x000F);
     }
     
-    void SetFlagParity (uint16_t value)
+    void SetParity (uint16_t value)
     {
         value ^= value >> 8;
         value ^= value >> 4;
@@ -67,46 +67,46 @@ public:
         SetFlag(P, (~value) & 1);
     }
     
-    void SetFlagCarry (uint16_t value)
+    void SetCarry (uint16_t value)
     {
         SetFlag(C, value > 0x00FF);
     }
     
     void SetAllFlags (uint16_t value)
     {
-        SetFlagCarry     (value);
-        SetAuxCarryFlags (value);
+        SetCarry    (value);
+        SetAuxFlags (value);
     }
     
-    void SetAuxCarryFlags (uint16_t value)
+    void SetAuxFlags (uint16_t value)
     {
-        SetNoCarryFlags (value);
-        SetFlagAux      (value);
+        SetAux      (value);
+        SetDecFlags (value);
     }
     
-    void SetNoCarryFlags (uint16_t value)
+    void SetDecFlags (uint16_t value)
     {
-        SetFlagSign    (value);
-        SetFlagZero    (value);
-        SetFlagParity  (value);
+        SetSign    (value);
+        SetZero    (value);
+        SetParity  (value);
     }
     
-    uint8_t GetCarryFlag()
+    uint8_t GetCarry()
     {
         return (sr & C);
     }
     
-    uint8_t GetZeroFlag()
+    uint8_t GetZero()
     {
         return (sr & Z) >> 6;
     }
     
-    uint8_t GetSignFlag()
+    uint8_t GetSign()
     {
         return (sr & S) >> 7;
     }
     
-    uint8_t GetParityFlag()
+    uint8_t GetParity()
     {
         return (sr & P) >> 2;
     }
