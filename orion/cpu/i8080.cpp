@@ -175,79 +175,79 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         
         // 0x8 - 0xF
         
-        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
-        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
-        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
-        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
-        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
-        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
-        { "ADD",     7,        &i8080::ADDM,    &i8080::HLM },
-        { "ADD",     4,        &i8080::ADDR,    &i8080::IMP },
-        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
-        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
-        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
-        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
-        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
-        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
-        { "ADC",     7,        &i8080::ADCM,    &i8080::HLM },
-        { "ADC",     4,        &i8080::ADCR,    &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,     &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,     &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,     &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,     &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,     &i8080::IMP },
+        { "ADD",     4,        &i8080::ADDR,     &i8080::IMP },
+        { "ADD",     7,        &i8080::ADDM,     &i8080::HLM },
+        { "ADD",     4,        &i8080::ADDR,     &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,     &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,     &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,     &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,     &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,     &i8080::IMP },
+        { "ADC",     4,        &i8080::ADCR,     &i8080::IMP },
+        { "ADC",     7,        &i8080::ADCM,     &i8080::HLM },
+        { "ADC",     4,        &i8080::ADCR,     &i8080::IMP },
         
         // 0x9 - 0xF
         
-        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
-        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
-        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
-        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
-        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
-        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
-        { "SUB",     7,        &i8080::SUBM,    &i8080::HLM },
-        { "SUB",     4,        &i8080::SUBR,    &i8080::IMP },
-        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
-        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
-        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
-        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
-        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
-        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
-        { "SBB",     7,        &i8080::SBBM,    &i8080::HLM },
-        { "SBB",     4,        &i8080::SBBR,    &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,     &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,     &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,     &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,     &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,     &i8080::IMP },
+        { "SUB",     4,        &i8080::SUBR,     &i8080::IMP },
+        { "SUB",     7,        &i8080::SUBM,     &i8080::HLM },
+        { "SUB",     4,        &i8080::SUBR,     &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,     &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,     &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,     &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,     &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,     &i8080::IMP },
+        { "SBB",     4,        &i8080::SBBR,     &i8080::IMP },
+        { "SBB",     7,        &i8080::SBBM,     &i8080::HLM },
+        { "SBB",     4,        &i8080::SBBR,     &i8080::IMP },
         
         // 0xA - 0xF
         
-        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
-        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
-        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
-        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
-        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
-        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
-        { "ANA",     7,        &i8080::ANAM,    &i8080::HLM },
-        { "ANA",     4,        &i8080::ANAR,    &i8080::IMP },
-        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
-        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
-        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
-        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
-        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
-        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
-        { "XRA",     7,        &i8080::XRAM,    &i8080::HLM },
-        { "XRA",     4,        &i8080::XRAR,    &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,     &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,     &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,     &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,     &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,     &i8080::IMP },
+        { "ANA",     4,        &i8080::ANAR,     &i8080::IMP },
+        { "ANA",     7,        &i8080::ANAM,     &i8080::HLM },
+        { "ANA",     4,        &i8080::ANAR,     &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,     &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,     &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,     &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,     &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,     &i8080::IMP },
+        { "XRA",     4,        &i8080::XRAR,     &i8080::IMP },
+        { "XRA",     7,        &i8080::XRAM,     &i8080::HLM },
+        { "XRA",     4,        &i8080::XRAR,     &i8080::IMP },
         
         // 0xB - 0xF
         
-        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
-        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
-        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
-        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
-        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
-        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
-        { "ORA",     7,        &i8080::ORAM,    &i8080::HLM },
-        { "ORA",     4,        &i8080::ORAR,    &i8080::IMP },
-        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
-        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
-        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
-        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
-        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
-        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
-        { "CMP",     7,        &i8080::CMPM,    &i8080::HLM },
-        { "CMP",     4,        &i8080::CMPR,    &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,     &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,     &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,     &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,     &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,     &i8080::IMP },
+        { "ORA",     4,        &i8080::ORAR,     &i8080::IMP },
+        { "ORA",     7,        &i8080::ORAM,     &i8080::HLM },
+        { "ORA",     4,        &i8080::ORAR,     &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,     &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,     &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,     &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,     &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,     &i8080::IMP },
+        { "CMP",     4,        &i8080::CMPR,     &i8080::IMP },
+        { "CMP",     7,        &i8080::CMPM,     &i8080::HLM },
+        { "CMP",     4,        &i8080::CMPR,     &i8080::IMP },
     };
 }
 
@@ -597,15 +597,119 @@ uint8_t i8080::CPO  () { return 0; }
 #pragma mark -
 #pragma mark Return
 
-uint8_t i8080::RET  () { return 0; }
-uint8_t i8080::RC   () { return 0; }
-uint8_t i8080::RNC  () { return 0; }
-uint8_t i8080::RZ   () { return 0; }
-uint8_t i8080::RNZ  () { return 0; }
-uint8_t i8080::RP   () { return 0; }
-uint8_t i8080::RM   () { return 0; }
-uint8_t i8080::RPE  () { return 0; }
-uint8_t i8080::RPO  () { return 0; }
+// Return if positive
+uint8_t i8080::RET (uint8_t flag)
+{
+    if (flag == 0)
+    {
+        return 0;
+    }
+    
+    RET();
+    return 6;
+}
+
+// Return if negative
+uint8_t i8080::RETN (uint8_t flag)
+{
+    return RET(!flag);
+}
+
+// Code: RET
+// Operation: [(SP)] → PCL, [(SP)+1] → PCH
+// Description: Return
+// Flags: -
+uint8_t i8080::RET  ()
+{
+    uint16_t lo = read(sp);
+    sp++;
+    uint16_t hi = read(sp);
+    sp++;
+
+    pc = (hi << 8) | lo;
+    
+    return 0;
+}
+
+// Code: RC
+// Operation: [(SP)] → PCL, [(SP)+1] → PCH
+// Description: Return if carry set
+// Flags: -
+uint8_t i8080::RC   ()
+{
+    auto flag = sr.GetCarryFlag();
+    return RET(flag);
+}
+
+// Code: RC
+// Operation: [(SP)] → PCL, [(SP)+1] → PCH
+// Description: Return if carry reset
+// Flags: -
+uint8_t i8080::RNC  ()
+{
+    auto flag = sr.GetCarryFlag();
+    return RETN(flag);
+}
+
+// Code: RZ
+// Operation: [(SP)] → PCL, [(SP)+1] → PCH
+// Description: Return if zero set
+// Flags: -
+uint8_t i8080::RZ   ()
+{
+    auto flag = sr.GetZeroFlag();
+    return RET(flag);
+}
+
+// Code: RNZ
+// Operation: [(SP)] → PCL, [(SP)+1] → PCH
+// Description: Return if zero reset
+// Flags: -
+uint8_t i8080::RNZ  ()
+{
+    auto flag = sr.GetZeroFlag();
+    return RETN(flag);
+}
+
+// Code: RM
+// Operation: [(SP)] → PCL, [(SP)+1] → PCH
+// Description: Return if minus
+// Flags: -
+uint8_t i8080::RM   ()
+{
+    auto flag = sr.GetSignFlag();
+    return RET(flag);
+}
+
+// Code: RP
+// Operation: [(SP)] → PCL, [(SP)+1] → PCH
+// Description: Return if plus
+// Flags: -
+uint8_t i8080::RP   ()
+{
+    auto flag = sr.GetSignFlag();
+    return RETN(flag);
+}
+
+// Code: RPE
+// Operation: [(SP)] → PCL, [(SP)+1] → PCH
+// Description: Return if parity even
+// Flags: -
+uint8_t i8080::RPE  ()
+{
+    auto flag = sr.GetParityFlag();
+    return RET(flag);
+}
+
+// Code: RPO
+// Operation: [(SP)] → PCL, [(SP)+1] → PCH
+// Description: Return if parity odd
+// Flags: -
+uint8_t i8080::RPO  ()
+{
+    auto flag = sr.GetParityFlag();
+    return RETN(flag);
+}
 
 #pragma mark -
 #pragma mark Restart
@@ -903,8 +1007,8 @@ uint8_t i8080::CMP  (uint8_t value)
 {
     uint16_t tmp = (uint16_t) reg[A] - (uint16_t) value;
     
-    sr.SetFlagCarry (reg[A] >= value);
-    sr.SetFlagZero  (tmp);
+    sr.SetFlagCarry (reg[A] < value);
+    sr.SetFlagZero  (reg[A] == value);
     sr.SetFlagAux   (tmp);
     sr.SetFlagParity(tmp);
     sr.SetFlagSign  (tmp);

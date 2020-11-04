@@ -95,6 +95,21 @@ public:
     {
         return (sr & C);
     }
+    
+    uint8_t GetZeroFlag()
+    {
+        return (sr & Z) >> 6;
+    }
+    
+    uint8_t GetSignFlag()
+    {
+        return (sr & S) >> 7;
+    }
+    
+    uint8_t GetParityFlag()
+    {
+        return (sr & P) >> 2;
+    }
 };
 
 #endif /* i8080Flags_hpp */

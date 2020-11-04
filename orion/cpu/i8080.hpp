@@ -150,6 +150,9 @@ private:
     
     // Return
     
+    uint8_t RET (uint8_t flag);
+    uint8_t RETN (uint8_t flag);
+    
     uint8_t RET  ();
     uint8_t RC   ();
     uint8_t RNC  ();
