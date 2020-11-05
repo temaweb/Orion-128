@@ -981,8 +981,16 @@ uint8_t i8080::RPO  ()
 #pragma mark -
 #pragma mark Restart
 
-uint8_t RST  ()
+// Code: RST
+// Operation: (PCH) → [(SP)-1], (PCL) → [(SP)-2], 0000 0000 00NN N000 → PC
+// Description: Restart
+uint8_t i8080::RST  ()
 {
+    write(sp - 1, (pc >> 8) & 0xFF);
+    write(sp - 2,  pc & 0xFF);
+    
+    pc = (uint16_t) op & 0x38;
+    
     return 0;
 }
 
@@ -1532,15 +1540,49 @@ uint8_t i8080::DAA  ()
 #pragma mark -
 #pragma mark I/O
 
-uint8_t i8080::IN   () { return 0; }
-uint8_t i8080::OUT  () { return 0; }
+// Code: IN
+// Operation: Input
+// Flags: -
+uint8_t i8080::IN   ()
+{
+    reg[A] = read();
+    return 0;
+}
+
+// Code: IN
+// Operation: Input
+// Flags: -
+uint8_t i8080::OUT  ()
+{
+    write(reg[A]);
+    return 0;
+}
 
 #pragma mark -
 #pragma mark Control
 
-uint8_t i8080::EI   () { return 0; }
-uint8_t i8080::DI   () { return 0; }
-uint8_t i8080::HLT  () { return 0; }
+// Code: EI
+// Operation: Enable interrup
+// Flags: INTE
+uint8_t i8080::EI   ()
+{
+    return 0;
+}
+
+// Code: DI
+// Operation: Disable interrup
+// Flags: DI
+uint8_t i8080::DI   ()
+{
+    return 0;
+}
+
+// Code: HLT
+// Operation: Halt
+uint8_t i8080::HLT  ()
+{
+    return 0;
+}
 
 // Code: NOP
 // Operation: No-operation
@@ -1549,7 +1591,9 @@ uint8_t i8080::NOP()
     return 0;
 }
 
+// Code: -
+// Operation: -
 uint8_t i8080::XXX()
 {
-    return 0;
+    return NOP();
 }
