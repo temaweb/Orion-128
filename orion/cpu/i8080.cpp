@@ -249,6 +249,82 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "CMP",     4,        &i8080::CMPR,     &i8080::IMP },
         { "CMP",     7,        &i8080::CMPM,     &i8080::HLM },
         { "CMP",     4,        &i8080::CMPR,     &i8080::IMP },
+        
+        // 0xC - 0xF
+        
+        { "RNZ",     5,        &i8080::RNZ,      &i8080::IMP },
+        { "POP",    10,        &i8080::POPR,     &i8080::IMP },
+        { "JNZ",    10,        &i8080::JNZ,      &i8080::DIR },
+        { "JMP",    10,        &i8080::JMP,      &i8080::DIR },
+        { "CNZ",    11,        &i8080::CNZ,      &i8080::DIR },
+        { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
+        { "ADI",    11,        &i8080::ADI,      &i8080::IMM },
+        { "RST",    11,        &i8080::RST,      &i8080::IMP },
+        { "RZ",     5,         &i8080::RZ,       &i8080::IMP },
+        { "RET",    10,        &i8080::RET,      &i8080::IMP },
+        { "JZ",     10,        &i8080::JZ,       &i8080::DIR },
+        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "CZ",     11,        &i8080::CZ,       &i8080::DIR },
+        { "CALL",   17,        &i8080::CALL,     &i8080::DIR },
+        { "ACI",     7,        &i8080::ACI,      &i8080::IMM },
+        { "RST",    11,        &i8080::RST,      &i8080::IMP },
+        
+        // 0xD - 0xF
+        
+        { "RNC",     5,        &i8080::RNC,      &i8080::IMP },
+        { "POP",    10,        &i8080::POPR,     &i8080::IMP },
+        { "JNZ",    10,        &i8080::JNZ,      &i8080::DIR },
+        { "OUT",    10,        &i8080::OUT,      &i8080::IMP },
+        { "CNC",    11,        &i8080::CNC,      &i8080::DIR },
+        { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
+        { "SUI",    11,        &i8080::SUI,      &i8080::IMM },
+        { "RST",    11,        &i8080::RST,      &i8080::IMP },
+        { "RC",     5,         &i8080::RC,       &i8080::IMP },
+        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "JC",     10,        &i8080::JC,       &i8080::DIR },
+        { "IN",     10,        &i8080::IN,       &i8080::IMP },
+        { "CC",     11,        &i8080::CC,       &i8080::DIR },
+        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "SBI",     7,        &i8080::SBI,      &i8080::IMM },
+        { "RST",    11,        &i8080::RST,      &i8080::IMP },
+        
+        // 0xE - 0xF
+        
+        { "RPO",     5,        &i8080::RPO,      &i8080::IMP },
+        { "POP",    10,        &i8080::POPR,     &i8080::IMP },
+        { "JPO",    10,        &i8080::JPO,      &i8080::DIR },
+        { "XTHL",   18,        &i8080::XTHL,     &i8080::IMP },
+        { "CPO",    11,        &i8080::CPO,      &i8080::DIR },
+        { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
+        { "ANI",    11,        &i8080::ANI,      &i8080::IMM },
+        { "RST",    11,        &i8080::RST,      &i8080::IMP },
+        { "RPE",     5,        &i8080::RPE,      &i8080::IMP },
+        { "PCHL",    5,        &i8080::PCHL,     &i8080::IMP },
+        { "JPE",    10,        &i8080::JPE,      &i8080::DIR },
+        { "XCHG",    4,        &i8080::XCHG,     &i8080::IMP },
+        { "CPE",    11,        &i8080::CPE,      &i8080::DIR },
+        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "XDI",     7,        &i8080::XRI,      &i8080::IMM },
+        { "RST",    11,        &i8080::RST,      &i8080::IMP },
+        
+        // 0xF - 0xF
+        
+        { "RP",      5,        &i8080::RP,       &i8080::IMP },
+        { "POP",    10,        &i8080::POPR,     &i8080::IMP },
+        { "JP",     10,        &i8080::JP,       &i8080::DIR },
+        { "DI",      4,        &i8080::DI,       &i8080::IMP },
+        { "CP",     11,        &i8080::CP,       &i8080::DIR },
+        { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
+        { "ORI",    11,        &i8080::ORI,      &i8080::IMM },
+        { "RST",    11,        &i8080::RST,      &i8080::IMP },
+        { "RM",      5,        &i8080::RM,       &i8080::IMP },
+        { "PCHL",    5,        &i8080::PCHL,     &i8080::IMP },
+        { "JM",     10,        &i8080::JM,       &i8080::DIR },
+        { "EI",      4,        &i8080::EI,       &i8080::IMP },
+        { "CM",     11,        &i8080::CM,       &i8080::DIR },
+        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "CPI",     7,        &i8080::CPI,      &i8080::IMM },
+        { "RST",    11,        &i8080::RST,      &i8080::IMP },
     };
 }
 
