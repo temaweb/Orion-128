@@ -276,9 +276,6 @@ void i8080::clock()
     
     // Execute operation and add extra cycles
     cycles += (this->*lookup[op].operate)();
-    
-    std::bitset<8> x(op);
-    std::cout << lookup[op].name << " " << x << std::endl;
 }
 
 void i8080::execute(int clock)
@@ -1476,10 +1473,45 @@ uint8_t i8080::RAR  ()
 #pragma mark -
 #pragma mark Special
 
-uint8_t i8080::CMA  () { return 0; }
-uint8_t i8080::STC  () { return 0; }
-uint8_t i8080::CMC  () { return 0; }
-uint8_t i8080::DAA  () { return 0; }
+// Code: CMA
+// Operation: ~(A)
+// Description: Complement A
+// Flags: -
+uint8_t i8080::CMA  ()
+{
+    reg[A] = ~reg[A];
+    return 0;
+}
+
+// Code: STC
+// Operation: C = 1
+// Description: Set carry
+// Flags: C
+uint8_t i8080::STC  ()
+{
+    sr.SetCarry(true);
+    return 0;
+}
+
+// Code: CMC
+// Operation: ~(C)
+// Description: Complement carry
+// Flags: C
+uint8_t i8080::CMC  ()
+{
+    auto carry = !sr.GetCarry();
+    sr.SetCarry(carry);
+    
+    return 0;
+}
+
+// Code: DAA
+// Description: Decimal adjust A
+// Flags: S,Z,AC,P,C
+uint8_t i8080::DAA  ()
+{
+    return 0;
+}
 
 #pragma mark -
 #pragma mark I/O

@@ -33,6 +33,8 @@
 		8A7AD3E1254B353D0056CB4E /* behaviors.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = behaviors.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7AD3E5254B353D0056CB4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A7AD3F2254B356E0056CB4E /* i8080.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = i8080.mm; sourceTree = "<group>"; };
+		8AA255A625537764007791D5 /* i8080.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = i8080.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
+		8AA255AC25537CF5007791D5 /* i8080.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = i8080.com; sourceTree = "<group>"; };
 		8AB9437A254A187200636CA0 /* i8080.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = i8080.cpp; sourceTree = "<group>"; };
 		8AB9437B254A187200636CA0 /* i8080.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = i8080.hpp; sourceTree = "<group>"; };
 		8AC0C61E2543AE24008DAA6B /* orion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = orion; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +84,8 @@
 				8AB9437A254A187200636CA0 /* i8080.cpp */,
 				8AB9437B254A187200636CA0 /* i8080.hpp */,
 				8A4C1E50254ED0EB00ED6E1E /* Status.hpp */,
+				8AA255A625537764007791D5 /* i8080.asm */,
+				8AA255AC25537CF5007791D5 /* i8080.com */,
 			);
 			path = cpu;
 			sourceTree = "<group>";

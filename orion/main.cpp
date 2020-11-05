@@ -17,7 +17,7 @@ int main(int argc, const char * argv[])
     // (bool)(data & 0x80)
     // data | 0x01
     
-    std::cout << std::bitset<8>(data | true) << std::endl;
+    std::cout << std::bitset<8>(~data) << std::endl;
     
     return 0;
 }
