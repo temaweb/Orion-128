@@ -12,12 +12,20 @@
 
 int main(int argc, const char * argv[])
 {
-    uint8_t data = 0b11000100;
+    uint16_t data = 0b11001001;
     
-    // (bool)(data & 0x80)
-    // data | 0x01
     
-    std::cout << std::bitset<8>(~data) << std::endl;
+    if ((data & 0x000F) > 0x0009)
+    {
+        data |= 0x0006;
+    }
+
+    if (((data & 0x00F0) >> 4) > 0x0009)
+    {
+        data |= 0x0060;
+    }
+    
+    std::cout << std::bitset<16>(data | 0x0060) << std::endl;
     
     return 0;
 }

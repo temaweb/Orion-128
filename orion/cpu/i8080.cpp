@@ -1510,6 +1510,22 @@ uint8_t i8080::CMC  ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::DAA  ()
 {
+    uint16_t acc = (uint16_t) reg[A];
+    
+    if ((acc & 0x000F) > 0x0009 || sr.GetAux())
+    {
+        acc |= 0x0006;
+    }
+
+    if (((acc & 0x00F0) >> 4) > 0x0009 || sr.GetCarry())
+    {
+        acc |= 0x0060;
+    }
+    
+    reg[A] = acc & 0x00FF;
+    
+    sr.SetAllFlags(acc);
+    
     return 0;
 }
 

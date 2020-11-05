@@ -146,6 +146,11 @@ public:
     {
         return (sr & P) >> 2;
     }
+    
+    uint8_t GetAux()
+    {
+        return (sr & AC) >> 4;
+    }
 };
 
 #endif /* i8080Flags_hpp */
