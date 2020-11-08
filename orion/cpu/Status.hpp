@@ -15,7 +15,7 @@ class Status
 {
 private:
     
-    uint8_t sr = 0x02;
+    uint8_t sr = 0x02; // [S Z 0 AC 0 P 1 C]
     
     enum Flags
     {
@@ -53,27 +53,24 @@ public:
         sr = status;
         return *this;
     }
+
     
-    operator uint8_t() const
+    operator uint8_t&()
     {
         return sr;
     }
     
 public:
+
+    
+    void SetSign (bool flag)
+    {
+        SetFlag(S, flag);
+    }
     
     void SetZero (bool flag)
     {
         SetFlag(Z, flag);
-    }
-    
-    void SetZero (uint16_t value)
-    {
-        SetZero((value & 0x00FF) == 0x0000);
-    }
-    
-    void SetSign (uint16_t value)
-    {
-        SetFlag(S, value & 0x0080);
     }
     
     void SetAux (bool flag)
@@ -81,19 +78,9 @@ public:
         SetFlag(AC, flag);
     }
     
-    void SetAux (uint16_t value)
+    void SetParity (bool flag)
     {
-        SetAux(value > 0x000F);
-    }
-    
-    void SetParity (uint16_t value)
-    {
-        value ^= value >> 8;
-        value ^= value >> 4;
-        value ^= value >> 2;
-        value ^= value >> 1;
-        
-        SetFlag(P, (~value) & 1);
+        SetFlag(P, flag);
     }
     
     void SetCarry (bool flag)
@@ -101,10 +88,41 @@ public:
         SetFlag(C, flag);
     }
     
+    
+public:
+    
+    void SetSign (uint16_t value)
+    {
+        SetFlag(S, (value & 0x0080));
+    }
+    
+    void SetZero (uint16_t value)
+    {
+        SetZero((value & 0x00FF) == 0x0000);
+    }
+    
+    void SetAux (uint16_t value)
+    {
+        SetAux(value < 0x000F);
+    }
+    
+    void SetParity (uint16_t value)
+    {
+        value &= 0x00FF;
+        
+        value ^= value >> 4;
+        value ^= value >> 2;
+        value ^= value >> 1;
+        
+        SetParity((bool)((~value) & 1));
+    }
+    
     void SetCarry (uint16_t value)
     {
-        SetCarry(value > 0x00FF);
+        SetCarry((value & 0x100) != 0);
     }
+    
+public:
     
     void SetAllFlags (uint16_t value)
     {
@@ -127,9 +145,9 @@ public:
     
 public:
     
-    uint8_t GetCarry()
+    uint8_t GetSign()
     {
-        return (sr & C);
+        return (sr & S) >> 7;
     }
     
     uint8_t GetZero()
@@ -137,9 +155,9 @@ public:
         return (sr & Z) >> 6;
     }
     
-    uint8_t GetSign()
+    uint8_t GetAux()
     {
-        return (sr & S) >> 7;
+        return (sr & AC) >> 4;
     }
     
     uint8_t GetParity()
@@ -147,9 +165,9 @@ public:
         return (sr & P) >> 2;
     }
     
-    uint8_t GetAux()
+    uint8_t GetCarry()
     {
-        return (sr & AC) >> 4;
+        return (sr & C);
     }
 };
 

@@ -6,16 +6,18 @@
 //
 
 #include <iostream>
+#include <iomanip>
 
 #include "i8080.hpp"
 #include "Bus.hpp"
+
+#define LOGTEST
 
 i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 {
     pairs[BC] = reg + B;
     pairs[DE] = reg + D;
     pairs[HL] = reg + H;
-    pairs[SP] = (uint8_t *) &sp;
     
     lookup =
     {
@@ -82,17 +84,17 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         // 0x3 - 0xF
         
         { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
-        { "LXI",     10,       &i8080::LXI,      &i8080::IMM },
+        { "LXI",     10,       &i8080::LXISP,    &i8080::IMM },
         { "STA",     13,       &i8080::STA,      &i8080::DIR },
-        { "INX",     5,        &i8080::INX,      &i8080::IMP },
+        { "INX",     5,        &i8080::INXSP,    &i8080::IMP },
         { "INR",     10,       &i8080::INRM,     &i8080::HLM },
         { "DCR",     10,       &i8080::DCRM,     &i8080::HLM },
         { "MVI",     10,       &i8080::MVIM,     &i8080::IMM },
         { "STC",     4,        &i8080::STC,      &i8080::IMP },
         { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
-        { "DAD",     10,       &i8080::DAD,      &i8080::IMP },
+        { "DAD",     10,       &i8080::DADSP,    &i8080::IMP },
         { "LDA",     16,       &i8080::LDA,      &i8080::DIR },
-        { "DCX",     13,       &i8080::DCX,      &i8080::IMP },
+        { "DCX",     13,       &i8080::DCXSP,    &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
         { "MVI",     7,        &i8080::MVIR,     &i8080::IMM },
@@ -263,7 +265,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "RZ",     5,         &i8080::RZ,       &i8080::IMP },
         { "RET",    10,        &i8080::RET,      &i8080::IMP },
         { "JZ",     10,        &i8080::JZ,       &i8080::DIR },
-        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "JMP",    10,        &i8080::JMP,      &i8080::DIR }, // <~ JMP undocumented?
         { "CZ",     11,        &i8080::CZ,       &i8080::DIR },
         { "CALL",   17,        &i8080::CALL,     &i8080::DIR },
         { "ACI",     7,        &i8080::ACI,      &i8080::IMM },
@@ -273,18 +275,18 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         
         { "RNC",     5,        &i8080::RNC,      &i8080::IMP },
         { "POP",    10,        &i8080::POPR,     &i8080::IMP },
-        { "JNZ",    10,        &i8080::JNZ,      &i8080::DIR },
+        { "JNC",    10,        &i8080::JNC,      &i8080::DIR },
         { "OUT",    10,        &i8080::OUT,      &i8080::IMP },
         { "CNC",    11,        &i8080::CNC,      &i8080::DIR },
         { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
         { "SUI",    11,        &i8080::SUI,      &i8080::IMM },
         { "RST",    11,        &i8080::RST,      &i8080::IMP },
         { "RC",     5,         &i8080::RC,       &i8080::IMP },
-        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "RET",    10,        &i8080::RET,      &i8080::IMP }, // <~ RET undocumented?
         { "JC",     10,        &i8080::JC,       &i8080::DIR },
         { "IN",     10,        &i8080::IN,       &i8080::IMP },
         { "CC",     11,        &i8080::CC,       &i8080::DIR },
-        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "CALL",   17,        &i8080::CALL,     &i8080::DIR }, // <~ CALL undocumented?
         { "SBI",     7,        &i8080::SBI,      &i8080::IMM },
         { "RST",    11,        &i8080::RST,      &i8080::IMP },
         
@@ -310,15 +312,15 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         // 0xF - 0xF
         
         { "RP",      5,        &i8080::RP,       &i8080::IMP },
-        { "POP",    10,        &i8080::POPR,     &i8080::IMP },
+        { "POP",    10,        &i8080::POP,      &i8080::IMP },
         { "JP",     10,        &i8080::JP,       &i8080::DIR },
         { "DI",      4,        &i8080::DI,       &i8080::IMP },
         { "CP",     11,        &i8080::CP,       &i8080::DIR },
-        { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
+        { "PUSH",   11,        &i8080::PUSH,     &i8080::IMP },
         { "ORI",    11,        &i8080::ORI,      &i8080::IMM },
         { "RST",    11,        &i8080::RST,      &i8080::IMP },
         { "RM",      5,        &i8080::RM,       &i8080::IMP },
-        { "PCHL",    5,        &i8080::PCHL,     &i8080::IMP },
+        { "SPHL",    5,        &i8080::SPHL,     &i8080::IMP },
         { "JM",     10,        &i8080::JM,       &i8080::DIR },
         { "EI",      4,        &i8080::EI,       &i8080::IMP },
         { "CM",     11,        &i8080::CM,       &i8080::DIR },
@@ -338,6 +340,32 @@ void i8080::clock()
         return;
     }
     
+#ifdef LOGTEST
+    int success = 0;
+    
+    if (bus -> read(pc) == 0x76) {
+        printf("HLT at %04X\n", pc);
+    }
+    
+    if (pc == 0x0005 && cycles == 0)
+    {
+        if (reg[C] == 9)
+        {
+            for (int i = readpair(DE); bus -> read(i) != '$'; i += 1) {
+                putchar(bus -> read(i));
+            }
+            
+            success = 1;
+        }
+        
+        if (reg[C] == 2) {
+            putchar((char) reg[E]);
+        }
+    }
+#else
+    uint16_t pcl = pc;
+#endif
+    
     // Read operation code
     op = read(pc);
     
@@ -352,6 +380,60 @@ void i8080::clock()
     
     // Execute operation and add extra cycles
     cycles += (this->*lookup[op].operate)();
+    
+    
+#ifdef LOGTEST
+    if (pc == 0)
+    {
+        printf("\nJump to 0000 from %04X\n", pc);
+        
+        if (!success)
+            exit(1);
+        
+        return;
+    }
+    
+    if (pc == 0)
+    {
+        printf("\nJump to 0000 from %04X\n", pc);
+        
+        if (!success)
+            exit(1);
+        
+        return;
+    }
+    
+#else
+    std::cout
+        << "0x" << std::setw(4) << std::hex << std::left << static_cast<int>(pcl)
+        << std::setw(5) << std::right << lookup[op].name << " "
+        << std::bitset<8>(op)
+
+        << " A: "  << std::bitset<8>(reg[A])
+        << " B: "  << std::bitset<8>(reg[B])
+        << " C: "  << std::bitset<8>(reg[C])
+        << " D: "  << std::bitset<8>(reg[D])
+        << " E: "  << std::bitset<8>(reg[E])
+        << " H: "  << std::bitset<8>(reg[H])
+        << " L: "  << std::bitset<8>(reg[L])
+
+        << " SP 0x"  << std::setw(5) << std::hex << std::left << static_cast<int>(sp)
+        << " FL: " << std::bitset<8>(sr)
+
+        << std::endl;
+#endif
+    
+    if (pc == 0)
+        exit(1);
+}
+
+void i8080::debug()
+{
+    pc = 0x100;
+    while (true)
+    {
+        clock();
+    }
 }
 
 void i8080::execute(int clock)
@@ -541,12 +623,26 @@ uint8_t i8080::LXI()
     return 0;
 }
 
+// Code: LXI SP
+// Operation: D16 → SP
+// Description: Load immediate SP
+uint8_t i8080::LXISP()
+{
+    uint16_t hi = read(address + 1);
+    uint16_t lo = read(address + 0);
+
+    sp = (hi << 8) | lo;
+    pc++;
+    
+    return 0;
+}
+
 // Code: STAX B
 // Operation: (A) → [(RP)]
 // Description: Store A indent
 uint8_t i8080::STAX()
 {
-    auto pair = (op & (1 << 5)) >> 5;
+    auto pair = (op & 0x10) >> 4;
     auto data = readpair(pair);
 
     write(data, reg[A]);
@@ -559,7 +655,7 @@ uint8_t i8080::STAX()
 // Description: Load A indirect
 uint8_t i8080::LDAX()
 {
-    auto pair = (op & (1 << 5)) >> 5;
+    auto pair = (op & 0x10) >> 4;
     auto data = readpair(pair);
     
     reg[A] = read(data);
@@ -628,6 +724,30 @@ uint8_t i8080::XCHG()
 #pragma mark -
 #pragma mark Stack operations
 
+// Code: PUSH
+// Operation: A → [(SP) - 1], (SR) → [(SP) - 2]
+// Description: Push program status word on stack
+// Flags: -
+uint8_t i8080::PUSH  (uint8_t hi, uint8_t lo)
+{
+    write(--sp, hi);
+    write(--sp, lo);
+    
+    return 0;
+}
+
+// Code: POP
+// Operation: [(SP)] → L, [(SP) + 1] → H
+// Description: Pop register pair off stack
+// Flags: -
+uint8_t i8080::POP   (uint8_t & hi, uint8_t & lo)
+{
+    lo = read(sp++);
+    hi = read(sp++);
+    
+    return 0;
+}
+
 // Code: PUSH rp
 // Operation: (RPH) → [(SP)- 1], (RPL) → [(SP)- 2]
 // Description: Push register pair on stack
@@ -635,11 +755,7 @@ uint8_t i8080::XCHG()
 uint8_t i8080::PUSHR ()
 {
     auto pair = pairs[(op & 0x30) >> 4];
-    
-    write(--sp, *(pair + 0));
-    write(--sp, *(pair + 1));
-    
-    return 0;
+    return PUSH(*(pair + 0), *(pair + 1));
 }
 
 // Code: PUSH PSW
@@ -648,10 +764,7 @@ uint8_t i8080::PUSHR ()
 // Flags: -
 uint8_t i8080::PUSH  ()
 {
-    write(--sp, reg[A]);
-    write(--sp, sr);
-    
-    return 0;
+    return PUSH(reg[A], sr);
 }
 
 // Code: POP rp
@@ -661,11 +774,7 @@ uint8_t i8080::PUSH  ()
 uint8_t i8080::POPR  ()
 {
     auto pair = pairs[(op & 0x30) >> 4];
-    
-    *(pair + 1) = read(sp++);
-    *(pair + 0) = read(sp++);
-    
-    return 0;
+    return POP(*(pair + 0), *(pair + 1));
 }
 
 // Code: POP PSW
@@ -674,14 +783,11 @@ uint8_t i8080::POPR  ()
 // Flags: -
 uint8_t i8080::POP   ()
 {
-    reg[A] = read(sp++);
-    sr     = read(sp++);
-    
-    return 0;
+    return POP(reg[A], sr);
 }
 
 // Code: XTHL
-// Operation: [(SP)] ↔ (L), [(SP)+1] ↔ (H)
+// Operation: [(SP)] ↔ (L), [(SP) + 1] ↔ (H)
 // Description: Exchange top of stack, H & L
 // Flags: -
 uint8_t i8080::XTHL  ()
@@ -851,9 +957,7 @@ uint8_t i8080::CALN (uint8_t flag)
 // Flags: -
 uint8_t i8080::CALL ()
 {
-    write(sp - 1, (pc >> 8) & 0xFF);
-    write(sp - 2,  pc & 0xFF);
-    
+    PUSH((pc >> 8) & 0xFF, pc & 0xFF);
     pc = address;
     
     return 0;
@@ -966,10 +1070,12 @@ uint8_t i8080::RETN (uint8_t flag)
 // Flags: -
 uint8_t i8080::RET  ()
 {
-    uint16_t lo = read(sp++);
-    uint16_t hi = read(sp++);
+    uint8_t lo = 0x00;
+    uint8_t hi = 0x00;
+    
+    POP(hi, lo);
 
-    pc = (hi << 8) | lo;
+    pc = ((uint16_t) hi << 8) | lo;
     
     return 0;
 }
@@ -1139,6 +1245,16 @@ uint8_t i8080::INX  ()
     return 0;
 }
 
+// Code: INX SP
+// Operation: (RP) + 1 → r
+// Description: Increment registry pair
+// Flags: -
+uint8_t i8080::INXSP  ()
+{
+    sp++;
+    return 0;
+}
+
 // Code: DCX RP
 // Operation: (RP) - 1 → r
 // Description: Decrement registry pair
@@ -1149,13 +1265,23 @@ uint8_t i8080::DCX  ()
     return 0;
 }
 
+// Code: DCX SP
+// Operation: (RP) - 1 → r
+// Description: Decrement SP
+// Flags: -
+uint8_t i8080::DCXSP  ()
+{
+    sp++;
+    return 0;
+}
+
 #pragma mark -
 #pragma mark Add
 
 uint8_t i8080::ADD(uint8_t data, uint8_t carry)
 {
     uint16_t acc = reg[A];
-    uint16_t tmp = acc + ((uint16_t) data + (uint16_t) carry);
+    uint16_t tmp = acc + (uint16_t) data + (uint16_t) carry;
     reg[A] = tmp & 0x00FF;
     
     sr.SetAllFlags(tmp);
@@ -1244,13 +1370,28 @@ uint8_t i8080::DAD  ()
     return 0;
 }
 
+// Code: DAD SP
+// Operation: (HL) + (SP) → HL
+// Description: Add part to H & L
+// Flags: C
+uint8_t i8080::DADSP  ()
+{
+    uint16_t hldata = readpair(HL);
+    uint16_t tmp = sp + hldata;
+    
+    writepair(HL, tmp);
+    sr.SetCarry(tmp);
+    
+    return 0;
+}
+
 #pragma mark -
 #pragma mark Substract
 
 uint8_t i8080::SUB(uint8_t data, uint8_t carry)
 {
     uint16_t acc = reg[A];
-    uint16_t tmp = acc - ((uint16_t) data - (uint16_t) carry);
+    uint16_t tmp = acc - (uint16_t) data - (uint16_t) carry;
     reg[A] = tmp & 0x00FF;
     
     sr.SetAllFlags(tmp);
@@ -1261,7 +1402,7 @@ uint8_t i8080::SUB(uint8_t data, uint8_t carry)
 uint8_t i8080::SBB(uint8_t data)
 {
     auto carry = sr.GetCarry();
-    return SUB (carry, data);
+    return SUB (data, carry);
 }
 
 // Code: SUB r
@@ -1365,9 +1506,8 @@ uint8_t i8080::CMP (uint8_t value)
     uint8_t  acc = reg[A];
     uint16_t tmp = (uint16_t) acc - (uint16_t) value;
     
-    sr.SetCarry  (acc < value);
-    sr.SetZero   (acc == value);
-    
+    sr.SetCarry  (tmp);
+    sr.SetZero   (tmp);
     sr.SetAux    (tmp);
     sr.SetParity (tmp);
     sr.SetSign   (tmp);
@@ -1431,7 +1571,7 @@ uint8_t i8080::ORAR ()
 // Flags: S,Z,AC,P,C=0
 uint8_t i8080::ORAM ()
 {
-    auto value = *readsrc();
+    auto value = read();
     return ORA(value);
 }
 

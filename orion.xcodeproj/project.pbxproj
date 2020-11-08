@@ -28,13 +28,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A17012C25577150006659C3 /* CPUTEST.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = CPUTEST.com; sourceTree = "<group>"; };
+		8A17012D25577150006659C3 /* 8080EX1.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EX1.com; sourceTree = "<group>"; };
+		8A17013325581512006659C3 /* 8080.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080.com; sourceTree = "<group>"; };
+		8A170136255815E1006659C3 /* 8080EX1.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EX1.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
+		8A170140255818AB006659C3 /* 8080EXER.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EXER.com; sourceTree = "<group>"; };
+		8A170141255818BF006659C3 /* 8080EXER.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXER.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
+		8A170145255818FA006659C3 /* 8080PRE.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080PRE.com; sourceTree = "<group>"; };
+		8A17014625581927006659C3 /* 8080PRE.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080PRE.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8A4C1E4C254B47A600ED6E1E /* materials */ = {isa = PBXFileReference; lastKnownFileType = folder; path = materials; sourceTree = "<group>"; };
 		8A4C1E50254ED0EB00ED6E1E /* Status.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Status.hpp; sourceTree = "<group>"; };
 		8A7AD3E1254B353D0056CB4E /* behaviors.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = behaviors.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7AD3E5254B353D0056CB4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A7AD3F2254B356E0056CB4E /* i8080.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = i8080.mm; sourceTree = "<group>"; };
-		8AA255A625537764007791D5 /* i8080.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = i8080.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
-		8AA255AC25537CF5007791D5 /* i8080.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = i8080.com; sourceTree = "<group>"; };
+		8AA255A625537764007791D5 /* 8080.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AB9437A254A187200636CA0 /* i8080.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = i8080.cpp; sourceTree = "<group>"; };
 		8AB9437B254A187200636CA0 /* i8080.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = i8080.hpp; sourceTree = "<group>"; };
 		8AC0C61E2543AE24008DAA6B /* orion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = orion; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +68,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A170130255814CC006659C3 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				8A17013325581512006659C3 /* 8080.com */,
+				8AA255A625537764007791D5 /* 8080.asm */,
+				8A17012D25577150006659C3 /* 8080EX1.com */,
+				8A170136255815E1006659C3 /* 8080EX1.asm */,
+				8A170140255818AB006659C3 /* 8080EXER.com */,
+				8A170141255818BF006659C3 /* 8080EXER.asm */,
+				8A170145255818FA006659C3 /* 8080PRE.com */,
+				8A17014625581927006659C3 /* 8080PRE.asm */,
+				8A17012C25577150006659C3 /* CPUTEST.com */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
 		8A7AD3E2254B353D0056CB4E /* behaviors */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,11 +104,10 @@
 		8AB94388254B29FD00636CA0 /* cpu */ = {
 			isa = PBXGroup;
 			children = (
+				8A170130255814CC006659C3 /* tests */,
 				8AB9437A254A187200636CA0 /* i8080.cpp */,
 				8AB9437B254A187200636CA0 /* i8080.hpp */,
 				8A4C1E50254ED0EB00ED6E1E /* Status.hpp */,
-				8AA255A625537764007791D5 /* i8080.asm */,
-				8AA255AC25537CF5007791D5 /* i8080.com */,
 			);
 			path = cpu;
 			sourceTree = "<group>";

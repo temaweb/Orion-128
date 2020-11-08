@@ -27,7 +27,7 @@ public:
 private:
     
     uint8_t   reg[8];           // Registers
-    uint8_t * pairs[4];         // Pairs
+    uint8_t * pairs[3];         // Pairs
     
     uint8_t  op      = 0x00;    // Operation code
     uint8_t  cycles  = 0x00;    // Cycle counter
@@ -58,7 +58,6 @@ private:
         BC, //  0x00 - B & C
         DE, //  0x01 - D & E
         HL, //  0x02 - H & L
-        SP  //  0x03 - SP
     };
     
     uint8_t * readsrc();
@@ -72,7 +71,6 @@ private:
 private:
     
     Bus * bus = nullptr;
-    void connect(Bus * bus);
     
     uint8_t read ();
     uint8_t read (uint16_t address);
@@ -98,6 +96,7 @@ private:
     uint8_t MVIR  ();
     uint8_t MVIM  ();
     uint8_t LXI   ();
+    uint8_t LXISP ();
     uint8_t STAX  ();
     uint8_t LDAX  ();
     uint8_t STA   ();
@@ -111,8 +110,10 @@ private:
     
     uint8_t PUSHR ();
     uint8_t PUSH  ();
+    uint8_t PUSH  (uint8_t hi, uint8_t lo);
     uint8_t POPR  ();
     uint8_t POP   ();
+    uint8_t POP   (uint8_t & hi, uint8_t & lo);
     uint8_t XTHL  ();
     uint8_t SPHL  ();
 
@@ -172,8 +173,10 @@ private:
     uint8_t DCRR ();
     uint8_t DCRM ();
     uint8_t INX  ();
+    uint8_t INXSP();
     uint8_t DCX  ();
-
+    uint8_t DCXSP();
+    
     // Add
     
     uint8_t ADD  (uint8_t value, uint8_t carry = 0x00);
@@ -186,6 +189,7 @@ private:
     uint8_t ADI  ();
     uint8_t ACI  ();
     uint8_t DAD  ();
+    uint8_t DADSP();
     
     // Substract
     
@@ -262,6 +266,9 @@ private:
 public:
     
     void clock();
+    void debug();
+    
+    void connect(Bus * bus);
     void execute(int clock);
 };
 
