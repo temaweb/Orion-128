@@ -26,7 +26,7 @@ int main(int argc, const char * argv[])
 
     cpu.connect(&bus);
 
-    std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/8080PRE.COM", std::ios::in | std::ios::binary);
+    std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/CPUTEST.COM", std::ios::in | std::ios::binary);
     char buffer = 0x00;
     uint16_t offset = 0x00000100;
 

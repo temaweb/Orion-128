@@ -39,6 +39,8 @@ private:
     
     Status   sr;                // Status register
     
+    bool isSuccess = false;
+    
 private:
     
     enum
@@ -188,6 +190,7 @@ private:
     uint8_t ADCM ();
     uint8_t ADI  ();
     uint8_t ACI  ();
+    uint8_t DAD  (uint16_t value);
     uint8_t DAD  ();
     uint8_t DADSP();
     

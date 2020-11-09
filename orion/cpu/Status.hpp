@@ -93,7 +93,7 @@ public:
     
     void SetSign (uint16_t value)
     {
-        SetFlag(S, (value & 0x0080));
+        SetSign((bool)(value & 0x0080));
     }
     
     void SetZero (uint16_t value)
@@ -103,7 +103,7 @@ public:
     
     void SetAux (uint16_t value)
     {
-        SetAux(value < 0x000F);
+        SetAux(value > 0x000F);
     }
     
     void SetParity (uint16_t value)

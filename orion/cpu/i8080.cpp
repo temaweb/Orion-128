@@ -27,7 +27,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         // 0x0 - 0xF
         
         { "NOP",     4,        &i8080::NOP,      &i8080::IMP },
-        { "LXI",     10,       &i8080::LXI,      &i8080::IMM },
+        { "LXI",     10,       &i8080::LXI,      &i8080::DIR },
         { "STAX",    7,        &i8080::STAX,     &i8080::IMP },
         { "INX",     5,        &i8080::INX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
@@ -46,7 +46,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         // 0x1 - 0xF
         
         { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
-        { "LXI",     10,       &i8080::LXI,      &i8080::IMM },
+        { "LXI",     10,       &i8080::LXI,      &i8080::DIR },
         { "STAX",    7,        &i8080::STAX,     &i8080::IMP },
         { "INX",     5,        &i8080::INX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
@@ -65,7 +65,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         // 0x2 - 0xF
         
         { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
-        { "LXI",     10,       &i8080::LXI,      &i8080::IMM },
+        { "LXI",     10,       &i8080::LXI,      &i8080::DIR },
         { "SHLD",    16,       &i8080::SHLD,     &i8080::DIR },
         { "INX",     5,        &i8080::INX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
@@ -84,7 +84,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         // 0x3 - 0xF
         
         { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
-        { "LXI",     10,       &i8080::LXISP,    &i8080::IMM },
+        { "LXI",     10,       &i8080::LXISP,    &i8080::DIR },
         { "STA",     13,       &i8080::STA,      &i8080::DIR },
         { "INX",     5,        &i8080::INXSP,    &i8080::IMP },
         { "INR",     10,       &i8080::INRM,     &i8080::HLM },
@@ -340,31 +340,31 @@ void i8080::clock()
         return;
     }
     
-#ifdef LOGTEST
-    int success = 0;
-    
     if (bus -> read(pc) == 0x76) {
         printf("HLT at %04X\n", pc);
     }
     
-    if (pc == 0x0005 && cycles == 0)
+    if (pc == 0x0005)
     {
         if (reg[C] == 9)
         {
             for (int i = readpair(DE); bus -> read(i) != '$'; i += 1) {
+#ifdef LOGTEST
                 putchar(bus -> read(i));
+#endif
             }
             
-            success = 1;
+            isSuccess = true;
         }
         
         if (reg[C] == 2) {
+#ifdef LOGTEST
             putchar((char) reg[E]);
+#endif
         }
     }
-#else
+    
     uint16_t pcl = pc;
-#endif
     
     // Read operation code
     op = read(pc);
@@ -381,50 +381,79 @@ void i8080::clock()
     // Execute operation and add extra cycles
     cycles += (this->*lookup[op].operate)();
     
+
+#ifndef LOGTEST
     
-#ifdef LOGTEST
-    if (pc == 0)
+    using namespace std;
+    
+    cout << uppercase;
+    
+    cout << setfill(' ') << "0x" << setfill('0') << setw(4) << right << hex << unsigned(pcl);
+    cout << setfill(' ') << " "  << setfill('0') << setw(2) << right << hex << unsigned(op);
+    
+    if (lookup[op].addrmod == &i8080::DIR)
     {
-        printf("\nJump to 0000 from %04X\n", pc);
+        uint16_t lo = read(pcl + 1);
+        uint16_t hi = read(pcl + 2);
         
-        if (!success)
-            exit(1);
+        uint8_t value = read((hi << 8) | lo);
         
-        return;
+        cout << setfill(' ') << " "  << setfill('0') << setw(2) << right << hex << unsigned(lo);
+        cout << setfill(' ') << " "  << setfill('0') << setw(2) << right << hex << unsigned(hi);
+        cout << setfill(' ') << " $" << setfill('0') << setw(2) << right << hex << unsigned(value);
+        
+        cout << setfill(' ') << setw(6);
+    }
+    else
+    if (lookup[op].addrmod == &i8080::IMM)
+    {
+        uint8_t value = read(pcl + 1);
+        cout << setfill(' ') << " " << setfill('0') << setw(2) << right << hex << unsigned(value);
+        cout << setfill(' ') << setw(13);
+    }
+    else
+    {
+        cout << setfill(' ') << setw(16);
     }
     
-    if (pc == 0)
-    {
-        printf("\nJump to 0000 from %04X\n", pc);
-        
-        if (!success)
-            exit(1);
-        
-        return;
-    }
+    cout << right << lookup[op].name;
     
-#else
-    std::cout
-        << "0x" << std::setw(4) << std::hex << std::left << static_cast<int>(pcl)
-        << std::setw(5) << std::right << lookup[op].name << " "
-        << std::bitset<8>(op)
+    cout << "  A:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[A]);
+    cout << "  B:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[B]);
+    cout << "  C:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[C]);
+    cout << "  D:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[D]);
+    cout << "  E:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[E]);
+    cout << "  H:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[H]);
+    cout << "  L:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[L]);
+    
+    
+    cout << "  $"  << std::setfill('0') << std::setw(2) << std::right << unsigned(read(readpair(BC)));
+    cout << "  $"  << std::setfill('0') << std::setw(2) << std::right << unsigned(read(readpair(DE)));
+    cout << "  $"  << std::setfill('0') << std::setw(2) << std::right << unsigned(read(readpair(HL)));
+    
+   
+    
+    cout << "  S="  << unsigned(sr.GetSign());
+    cout << "  Z="  << unsigned(sr.GetZero());
+    cout << "  AC=" << unsigned(sr.GetAux());
+    cout << "  P="  << unsigned(sr.GetParity());
+    cout << "  C="  << unsigned(sr.GetCarry());
+    
+    cout << "  0x" << std::setfill('0') << std::setw(4) << std::right << unsigned(sp);
+    
+    cout << endl;
 
-        << " A: "  << std::bitset<8>(reg[A])
-        << " B: "  << std::bitset<8>(reg[B])
-        << " C: "  << std::bitset<8>(reg[C])
-        << " D: "  << std::bitset<8>(reg[D])
-        << " E: "  << std::bitset<8>(reg[E])
-        << " H: "  << std::bitset<8>(reg[H])
-        << " L: "  << std::bitset<8>(reg[L])
-
-        << " SP 0x"  << std::setw(5) << std::hex << std::left << static_cast<int>(sp)
-        << " FL: " << std::bitset<8>(sr)
-
-        << std::endl;
 #endif
     
+    
     if (pc == 0)
-        exit(1);
+    {
+        printf("\nJump to 0000 from %04X\n", pcl);
+        exit(!isSuccess);
+        
+        return;
+    }
+    
 }
 
 void i8080::debug()
@@ -612,14 +641,7 @@ uint8_t i8080::MVIM()
 // Description: Load immediate register pair B & C
 uint8_t i8080::LXI()
 {
-    auto index = (op & 0x30) >> 4;
-    auto pair  = pairs[index];
-    
-    *(pair + 0) = read(address + 1); // HI
-    *(pair + 1) = read(address + 0); // LO
-    
-    pc++;
-    
+    writepair((op & 0x30) >> 4, address);
     return 0;
 }
 
@@ -628,12 +650,7 @@ uint8_t i8080::LXI()
 // Description: Load immediate SP
 uint8_t i8080::LXISP()
 {
-    uint16_t hi = read(address + 1);
-    uint16_t lo = read(address + 0);
-
-    sp = (hi << 8) | lo;
-    pc++;
-    
+    sp = address;
     return 0;
 }
 
@@ -1271,7 +1288,7 @@ uint8_t i8080::DCX  ()
 // Flags: -
 uint8_t i8080::DCXSP  ()
 {
-    sp++;
+    sp--;
     return 0;
 }
 
@@ -1357,17 +1374,25 @@ uint8_t i8080::ACI  ()
 // Operation: (HL) + (RP) → HL
 // Description: Add part to H & L
 // Flags: C
+uint8_t i8080::DAD  (uint16_t value)
+{
+    uint32_t hldata = readpair(HL);
+    uint32_t tmp = (uint32_t) value + hldata;
+    
+    writepair(HL, tmp & 0xFFFF);
+    sr.SetCarry((bool)(tmp & 0x10000L));
+    
+    return 0;
+}
+
+// Code: DAD rp
+// Operation: (HL) + (RP) → HL
+// Description: Add part to H & L
+// Flags: C
 uint8_t i8080::DAD  ()
 {
     uint16_t rpdata = readpair((op & 0x30) >> 4);
-    uint16_t hldata = readpair(HL);
-    
-    uint16_t tmp = rpdata + hldata;
-    
-    writepair(HL, tmp);
-    sr.SetCarry(tmp);
-    
-    return 0;
+    return DAD(rpdata);
 }
 
 // Code: DAD SP
@@ -1376,13 +1401,7 @@ uint8_t i8080::DAD  ()
 // Flags: C
 uint8_t i8080::DADSP  ()
 {
-    uint16_t hldata = readpair(HL);
-    uint16_t tmp = sp + hldata;
-    
-    writepair(HL, tmp);
-    sr.SetCarry(tmp);
-    
-    return 0;
+    return DAD(sp);
 }
 
 #pragma mark -
@@ -1734,21 +1753,23 @@ uint8_t i8080::CMC  ()
 // Flags: S,Z,AC,P,C
 uint8_t i8080::DAA  ()
 {
-    uint16_t acc = (uint16_t) reg[A];
+    uint8_t acc = reg[A];
+    uint8_t add = 0x00;
+    uint8_t carry = 0x00;
     
-    if ((acc & 0x000F) > 0x0009 || sr.GetAux())
+    if (sr.GetAux() || (acc & 0x0F) > 0x09)
     {
-        acc |= 0x0006;
+        add = 0x06;
     }
 
-    if (((acc & 0x00F0) >> 4) > 0x0009 || sr.GetCarry())
+    if (sr.GetCarry() || (acc >> 4) > 0x09 || ((acc >> 4) >= 0x09 && (acc & 0x0F) > 0x09))
     {
-        acc |= 0x0060;
+        add |= 0x60;
+        carry = 0x01;
     }
     
-    reg[A] = acc & 0x00FF;
-    
-    sr.SetAllFlags(acc);
+    ADD(add);
+    sr.SetCarry((bool) carry);
     
     return 0;
 }
@@ -1765,8 +1786,8 @@ uint8_t i8080::IN   ()
     return 0;
 }
 
-// Code: IN
-// Operation: Input
+// Code: OUT
+// Operation: Output
 // Flags: -
 uint8_t i8080::OUT  ()
 {
