@@ -25,7 +25,7 @@ private:
         P  = (1 << 2), // P
         C  = (1 << 0)  // C
     };
-    
+
     void SetFlag(Flags flag, bool value)
     {
         if (value) {
@@ -34,7 +34,7 @@ private:
             sr &= ~flag;
         }
         
-        sr = (sr & 0xD7) | 0x02;
+        //sr = (sr & 0xD7) | 0x02;
     }
     
 public:
@@ -46,18 +46,11 @@ public:
     
     Status& operator=(const uint8_t & status)
     {
-        sr = status;
-        return *this;
-    }
-    
-    Status& operator=(uint8_t&& status)
-    {
-        sr = status;
+        sr = (status & 0xD7) | 0x02;
         return *this;
     }
 
-    
-    operator uint8_t&()
+    operator uint8_t ()
     {
         return sr;
     }

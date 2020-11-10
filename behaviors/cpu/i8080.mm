@@ -126,4 +126,15 @@ i8080 * _cpu;
     XCTAssertTrue(_bus -> read(0xC001) == 0xFF);
 }
 
+- (void) testAC
+{
+    // Given
+    _bus -> write("3E FF 06 FF 80");
+    
+    // When
+    _cpu -> execute(10);
+    
+    // Then
+}
+
 @end

@@ -19,7 +19,7 @@ int main(int argc, const char * argv[])
     Bus bus;
     i8080 cpu;
 
-    std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/CPUTEST.COM", std::ios::in | std::ios::binary);
+    std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/8080EXM.COM", std::ios::in | std::ios::binary);
     char buffer = 0x00;
     uint16_t offset = 0x0100;
 
@@ -36,5 +36,13 @@ int main(int argc, const char * argv[])
     cpu.connect(&bus);
     cpu.debug();
 
+    
+//    // Given
+//    bus.write("3E E5 06 05 B8");
+//
+//    // When
+//    cpu.connect(&bus);
+//    cpu.execute(21);
+    
     return 0;
 }

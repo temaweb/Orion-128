@@ -29,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		8A0BAD452559EC4B0018B3C0 /* exerciser.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = exerciser.txt; sourceTree = "<group>"; };
-		8A0EEEC12559D25400AE3638 /* output.log */ = {isa = PBXFileReference; lastKnownFileType = text; path = output.log; sourceTree = "<group>"; };
 		8A17012C25577150006659C3 /* CPUTEST.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = CPUTEST.com; sourceTree = "<group>"; };
 		8A17012D25577150006659C3 /* 8080EX1.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EX1.com; sourceTree = "<group>"; };
 		8A170136255815E1006659C3 /* 8080EX1.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EX1.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
@@ -82,7 +81,6 @@
 				8A170145255818FA006659C3 /* 8080PRE.com */,
 				8A17014625581927006659C3 /* 8080PRE.asm */,
 				8A17012C25577150006659C3 /* CPUTEST.com */,
-				8A0EEEC12559D25400AE3638 /* output.log */,
 				8A0BAD452559EC4B0018B3C0 /* exerciser.txt */,
 			);
 			path = tests;

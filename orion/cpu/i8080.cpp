@@ -12,7 +12,7 @@
 #include "i8080.hpp"
 #include "Bus.hpp"
 
-//#define LOGTEST
+#define LOGTEST
 
 i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 {
@@ -54,7 +54,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
         { "MVI",     7,        &i8080::MVIR,     &i8080::IMM },
         { "RAL",     4,        &i8080::RAL,      &i8080::IMP },
-        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "NOP",     4,        &i8080::NOP,      &i8080::IMP },
         { "DAD",     10,       &i8080::DAD,      &i8080::IMP },
         { "LDAX",    7,        &i8080::LDAX,     &i8080::IND },
         { "DCX",     5,        &i8080::DCX,      &i8080::IMP },
@@ -333,12 +333,14 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 
 void i8080::clock()
 {
-    //counter++; // 33690338
+    counter++; // 33690338
     
     if (cycles > 0)
     {
         // Set additional delay?
-         cycles--;
+        cycles--;
+        
+        return;
     }
     
     if (bus -> read(pc) == 0x76) {
@@ -350,7 +352,7 @@ void i8080::clock()
         if (reg[C] == 9)
         {
             for (int i = readpair(DE); bus -> read(i) != '$'; i += 1) {
-#ifndef LOGTEST
+#ifdef LOGTEST
                 putchar(bus -> read(i));
 #endif
             }
@@ -359,7 +361,7 @@ void i8080::clock()
         }
 
         if (reg[C] == 2) {
-#ifndef LOGTEST
+#ifdef LOGTEST
             putchar((char) reg[E]);
 #endif
         }
@@ -381,9 +383,8 @@ void i8080::clock()
     
     // Execute operation and add extra cycles
     cycles += (this->*lookup[op].operate)();
-    
-if (counter < 0)
-{
+
+#ifndef LOGTEST
     using namespace std;
 
     cout << uppercase;
@@ -438,7 +439,7 @@ if (counter < 0)
 
     cout << "  0x" << std::setfill('0') << std::setw(4) << std::right << unsigned(sp);
     cout << endl;
-}
+#endif
     
     if (pc == 0)
     {
@@ -446,6 +447,14 @@ if (counter < 0)
         exit(!isSuccess);
         
         return;
+    }
+}
+
+void i8080::execute(int c)
+{
+    while (c-- > 0)
+    {
+        clock();
     }
 }
 
@@ -786,7 +795,12 @@ uint8_t i8080::POPR  ()
 // Flags: -
 uint8_t i8080::POP   ()
 {
-    return POP(reg[A], sr);
+    uint8_t status = sr;
+    uint8_t cycles = POP(reg[A], status);
+    
+    sr = status;
+    
+    return cycles;
 }
 
 // Code: XTHL
@@ -1171,8 +1185,10 @@ uint8_t i8080::RPO  ()
 // Description: Restart
 uint8_t i8080::RST  ()
 {
-    write(sp - 1, (pc >> 8) & 0xFF);
-    write(sp - 2,  pc & 0xFF);
+    auto hi = (pc >> 8) & 0xFF;
+    auto lo = pc & 0x00FF;
+    
+    PUSH(hi, lo);
     
     pc = (uint16_t) op & 0x38;
     
@@ -1821,11 +1837,4 @@ uint8_t i8080::HLT  ()
 uint8_t i8080::NOP()
 {
     return 0;
-}
-
-// Code: -
-// Operation: -
-uint8_t i8080::XXX()
-{
-    return NOP();
 }
