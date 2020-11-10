@@ -33,8 +33,6 @@ private:
         } else {
             sr &= ~flag;
         }
-        
-        //sr = (sr & 0xD7) | 0x02;
     }
     
 public:
@@ -57,7 +55,6 @@ public:
     
 public:
 
-    
     void SetSign (bool flag)
     {
         SetFlag(S, flag);
@@ -82,7 +79,6 @@ public:
     {
         SetFlag(C, flag);
     }
-    
     
 public:
     
@@ -119,12 +115,7 @@ public:
     
     void InvertCarry()
     {
-        SetCarry(!GetCarry());
-    }
-    
-    void InvertAux()
-    {
-        SetAux(!GetAux());
+        sr ^= C;
     }
     
 public:

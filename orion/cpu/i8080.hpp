@@ -8,11 +8,9 @@
 #ifndef i8080_hpp
 #define i8080_hpp
 
-#include <stdio.h>
 #include <cstdint>
 #include <string>
 #include <vector>
-#include <fstream>
 
 #include "Status.hpp"
 
@@ -30,18 +28,18 @@ private:
     uint8_t   reg[8];           // Registers
     uint8_t * pairs[3];         // Pairs
     
-    uint8_t  op      = 0x00;    // Operation code
+    uint8_t  opcode  = 0x00;    // Operation code
     uint8_t  cycles  = 0x00;    // Cycle counter
 
     uint16_t sp      = 0x0000;  // Stack pointer
     uint16_t pc      = 0x0000;  // Program counter
     
     uint16_t address = 0x0000;  // Current memory pointer
-    uint64_t counter = 0x0L;
+    uint64_t ticks   = 0x0L;    // Clock counter
     
     Status   sr;                // Status register
     
-    bool isSuccess = false;
+    friend void log( uint16_t pcl, i8080 * cpu );
     
 private:
     
@@ -67,9 +65,9 @@ private:
     uint8_t * readsrc();
     uint8_t * readdst();
     
-    uint16_t readpair (const uint8_t & index);
-    void writepair    (const uint8_t & index, const uint16_t & data);
-    void mutatepair   (const uint8_t & index, std::function<void(uint16_t &)> mutator);
+    uint16_t readpair (uint8_t index);
+    void writepair    (uint8_t index, uint16_t data);
+    void mutatepair   (uint8_t index, std::function<void(uint16_t &)> mutator);
     
 // Bus communication
 private:
@@ -255,13 +253,15 @@ private:
     uint8_t DI   ();
     uint8_t NOP  ();
     uint8_t HLT  ();
-    uint8_t XXX  ();
 
 private:
     
     struct Command
     {
+        // Operation name
         std::string name;
+        
+        // Operation cycles
         uint8_t cycles = 0x00;
         
         uint8_t (i8080::*operate) (void) = nullptr;
@@ -275,7 +275,9 @@ public:
     void clock();
     void debug();
     void connect(Bus * bus);
-    void execute(int clock);
+    void log (uint16_t pcl);
 };
+
+void log( uint16_t pcl, i8080 * cpu );
 
 #endif /* i8080_hpp */
