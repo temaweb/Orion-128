@@ -6,12 +6,13 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 
 #include "i8080.hpp"
 #include "Bus.hpp"
 
-#define LOGTEST
+//#define LOGTEST
 
 i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 {
@@ -32,9 +33,9 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "INX",     5,        &i8080::INX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
-        { "MVI",     5,        &i8080::MVIR,     &i8080::IMM },
+        { "MVI",     7,        &i8080::MVIR,     &i8080::IMM },
         { "RLC",     4,        &i8080::RLC,      &i8080::IMP },
-        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "NOP",     4,        &i8080::NOP,      &i8080::IMP },
         { "DAD",     10,       &i8080::DAD,      &i8080::IMP },
         { "LDAX",    7,        &i8080::LDAX,     &i8080::IND },
         { "DCX",     5,        &i8080::DCX,      &i8080::IMP },
@@ -45,13 +46,13 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         
         // 0x1 - 0xF
         
-        { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
+        { "NOP",     4,        &i8080::NOP,      &i8080::IMP },
         { "LXI",     10,       &i8080::LXI,      &i8080::DIR },
         { "STAX",    7,        &i8080::STAX,     &i8080::IMP },
         { "INX",     5,        &i8080::INX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
-        { "MVI",     5,        &i8080::MVIR,     &i8080::IMM },
+        { "MVI",     7,        &i8080::MVIR,     &i8080::IMM },
         { "RAL",     4,        &i8080::RAL,      &i8080::IMP },
         { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
         { "DAD",     10,       &i8080::DAD,      &i8080::IMP },
@@ -64,15 +65,15 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         
         // 0x2 - 0xF
         
-        { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
+        { "NOP",     4,        &i8080::NOP,      &i8080::IMP },
         { "LXI",     10,       &i8080::LXI,      &i8080::DIR },
         { "SHLD",    16,       &i8080::SHLD,     &i8080::DIR },
         { "INX",     5,        &i8080::INX,      &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
-        { "MVI",     5,        &i8080::MVIR,     &i8080::IMM },
+        { "MVI",     7,        &i8080::MVIR,     &i8080::IMM },
         { "DAA",     4,        &i8080::DAA,      &i8080::IMP },
-        { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
+        { "NOP",     4,        &i8080::NOP,      &i8080::IMP },
         { "DAD",     10,       &i8080::DAD,      &i8080::IMP },
         { "LHLD",    16,       &i8080::LHLD,     &i8080::DIR },
         { "DCX",     5,        &i8080::DCX,      &i8080::IMP },
@@ -83,7 +84,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         
         // 0x3 - 0xF
         
-        { "XXX",     4,        &i8080::XXX,      &i8080::IMP },
+        { "NOP",     4,        &i8080::NOP,      &i8080::IMP },
         { "LXI",     10,       &i8080::LXISP,    &i8080::DIR },
         { "STA",     13,       &i8080::STA,      &i8080::DIR },
         { "INX",     5,        &i8080::INXSP,    &i8080::IMP },
@@ -91,10 +92,10 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "DCR",     10,       &i8080::DCRM,     &i8080::HLM },
         { "MVI",     10,       &i8080::MVIM,     &i8080::IMM },
         { "STC",     4,        &i8080::STC,      &i8080::IMP },
-        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "NOP",     4,        &i8080::NOP,      &i8080::IMP },
         { "DAD",     10,       &i8080::DADSP,    &i8080::IMP },
-        { "LDA",     16,       &i8080::LDA,      &i8080::DIR },
-        { "DCX",     13,       &i8080::DCXSP,    &i8080::IMP },
+        { "LDA",     13,       &i8080::LDA,      &i8080::DIR },
+        { "DCX",     5,        &i8080::DCXSP,    &i8080::IMP },
         { "INR",     5,        &i8080::INRR,     &i8080::IMP },
         { "DCR",     5,        &i8080::DCRR,     &i8080::IMP },
         { "MVI",     7,        &i8080::MVIR,     &i8080::IMM },
@@ -165,7 +166,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
         { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
         { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
-        { "MOV",     7,        &i8080::HLT,      &i8080::IMP },
+        { "HLT",     4,        &i8080::HLT,      &i8080::IMP },
         { "MOV",     7,        &i8080::MOVMR,    &i8080::HLM },
         { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
         { "MOV",     5,        &i8080::MOVRR,    &i8080::IMP },
@@ -260,7 +261,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "JMP",    10,        &i8080::JMP,      &i8080::DIR },
         { "CNZ",    11,        &i8080::CNZ,      &i8080::DIR },
         { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
-        { "ADI",    11,        &i8080::ADI,      &i8080::IMM },
+        { "ADI",     7,        &i8080::ADI,      &i8080::IMM },
         { "RST",    11,        &i8080::RST,      &i8080::IMP },
         { "RZ",     5,         &i8080::RZ,       &i8080::IMP },
         { "RET",    10,        &i8080::RET,      &i8080::IMP },
@@ -279,7 +280,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "OUT",    10,        &i8080::OUT,      &i8080::IMP },
         { "CNC",    11,        &i8080::CNC,      &i8080::DIR },
         { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
-        { "SUI",    11,        &i8080::SUI,      &i8080::IMM },
+        { "SUI",     7,        &i8080::SUI,      &i8080::IMM },
         { "RST",    11,        &i8080::RST,      &i8080::IMP },
         { "RC",     5,         &i8080::RC,       &i8080::IMP },
         { "RET",    10,        &i8080::RET,      &i8080::IMP }, // <~ RET undocumented?
@@ -298,14 +299,14 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "XTHL",   18,        &i8080::XTHL,     &i8080::IMP },
         { "CPO",    11,        &i8080::CPO,      &i8080::DIR },
         { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
-        { "ANI",    11,        &i8080::ANI,      &i8080::IMM },
+        { "ANI",     7,        &i8080::ANI,      &i8080::IMM },
         { "RST",    11,        &i8080::RST,      &i8080::IMP },
         { "RPE",     5,        &i8080::RPE,      &i8080::IMP },
         { "PCHL",    5,        &i8080::PCHL,     &i8080::IMP },
         { "JPE",    10,        &i8080::JPE,      &i8080::DIR },
         { "XCHG",    4,        &i8080::XCHG,     &i8080::IMP },
         { "CPE",    11,        &i8080::CPE,      &i8080::DIR },
-        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "CALL",   17,        &i8080::CALL,     &i8080::DIR }, // <~ CALL undocumented?
         { "XDI",     7,        &i8080::XRI,      &i8080::IMM },
         { "RST",    11,        &i8080::RST,      &i8080::IMP },
         
@@ -317,14 +318,14 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "DI",      4,        &i8080::DI,       &i8080::IMP },
         { "CP",     11,        &i8080::CP,       &i8080::DIR },
         { "PUSH",   11,        &i8080::PUSH,     &i8080::IMP },
-        { "ORI",    11,        &i8080::ORI,      &i8080::IMM },
+        { "ORI",     7,        &i8080::ORI,      &i8080::IMM },
         { "RST",    11,        &i8080::RST,      &i8080::IMP },
         { "RM",      5,        &i8080::RM,       &i8080::IMP },
         { "SPHL",    5,        &i8080::SPHL,     &i8080::IMP },
         { "JM",     10,        &i8080::JM,       &i8080::DIR },
         { "EI",      4,        &i8080::EI,       &i8080::IMP },
         { "CM",     11,        &i8080::CM,       &i8080::DIR },
-        { "XXX",     1,        &i8080::XXX,      &i8080::IMP },
+        { "CALL",   17,        &i8080::CALL,     &i8080::DIR }, // <~ CALL undocumented?
         { "CPI",     7,        &i8080::CPI,      &i8080::IMM },
         { "RST",    11,        &i8080::RST,      &i8080::IMP },
     };
@@ -332,33 +333,33 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 
 void i8080::clock()
 {
+    //counter++; // 33690338
+    
     if (cycles > 0)
     {
         // Set additional delay?
-        cycles--;
-        
-        return;
+         cycles--;
     }
     
     if (bus -> read(pc) == 0x76) {
         printf("HLT at %04X\n", pc);
     }
-    
+
     if (pc == 0x0005)
     {
         if (reg[C] == 9)
         {
             for (int i = readpair(DE); bus -> read(i) != '$'; i += 1) {
-#ifdef LOGTEST
+#ifndef LOGTEST
                 putchar(bus -> read(i));
 #endif
             }
-            
+
             isSuccess = true;
         }
-        
+
         if (reg[C] == 2) {
-#ifdef LOGTEST
+#ifndef LOGTEST
             putchar((char) reg[E]);
 #endif
         }
@@ -381,31 +382,29 @@ void i8080::clock()
     // Execute operation and add extra cycles
     cycles += (this->*lookup[op].operate)();
     
-
-#ifndef LOGTEST
-    
+if (counter < 0)
+{
     using namespace std;
-    
+
     cout << uppercase;
-    
+
     cout << setfill(' ') << "0x" << setfill('0') << setw(4) << right << hex << unsigned(pcl);
     cout << setfill(' ') << " "  << setfill('0') << setw(2) << right << hex << unsigned(op);
-    
+
     if (lookup[op].addrmod == &i8080::DIR)
     {
         uint16_t lo = read(pcl + 1);
         uint16_t hi = read(pcl + 2);
-        
+
         uint8_t value = read((hi << 8) | lo);
-        
+
         cout << setfill(' ') << " "  << setfill('0') << setw(2) << right << hex << unsigned(lo);
         cout << setfill(' ') << " "  << setfill('0') << setw(2) << right << hex << unsigned(hi);
         cout << setfill(' ') << " $" << setfill('0') << setw(2) << right << hex << unsigned(value);
-        
+
         cout << setfill(' ') << setw(6);
     }
-    else
-    if (lookup[op].addrmod == &i8080::IMM)
+    else if (lookup[op].addrmod == &i8080::IMM)
     {
         uint8_t value = read(pcl + 1);
         cout << setfill(' ') << " " << setfill('0') << setw(2) << right << hex << unsigned(value);
@@ -415,36 +414,31 @@ void i8080::clock()
     {
         cout << setfill(' ') << setw(16);
     }
-    
+
     cout << right << lookup[op].name;
-    
-    cout << "  A:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[A]);
-    cout << "  B:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[B]);
-    cout << "  C:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[C]);
-    cout << "  D:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[D]);
-    cout << "  E:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[E]);
-    cout << "  H:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[H]);
-    cout << "  L:"  << "0x" << std::setfill('0') << std::setw(2) << std::right << unsigned(reg[L]);
-    
-    
-    cout << "  $"  << std::setfill('0') << std::setw(2) << std::right << unsigned(read(readpair(BC)));
-    cout << "  $"  << std::setfill('0') << std::setw(2) << std::right << unsigned(read(readpair(DE)));
-    cout << "  $"  << std::setfill('0') << std::setw(2) << std::right << unsigned(read(readpair(HL)));
-    
-   
-    
+
+    cout << "  A:"  << "0x" << setfill('0') << setw(2) << right << unsigned(reg[A]);
+    cout << "  B:"  << "0x" << setfill('0') << setw(2) << right << unsigned(reg[B]);
+    cout << "  C:"  << "0x" << setfill('0') << setw(2) << right << unsigned(reg[C]);
+    cout << "  D:"  << "0x" << setfill('0') << setw(2) << right << unsigned(reg[D]);
+    cout << "  E:"  << "0x" << setfill('0') << setw(2) << right << unsigned(reg[E]);
+    cout << "  H:"  << "0x" << setfill('0') << setw(2) << right << unsigned(reg[H]);
+    cout << "  L:"  << "0x" << setfill('0') << setw(2) << right << unsigned(reg[L]);
+
+
+    cout << "  $"  << setfill('0') << setw(2) << right << unsigned(read(readpair(BC)));
+    cout << "  $"  << setfill('0') << setw(2) << right << unsigned(read(readpair(DE)));
+    cout << "  $"  << setfill('0') << setw(2) << right << unsigned(read(readpair(HL)));
+
     cout << "  S="  << unsigned(sr.GetSign());
     cout << "  Z="  << unsigned(sr.GetZero());
     cout << "  AC=" << unsigned(sr.GetAux());
     cout << "  P="  << unsigned(sr.GetParity());
     cout << "  C="  << unsigned(sr.GetCarry());
-    
-    cout << "  0x" << std::setfill('0') << std::setw(4) << std::right << unsigned(sp);
-    
-    cout << endl;
 
-#endif
-    
+    cout << "  0x" << std::setfill('0') << std::setw(4) << std::right << unsigned(sp);
+    cout << endl;
+}
     
     if (pc == 0)
     {
@@ -453,23 +447,15 @@ void i8080::clock()
         
         return;
     }
-    
 }
 
 void i8080::debug()
 {
     pc = 0x100;
+
     while (true)
     {
         clock();
-    }
-}
-
-void i8080::execute(int clock)
-{
-    for (int i=0; i < clock; i++)
-    {
-        this -> clock();
     }
 }
 
@@ -1196,6 +1182,21 @@ uint8_t i8080::RST  ()
 #pragma mark -
 #pragma mark Increment and decrement
 
+
+// Code: INR R
+// Operation: (r) + 1 → r
+// Description: Increment register
+// Flags: S,Z,AC,P
+uint8_t i8080::INR (uint16_t value)
+{
+    *readdst() = ++value & 0x00FF;
+    
+    sr.SetDecFlags(value);
+    sr.SetAux((value & 0x000F) == 0);
+    
+    return 0;
+}
+
 // Code: INR R
 // Operation: (r) + 1 → r
 // Description: Increment register
@@ -1203,11 +1204,7 @@ uint8_t i8080::RST  ()
 uint8_t i8080::INRR ()
 {
     uint16_t value = *readdst();
-    *readdst() = ++value & 0x00FF;
-    
-    sr.SetAuxFlags(value);
-
-    return 0;
+    return INR(value);
 }
 
 // Code: INR M
@@ -1217,9 +1214,19 @@ uint8_t i8080::INRR ()
 uint8_t i8080::INRM ()
 {
     uint16_t value = read();
-    write(++value & 0x00FF);
+    return INR(value);
+}
 
-    sr.SetAuxFlags(value);
+// Code: DCR r
+// Operation: (r) – 1 → r
+// Description: Decrement register
+// Flags: S,Z,AC,P
+uint8_t i8080::DCR (uint16_t value)
+{
+    *readdst() = --value & 0x00FF;
+    
+    sr.SetDecFlags(value);
+    sr.SetAux((value & 0x000F) != 0x000F);
     
     return 0;
 }
@@ -1231,11 +1238,7 @@ uint8_t i8080::INRM ()
 uint8_t i8080::DCRR ()
 {
     uint16_t value = *readdst();
-    *readdst() = --value & 0x00FF;
-    
-    sr.SetAuxFlags(value);
-    
-    return 0;
+    return DCR(value);
 }
 
 // Code: DCR M
@@ -1245,11 +1248,7 @@ uint8_t i8080::DCRR ()
 uint8_t i8080::DCRM ()
 {
     uint16_t value = read();
-    write(--value & 0x00FF);
-
-    sr.SetAuxFlags(value);
-    
-    return 0;
+    return DCR(value);
 }
 
 // Code: INX RP
@@ -1295,13 +1294,18 @@ uint8_t i8080::DCXSP  ()
 #pragma mark -
 #pragma mark Add
 
-uint8_t i8080::ADD(uint8_t data, uint8_t carry)
+uint8_t i8080::ADD(uint8_t value, uint8_t carry)
 {
     uint16_t acc = reg[A];
-    uint16_t tmp = acc + (uint16_t) data + (uint16_t) carry;
+    uint16_t tmp = acc + value + carry;
     reg[A] = tmp & 0x00FF;
     
-    sr.SetAllFlags(tmp);
+    sr.SetDecFlags(tmp);
+    
+    uint16_t hc = tmp ^ acc ^ value;
+
+    sr.SetAux   ((bool) (hc & (1 << 4)));
+    sr.SetCarry ((bool) (hc & (1 << 8)));
     
     return 0;
 }
@@ -1309,7 +1313,7 @@ uint8_t i8080::ADD(uint8_t data, uint8_t carry)
 uint8_t i8080::ADC(uint8_t data)
 {
     auto carry = sr.GetCarry();
-    return ADD (carry, data);
+    return ADD (data, carry);
 }
 
 // Code: ADD r
@@ -1409,11 +1413,8 @@ uint8_t i8080::DADSP  ()
 
 uint8_t i8080::SUB(uint8_t data, uint8_t carry)
 {
-    uint16_t acc = reg[A];
-    uint16_t tmp = acc - (uint16_t) data - (uint16_t) carry;
-    reg[A] = tmp & 0x00FF;
-    
-    sr.SetAllFlags(tmp);
+    ADD(~data, !carry);
+    sr.InvertCarry();
     
     return 0;
 }
@@ -1487,10 +1488,11 @@ uint8_t i8080::SBI  ()
 
 uint8_t i8080::ANA  (uint8_t data)
 {
-    uint16_t tmp = ((uint16_t) reg[A]) & ((uint16_t) data);
-    reg[A] = tmp & 0x00FF;
+    sr.SetAux(((reg[A] | data) & 0x08) != 0);
     
-    sr.SetDecFlags (tmp);
+    reg[A] &= data;
+    
+    sr.SetDecFlags (reg[A]);
     sr.SetCarry    (false);
     
     return 0;
@@ -1498,10 +1500,9 @@ uint8_t i8080::ANA  (uint8_t data)
 
 uint8_t i8080::XRA  (uint8_t data)
 {
-    uint16_t tmp = ((uint16_t) reg[A]) ^ ((uint16_t) data);
-    reg[A] = tmp & 0x00FF;
+    reg[A] ^= data;
     
-    sr.SetDecFlags (tmp);
+    sr.SetDecFlags (reg[A]);
     sr.SetAux      (false);
     sr.SetCarry    (false);
     
@@ -1510,10 +1511,9 @@ uint8_t i8080::XRA  (uint8_t data)
 
 uint8_t i8080::ORA  (uint8_t data)
 {
-    uint16_t tmp = ((uint16_t) reg[A]) | ((uint16_t) data);
-    reg[A] = tmp & 0x00FF;
+    reg[A] |= data;
     
-    sr.SetDecFlags (tmp);
+    sr.SetDecFlags (reg[A]);
     sr.SetAux      (false);
     sr.SetCarry    (false);
     
@@ -1522,14 +1522,11 @@ uint8_t i8080::ORA  (uint8_t data)
 
 uint8_t i8080::CMP (uint8_t value)
 {
-    uint8_t  acc = reg[A];
-    uint16_t tmp = (uint16_t) acc - (uint16_t) value;
+    uint16_t acc = reg[A];
+    uint16_t tmp = acc - value;
     
-    sr.SetCarry  (tmp);
-    sr.SetZero   (tmp);
-    sr.SetAux    (tmp);
-    sr.SetParity (tmp);
-    sr.SetSign   (tmp);
+    sr.SetAllFlags(tmp);
+    sr.SetAux( (bool)(~(acc ^ tmp ^ value) & 0x10) );
     
     return 0;
 }
@@ -1742,9 +1739,7 @@ uint8_t i8080::STC  ()
 // Flags: C
 uint8_t i8080::CMC  ()
 {
-    auto carry = !sr.GetCarry();
-    sr.SetCarry(carry);
-    
+    sr.InvertCarry();
     return 0;
 }
 

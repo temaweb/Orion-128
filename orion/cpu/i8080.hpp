@@ -12,6 +12,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include "Status.hpp"
 
@@ -36,6 +37,7 @@ private:
     uint16_t pc      = 0x0000;  // Program counter
     
     uint16_t address = 0x0000;  // Current memory pointer
+    uint64_t counter = 0x0L;
     
     Status   sr;                // Status register
     
@@ -170,8 +172,10 @@ private:
     
     // Increment and decrement
     
+    uint8_t INR  (uint16_t value);
     uint8_t INRR ();
     uint8_t INRM ();
+    uint8_t DCR  (uint16_t value);
     uint8_t DCRR ();
     uint8_t DCRM ();
     uint8_t INX  ();
@@ -270,7 +274,6 @@ public:
     
     void clock();
     void debug();
-    
     void connect(Bus * bus);
     void execute(int clock);
 };

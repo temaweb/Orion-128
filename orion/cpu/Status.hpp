@@ -33,6 +33,8 @@ private:
         } else {
             sr &= ~flag;
         }
+        
+        sr = (sr & 0xD7) | 0x02;
     }
     
 public:
@@ -103,7 +105,7 @@ public:
     
     void SetAux (uint16_t value)
     {
-        SetAux(value > 0x000F);
+        SetAux((value & 0x010) != 0);
     }
     
     void SetParity (uint16_t value)
@@ -120,6 +122,16 @@ public:
     void SetCarry (uint16_t value)
     {
         SetCarry((value & 0x100) != 0);
+    }
+    
+    void InvertCarry()
+    {
+        SetCarry(!GetCarry());
+    }
+    
+    void InvertAux()
+    {
+        SetAux(!GetAux());
     }
     
 public:

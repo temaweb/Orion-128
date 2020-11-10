@@ -28,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A0BAD452559EC4B0018B3C0 /* exerciser.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = exerciser.txt; sourceTree = "<group>"; };
+		8A0EEEC12559D25400AE3638 /* output.log */ = {isa = PBXFileReference; lastKnownFileType = text; path = output.log; sourceTree = "<group>"; };
 		8A17012C25577150006659C3 /* CPUTEST.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = CPUTEST.com; sourceTree = "<group>"; };
 		8A17012D25577150006659C3 /* 8080EX1.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EX1.com; sourceTree = "<group>"; };
 		8A170136255815E1006659C3 /* 8080EX1.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EX1.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
@@ -40,7 +42,6 @@
 		8A7AD3E1254B353D0056CB4E /* behaviors.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = behaviors.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7AD3E5254B353D0056CB4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A7AD3F2254B356E0056CB4E /* i8080.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = i8080.mm; sourceTree = "<group>"; };
-		8A9AAA3C25588903005AC787 /* error.log */ = {isa = PBXFileReference; lastKnownFileType = text; path = error.log; sourceTree = "<group>"; };
 		8A9AAA3F2558956E005AC787 /* 8080.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080.com; sourceTree = "<group>"; };
 		8AA255A625537764007791D5 /* 8080.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AB9437A254A187200636CA0 /* i8080.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = i8080.cpp; sourceTree = "<group>"; };
@@ -81,7 +82,8 @@
 				8A170145255818FA006659C3 /* 8080PRE.com */,
 				8A17014625581927006659C3 /* 8080PRE.asm */,
 				8A17012C25577150006659C3 /* CPUTEST.com */,
-				8A9AAA3C25588903005AC787 /* error.log */,
+				8A0EEEC12559D25400AE3638 /* output.log */,
+				8A0BAD452559EC4B0018B3C0 /* exerciser.txt */,
 			);
 			path = tests;
 			sourceTree = "<group>";
