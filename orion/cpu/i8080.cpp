@@ -1147,7 +1147,12 @@ uint8_t i8080::INRR ()
 uint8_t i8080::INRM ()
 {
     uint16_t value = read();
-    return INR(value);
+    write(++value);
+    
+    sr.SetDecFlags(value);
+    sr.SetAux((value & 0x000F) == 0x0000);
+    
+    return 0;
 }
 
 // Code: DCR r
@@ -1181,7 +1186,12 @@ uint8_t i8080::DCRR ()
 uint8_t i8080::DCRM ()
 {
     uint16_t value = read();
-    return DCR(value);
+    write(--value);
+    
+    sr.SetDecFlags(value);
+    sr.SetAux((value & 0x000F) != 0x000F);
+    
+    return 0;
 }
 
 // Code: INX RP

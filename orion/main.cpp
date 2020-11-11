@@ -19,7 +19,7 @@ int main(int argc, const char * argv[])
     Bus bus;
     i8080 cpu;
 
-    std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/CPUTEST.COM", std::ios::in | std::ios::binary);
+    std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/8080PRE.COM", std::ios::in | std::ios::binary);
     uint16_t offset = 0x0100;
 
     bus.write(0x0000, 0xD3);
