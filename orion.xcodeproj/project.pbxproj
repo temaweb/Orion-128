@@ -34,6 +34,7 @@
 		8A170145255818FA006659C3 /* 8080PRE.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080PRE.com; sourceTree = "<group>"; };
 		8A17014625581927006659C3 /* 8080PRE.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080PRE.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8A24E3E2255C183500496F78 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8A24E3E4255C480700496F78 /* monitor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = monitor; sourceTree = "<group>"; };
 		8A4C1E4C254B47A600ED6E1E /* materials */ = {isa = PBXFileReference; lastKnownFileType = folder; path = materials; sourceTree = "<group>"; };
 		8A4C1E50254ED0EB00ED6E1E /* Status.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Status.hpp; sourceTree = "<group>"; };
 		8A9AAA3F2558956E005AC787 /* 8080.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080.com; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 		8AC0C6152543AE24008DAA6B = {
 			isa = PBXGroup;
 			children = (
+				8A24E3E4255C480700496F78 /* monitor */,
 				8A4C1E4C254B47A600ED6E1E /* materials */,
 				8AC0C6202543AE24008DAA6B /* orion */,
 				8AC0C61F2543AE24008DAA6B /* Products */,
