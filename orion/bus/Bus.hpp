@@ -16,13 +16,14 @@
 class Bus
 {
 private:
-    std::array<uint8_t, 128 * 1024> ram;
+    std::array<uint8_t, 64 * 1024> ram;
     
 public:
     Bus();
     
-    uint8_t read(uint16_t offset) const;
-    void write(uint16_t offset, uint8_t data);
+    virtual uint8_t read(const uint16_t address) const;
+    virtual void write(const uint16_t address, uint8_t data);
+    
     void write(std::string data);
 };
 

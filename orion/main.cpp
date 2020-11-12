@@ -12,19 +12,23 @@
 #include <chrono>
 
 #include "Bus.hpp"
+#include "Video.hpp"
 #include "i8080.hpp"
+
+#define OFFSET 0x0100
 
 int main(int argc, const char * argv[])
 {
     Bus bus;
+    Video video;
     i8080 cpu;
-
-    std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/8080PRE.COM", std::ios::in | std::ios::binary);
-    uint16_t offset = 0x0100;
+    
+    std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/8080EXM.com", std::ios::in | std::ios::binary);
+    uint16_t offset = OFFSET;
 
     bus.write(0x0000, 0xD3);
     bus.write(0x0001, 0x00);
-    
+
     bus.write(0x0005, 0xD3);
     bus.write(0x0006, 0x01);
     bus.write(0x0007, 0xC9);
@@ -38,8 +42,14 @@ int main(int argc, const char * argv[])
 
     file.close();
 
+    // video.connect(&bus);
     cpu.connect(&bus);
-    cpu.debug();
+    cpu.setCounter(OFFSET);
+    
+    while (true)
+    {
+        cpu.clock();
+    }
     
     return 0;
 }

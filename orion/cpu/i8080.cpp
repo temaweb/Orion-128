@@ -276,7 +276,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "RNC",     5,        &i8080::RNC,      &i8080::IMP },
         { "POP",    10,        &i8080::POPR,     &i8080::IMP },
         { "JNC",    10,        &i8080::JNC,      &i8080::DIR },
-        { "OUT",    10,        &i8080::OUT,      &i8080::IMP },
+        { "OUT",    10,        &i8080::OUT,      &i8080::IMM },
         { "CNC",    11,        &i8080::CNC,      &i8080::DIR },
         { "PUSH",   11,        &i8080::PUSHR,    &i8080::IMP },
         { "SUI",     7,        &i8080::SUI,      &i8080::IMM },
@@ -284,7 +284,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "RC",     5,         &i8080::RC,       &i8080::IMP },
         { "RET",    10,        &i8080::RET,      &i8080::IMP }, // <~ RET undocumented?
         { "JC",     10,        &i8080::JC,       &i8080::DIR },
-        { "IN",     10,        &i8080::IN,       &i8080::IMP },
+        { "IN",     10,        &i8080::IN,       &i8080::IMM },
         { "CC",     11,        &i8080::CC,       &i8080::DIR },
         { "CALL",   17,        &i8080::CALL,     &i8080::DIR }, // <~ CALL undocumented?
         { "SBI",     7,        &i8080::SBI,      &i8080::IMM },
@@ -326,7 +326,7 @@ i8080::i8080() : reg { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
         { "CM",     11,        &i8080::CM,       &i8080::DIR },
         { "CALL",   17,        &i8080::CALL,     &i8080::DIR }, // <~ CALL undocumented?
         { "CPI",     7,        &i8080::CPI,      &i8080::IMM },
-        { "RST",    11,        &i8080::RST,      &i8080::IMP },
+        { "RST",    11,        &i8080::RST,      &i8080::IMP }
     };
 }
 
@@ -367,14 +367,9 @@ void i8080::clock()
     
 }
 
-void i8080::debug()
+void i8080::setCounter(uint16_t counter)
 {
-    pc = 0x100;
-
-    while (true)
-    {
-        clock();
-    }
+    pc = counter;
 }
 
 #pragma mark -
@@ -670,7 +665,7 @@ uint8_t i8080::POP   (uint8_t & hi, uint8_t & lo)
 }
 
 // Code: PUSH rp
-// Operation: (RPH) → [(SP)- 1], (RPL) → [(SP)- 2]
+// Operation: (RPH) → [(SP) - 1], (RPL) → [(SP)- 2]
 // Description: Push register pair on stack
 // Flags: -
 uint8_t i8080::PUSHR ()
@@ -684,7 +679,7 @@ uint8_t i8080::PUSHR ()
 }
 
 // Code: PUSH PSW
-// Operation: A → [(SP)- 1], (SR) → [(SP) - 2]
+// Operation: A → [(SP) - 1], (SR) → [(SP) - 2]
 // Description: Push program status word on stack
 // Flags: -
 uint8_t i8080::PUSH  ()
@@ -1722,8 +1717,7 @@ uint8_t i8080::DAA  ()
 // Flags: -
 uint8_t i8080::IN   ()
 {
-    reg[A] = read();
-    return 0;
+    return (reg[A] = 0x00);
 }
 
 // Code: OUT
@@ -1731,17 +1725,16 @@ uint8_t i8080::IN   ()
 // Flags: -
 uint8_t i8080::OUT  ()
 {
-    pc++;
- 
+    
 #ifdef LOGTEST
     if (bus -> read(pc) == 0x00)
     {
         std::cout << std::endl;
         exit(0);
-        
+
         return 0;
     }
-    
+
     if (reg[C] == 0x09)
     {
         for (uint16_t i = readpair(DE); bus -> read(i) != '$'; i += 1) {
@@ -1754,7 +1747,6 @@ uint8_t i8080::OUT  ()
     }
 #endif
     
-    // write(reg[A]);
     return 0;
 }
 

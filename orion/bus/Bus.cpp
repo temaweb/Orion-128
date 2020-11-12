@@ -16,7 +16,7 @@ Bus::Bus()
     }
 }
 
-uint8_t Bus::read(uint16_t offset) const
+uint8_t Bus::read(const uint16_t offset) const
 {
     if (offset >= 0x00 && offset <= 0xFFFF)
         return ram[offset];
@@ -24,7 +24,7 @@ uint8_t Bus::read(uint16_t offset) const
     return 0x00;
 }
 
-void Bus::write(uint16_t offset, uint8_t data)
+void Bus::write(const uint16_t offset, uint8_t data)
 {
     if (offset >= 0x00 && offset <= 0xFFFF)
         ram[offset] = data;

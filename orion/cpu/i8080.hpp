@@ -273,7 +273,7 @@ private:
 public:
     
     void clock();
-    void debug();
+    void setCounter(uint16_t counter);
     void connect(Bus * bus);
     void log (uint16_t pcl);
 };

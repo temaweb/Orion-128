@@ -7,9 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A24E3E9255C4E1E00496F78 /* Video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E3E7255C4E1E00496F78 /* Video.cpp */; };
+		8A24E44F255C806400496F78 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E44E255C806400496F78 /* AppDelegate.mm */; };
+		8A24E452255C806400496F78 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E451255C806400496F78 /* ViewController.m */; };
+		8A24E457255C806400496F78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A24E455255C806400496F78 /* Main.storyboard */; };
+		8A24E45A255C806400496F78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E459255C806400496F78 /* main.m */; };
+		8A24E463255C83E400496F78 /* DisplayView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E462255C83E400496F78 /* DisplayView.mm */; };
+		8A24E46A255C85E600496F78 /* Video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E3E7255C4E1E00496F78 /* Video.cpp */; };
+		8A24E46D255C85EB00496F78 /* i8080.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* i8080.cpp */; };
+		8A24E470255C85F200496F78 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Logger.cpp */; };
+		8A24E473255C85F800496F78 /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C638254460C8008DAA6B /* Bus.cpp */; };
 		8AB9437C254A187200636CA0 /* i8080.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* i8080.cpp */; };
 		8AC0C6222543AE24008DAA6B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C6212543AE24008DAA6B /* main.cpp */; };
 		8AC0C63A254460C8008DAA6B /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C638254460C8008DAA6B /* Bus.cpp */; };
+		8ADCB5A9255D7E550048C4DE /* PagedBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5A7255D7E550048C4DE /* PagedBus.cpp */; };
+		8ADCB5AC255D84F10048C4DE /* PagedBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5A7255D7E550048C4DE /* PagedBus.cpp */; };
 		8AE7F9D0255B50D700830F35 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Logger.cpp */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +47,18 @@
 		8A17014625581927006659C3 /* 8080PRE.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080PRE.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8A24E3E2255C183500496F78 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A24E3E4255C480700496F78 /* monitor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = monitor; sourceTree = "<group>"; };
+		8A24E3E7255C4E1E00496F78 /* Video.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Video.cpp; sourceTree = "<group>"; };
+		8A24E3E8255C4E1E00496F78 /* Video.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Video.hpp; sourceTree = "<group>"; };
+		8A24E44B255C806400496F78 /* display.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = display.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A24E44D255C806400496F78 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8A24E44E255C806400496F78 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		8A24E450255C806400496F78 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8A24E451255C806400496F78 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8A24E456255C806400496F78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8A24E458255C806400496F78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A24E459255C806400496F78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8A24E461255C83E400496F78 /* DisplayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
+		8A24E462255C83E400496F78 /* DisplayView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisplayView.mm; sourceTree = "<group>"; };
 		8A4C1E4C254B47A600ED6E1E /* materials */ = {isa = PBXFileReference; lastKnownFileType = folder; path = materials; sourceTree = "<group>"; };
 		8A4C1E50254ED0EB00ED6E1E /* Status.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Status.hpp; sourceTree = "<group>"; };
 		8A9AAA3F2558956E005AC787 /* 8080.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080.com; sourceTree = "<group>"; };
@@ -45,12 +69,21 @@
 		8AC0C6212543AE24008DAA6B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8AC0C638254460C8008DAA6B /* Bus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Bus.cpp; sourceTree = "<group>"; };
 		8AC0C639254460C8008DAA6B /* Bus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Bus.hpp; sourceTree = "<group>"; };
+		8ADCB5A7255D7E550048C4DE /* PagedBus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PagedBus.cpp; sourceTree = "<group>"; };
+		8ADCB5A8255D7E550048C4DE /* PagedBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PagedBus.hpp; sourceTree = "<group>"; };
 		8AE7F9BA255B334800830F35 /* 8080EXM.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EXM.com; sourceTree = "<group>"; };
 		8AE7F9BC255B39CE00830F35 /* 8080EXM.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXM.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AE7F9C6255B4D4E00830F35 /* Logger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8A24E448255C806400496F78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AC0C61B2543AE24008DAA6B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -79,6 +112,31 @@
 			path = tests;
 			sourceTree = "<group>";
 		};
+		8A24E3E6255C4E0A00496F78 /* video */ = {
+			isa = PBXGroup;
+			children = (
+				8A24E3E7255C4E1E00496F78 /* Video.cpp */,
+				8A24E3E8255C4E1E00496F78 /* Video.hpp */,
+			);
+			path = video;
+			sourceTree = "<group>";
+		};
+		8A24E44C255C806400496F78 /* display */ = {
+			isa = PBXGroup;
+			children = (
+				8A24E44D255C806400496F78 /* AppDelegate.h */,
+				8A24E44E255C806400496F78 /* AppDelegate.mm */,
+				8A24E450255C806400496F78 /* ViewController.h */,
+				8A24E451255C806400496F78 /* ViewController.m */,
+				8A24E455255C806400496F78 /* Main.storyboard */,
+				8A24E458255C806400496F78 /* Info.plist */,
+				8A24E459255C806400496F78 /* main.m */,
+				8A24E461255C83E400496F78 /* DisplayView.h */,
+				8A24E462255C83E400496F78 /* DisplayView.mm */,
+			);
+			path = display;
+			sourceTree = "<group>";
+		};
 		8AB94388254B29FD00636CA0 /* cpu */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +155,8 @@
 			children = (
 				8AC0C638254460C8008DAA6B /* Bus.cpp */,
 				8AC0C639254460C8008DAA6B /* Bus.hpp */,
+				8ADCB5A7255D7E550048C4DE /* PagedBus.cpp */,
+				8ADCB5A8255D7E550048C4DE /* PagedBus.hpp */,
 			);
 			path = bus;
 			sourceTree = "<group>";
@@ -107,6 +167,7 @@
 				8A24E3E4255C480700496F78 /* monitor */,
 				8A4C1E4C254B47A600ED6E1E /* materials */,
 				8AC0C6202543AE24008DAA6B /* orion */,
+				8A24E44C255C806400496F78 /* display */,
 				8AC0C61F2543AE24008DAA6B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				8AC0C61E2543AE24008DAA6B /* orion */,
+				8A24E44B255C806400496F78 /* display.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -122,6 +184,7 @@
 		8AC0C6202543AE24008DAA6B /* orion */ = {
 			isa = PBXGroup;
 			children = (
+				8A24E3E6255C4E0A00496F78 /* video */,
 				8AB94388254B29FD00636CA0 /* cpu */,
 				8AB9438A254B2A0400636CA0 /* bus */,
 				8AC0C6212543AE24008DAA6B /* main.cpp */,
@@ -132,6 +195,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8A24E44A255C806400496F78 /* display */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A24E45C255C806400496F78 /* Build configuration list for PBXNativeTarget "display" */;
+			buildPhases = (
+				8A24E447255C806400496F78 /* Sources */,
+				8A24E448255C806400496F78 /* Frameworks */,
+				8A24E449255C806400496F78 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = display;
+			productName = display;
+			productReference = 8A24E44B255C806400496F78 /* display.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8AC0C61D2543AE24008DAA6B /* orion */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8AC0C6252543AE24008DAA6B /* Build configuration list for PBXNativeTarget "orion" */;
@@ -157,6 +237,9 @@
 			attributes = {
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
+					8A24E44A255C806400496F78 = {
+						CreatedOnToolsVersion = 12.1;
+					};
 					8AC0C61D2543AE24008DAA6B = {
 						CreatedOnToolsVersion = 12.0.1;
 					};
@@ -176,25 +259,102 @@
 			projectRoot = "";
 			targets = (
 				8AC0C61D2543AE24008DAA6B /* orion */,
+				8A24E44A255C806400496F78 /* display */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		8A24E449255C806400496F78 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A24E457255C806400496F78 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		8A24E447255C806400496F78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A24E452255C806400496F78 /* ViewController.m in Sources */,
+				8A24E470255C85F200496F78 /* Logger.cpp in Sources */,
+				8A24E473255C85F800496F78 /* Bus.cpp in Sources */,
+				8A24E46D255C85EB00496F78 /* i8080.cpp in Sources */,
+				8A24E463255C83E400496F78 /* DisplayView.mm in Sources */,
+				8A24E45A255C806400496F78 /* main.m in Sources */,
+				8A24E46A255C85E600496F78 /* Video.cpp in Sources */,
+				8A24E44F255C806400496F78 /* AppDelegate.mm in Sources */,
+				8ADCB5AC255D84F10048C4DE /* PagedBus.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AC0C61A2543AE24008DAA6B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8AB9437C254A187200636CA0 /* i8080.cpp in Sources */,
 				8AC0C63A254460C8008DAA6B /* Bus.cpp in Sources */,
+				8ADCB5A9255D7E550048C4DE /* PagedBus.cpp in Sources */,
 				8AC0C6222543AE24008DAA6B /* main.cpp in Sources */,
+				8A24E3E9255C4E1E00496F78 /* Video.cpp in Sources */,
 				8AE7F9D0255B50D700830F35 /* Logger.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		8A24E455255C806400496F78 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A24E456255C806400496F78 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		8A24E45D255C806400496F78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = display/display.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = display/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = temaweb.display;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8A24E45E255C806400496F78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = display/display.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = display/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = temaweb.display;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		8AC0C6232543AE24008DAA6B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -327,6 +487,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8A24E45C255C806400496F78 /* Build configuration list for PBXNativeTarget "display" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8A24E45D255C806400496F78 /* Debug */,
+				8A24E45E255C806400496F78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8AC0C6192543AE24008DAA6B /* Build configuration list for PBXProject "orion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
