@@ -37,9 +37,14 @@ std::vector<Pixel> Video::getLine(uint8_t row)
     
     for (uint8_t col = 0x00; col < (width / 8); col++)
     {
+        // Each video address in Orion has store column
+        // index in high order bits and row index in low
         uint16_t address = begin + ((col << 8) | row);
+        
+        // One byte video data has 8 points on screen
+        // Each set bit match drawed point on screen.
         uint8_t  data = _bus -> read(address);
-
+        
         explore(line, data);
     }
     
