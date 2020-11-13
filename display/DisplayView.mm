@@ -107,7 +107,7 @@ CGFloat height;
 
 - (void) updateTimer:(NSTimer *)theTimer
 {
-    [self setNeedsDisplay:YES];
+    //[self setNeedsDisplay:YES];
 }
 
 @end

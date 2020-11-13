@@ -11,6 +11,8 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (nonatomic, readonly) Video * video;
+@property (nonatomic) double freq;
+
 + (AppDelegate *) sharedAppDelegate;
 @end
 

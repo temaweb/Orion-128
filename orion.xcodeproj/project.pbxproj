@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8A24E3E9255C4E1E00496F78 /* Video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E3E7255C4E1E00496F78 /* Video.cpp */; };
 		8A24E44F255C806400496F78 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E44E255C806400496F78 /* AppDelegate.mm */; };
-		8A24E452255C806400496F78 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E451255C806400496F78 /* ViewController.m */; };
+		8A24E452255C806400496F78 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E451255C806400496F78 /* ViewController.mm */; };
 		8A24E457255C806400496F78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A24E455255C806400496F78 /* Main.storyboard */; };
 		8A24E45A255C806400496F78 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E459255C806400496F78 /* main.m */; };
 		8A24E463255C83E400496F78 /* DisplayView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E462255C83E400496F78 /* DisplayView.mm */; };
@@ -22,6 +22,8 @@
 		8AC0C63A254460C8008DAA6B /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C638254460C8008DAA6B /* Bus.cpp */; };
 		8ADCB5A9255D7E550048C4DE /* PagedBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5A7255D7E550048C4DE /* PagedBus.cpp */; };
 		8ADCB5AC255D84F10048C4DE /* PagedBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5A7255D7E550048C4DE /* PagedBus.cpp */; };
+		8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5B6255DF8410048C4DE /* WindowController.mm */; };
+		8ADCB5D1255F48B00048C4DE /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
 		8AE7F9D0255B50D700830F35 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Logger.cpp */; };
 /* End PBXBuildFile section */
 
@@ -53,7 +55,7 @@
 		8A24E44D255C806400496F78 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8A24E44E255C806400496F78 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		8A24E450255C806400496F78 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8A24E451255C806400496F78 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8A24E451255C806400496F78 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		8A24E456255C806400496F78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8A24E458255C806400496F78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A24E459255C806400496F78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -71,6 +73,10 @@
 		8AC0C639254460C8008DAA6B /* Bus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Bus.hpp; sourceTree = "<group>"; };
 		8ADCB5A7255D7E550048C4DE /* PagedBus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PagedBus.cpp; sourceTree = "<group>"; };
 		8ADCB5A8255D7E550048C4DE /* PagedBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PagedBus.hpp; sourceTree = "<group>"; };
+		8ADCB5B5255DF8410048C4DE /* WindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
+		8ADCB5B6255DF8410048C4DE /* WindowController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WindowController.mm; sourceTree = "<group>"; };
+		8ADCB5CF255F48B00048C4DE /* Orion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Orion.cpp; sourceTree = "<group>"; };
+		8ADCB5D0255F48B00048C4DE /* Orion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Orion.hpp; sourceTree = "<group>"; };
 		8AE7F9BA255B334800830F35 /* 8080EXM.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EXM.com; sourceTree = "<group>"; };
 		8AE7F9BC255B39CE00830F35 /* 8080EXM.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXM.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AE7F9C6255B4D4E00830F35 /* Logger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Logger.cpp; sourceTree = "<group>"; };
@@ -127,12 +133,14 @@
 				8A24E44D255C806400496F78 /* AppDelegate.h */,
 				8A24E44E255C806400496F78 /* AppDelegate.mm */,
 				8A24E450255C806400496F78 /* ViewController.h */,
-				8A24E451255C806400496F78 /* ViewController.m */,
+				8A24E451255C806400496F78 /* ViewController.mm */,
 				8A24E455255C806400496F78 /* Main.storyboard */,
 				8A24E458255C806400496F78 /* Info.plist */,
 				8A24E459255C806400496F78 /* main.m */,
 				8A24E461255C83E400496F78 /* DisplayView.h */,
 				8A24E462255C83E400496F78 /* DisplayView.mm */,
+				8ADCB5B5255DF8410048C4DE /* WindowController.h */,
+				8ADCB5B6255DF8410048C4DE /* WindowController.mm */,
 			);
 			path = display;
 			sourceTree = "<group>";
@@ -187,6 +195,8 @@
 				8A24E3E6255C4E0A00496F78 /* video */,
 				8AB94388254B29FD00636CA0 /* cpu */,
 				8AB9438A254B2A0400636CA0 /* bus */,
+				8ADCB5CF255F48B00048C4DE /* Orion.cpp */,
+				8ADCB5D0255F48B00048C4DE /* Orion.hpp */,
 				8AC0C6212543AE24008DAA6B /* main.cpp */,
 			);
 			path = orion;
@@ -280,9 +290,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A24E452255C806400496F78 /* ViewController.m in Sources */,
+				8A24E452255C806400496F78 /* ViewController.mm in Sources */,
 				8A24E470255C85F200496F78 /* Logger.cpp in Sources */,
 				8A24E473255C85F800496F78 /* Bus.cpp in Sources */,
+				8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */,
 				8A24E46D255C85EB00496F78 /* i8080.cpp in Sources */,
 				8A24E463255C83E400496F78 /* DisplayView.mm in Sources */,
 				8A24E45A255C806400496F78 /* main.m in Sources */,
@@ -300,6 +311,7 @@
 				8AC0C63A254460C8008DAA6B /* Bus.cpp in Sources */,
 				8ADCB5A9255D7E550048C4DE /* PagedBus.cpp in Sources */,
 				8AC0C6222543AE24008DAA6B /* main.cpp in Sources */,
+				8ADCB5D1255F48B00048C4DE /* Orion.cpp in Sources */,
 				8A24E3E9255C4E1E00496F78 /* Video.cpp in Sources */,
 				8AE7F9D0255B50D700830F35 /* Logger.cpp in Sources */,
 			);
@@ -324,7 +336,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = display/display.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = display/Info.plist;
@@ -342,7 +353,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = display/display.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = display/Info.plist;

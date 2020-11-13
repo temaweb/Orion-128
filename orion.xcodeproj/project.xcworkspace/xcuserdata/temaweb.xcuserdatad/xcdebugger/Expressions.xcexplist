@@ -11,6 +11,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[AppDelegate run]:AppDelegate.mm">
+         <PersistentStrings>
+            <PersistentString
+               value = "elapsed.count()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[DisplayView drawPixel:column:row:]:DisplayView.mm">
       </ContextState>
    </ContextStates>

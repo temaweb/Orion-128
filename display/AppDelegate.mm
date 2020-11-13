@@ -10,6 +10,7 @@
 #include <fstream>
 #include <thread>
 #include <chrono>
+#include <ctime>
 
 #include "PagedBus.hpp"
 #include "Video.hpp"
@@ -57,17 +58,78 @@ i8080 * _cpu   = new i8080();
 
 - (void) run
 {
-    int c = 0;
+    using namespace std::chrono;
     
+    const int    portion   = 10000;
+    const long   frequency = 2500000;
+    const double hzpersec  = 1.0 / frequency;
+
+    auto start = steady_clock::now();
+    auto begin = steady_clock::now();
+    
+    double overrun = 0;
+    
+    int count = 0;
+    int freqcounter = 0;
+
+    auto elapsd = [](steady_clock::time_point time)
+    {
+        return (duration<double>) (steady_clock::now() - time);
+    };
+
     while (true)
     {
-        if (c++ > 10000)
+        if (count == portion)
         {
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
-            c = 0;
-        }
+            duration<double> elapsed  = elapsd(start);
+            double expected = portion * hzpersec;
+            
+            if (expected > elapsed.count())
+            {
+                double sleep = expected - elapsed.count();
+                
+                if ((overrun -= sleep) < 0)
+                {
+                    sleep = std::abs(overrun);
+                    auto startSleep = steady_clock::now();
 
+                    // Sleep
+                    auto dur = duration<double>(sleep);
+                    std::this_thread::sleep_for(dur);
+
+                    // Count overrun
+                    duration<double> elapsedSleep = elapsd(startSleep);
+                    if (elapsedSleep.count() > sleep)
+                    {
+                        overrun = elapsedSleep.count() - sleep;
+                    }
+                }
+            }
+            
+            count = 0;
+            start = steady_clock::now();
+        }
+        
+        if (freqcounter == 1000000)
+        {
+            duration<double> time = elapsd(begin);
+            _freq = 1.0 / time.count();
+            
+            std::cout.precision(3);
+            std::cout << (1.0 / time.count()) << " Mhz ";
+            std::cout << time.count()         << " sec";
+            std::cout << std::endl;
+            
+            freqcounter = 0;
+            begin = steady_clock::now();
+        }
+        
+        // Cpu cycle
         _cpu -> clock();
+        
+        // Counters
+        count++;
+        freqcounter++;
     }
 }
 

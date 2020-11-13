@@ -6,6 +6,7 @@
 //
 
 #import "ViewController.h"
+#import "AppDelegate.h"
 
 @implementation ViewController
 
@@ -14,11 +15,9 @@
     [super viewDidLoad];
 }
 
-
 - (void)setRepresentedObject:(id)representedObject
 {
     [super setRepresentedObject:representedObject];
 }
-
 
 @end
