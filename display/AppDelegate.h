@@ -10,8 +10,8 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
-@property (nonatomic, readonly) Video * video;
-@property (nonatomic) double freq;
+@property (nonatomic, readonly) std::shared_ptr<Video> video;
+@property (nonatomic, readonly) double freq;
 
 + (AppDelegate *) sharedAppDelegate;
 @end

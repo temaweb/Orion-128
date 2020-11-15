@@ -23,7 +23,7 @@ NSTimer * ttimer;
 
 - (NSTimer *) createDisplayTimer
 {
-    return  [NSTimer scheduledTimerWithTimeInterval:1.0f
+    return  [NSTimer scheduledTimerWithTimeInterval:0.1
                                              target:self
                                            selector:@selector(updateTimer:)
                                            userInfo:nil

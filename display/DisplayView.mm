@@ -15,7 +15,7 @@
 
 @implementation DisplayView
 
-Video   * video;
+std::shared_ptr<Video> video = nullptr;
 NSTimer * timer;
 
 CGFloat width;
@@ -23,19 +23,30 @@ CGFloat height;
 
 - (void) drawRect: (NSRect) rect
 {
-    [self setColors:rect];
     [super drawRect:rect];
-    
-    width  = rect.size.width;
-    height = rect.size.height;
-    
+
     if (timer == NULL) {
         timer = [self createDisplayTimer];
     }
 
-    video = [self getVideo];
+    if (video == nullptr) {
+        video = [[AppDelegate sharedAppDelegate] video];
+    }
+
+    width  = rect.size.width;
+    height = rect.size.height;
     
-    // Draw lines
+    // Graphics
+    
+    NSGraphicsContext * gcontext = [NSGraphicsContext currentContext];
+    CGContextRef context = [gcontext CGContext];
+    
+    // Background
+    
+    CGContextSetRGBFillColor(context, 0, 0, 0, 1);
+    NSRectFill(rect);
+    
+    // Draw pixels
     
     int row = 0;
     for (std::vector<Pixel> & line : video -> output())
@@ -43,7 +54,11 @@ CGFloat height;
         int col = 0;
         for (auto & pixel : line)
         {
-            [self drawPixel:pixel column:col row:row];
+            [self drawPixel:pixel
+                    context:context
+                     column:col
+                        row:row];
+            
             col++;
         }
         
@@ -56,41 +71,26 @@ CGFloat height;
 #pragma mark Draw pixel
 
 - (void) drawPixel: (Pixel) pixel
+           context: (CGContextRef) context
             column: (int) col
                row: (int) row
 {
     auto resolution = video -> getResolution();
     
-    CGFloat pixelHeight = height / resolution.height;
-    CGFloat pixelWidth  = width  / resolution.width;
+    CGFloat pixelHeight = (height - resolution.height) / resolution.height;
+    CGFloat pixelWidth  = (width  - resolution.width)  / resolution.width;
 
-    [self setColor: pixel];
+    CGContextSetRGBFillColor (context,
+                              pixel.getRed(),
+                              pixel.getGreen(),
+                              pixel.getBlue(),
+                              1.0f);
     
-    CGFloat x = col * pixelWidth;
-    CGFloat y = height - ((row * pixelHeight) + pixelHeight);
-    
-    [NSBezierPath fillRect:NSMakeRect(x, y, pixelWidth, pixelHeight)];
-}
+    CGFloat x = (col * pixelWidth) + col;
+    CGFloat y = (height - ((row * pixelHeight) + pixelHeight)) - row;
 
-- (void) setColor: (Pixel) pixel
-{
-    NSColor * color = [NSColor colorWithCalibratedRed:(CGFloat) pixel.getRed()
-                                                green:(CGFloat) pixel.getGreen()
-                                                 blue:(CGFloat) pixel.getBlue()
-                                                alpha:1.0f];
-    
-    [color set];
-}
-
-- (void) setColors: (NSRect) rect
-{
-    [[NSColor blackColor] setFill];
-    NSRectFill(rect);
-}
-
-- (Video *) getVideo
-{
-    return [[AppDelegate sharedAppDelegate] video];
+    CGRect rectangle = CGRectMake (x, y, pixelWidth, pixelHeight);
+    CGContextFillRect (context, rectangle);
 }
 
 #pragma mark -
@@ -98,7 +98,7 @@ CGFloat height;
 
 - (NSTimer *) createDisplayTimer
 {
-    return  [NSTimer scheduledTimerWithTimeInterval:0.1
+    return  [NSTimer scheduledTimerWithTimeInterval:0.1f
                                              target:self
                                            selector:@selector(updateTimer:)
                                            userInfo:nil
@@ -107,7 +107,7 @@ CGFloat height;
 
 - (void) updateTimer:(NSTimer *)theTimer
 {
-    //[self setNeedsDisplay:YES];
+    [self setNeedsDisplay:YES];
 }
 
 @end

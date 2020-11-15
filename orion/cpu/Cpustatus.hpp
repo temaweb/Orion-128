@@ -11,11 +11,11 @@
 #include <stdio.h>
 #include <cstdint>
 
-class Status
+class Cpustatus
 {
 private:
     
-    uint8_t sr = 0x02; // [S Z 0 AC 0 P 1 C]
+    uint8_t status = 0x02; // [S Z 0 AC 0 P 1 C]
     
     enum Flags
     {
@@ -29,28 +29,28 @@ private:
     void SetFlag(Flags flag, bool value)
     {
         if (value) {
-            sr |= flag;
+            status |= flag;
         } else {
-            sr &= ~flag;
+            status &= ~flag;
         }
     }
     
 public:
     
-    Status() {};
-    ~Status() {};
+    Cpustatus() {};
+    ~Cpustatus() {};
     
 public:
     
-    Status& operator=(const uint8_t & status)
+    Cpustatus& operator=(const uint8_t & st)
     {
-        sr = (status & 0xD7) | 0x02;
+        status = (st & 0xD7) | 0x02;
         return *this;
     }
 
     operator uint8_t ()
     {
-        return sr;
+        return status;
     }
     
 public:
@@ -115,7 +115,7 @@ public:
     
     void InvertCarry()
     {
-        sr ^= C;
+        status ^= C;
     }
     
 public:
@@ -143,27 +143,27 @@ public:
     
     uint8_t GetSign()
     {
-        return (sr & S) >> 7;
+        return (status & S) >> 7;
     }
     
     uint8_t GetZero()
     {
-        return (sr & Z) >> 6;
+        return (status & Z) >> 6;
     }
     
     uint8_t GetAux()
     {
-        return (sr & AC) >> 4;
+        return (status & AC) >> 4;
     }
     
     uint8_t GetParity()
     {
-        return (sr & P) >> 2;
+        return (status & P) >> 2;
     }
     
     uint8_t GetCarry()
     {
-        return (sr & C);
+        return (status & C);
     }
 };
 

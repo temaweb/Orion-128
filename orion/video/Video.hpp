@@ -45,14 +45,14 @@ class Video
 {
 private:
     
-    const int width  = 384;         // H points
-    const int height = 256;         // V points
+    static const int width  = 384;         // H points
+    static const int height = 256;         // V points
 
-    const uint16_t begin = 0x0C000; // Start vidio memory
-    const uint16_t end   = 0x0EFFF; // End video memory
+    static const uint16_t begin = 0x0C000; // Start vidio memory
+    static const uint16_t end   = 0x0EFFF; // End video memory
     
 private:
-    Bus * _bus;
+    std::shared_ptr<const Bus> bus = nullptr;
 
     std::vector<Pixel> getLine(uint8_t row);
     void explore(std::vector<Pixel> & line, uint8_t data);
@@ -64,7 +64,7 @@ public:
     std::vector<std::vector<Pixel>> output();
     
     // Connect memory bus
-    void connect(Bus * bus);
+    void connect(std::shared_ptr<const Bus> bus);
     
     // Return video resolution
     Resolution getResolution() const

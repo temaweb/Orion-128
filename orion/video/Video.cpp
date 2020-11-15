@@ -12,9 +12,9 @@
 #include "Video.hpp"
 #include "Bus.hpp"
 
-void Video::connect(Bus * bus)
+void Video::connect(std::shared_ptr<const Bus> bus)
 {
-    _bus = bus;
+    this -> bus = bus;
 }
 
 std::vector<std::vector<Pixel>> Video::output()
@@ -43,7 +43,7 @@ std::vector<Pixel> Video::getLine(uint8_t row)
         
         // One byte video data has 8 points on screen
         // Each set bit match drawed point on screen.
-        uint8_t  data = _bus -> read(address);
+        uint8_t  data = bus -> read(address);
         
         explore(line, data);
     }

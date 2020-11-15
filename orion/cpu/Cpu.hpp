@@ -12,34 +12,34 @@
 #include <string>
 #include <vector>
 
-#include "Status.hpp"
+#include "Cpustatus.hpp"
 
 class Bus;
 
-class i8080
+class Cpu
 {
 public:
     
-    i8080();
-    ~i8080() { };
+    Cpu();
+    ~Cpu() { };
     
 private:
     
-    uint8_t   reg[8];           // Registers
-    uint8_t * pairs[3];         // Pairs
+    uint8_t  registers[8];       // Registers
+    uint8_t * regpairs[3];       // Pairs
     
-    uint8_t  opcode  = 0x00;    // Operation code
-    uint8_t  cycles  = 0x00;    // Cycle counter
+    uint8_t  opcode  = 0x00;     // Operation code
+    uint8_t  cycles  = 0x00;     // Cycle counter
 
-    uint16_t sp      = 0x0000;  // Stack pointer
-    uint16_t pc      = 0x0000;  // Program counter
+    uint16_t stack   = 0x0000;   // Stack pointer
+    uint16_t counter = 0x0000;   // Program counter
     
-    uint16_t address = 0x0000;  // Current memory pointer
-    uint64_t ticks   = 0x0L;    // Clock counter
+    uint16_t address = 0x0000;   // Current memory pointer
+    uint64_t ticks   = 0x0L;     // Clock counter
     
-    Status   sr;                // Status register
+    Cpustatus status;            // Status register
     
-    friend void log( uint16_t pcl, i8080 * cpu );
+    friend void log(uint16_t pcl, Cpu * cpu);
     
 private:
     
@@ -72,7 +72,7 @@ private:
 // Bus communication
 private:
     
-    Bus * bus = nullptr;
+    std::shared_ptr<Bus> bus = nullptr;
     
     uint8_t read ();
     uint8_t read (uint16_t address);
@@ -264,8 +264,8 @@ private:
         // Operation cycles
         uint8_t cycles = 0x00;
         
-        uint8_t (i8080::*operate) (void) = nullptr;
-        void    (i8080::*addrmod) (void) = nullptr;
+        uint8_t (Cpu::*operate) (void) = nullptr;
+        void    (Cpu::*addrmod) (void) = nullptr;
     };
 
     std::vector<Command> lookup;
@@ -274,10 +274,9 @@ public:
     
     void clock();
     void setCounter(uint16_t counter);
-    void connect(Bus * bus);
-    void log (uint16_t pcl);
+    void connect(std::shared_ptr<Bus> bus);
 };
 
-void log( uint16_t pcl, i8080 * cpu );
+void log( uint16_t pcl, Cpu * cpu );
 
 #endif /* i8080_hpp */

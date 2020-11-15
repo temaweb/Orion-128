@@ -13,7 +13,7 @@
 
 #include "Bus.hpp"
 #include "Video.hpp"
-#include "i8080.hpp"
+#include "Cpu.hpp"
 
 #define OFFSET 0x0100
 
@@ -21,7 +21,7 @@ int main(int argc, const char * argv[])
 {
     Bus bus;
     Video video;
-    i8080 cpu;
+    Cpu cpu;
     
     std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/8080EXM.com", std::ios::in | std::ios::binary);
     uint16_t offset = OFFSET;
