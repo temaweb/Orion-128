@@ -55,7 +55,7 @@ private:
     std::shared_ptr<const Bus> bus = nullptr;
 
     std::vector<Pixel> getLine(uint8_t row);
-    void explore(std::vector<Pixel> & line, uint8_t data);
+    void explore(std::vector<Pixel> & line, const uint8_t & data);
     
 public:
     

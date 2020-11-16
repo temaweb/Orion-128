@@ -10,12 +10,14 @@
 
 #import "AppDelegate.h"
 
+
 @interface AppDelegate ()
 @end
 
 @implementation AppDelegate
 
 dispatch_queue_t _globalQueue;
+id monitor;
 std::unique_ptr<Orion> orion = std::make_unique<Orion>();
 
 - (instancetype) init
@@ -31,18 +33,39 @@ std::unique_ptr<Orion> orion = std::make_unique<Orion>();
     return orion -> getVideo();
 }
 
+- (std::shared_ptr<Keyboard>) keyboard {
+    return orion -> getKeyboard();
+}
+
 - (double) freq {
     return orion -> getFrequency();
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    orion -> load(std::make_shared<RamtestRom>());
+    orion -> load(std::make_shared<MonitorRom>());
     
     __block id _self = self;
+    
     dispatch_async(_globalQueue, ^{
         [_self run];
     });
+    
+    id monitorHandler = ^NSEvent * (NSEvent * theEvent)
+    {
+        bool isPressed = [theEvent type] == NSEventTypeKeyDown;
+        [_self keyboard] -> keyevent([theEvent keyCode], isPressed);
+        
+        // Return the event, a new event, or, to stop
+        // the event from being dispatched, nil
+        return theEvent;
+    };
+
+    // Creates an object we do not own, but must keep track of so that
+    // it can be "removed" when we're done; therefore, put it in an ivar.
+    monitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown | NSEventMaskKeyUp
+                                                    handler:monitorHandler];
+    
 }
 
 - (void) run {
@@ -50,7 +73,7 @@ std::unique_ptr<Orion> orion = std::make_unique<Orion>();
 }
 
 - (void) applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+    [NSEvent removeMonitor: monitor];
 }
 
 + (AppDelegate *) sharedAppDelegate {

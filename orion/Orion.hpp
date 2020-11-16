@@ -15,6 +15,7 @@
 #include "Bus.hpp"
 #include "Video.hpp"
 #include "MonitorRom.hpp"
+#include "Keyboard.hpp"
 
 using namespace std::chrono;
 
@@ -42,7 +43,8 @@ private:
     std::shared_ptr<Bus>     bus = std::make_shared<Bus>();
     std::unique_ptr<Cpu>     cpu = std::make_unique<Cpu>();
     std::shared_ptr<Video> video = std::make_unique<Video>();
-
+    std::shared_ptr<Keyboard> keyboard = std::make_unique<Keyboard>();
+    
 public:
     Orion();
     
@@ -50,6 +52,12 @@ public:
     std::shared_ptr<Video> getVideo() const
     {
         return video;
+    }
+    
+    // Return video adapter
+    std::shared_ptr<Keyboard> getKeyboard() const
+    {
+        return keyboard;
     }
     
     // Return current loop frequency

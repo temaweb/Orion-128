@@ -51,7 +51,7 @@ std::vector<Pixel> Video::getLine(uint8_t row)
     return line;
 }
 
-void Video::explore(std::vector<Pixel> & line, uint8_t data)
+void Video::explore(std::vector<Pixel> & line, const uint8_t & data)
 {
     for (uint8_t offset = 7;;offset--)
     {

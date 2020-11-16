@@ -6,6 +6,8 @@
 //
 
 #include <sstream>
+#include <tuple>
+
 #include "Bus.hpp"
 
 Bus::Bus()
@@ -16,42 +18,36 @@ Bus::Bus()
     }
 }
 
-uint8_t Bus::read(const uint16_t offset) const
+uint8_t Bus::read(const uint16_t address) const
 {
-    if (offset >= 0x00 && offset <= 0xFFFF)
-        return ram[offset];
+    for (auto & device : iodevices)
+    {
+        if (device -> isPort(address)) {
+            return device -> read(address);
+        }
+    }
+    
+    if (address >= 0x00 && address <= 0xFFFF)
+        return ram[address];
     
     return 0x00;
 }
 
 void Bus::write(const uint16_t offset, uint8_t data)
 {
+    for (auto & device : iodevices)
+    {
+        if (device -> isPort(offset)) {
+            device -> write(offset, data);
+            return;
+        }
+    }
+    
     if (offset >= 0x00 && offset <= 0xFFFF)
         ram[offset] = data;
 }
 
-//uint64_t toHex(std::string token)
-//{
-//    uint64_t value  = 0x0000;
-//    std::istringstream buffer(token);
-//    buffer >> std::hex >> value;
-//
-//    return value;
-//}
-//
-//void Bus::write(std::string data)
-//{
-//    uint16_t offset = 0x0000;
-//
-//    size_t pos = 0;
-//    std::string token;
-//
-//    while ((pos = data.find(' ')) != std::string::npos)
-//    {
-//        token = data.substr(0, pos);
-//        this -> write(offset++, toHex(data));
-//        data.erase(0, pos + 1);
-//    }
-//
-//    this -> write(offset, toHex(data));
-//}
+void Bus::connect(std::shared_ptr<IODevice> device)
+{
+    iodevices.push_back(device);
+}

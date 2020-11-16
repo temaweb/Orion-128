@@ -1716,7 +1716,10 @@ uint8_t Cpu::DAA  ()
 // Flags: -
 uint8_t Cpu::IN   ()
 {
-    return (registers[A] = 0x00);
+//    uint8_t device = read();
+//    registers[A] = 0x00;
+    
+    return 0;
 }
 
 // Code: OUT
@@ -1724,6 +1727,8 @@ uint8_t Cpu::IN   ()
 // Flags: -
 uint8_t Cpu::OUT  ()
 {
+//    uint8_t device = read();
+//    uint8_t data = registers[A];
     
 #ifdef LOGTEST
     if (bus -> read(counter) == 0x00)

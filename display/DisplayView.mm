@@ -12,10 +12,12 @@
 #include <vector>
 
 #include "Video.hpp"
+#include "Keyboard.hpp"
 
 @implementation DisplayView
 
 std::shared_ptr<Video> video = nullptr;
+
 NSTimer * timer;
 
 CGFloat width;
@@ -63,7 +65,6 @@ CGFloat height;
         }
         
         row++;
-        col = 0;
     }
 }
 
@@ -105,8 +106,7 @@ CGFloat height;
                                             repeats:YES];
 }
 
-- (void) updateTimer:(NSTimer *)theTimer
-{
+- (void) updateTimer:(NSTimer *)theTimer {
     [self setNeedsDisplay:YES];
 }
 

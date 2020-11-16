@@ -20,6 +20,8 @@
 		8A6A20FC25605352009A8B71 /* Rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A20FA25605352009A8B71 /* Rom.cpp */; };
 		8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
 		8AA63D102560666F007CF426 /* Rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A20FA25605352009A8B71 /* Rom.cpp */; };
+		8AA63D1625619331007CF426 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA63D1425619331007CF426 /* Keyboard.cpp */; };
+		8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA63D1425619331007CF426 /* Keyboard.cpp */; };
 		8AB9437C254A187200636CA0 /* Cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* Cpu.cpp */; };
 		8AC0C6222543AE24008DAA6B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C6212543AE24008DAA6B /* main.cpp */; };
 		8AC0C63A254460C8008DAA6B /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C638254460C8008DAA6B /* Bus.cpp */; };
@@ -70,6 +72,9 @@
 		8A6A210725605A31009A8B71 /* RamtestRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RamtestRom.hpp; sourceTree = "<group>"; };
 		8A9AAA3F2558956E005AC787 /* 8080.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080.com; sourceTree = "<group>"; };
 		8AA255A625537764007791D5 /* 8080.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
+		8AA63D1425619331007CF426 /* Keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
+		8AA63D1525619331007CF426 /* Keyboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
+		8AA673992562AFEA000ABA5D /* IODevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IODevice.hpp; sourceTree = "<group>"; };
 		8AB9437A254A187200636CA0 /* Cpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpu.cpp; sourceTree = "<group>"; };
 		8AB9437B254A187200636CA0 /* Cpu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cpu.hpp; sourceTree = "<group>"; };
 		8AC0C61E2543AE24008DAA6B /* orion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = orion; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +164,24 @@
 			path = rom;
 			sourceTree = "<group>";
 		};
+		8AA63D132561931E007CF426 /* keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				8AA63D1425619331007CF426 /* Keyboard.cpp */,
+				8AA63D1525619331007CF426 /* Keyboard.hpp */,
+			);
+			path = keyboard;
+			sourceTree = "<group>";
+		};
+		8AA673972562AFD7000ABA5D /* IO */ = {
+			isa = PBXGroup;
+			children = (
+				8AA673992562AFEA000ABA5D /* IODevice.hpp */,
+				8AA63D132561931E007CF426 /* keyboard */,
+			);
+			path = IO;
+			sourceTree = "<group>";
+		};
 		8AB94388254B29FD00636CA0 /* cpu */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,8 +227,9 @@
 		8AC0C6202543AE24008DAA6B /* orion */ = {
 			isa = PBXGroup;
 			children = (
-				8A6A20F92560533E009A8B71 /* rom */,
+				8AA673972562AFD7000ABA5D /* IO */,
 				8A24E3E6255C4E0A00496F78 /* video */,
+				8A6A20F92560533E009A8B71 /* rom */,
 				8AB94388254B29FD00636CA0 /* cpu */,
 				8AB9438A254B2A0400636CA0 /* bus */,
 				8ADCB5CF255F48B00048C4DE /* Orion.cpp */,
@@ -305,6 +329,7 @@
 			files = (
 				8A24E452255C806400496F78 /* ViewController.mm in Sources */,
 				8A24E470255C85F200496F78 /* Cpulogger.cpp in Sources */,
+				8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */,
 				8A24E473255C85F800496F78 /* Bus.cpp in Sources */,
 				8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */,
 				8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */,
@@ -327,6 +352,7 @@
 				8AC0C6222543AE24008DAA6B /* main.cpp in Sources */,
 				8ADCB5D1255F48B00048C4DE /* Orion.cpp in Sources */,
 				8A24E3E9255C4E1E00496F78 /* Video.cpp in Sources */,
+				8AA63D1625619331007CF426 /* Keyboard.cpp in Sources */,
 				8AE7F9D0255B50D700830F35 /* Cpulogger.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

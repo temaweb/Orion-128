@@ -22,7 +22,7 @@ int main(int argc, const char * argv[])
     Bus bus;
     Video video;
     Cpu cpu;
-    
+
     std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/8080EXM.com", std::ios::in | std::ios::binary);
     uint16_t offset = OFFSET;
 
@@ -42,14 +42,13 @@ int main(int argc, const char * argv[])
 
     file.close();
 
-    // video.connect(&bus);
     cpu.connect(&bus);
     cpu.setCounter(OFFSET);
-    
+
     while (true)
     {
         cpu.clock();
     }
-    
+
     return 0;
 }

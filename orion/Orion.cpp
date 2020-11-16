@@ -16,8 +16,9 @@ using namespace std::chrono;
 
 Orion::Orion()
 {
-    cpu   -> connect(bus);
-    video -> connect(bus);
+    cpu      -> connect(bus);
+    video    -> connect(bus);
+    keyboard -> connect(bus);
 }
 
 // Main loop at @frequency Hz
@@ -55,7 +56,7 @@ void Orion::load(std::shared_ptr<Rom> rom)
 
 void Orion::delay(const timepoint & start, const int & frequency)
 {
-    auto elapsed = timepassed(start);
+    auto elapsed  = timepassed(start);
     auto expected = (1.0 / frequency) * cycle;
     
     if (elapsed >= expected)

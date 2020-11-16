@@ -15,7 +15,7 @@
 
 class Rom
 {
-private:
+protected:
     
     // ROM files directory
     static const std::string dir;
