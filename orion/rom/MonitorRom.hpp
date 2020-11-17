@@ -17,7 +17,7 @@ protected:
     
     virtual std::string getRom() override
     {
-        return "Orion128_M1.rom";
+        return "Orion128_M2.rom";
     }
 };
 

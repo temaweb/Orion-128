@@ -19,12 +19,6 @@ Keyboard::Keyboard()
     }
 }
 
-void Keyboard::connect(std::shared_ptr<Bus> bus)
-{
-    this -> bus = bus;
-    this -> bus -> connect(shared_from_this());
-}
-
 void Keyboard::keyevent(unsigned short code, bool isPressed)
 {
     for (int i = 0; i < 8; i++)

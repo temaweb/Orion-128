@@ -9,6 +9,7 @@
 #include <tuple>
 
 #include "Bus.hpp"
+#include "IODevice.hpp"
 
 Bus::Bus()
 {

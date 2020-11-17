@@ -17,6 +17,8 @@
 		8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* Cpu.cpp */; };
 		8A24E470255C85F200496F78 /* Cpulogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */; };
 		8A24E473255C85F800496F78 /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C638254460C8008DAA6B /* Bus.cpp */; };
+		8A3015642563FC720071D523 /* Disk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A3015622563FC720071D523 /* Disk.cpp */; };
+		8A30156D2563FD720071D523 /* Disk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A3015622563FC720071D523 /* Disk.cpp */; };
 		8A6A20FC25605352009A8B71 /* Rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A20FA25605352009A8B71 /* Rom.cpp */; };
 		8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
 		8AA63D102560666F007CF426 /* Rom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A6A20FA25605352009A8B71 /* Rom.cpp */; };
@@ -64,6 +66,9 @@
 		8A24E459255C806400496F78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8A24E461255C83E400496F78 /* DisplayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		8A24E462255C83E400496F78 /* DisplayView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisplayView.mm; sourceTree = "<group>"; };
+		8A3015622563FC720071D523 /* Disk.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Disk.cpp; sourceTree = "<group>"; };
+		8A3015632563FC720071D523 /* Disk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Disk.hpp; sourceTree = "<group>"; };
+		8A30157025640C400071D523 /* rom */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rom; sourceTree = "<group>"; };
 		8A4C1E4C254B47A600ED6E1E /* materials */ = {isa = PBXFileReference; lastKnownFileType = folder; path = materials; sourceTree = "<group>"; };
 		8A4C1E50254ED0EB00ED6E1E /* Cpustatus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cpustatus.hpp; sourceTree = "<group>"; };
 		8A6A20FA25605352009A8B71 /* Rom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rom.cpp; sourceTree = "<group>"; };
@@ -153,6 +158,15 @@
 			path = display;
 			sourceTree = "<group>";
 		};
+		8A3015612563F8450071D523 /* rom */ = {
+			isa = PBXGroup;
+			children = (
+				8A3015622563FC720071D523 /* Disk.cpp */,
+				8A3015632563FC720071D523 /* Disk.hpp */,
+			);
+			path = rom;
+			sourceTree = "<group>";
+		};
 		8A6A20F92560533E009A8B71 /* rom */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +192,7 @@
 			children = (
 				8AA673992562AFEA000ABA5D /* IODevice.hpp */,
 				8AA63D132561931E007CF426 /* keyboard */,
+				8A3015612563F8450071D523 /* rom */,
 			);
 			path = IO;
 			sourceTree = "<group>";
@@ -207,6 +222,7 @@
 		8AC0C6152543AE24008DAA6B = {
 			isa = PBXGroup;
 			children = (
+				8A30157025640C400071D523 /* rom */,
 				8A24E3E4255C480700496F78 /* monitor */,
 				8A4C1E4C254B47A600ED6E1E /* materials */,
 				8AC0C6202543AE24008DAA6B /* orion */,
@@ -337,6 +353,7 @@
 				8A24E45A255C806400496F78 /* main.m in Sources */,
 				8AA63D102560666F007CF426 /* Rom.cpp in Sources */,
 				8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */,
+				8A30156D2563FD720071D523 /* Disk.cpp in Sources */,
 				8A24E46A255C85E600496F78 /* Video.cpp in Sources */,
 				8A24E44F255C806400496F78 /* AppDelegate.mm in Sources */,
 			);
@@ -348,6 +365,7 @@
 			files = (
 				8AB9437C254A187200636CA0 /* Cpu.cpp in Sources */,
 				8AC0C63A254460C8008DAA6B /* Bus.cpp in Sources */,
+				8A3015642563FC720071D523 /* Disk.cpp in Sources */,
 				8A6A20FC25605352009A8B71 /* Rom.cpp in Sources */,
 				8AC0C6222543AE24008DAA6B /* main.cpp in Sources */,
 				8ADCB5D1255F48B00048C4DE /* Orion.cpp in Sources */,

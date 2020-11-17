@@ -16,6 +16,7 @@
 #include "Video.hpp"
 #include "MonitorRom.hpp"
 #include "Keyboard.hpp"
+#include "Disk.hpp"
 
 using namespace std::chrono;
 
@@ -43,7 +44,9 @@ private:
     std::shared_ptr<Bus>     bus = std::make_shared<Bus>();
     std::unique_ptr<Cpu>     cpu = std::make_unique<Cpu>();
     std::shared_ptr<Video> video = std::make_unique<Video>();
-    std::shared_ptr<Keyboard> keyboard = std::make_unique<Keyboard>();
+    
+    std::shared_ptr<Keyboard> keyboard = std::make_shared<Keyboard>();
+    std::shared_ptr<Disk> disk = std::make_shared<Disk>();
     
 public:
     Orion();

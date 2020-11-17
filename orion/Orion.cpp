@@ -19,6 +19,7 @@ Orion::Orion()
     cpu      -> connect(bus);
     video    -> connect(bus);
     keyboard -> connect(bus);
+    disk     -> connect(bus);
 }
 
 // Main loop at @frequency Hz

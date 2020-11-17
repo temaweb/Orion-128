@@ -14,10 +14,9 @@
 #include "IODevice.hpp"
 #include "Bus.hpp"
 
-class Keyboard : public IODevice, public std::enable_shared_from_this<IODevice>
+class Keyboard : public IODevice
 {
 private:
-    std::shared_ptr<Bus> bus = nullptr;
     
     uint8_t key  = 0x00;
     uint8_t mask = 0x00;
@@ -46,7 +45,6 @@ public:
     virtual void write(const uint16_t address, uint8_t data) override;
     
 public:
-    void connect(std::shared_ptr<Bus> bus);
     void keyevent(unsigned short code, bool isPressed);
 };
 

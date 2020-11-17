@@ -14,7 +14,9 @@
 #include <array>
 #include <vector>
 
-#include "IODevice.hpp"
+//#include "IODevice.hpp"
+
+class IODevice;
 
 class Bus
 {
