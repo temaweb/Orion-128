@@ -10,12 +10,13 @@
 
 #include <stdio.h>
 #include <fstream>
+#include <iostream>
 #include <array>
 
 #include "IODevice.hpp"
 
 template<size_t size = 2 * 1024>
-class Rom : public IODevice
+class Rom : public RDevice
 {
 private:
 
@@ -69,11 +70,6 @@ public:
     virtual uint8_t read (const uint16_t address) const override
     {
         return rom[address - begin];
-    }
-    
-    virtual void write (const uint16_t address, uint8_t data) override
-    {
-        rom[address - begin] = data;
     }
 };
 

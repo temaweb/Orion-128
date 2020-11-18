@@ -9,21 +9,29 @@
 
 Memory::Memory()
 {
-    for (auto &a : memory)
+    for (auto &page : memory)
     {
-        a = 0x00;
+        for (auto &a : page)
+        {
+            a = 0x00;
+        }
     }
     
     // JMP 0xF800
-    memory[0x0000] = 0xC3;
-    memory[0x0001] = 0x00;
-    memory[0x0002] = 0xF8;
+    memory[0x00][0x0000] = 0xC3;
+    memory[0x00][0x0001] = 0x00;
+    memory[0x00][0x0002] = 0xF8;
+}
+
+void Memory::switchPage(uint8_t page)
+{
+    this -> page = page;
 }
 
 bool Memory::isAccept(uint16_t address) const
 {
-    return address >= 0x0000 &&
-           address <= 0xF3FF;
+    return (address >= 0x0000 &&
+            address <= 0xEFFF);
 }
 
 #pragma mark -
@@ -31,12 +39,12 @@ bool Memory::isAccept(uint16_t address) const
 
 uint8_t Memory::read (const uint16_t address) const
 {
-    return memory[address];
+    return memory[page][address];
 }
 
 void Memory::write (const uint16_t address, uint8_t data)
 {
-    memory[address] = data;
+    memory[page][address] = data;
 }
 
 

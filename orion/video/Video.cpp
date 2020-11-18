@@ -10,9 +10,9 @@
 #include <iomanip>
 
 #include "Video.hpp"
-#include "Bus.hpp"
+#include "Memory.hpp"
 
-void Video::connect(std::shared_ptr<const Bus> bus)
+void Video::connect(std::shared_ptr<const Memory> bus)
 {
     this -> bus = bus;
 }

@@ -16,7 +16,6 @@
 		8A24E46A255C85E600496F78 /* Video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E3E7255C4E1E00496F78 /* Video.cpp */; };
 		8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* Cpu.cpp */; };
 		8A24E470255C85F200496F78 /* Cpulogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */; };
-		8A24E473255C85F800496F78 /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C638254460C8008DAA6B /* Bus.cpp */; };
 		8A3015742564251F0071D523 /* rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A30157025640C400071D523 /* rom */; };
 		8A301577256425230071D523 /* monitor in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A24E3E4255C480700496F78 /* monitor */; };
 		8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
@@ -24,9 +23,16 @@
 		8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA63D1425619331007CF426 /* Keyboard.cpp */; };
 		8AB9437C254A187200636CA0 /* Cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* Cpu.cpp */; };
 		8AC0C6222543AE24008DAA6B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C6212543AE24008DAA6B /* main.cpp */; };
-		8AC0C63A254460C8008DAA6B /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0C638254460C8008DAA6B /* Bus.cpp */; };
 		8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5B6255DF8410048C4DE /* WindowController.mm */; };
 		8ADCB5D1255F48B00048C4DE /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
+		8AE39C822565700C009C77BC /* IOController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C802565700C009C77BC /* IOController.cpp */; };
+		8AE39C832565700C009C77BC /* IOController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C802565700C009C77BC /* IOController.cpp */; };
+		8AE39C8E25658DB5009C77BC /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C8C25658DB5009C77BC /* System.cpp */; };
+		8AE39C8F25658DB5009C77BC /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C8C25658DB5009C77BC /* System.cpp */; };
+		8AE39C9E2565BBD2009C77BC /* IOBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C9D2565BBD2009C77BC /* IOBus.cpp */; };
+		8AE39C9F2565BBD2009C77BC /* IOBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C9D2565BBD2009C77BC /* IOBus.cpp */; };
+		8AE39CAA2565D452009C77BC /* Empty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39CA92565D452009C77BC /* Empty.cpp */; };
+		8AE39CAB2565D452009C77BC /* Empty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39CA92565D452009C77BC /* Empty.cpp */; };
 		8AE7F9D0255B50D700830F35 /* Cpulogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */; };
 		8AF548EB25648732006AFB51 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AF548E925648732006AFB51 /* Memory.cpp */; };
 		8AF548EC25648732006AFB51 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AF548E925648732006AFB51 /* Memory.cpp */; };
@@ -93,12 +99,20 @@
 		8AB9437B254A187200636CA0 /* Cpu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cpu.hpp; sourceTree = "<group>"; };
 		8AC0C61E2543AE24008DAA6B /* orion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = orion; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC0C6212543AE24008DAA6B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		8AC0C638254460C8008DAA6B /* Bus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Bus.cpp; sourceTree = "<group>"; };
 		8AC0C639254460C8008DAA6B /* Bus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Bus.hpp; sourceTree = "<group>"; };
 		8ADCB5B5255DF8410048C4DE /* WindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
 		8ADCB5B6255DF8410048C4DE /* WindowController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WindowController.mm; sourceTree = "<group>"; };
 		8ADCB5CF255F48B00048C4DE /* Orion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Orion.cpp; sourceTree = "<group>"; };
 		8ADCB5D0255F48B00048C4DE /* Orion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Orion.hpp; sourceTree = "<group>"; };
+		8AE39C802565700C009C77BC /* IOController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IOController.cpp; sourceTree = "<group>"; };
+		8AE39C812565700C009C77BC /* IOController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOController.hpp; sourceTree = "<group>"; };
+		8AE39C8725657528009C77BC /* MemorySwitcher.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemorySwitcher.hpp; sourceTree = "<group>"; };
+		8AE39C8C25658DB5009C77BC /* System.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = System.cpp; sourceTree = "<group>"; };
+		8AE39C8D25658DB5009C77BC /* System.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
+		8AE39C982565B317009C77BC /* IOBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOBus.hpp; sourceTree = "<group>"; };
+		8AE39C9D2565BBD2009C77BC /* IOBus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IOBus.cpp; sourceTree = "<group>"; };
+		8AE39CA62565D24B009C77BC /* Empty.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Empty.hpp; sourceTree = "<group>"; };
+		8AE39CA92565D452009C77BC /* Empty.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Empty.cpp; sourceTree = "<group>"; };
 		8AE7F9BA255B334800830F35 /* 8080EXM.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EXM.com; sourceTree = "<group>"; };
 		8AE7F9BC255B39CE00830F35 /* 8080EXM.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXM.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpulogger.cpp; sourceTree = "<group>"; };
@@ -180,8 +194,11 @@
 		8A301589256453CF0071D523 /* memory */ = {
 			isa = PBXGroup;
 			children = (
+				8AE39C8C25658DB5009C77BC /* System.cpp */,
+				8AE39C8D25658DB5009C77BC /* System.hpp */,
 				8AF548E925648732006AFB51 /* Memory.cpp */,
 				8AF548EA25648732006AFB51 /* Memory.hpp */,
+				8AE39C8725657528009C77BC /* MemorySwitcher.hpp */,
 			);
 			path = memory;
 			sourceTree = "<group>";
@@ -213,6 +230,10 @@
 				8AA63D132561931E007CF426 /* keyboard */,
 				8A3015612563F8450071D523 /* disk */,
 				8AA673992562AFEA000ABA5D /* IODevice.hpp */,
+				8AE39C802565700C009C77BC /* IOController.cpp */,
+				8AE39C812565700C009C77BC /* IOController.hpp */,
+				8AE39C982565B317009C77BC /* IOBus.hpp */,
+				8AE39C9D2565BBD2009C77BC /* IOBus.cpp */,
 			);
 			path = IO;
 			sourceTree = "<group>";
@@ -233,8 +254,9 @@
 		8AB9438A254B2A0400636CA0 /* bus */ = {
 			isa = PBXGroup;
 			children = (
-				8AC0C638254460C8008DAA6B /* Bus.cpp */,
 				8AC0C639254460C8008DAA6B /* Bus.hpp */,
+				8AE39CA62565D24B009C77BC /* Empty.hpp */,
+				8AE39CA92565D452009C77BC /* Empty.cpp */,
 			);
 			path = bus;
 			sourceTree = "<group>";
@@ -363,16 +385,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AE39C8F25658DB5009C77BC /* System.cpp in Sources */,
 				8A24E452255C806400496F78 /* ViewController.mm in Sources */,
 				8A24E470255C85F200496F78 /* Cpulogger.cpp in Sources */,
 				8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */,
-				8A24E473255C85F800496F78 /* Bus.cpp in Sources */,
 				8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */,
 				8AF548EC25648732006AFB51 /* Memory.cpp in Sources */,
+				8AE39C9F2565BBD2009C77BC /* IOBus.cpp in Sources */,
 				8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */,
 				8A24E463255C83E400496F78 /* DisplayView.mm in Sources */,
 				8A24E45A255C806400496F78 /* main.m in Sources */,
 				8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */,
+				8AE39CAB2565D452009C77BC /* Empty.cpp in Sources */,
+				8AE39C832565700C009C77BC /* IOController.cpp in Sources */,
 				8A24E46A255C85E600496F78 /* Video.cpp in Sources */,
 				8A24E44F255C806400496F78 /* AppDelegate.mm in Sources */,
 			);
@@ -383,12 +408,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AB9437C254A187200636CA0 /* Cpu.cpp in Sources */,
-				8AC0C63A254460C8008DAA6B /* Bus.cpp in Sources */,
 				8AC0C6222543AE24008DAA6B /* main.cpp in Sources */,
 				8AF548EB25648732006AFB51 /* Memory.cpp in Sources */,
 				8ADCB5D1255F48B00048C4DE /* Orion.cpp in Sources */,
+				8AE39CAA2565D452009C77BC /* Empty.cpp in Sources */,
 				8A24E3E9255C4E1E00496F78 /* Video.cpp in Sources */,
 				8AA63D1625619331007CF426 /* Keyboard.cpp in Sources */,
+				8AE39C822565700C009C77BC /* IOController.cpp in Sources */,
+				8AE39C9E2565BBD2009C77BC /* IOBus.cpp in Sources */,
+				8AE39C8E25658DB5009C77BC /* System.cpp in Sources */,
 				8AE7F9D0255B50D700830F35 /* Cpulogger.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

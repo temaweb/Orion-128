@@ -10,9 +10,11 @@
 
 #include <stdio.h>
 #include <array>
+
+#include "IODevice.hpp"
 #include "Rom.hpp"
 
-class Disk : public Rom<64 * 1024>
+class Disk : public WDevice, public Rom<64 * 1024>
 {
 private:
     

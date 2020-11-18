@@ -13,8 +13,7 @@
 #include <vector>
 
 #include "Cpustatus.hpp"
-
-class Bus;
+#include "IODevice.hpp"
 
 class Cpu
 {
@@ -72,7 +71,7 @@ private:
 // Bus communication
 private:
     
-    std::shared_ptr<Bus> bus = nullptr;
+    std::shared_ptr<IODevice> bus = nullptr;
     
     uint8_t read ();
     uint8_t read (uint16_t address);
@@ -274,7 +273,7 @@ public:
     
     void clock();
     void setCounter(uint16_t counter);
-    void connect(std::shared_ptr<Bus> bus);
+    void connect(std::shared_ptr<IODevice> bus);
 };
 
 void log( uint16_t pcl, Cpu * cpu );

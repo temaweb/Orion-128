@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <vector>
 
-class Bus;
+class Memory;
 
 class Pixel
 {
@@ -52,7 +52,7 @@ private:
     static const uint16_t end   = 0x0EFFF; // End video memory
     
 private:
-    std::shared_ptr<const Bus> bus = nullptr;
+    std::shared_ptr<const Memory> bus = nullptr;
 
     std::vector<Pixel> getLine(uint8_t row);
     void explore(std::vector<Pixel> & line, const uint8_t & data);
@@ -64,7 +64,7 @@ public:
     std::vector<std::vector<Pixel>> output();
     
     // Connect memory bus
-    void connect(std::shared_ptr<const Bus> bus);
+    void connect(std::shared_ptr<const Memory> bus);
     
     // Return video resolution
     Resolution getResolution() const

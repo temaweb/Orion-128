@@ -7,6 +7,9 @@
 
 #include "Orion.hpp"
 #include "Memory.hpp"
+#include "MemorySwitcher.hpp"
+#include "RamtestRom.hpp"
+#include "System.hpp"
 
 #include <chrono>
 #include <thread>
@@ -17,13 +20,24 @@ using namespace std::chrono;
 
 Orion::Orion()
 {
-    cpu      -> connect(bus);
-    video    -> connect(bus);
+    auto memory   = make_shared<Memory>();
+    auto io       = make_shared<IOController>();
+    auto bus      = make_shared<Bus>();
+    auto switcher = make_shared<MemorySwitcher>();
     
-    bus -> connect(keyboard);
-    bus -> connect(std::make_shared<Disk>());
-    bus -> connect(std::make_shared<MonitorRom>());
-    bus -> connect(std::make_shared<Memory>());
+    bus -> connect<MonitorRom>();
+    bus -> connect<System>();
+    bus -> connect(memory);
+    
+    io -> connect(keyboard);
+    io -> connect<Disk>();
+    io -> connect(switcher);
+    io -> connectBus(bus);
+    
+    switcher -> connect(memory);
+    
+    cpu   -> connect(io);
+    video -> connect(memory);
 }
 
 // Main loop at @frequency Hz

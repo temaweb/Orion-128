@@ -10,7 +10,6 @@
 #include <iostream>
 #include <iomanip>
 
-
 Keyboard::Keyboard()
 {
     for (auto & item : keys)

@@ -6,7 +6,6 @@
 //
 
 #include "Cpu.hpp"
-#include "Bus.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -436,7 +435,7 @@ void Cpu::write(uint16_t address, uint8_t data)
     bus -> write(address, data);
 }
 
-void Cpu::connect(std::shared_ptr<Bus> bus)
+void Cpu::connect(std::shared_ptr<IODevice> bus)
 {
     this -> bus = bus;
 }

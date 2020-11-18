@@ -10,25 +10,20 @@
 
 #include <stdio.h>
 #include <cstdint>
-#include <vector>
+#include <memory>
+#include <stdexcept>
 
+#include "IOBus.hpp"
 #include "IODevice.hpp"
+#include "Empty.hpp"
 
-class Bus
+class Bus : public IOBus
 {
-private:
-    std::vector<std::shared_ptr<IODevice>> devices;
-    std::shared_ptr<IODevice> getDevice(uint16_t address) const;
+protected:
     
-public:
-    
-    uint8_t read (const uint16_t address) const;
-    void   write (const uint16_t address, uint8_t data);
-    
-    // Add I/O device
-    void connect(std::shared_ptr<IODevice> device)
+    virtual std::shared_ptr<IODevice> defaultDevice() const override final
     {
-        devices.push_back(device);
+        return Empty::getInstance();
     }
 };
 

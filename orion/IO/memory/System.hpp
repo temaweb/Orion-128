@@ -1,27 +1,27 @@
 //
-//  Memory.hpp
+//  System.hpp
 //  orion
 //
 //  Created by Артём Оконечников on 18.11.2020.
 //
 
-#ifndef Memory_hpp
-#define Memory_hpp
+#ifndef System_hpp
+#define System_hpp
 
 #include <stdio.h>
+#include <cstdint>
 #include <array>
 
 #include "IODevice.hpp"
 
-class Memory : public IODevice
+class System : public IODevice
 {
 private:
     
-    uint8_t page = 0x00;
-    std::array<std::array<uint8_t, 60 * 1024>, 4> memory {};
+    std::array<uint8_t, 2 * 1024> ram;
     
 public:
-    Memory();
+    System();
     
     // Address belong to ports space
     virtual bool isAccept(uint16_t address) const override;
@@ -29,8 +29,6 @@ public:
     // I/O
     virtual uint8_t read (const uint16_t address) const override;
     virtual void   write (const uint16_t address, uint8_t data) override;
-    
-    void switchPage(uint8_t page);
 };
 
-#endif /* Memory_hpp */
+#endif /* System_hpp */

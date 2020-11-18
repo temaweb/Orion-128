@@ -12,7 +12,6 @@
 #include <Carbon/Carbon.h>
 
 #include "IODevice.hpp"
-#include "Bus.hpp"
 
 class Keyboard : public IODevice
 {
