@@ -6,6 +6,7 @@
 //
 
 #include "Orion.hpp"
+#include "Memory.hpp"
 
 #include <chrono>
 #include <thread>
@@ -18,8 +19,11 @@ Orion::Orion()
 {
     cpu      -> connect(bus);
     video    -> connect(bus);
-    keyboard -> connect(bus);
-    disk     -> connect(bus);
+    
+    bus -> connect(keyboard);
+    bus -> connect(std::make_shared<Disk>());
+    bus -> connect(std::make_shared<MonitorRom>());
+    bus -> connect(std::make_shared<Memory>());
 }
 
 // Main loop at @frequency Hz
@@ -41,15 +45,6 @@ void Orion::run(int frequency)
         cpu -> clock();
         count++;
     }
-}
-
-// Load data in read only memory at 0xF800 - 0xFFFF
-void Orion::load(std::shared_ptr<Rom> rom)
-{
-    auto offset = rom -> getOffset();
-    
-    rom -> load(bus);
-    cpu -> setCounter(offset);
 }
 
 #pragma mark -

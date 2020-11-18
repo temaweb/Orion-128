@@ -19,30 +19,30 @@
 
 int main(int argc, const char * argv[])
 {
-    Bus bus;
+    std::shared_ptr<Bus> bus;
     Video video;
     Cpu cpu;
 
     std::ifstream file("/Users/temaweb/Desktop/Орион-128/Orion-128/orion/cpu/tests/8080EXM.com", std::ios::in | std::ios::binary);
     uint16_t offset = OFFSET;
 
-    bus.write(0x0000, 0xD3);
-    bus.write(0x0001, 0x00);
+    bus -> write(0x0000, 0xD3);
+    bus -> write(0x0001, 0x00);
 
-    bus.write(0x0005, 0xD3);
-    bus.write(0x0006, 0x01);
-    bus.write(0x0007, 0xC9);
+    bus -> write(0x0005, 0xD3);
+    bus -> write(0x0006, 0x01);
+    bus -> write(0x0007, 0xC9);
 
     char buffer = 0x00;
     while (!file.eof())
     {
         file.read(&buffer, 1);
-        bus.write(offset++, buffer);
+        bus -> write(offset++, buffer);
     }
 
     file.close();
 
-    cpu.connect(&bus);
+    cpu.connect(bus);
     cpu.setCounter(OFFSET);
 
     while (true)

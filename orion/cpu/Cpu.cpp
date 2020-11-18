@@ -11,7 +11,8 @@
 #include <iostream>
 #include <iomanip>
 
-#define LOGTEST
+#define ASMLOG
+#undef  ASMLOG
 
 Cpu::Cpu() : registers { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 {
@@ -342,7 +343,7 @@ void Cpu::clock()
         return;
     }
 
-#ifndef LOGTEST
+#ifdef ASMLOG
     uint16_t pcl = counter;
 #endif
     
@@ -361,7 +362,7 @@ void Cpu::clock()
     // Execute operation and add extra cycles
     cycles += (this->*lookup[opcode].operate)();
     
-#ifndef LOGTEST
+#ifdef ASMLOG
     ::log(pcl, this);
 #endif
 }
@@ -706,10 +707,10 @@ uint8_t Cpu::POPR  ()
 // Flags: -
 uint8_t Cpu::POP   ()
 {
-    uint8_t status = status;
+    uint8_t status = this -> status;
     uint8_t cycles = POP(registers[A], status);
     
-    status = status;
+    this -> status = status;
     
     return cycles;
 }

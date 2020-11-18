@@ -5,50 +5,28 @@
 //  Created by Артём Оконечников on 24.10.2020.
 //
 
-#include <sstream>
-#include <tuple>
+#include <stdexcept>
 
 #include "Bus.hpp"
 #include "IODevice.hpp"
 
-Bus::Bus()
+std::shared_ptr<IODevice> Bus::getDevice(uint16_t address) const
 {
-    for (auto &a : ram)
+    for (auto & device : devices)
     {
-        a = 0x00;
+        if (device -> isAccept(address))
+            return device;
     }
+    
+    throw std::out_of_range("No device found for address");
 }
 
 uint8_t Bus::read(const uint16_t address) const
 {
-    for (auto & device : iodevices)
-    {
-        if (device -> isPort(address)) {
-            return device -> read(address);
-        }
-    }
-    
-    if (address >= 0x00 && address <= 0xFFFF)
-        return ram[address];
-    
-    return 0x00;
+    return getDevice(address) -> read(address);
 }
 
-void Bus::write(const uint16_t offset, uint8_t data)
+void Bus::write(const uint16_t address, uint8_t data)
 {
-    for (auto & device : iodevices)
-    {
-        if (device -> isPort(offset)) {
-            device -> write(offset, data);
-            return;
-        }
-    }
-    
-    if (offset >= 0x00 && offset <= 0xFFFF)
-        ram[offset] = data;
-}
-
-void Bus::connect(std::shared_ptr<IODevice> device)
-{
-    iodevices.push_back(device);
+    getDevice(address) -> write(address, data);
 }

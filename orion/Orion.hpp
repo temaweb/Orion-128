@@ -44,9 +44,7 @@ private:
     std::shared_ptr<Bus>     bus = std::make_shared<Bus>();
     std::unique_ptr<Cpu>     cpu = std::make_unique<Cpu>();
     std::shared_ptr<Video> video = std::make_unique<Video>();
-    
     std::shared_ptr<Keyboard> keyboard = std::make_shared<Keyboard>();
-    std::shared_ptr<Disk> disk = std::make_shared<Disk>();
     
 public:
     Orion();
@@ -68,10 +66,7 @@ public:
     {
         return frequency;
     }
-    
-    // Load BIOS
-    void load(std::shared_ptr<Rom> rom = std::make_shared<MonitorRom>());
-    
+
     // Run main loop at 2.5 MHz
     void run(int frequency = 2500000);
 };

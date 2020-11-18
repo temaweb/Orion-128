@@ -42,9 +42,7 @@ std::unique_ptr<Orion> orion = std::make_unique<Orion>();
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-    orion -> load(std::make_shared<MonitorRom>());
-    
+{   
     __block id _self = self;
     
     dispatch_async(_globalQueue, ^{

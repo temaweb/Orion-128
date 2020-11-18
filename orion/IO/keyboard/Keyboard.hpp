@@ -40,9 +40,12 @@ private:
 public:
     Keyboard();
     
-    virtual bool isPort(uint16_t address) override;
-    virtual uint8_t read(const uint16_t address) const override;
-    virtual void write(const uint16_t address, uint8_t data) override;
+    // Address belong to ports space
+    virtual bool isAccept(uint16_t address) const override;
+    
+    // I/O
+    virtual uint8_t read (const uint16_t address) const override;
+    virtual void   write (const uint16_t address, uint8_t data) override;
     
 public:
     void keyevent(unsigned short code, bool isPressed);

@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "EmptyDevice::read(unsigned short) const:EmptyDevice.hpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "address - 0xF400">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[DisplayView setColor:]:DisplayView.mm">
          <PersistentStrings>
             <PersistentString

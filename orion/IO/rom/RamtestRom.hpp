@@ -11,14 +11,11 @@
 #include <stdio.h>
 #include "Rom.hpp"
 
-class RamtestRom : public Rom
+class RamtestRom : public Rom<>
 {
-protected:
-    
-    virtual std::string getRom() override
-    {
-        return "RAM_TEST.BIN";
-    }
+public:
+    RamtestRom() : Rom("monitor/RAM_TEST.BIN")
+    {}
 };
 
 #endif /* TestRom_hpp */

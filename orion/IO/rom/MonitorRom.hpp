@@ -11,14 +11,11 @@
 #include <stdio.h>
 #include "Rom.hpp"
 
-class MonitorRom : public Rom
+class MonitorRom : public Rom<>
 {
-protected:
-    
-    virtual std::string getRom() override
-    {
-        return "Orion128_M2.rom";
-    }
+public:
+    MonitorRom() : Rom("monitor/Orion128_M2.rom")
+    {}
 };
 
 #endif /* OrionRom_hpp */
