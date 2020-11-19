@@ -5,14 +5,14 @@
 //  Created by Артём Оконечников on 11.11.2020.
 //
 
-#import "DisplayView.h"
-#import "AppDelegate.h"
-
 #include <cstdint>
 #include <vector>
 
 #include "Video.hpp"
 #include "Keyboard.hpp"
+
+#import "DisplayView.h"
+#import "AppDelegate.h"
 
 @implementation DisplayView
 

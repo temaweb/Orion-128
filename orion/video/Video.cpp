@@ -12,16 +12,19 @@
 #include "Video.hpp"
 #include "Memory.hpp"
 
-void Video::connect(std::shared_ptr<const Memory> bus)
+const BWPalette Video::bwpalette = BWPalette();
+
+void Video::connect(std::shared_ptr<const Memory> memory)
 {
-    this -> bus = bus;
+    this -> memory = memory;
 }
 
-void Video::setPalette(uint8_t data)
+void Video::switchColorMode(uint8_t data)
 {
-    this -> palette = (Palette) (data >> 1);
+    this -> colorMode = (ColorMode) (data >> 1);
 }
 
+// Returns one frame
 std::vector<std::vector<Pixel>> Video::output()
 {
     uint8_t row = 0x00;
@@ -36,6 +39,7 @@ std::vector<std::vector<Pixel>> Video::output()
     return frame;
 }
 
+// Returns one line
 std::vector<Pixel> Video::getLine(uint8_t row)
 {
     std::vector<Pixel> line;
@@ -48,15 +52,14 @@ std::vector<Pixel> Video::getLine(uint8_t row)
         
         // One byte video data has 8 points on screen
         // Each set bit match drawed point on screen.
-        uint8_t  data = bus -> read(address);
+        uint8_t data = memory -> read(address);
         
-       
-        switch (palette)
+        switch (colorMode)
         {
             case MONO:
+            case COLOR4:
                 colorisebw(line, data);
                 break;
-            case COLOR4:
             case COLOR16:
                 colorise16(line, data, address);
             default:
@@ -67,17 +70,17 @@ std::vector<Pixel> Video::getLine(uint8_t row)
     return line;
 }
 
-void Video::colorisebw(std::vector<Pixel> & line, const uint8_t & data)
+void Video::colorise (std::vector<Pixel> & line, const uint8_t & data, const Palette & palette)
 {
     for (uint8_t offset = 7;;offset--)
     {
         // Black pixel by default if no data
-        Pixel pixel(0x000000);
+        Pixel pixel = palette.getBackground();
         
         if ((data & (1 << offset)))
         {
             // White pixel if bit is set
-            pixel = Pixel(0xCCCCCC);
+            pixel = palette.getForeground();
         }
         
         line.push_back(pixel);
@@ -87,25 +90,17 @@ void Video::colorisebw(std::vector<Pixel> & line, const uint8_t & data)
     }
 }
 
+void Video::colorisebw(std::vector<Pixel> & line, const uint8_t & data)
+{
+    colorise(line, data, bwpalette);
+}
+
 void Video::colorise16(std::vector<Pixel> & line, const uint8_t & data, const uint16_t & address)
 {
-    uint8_t color = bus -> read(address, 1);
+    // Read data by address from second page
+    // Second page store data about colors;
+    auto color = memory -> read(address, 1);
+    auto palette = Color16Palette(color);
     
-    uint32_t foreground = color16[color & 0x0F];
-    uint32_t background = color16[(color & 0xF0) >> 4];
-    
-    for (uint8_t offset = 7;;offset--)
-    {
-        Pixel pixel(background);
-        
-        if ((data & (1 << offset)))
-        {
-            pixel = Pixel(foreground);
-        }
-        
-        line.push_back(pixel);
-        
-        if (offset == 0x00)
-            break;
-    }
+    colorise(line, data, palette);
 }

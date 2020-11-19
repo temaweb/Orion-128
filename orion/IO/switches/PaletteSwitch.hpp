@@ -35,7 +35,7 @@ public:
     // I/O
     virtual void write (const uint16_t address, uint8_t data) override
     {
-        video -> setPalette(data & 0x7);
+        video -> switchColorMode(data & 0x7);
     }
 };
 

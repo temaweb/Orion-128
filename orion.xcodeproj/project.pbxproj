@@ -35,6 +35,8 @@
 		8AE39CAB2565D452009C77BC /* Empty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39CA92565D452009C77BC /* Empty.cpp */; };
 		8AE39D072565FD1D009C77BC /* exerciser in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8AE39CCE2565FA00009C77BC /* exerciser */; };
 		8AE7F9D0255B50D700830F35 /* Cpulogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */; };
+		8AEE662A2566F56C0007586F /* TouchBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE66292566F56C0007586F /* TouchBarController.m */; };
+		8AEE66432566FCE30007586F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AEE66452566FCE30007586F /* Localizable.strings */; };
 		8AF548EB25648732006AFB51 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AF548E925648732006AFB51 /* Memory.cpp */; };
 		8AF548EC25648732006AFB51 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AF548E925648732006AFB51 /* Memory.cpp */; };
 /* End PBXBuildFile section */
@@ -89,6 +91,8 @@
 		8AA63D1525619331007CF426 /* Keyboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
 		8AA673992562AFEA000ABA5D /* IODevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IODevice.hpp; sourceTree = "<group>"; };
 		8AB1C4382566BECD002B614A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8AB1C43D2566E1E2002B614A /* Palette.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Palette.hpp; sourceTree = "<group>"; };
+		8AB1C4402566E230002B614A /* Pixel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Pixel.hpp; sourceTree = "<group>"; };
 		8AB9437A254A187200636CA0 /* Cpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpu.cpp; sourceTree = "<group>"; };
 		8AB9437B254A187200636CA0 /* Cpu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cpu.hpp; sourceTree = "<group>"; };
 		8AC0C61E2543AE24008DAA6B /* orion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = orion; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +120,12 @@
 		8AE39CF12565FC79009C77BC /* 8080EX1.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EX1.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AE39CF22565FC79009C77BC /* 8080PRE.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080PRE.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpulogger.cpp; sourceTree = "<group>"; };
+		8AEE66282566F56C0007586F /* TouchBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchBarController.h; sourceTree = "<group>"; };
+		8AEE66292566F56C0007586F /* TouchBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchBarController.m; sourceTree = "<group>"; };
+		8AEE66442566FCE30007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AEE664B2566FD8F0007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		8AEE66502566FF6B0007586F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8AEE66562566FFE00007586F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		8AF548E925648732006AFB51 /* Memory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
 		8AF548EA25648732006AFB51 /* Memory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +153,8 @@
 			children = (
 				8A24E3E7255C4E1E00496F78 /* Video.cpp */,
 				8A24E3E8255C4E1E00496F78 /* Video.hpp */,
+				8AB1C43D2566E1E2002B614A /* Palette.hpp */,
+				8AB1C4402566E230002B614A /* Pixel.hpp */,
 			);
 			path = video;
 			sourceTree = "<group>";
@@ -154,6 +166,8 @@
 				8AE39CC22565F95B009C77BC /* view */,
 				8A24E44D255C806400496F78 /* AppDelegate.h */,
 				8A24E44E255C806400496F78 /* AppDelegate.mm */,
+				8A24E455255C806400496F78 /* Main.storyboard */,
+				8AEE66452566FCE30007586F /* Localizable.strings */,
 				8A24E458255C806400496F78 /* Info.plist */,
 				8A24E459255C806400496F78 /* main.m */,
 			);
@@ -292,6 +306,8 @@
 				8A24E451255C806400496F78 /* ViewController.mm */,
 				8ADCB5B5255DF8410048C4DE /* WindowController.h */,
 				8ADCB5B6255DF8410048C4DE /* WindowController.mm */,
+				8AEE66282566F56C0007586F /* TouchBarController.h */,
+				8AEE66292566F56C0007586F /* TouchBarController.m */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -299,7 +315,6 @@
 		8AE39CC22565F95B009C77BC /* view */ = {
 			isa = PBXGroup;
 			children = (
-				8A24E455255C806400496F78 /* Main.storyboard */,
 				8A24E461255C83E400496F78 /* DisplayView.h */,
 				8A24E462255C83E400496F78 /* DisplayView.mm */,
 			);
@@ -379,6 +394,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 8AC0C6152543AE24008DAA6B;
 			productRefGroup = 8AC0C61F2543AE24008DAA6B /* Products */;
@@ -397,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A24E457255C806400496F78 /* Main.storyboard in Resources */,
+				8AEE66432566FCE30007586F /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +435,7 @@
 				8A24E463255C83E400496F78 /* DisplayView.mm in Sources */,
 				8A24E45A255C806400496F78 /* main.m in Sources */,
 				8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */,
+				8AEE662A2566F56C0007586F /* TouchBarController.m in Sources */,
 				8AE39CAB2565D452009C77BC /* Empty.cpp in Sources */,
 				8AE39C832565700C009C77BC /* IOController.cpp in Sources */,
 				8A24E46A255C85E600496F78 /* Video.cpp in Sources */,
@@ -450,8 +468,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				8A24E456255C806400496F78 /* Base */,
+				8AEE664B2566FD8F0007586F /* en */,
+				8AEE66562566FFE00007586F /* ru */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8AEE66452566FCE30007586F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8AEE66442566FCE30007586F /* en */,
+				8AEE66502566FF6B0007586F /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -460,7 +489,6 @@
 		8A24E45D255C806400496F78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -479,7 +507,6 @@
 		8A24E45E255C806400496F78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -499,6 +526,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -558,6 +586,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

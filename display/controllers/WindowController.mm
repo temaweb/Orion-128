@@ -8,33 +8,24 @@
 #import "WindowController.h"
 #import "AppDelegate.h"
 
-@implementation WindowController 
-
-NSTimer * ttimer;
+@implementation WindowController
 
 - (void) windowDidLoad
 {
     [super windowDidLoad];
-    
-    if (ttimer == NULL) {
-        ttimer = [self createDisplayTimer];
-    }
 }
 
-- (NSTimer *) createDisplayTimer
-{
-    return  [NSTimer scheduledTimerWithTimeInterval:0.1
-                                             target:self
-                                           selector:@selector(updateTimer:)
-                                           userInfo:nil
-                                            repeats:YES];
-}
-
-- (void) updateTimer:(NSTimer *)theTimer
+- (NSString *) title
 {
     double counter = [[AppDelegate sharedAppDelegate] freq];
-    NSString * title = [NSString stringWithFormat:@"Орион-128 / %.01f MHz", counter];
-    [[self window] setTitle:title];
+    NSString * title = NSLocalizedString(@"title", nil);
+    
+    return [NSString stringWithFormat:title, counter];
+}
+
+- (void) keyDown:(NSEvent *) theEvent
+{
+    //[theEvent discardEditing];
 }
 
 @end

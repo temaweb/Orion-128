@@ -8,6 +8,6 @@
 #import <Cocoa/Cocoa.h>
 
 @interface WindowController : NSWindowController
-
+@property (readonly) NSString * title;
 @end
 
