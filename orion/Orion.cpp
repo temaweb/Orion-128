@@ -33,7 +33,6 @@ Orion::Orion()
     
     io -> connect<PaletteSwitch>();
     io -> connect<ScreenSwitch>();
-    
     io -> connect<Disk>();
     io -> connect(keyboard);
     io -> connect(switcher);

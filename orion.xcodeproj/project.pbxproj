@@ -33,6 +33,7 @@
 		8AE39C9F2565BBD2009C77BC /* IOBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C9D2565BBD2009C77BC /* IOBus.cpp */; };
 		8AE39CAA2565D452009C77BC /* Empty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39CA92565D452009C77BC /* Empty.cpp */; };
 		8AE39CAB2565D452009C77BC /* Empty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39CA92565D452009C77BC /* Empty.cpp */; };
+		8AE39D072565FD1D009C77BC /* exerciser in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8AE39CCE2565FA00009C77BC /* exerciser */; };
 		8AE7F9D0255B50D700830F35 /* Cpulogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */; };
 		8AF548EB25648732006AFB51 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AF548E925648732006AFB51 /* Memory.cpp */; };
 		8AF548EC25648732006AFB51 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AF548E925648732006AFB51 /* Memory.cpp */; };
@@ -52,23 +53,17 @@
 		};
 		8AC0C61C2543AE24008DAA6B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				8AE39D072565FD1D009C77BC /* exerciser in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8A17012C25577150006659C3 /* CPUTEST.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = CPUTEST.com; sourceTree = "<group>"; };
-		8A17012D25577150006659C3 /* 8080EX1.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EX1.com; sourceTree = "<group>"; };
-		8A170136255815E1006659C3 /* 8080EX1.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EX1.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
-		8A170140255818AB006659C3 /* 8080EXER.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EXER.com; sourceTree = "<group>"; };
-		8A170141255818BF006659C3 /* 8080EXER.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXER.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
-		8A170145255818FA006659C3 /* 8080PRE.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080PRE.com; sourceTree = "<group>"; };
-		8A17014625581927006659C3 /* 8080PRE.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080PRE.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8A24E3E2255C183500496F78 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A24E3E4255C480700496F78 /* monitor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = monitor; sourceTree = "<group>"; };
 		8A24E3E7255C4E1E00496F78 /* Video.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Video.cpp; sourceTree = "<group>"; };
@@ -90,8 +85,6 @@
 		8A6A20FB25605352009A8B71 /* Rom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rom.hpp; sourceTree = "<group>"; };
 		8A6A21002560580B009A8B71 /* MonitorRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MonitorRom.hpp; sourceTree = "<group>"; };
 		8A6A210725605A31009A8B71 /* RamtestRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RamtestRom.hpp; sourceTree = "<group>"; };
-		8A9AAA3F2558956E005AC787 /* 8080.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080.com; sourceTree = "<group>"; };
-		8AA255A625537764007791D5 /* 8080.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AA63D1425619331007CF426 /* Keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
 		8AA63D1525619331007CF426 /* Keyboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
 		8AA673992562AFEA000ABA5D /* IODevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IODevice.hpp; sourceTree = "<group>"; };
@@ -115,8 +108,12 @@
 		8AE39CA92565D452009C77BC /* Empty.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Empty.cpp; sourceTree = "<group>"; };
 		8AE39CB32565E9E1009C77BC /* PaletteSwitch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PaletteSwitch.hpp; sourceTree = "<group>"; };
 		8AE39CB42565E9F0009C77BC /* ScreenSwitch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScreenSwitch.hpp; sourceTree = "<group>"; };
-		8AE7F9BA255B334800830F35 /* 8080EXM.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EXM.com; sourceTree = "<group>"; };
-		8AE7F9BC255B39CE00830F35 /* 8080EXM.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXM.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
+		8AE39CCE2565FA00009C77BC /* exerciser */ = {isa = PBXFileReference; lastKnownFileType = folder; path = exerciser; sourceTree = "<group>"; };
+		8AE39CEE2565FC79009C77BC /* 8080.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
+		8AE39CEF2565FC79009C77BC /* 8080EXER.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXER.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
+		8AE39CF02565FC79009C77BC /* 8080EXM.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXM.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
+		8AE39CF12565FC79009C77BC /* 8080EX1.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EX1.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
+		8AE39CF22565FC79009C77BC /* 8080PRE.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080PRE.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpulogger.cpp; sourceTree = "<group>"; };
 		8AF548E925648732006AFB51 /* Memory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
 		8AF548EA25648732006AFB51 /* Memory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
@@ -140,24 +137,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8A170130255814CC006659C3 /* exerciser */ = {
-			isa = PBXGroup;
-			children = (
-				8A9AAA3F2558956E005AC787 /* 8080.com */,
-				8AA255A625537764007791D5 /* 8080.asm */,
-				8A17012D25577150006659C3 /* 8080EX1.com */,
-				8A170136255815E1006659C3 /* 8080EX1.asm */,
-				8AE7F9BA255B334800830F35 /* 8080EXM.com */,
-				8AE7F9BC255B39CE00830F35 /* 8080EXM.asm */,
-				8A170140255818AB006659C3 /* 8080EXER.com */,
-				8A170141255818BF006659C3 /* 8080EXER.asm */,
-				8A170145255818FA006659C3 /* 8080PRE.com */,
-				8A17014625581927006659C3 /* 8080PRE.asm */,
-				8A17012C25577150006659C3 /* CPUTEST.com */,
-			);
-			path = exerciser;
-			sourceTree = "<group>";
-		};
 		8A24E3E6255C4E0A00496F78 /* video */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,17 +149,12 @@
 		8A24E44C255C806400496F78 /* display */ = {
 			isa = PBXGroup;
 			children = (
+				8AE39CBF2565F950009C77BC /* controllers */,
+				8AE39CC22565F95B009C77BC /* view */,
 				8A24E44D255C806400496F78 /* AppDelegate.h */,
 				8A24E44E255C806400496F78 /* AppDelegate.mm */,
-				8A24E450255C806400496F78 /* ViewController.h */,
-				8A24E451255C806400496F78 /* ViewController.mm */,
-				8A24E455255C806400496F78 /* Main.storyboard */,
 				8A24E458255C806400496F78 /* Info.plist */,
 				8A24E459255C806400496F78 /* main.m */,
-				8A24E461255C83E400496F78 /* DisplayView.h */,
-				8A24E462255C83E400496F78 /* DisplayView.mm */,
-				8ADCB5B5255DF8410048C4DE /* WindowController.h */,
-				8ADCB5B6255DF8410048C4DE /* WindowController.mm */,
 			);
 			path = display;
 			sourceTree = "<group>";
@@ -243,7 +217,8 @@
 		8AB94388254B29FD00636CA0 /* cpu */ = {
 			isa = PBXGroup;
 			children = (
-				8A170130255814CC006659C3 /* exerciser */,
+				8AE39CCE2565FA00009C77BC /* exerciser */,
+				8AE39CED2565FC5B009C77BC /* sources */,
 				8AB9437A254A187200636CA0 /* Cpu.cpp */,
 				8AB9437B254A187200636CA0 /* Cpu.hpp */,
 				8A4C1E50254ED0EB00ED6E1E /* Cpustatus.hpp */,
@@ -306,6 +281,39 @@
 				8AE39CB42565E9F0009C77BC /* ScreenSwitch.hpp */,
 			);
 			path = switches;
+			sourceTree = "<group>";
+		};
+		8AE39CBF2565F950009C77BC /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8A24E450255C806400496F78 /* ViewController.h */,
+				8A24E451255C806400496F78 /* ViewController.mm */,
+				8ADCB5B5255DF8410048C4DE /* WindowController.h */,
+				8ADCB5B6255DF8410048C4DE /* WindowController.mm */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		8AE39CC22565F95B009C77BC /* view */ = {
+			isa = PBXGroup;
+			children = (
+				8A24E455255C806400496F78 /* Main.storyboard */,
+				8A24E461255C83E400496F78 /* DisplayView.h */,
+				8A24E462255C83E400496F78 /* DisplayView.mm */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		8AE39CED2565FC5B009C77BC /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				8AE39CEE2565FC79009C77BC /* 8080.asm */,
+				8AE39CF12565FC79009C77BC /* 8080EX1.asm */,
+				8AE39CEF2565FC79009C77BC /* 8080EXER.asm */,
+				8AE39CF02565FC79009C77BC /* 8080EXM.asm */,
+				8AE39CF22565FC79009C77BC /* 8080PRE.asm */,
+			);
+			path = sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
