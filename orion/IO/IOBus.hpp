@@ -23,7 +23,9 @@ private:
         {
             if (device -> isAccept(address))
             {
+                // Worst design. Dramatically slow :-(
                 auto object = std::dynamic_pointer_cast<T>(device);
+                
                 if (object)
                     return object;
             }

@@ -19,7 +19,7 @@
 #include "Disk.hpp"
 #include "IOController.hpp"
 
-#include "MemorySwitcher.hpp"
+#include "MemorySwitch.hpp"
 #include "Memory.hpp"
 
 using namespace std::chrono;

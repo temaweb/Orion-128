@@ -21,8 +21,8 @@ Cpu::Cpu() : registers { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
     
     lookup =
     {
-        // NAME      CYCLES    OPERATION         ADDRMOD
-        // ---------------------------------------------------
+        // NAME      CYCLES    OPERATION       ADDRMOD
+        // -----------------------------------------------
         
         // 0x0 - 0xF
         

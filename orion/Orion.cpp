@@ -7,7 +7,9 @@
 
 #include "Orion.hpp"
 #include "Memory.hpp"
-#include "MemorySwitcher.hpp"
+#include "MemorySwitch.hpp"
+#include "PaletteSwitch.hpp"
+#include "ScreenSwitch.hpp"
 #include "RamtestRom.hpp"
 #include "System.hpp"
 
@@ -23,14 +25,17 @@ Orion::Orion()
     auto memory   = make_shared<Memory>();
     auto io       = make_shared<IOController>();
     auto bus      = make_shared<Bus>();
-    auto switcher = make_shared<MemorySwitcher>();
+    auto switcher = make_shared<MemorySwitch>();
     
     bus -> connect<MonitorRom>();
     bus -> connect<System>();
     bus -> connect(memory);
     
-    io -> connect(keyboard);
+    io -> connect<PaletteSwitch>();
+    io -> connect<ScreenSwitch>();
+    
     io -> connect<Disk>();
+    io -> connect(keyboard);
     io -> connect(switcher);
     io -> connectBus(bus);
     

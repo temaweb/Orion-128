@@ -106,13 +106,15 @@
 		8ADCB5D0255F48B00048C4DE /* Orion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Orion.hpp; sourceTree = "<group>"; };
 		8AE39C802565700C009C77BC /* IOController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IOController.cpp; sourceTree = "<group>"; };
 		8AE39C812565700C009C77BC /* IOController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOController.hpp; sourceTree = "<group>"; };
-		8AE39C8725657528009C77BC /* MemorySwitcher.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemorySwitcher.hpp; sourceTree = "<group>"; };
+		8AE39C8725657528009C77BC /* MemorySwitch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MemorySwitch.hpp; sourceTree = "<group>"; };
 		8AE39C8C25658DB5009C77BC /* System.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = System.cpp; sourceTree = "<group>"; };
 		8AE39C8D25658DB5009C77BC /* System.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
 		8AE39C982565B317009C77BC /* IOBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOBus.hpp; sourceTree = "<group>"; };
 		8AE39C9D2565BBD2009C77BC /* IOBus.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IOBus.cpp; sourceTree = "<group>"; };
 		8AE39CA62565D24B009C77BC /* Empty.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Empty.hpp; sourceTree = "<group>"; };
 		8AE39CA92565D452009C77BC /* Empty.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Empty.cpp; sourceTree = "<group>"; };
+		8AE39CB32565E9E1009C77BC /* PaletteSwitch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PaletteSwitch.hpp; sourceTree = "<group>"; };
+		8AE39CB42565E9F0009C77BC /* ScreenSwitch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScreenSwitch.hpp; sourceTree = "<group>"; };
 		8AE7F9BA255B334800830F35 /* 8080EXM.com */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8080EXM.com; sourceTree = "<group>"; };
 		8AE7F9BC255B39CE00830F35 /* 8080EXM.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXM.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpulogger.cpp; sourceTree = "<group>"; };
@@ -198,7 +200,6 @@
 				8AE39C8D25658DB5009C77BC /* System.hpp */,
 				8AF548E925648732006AFB51 /* Memory.cpp */,
 				8AF548EA25648732006AFB51 /* Memory.hpp */,
-				8AE39C8725657528009C77BC /* MemorySwitcher.hpp */,
 			);
 			path = memory;
 			sourceTree = "<group>";
@@ -225,6 +226,7 @@
 		8AA673972562AFD7000ABA5D /* IO */ = {
 			isa = PBXGroup;
 			children = (
+				8AE39CB22565E9C5009C77BC /* switches */,
 				8A6A20F92560533E009A8B71 /* rom */,
 				8A301589256453CF0071D523 /* memory */,
 				8AA63D132561931E007CF426 /* keyboard */,
@@ -294,6 +296,16 @@
 				8AC0C6212543AE24008DAA6B /* main.cpp */,
 			);
 			path = orion;
+			sourceTree = "<group>";
+		};
+		8AE39CB22565E9C5009C77BC /* switches */ = {
+			isa = PBXGroup;
+			children = (
+				8AE39C8725657528009C77BC /* MemorySwitch.hpp */,
+				8AE39CB32565E9E1009C77BC /* PaletteSwitch.hpp */,
+				8AE39CB42565E9F0009C77BC /* ScreenSwitch.hpp */,
+			);
+			path = switches;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

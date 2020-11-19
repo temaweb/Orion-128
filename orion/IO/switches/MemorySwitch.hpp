@@ -12,7 +12,7 @@
 #include "IODevice.hpp"
 #include "Memory.hpp"
 
-class MemorySwitcher : public WDevice
+class MemorySwitch : public WDevice
 {
 private:
     uint8_t page = 0x00;
