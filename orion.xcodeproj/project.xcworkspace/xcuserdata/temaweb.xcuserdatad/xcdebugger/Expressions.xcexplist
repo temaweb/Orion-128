@@ -27,6 +27,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "Video::colorise16(std::__1::vector&lt;Pixel, std::__1::allocator&lt;Pixel&gt; &gt;&amp;, unsigned char const&amp;, unsigned short const&amp;):Video.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "color">
+            </PersistentString>
+            <PersistentString
+               value = "(color &amp; 0xFF00)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[DisplayView drawPixel:column:row:]:DisplayView.mm">
       </ContextState>
       <ContextState

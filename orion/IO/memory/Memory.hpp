@@ -27,7 +27,9 @@ public:
     virtual bool isAccept(uint16_t address) const override;
     
     // I/O
+    
     virtual uint8_t read (const uint16_t address) const override;
+    virtual uint8_t read (const uint16_t address, uint8_t page) const;
     virtual void   write (const uint16_t address, uint8_t data) override;
     
     void switchPage(uint8_t page);

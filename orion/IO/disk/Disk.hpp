@@ -27,7 +27,7 @@ private:
     };
     
 public:
-    Disk() : Rom("rom/romdisk2.bin")
+    Disk() : Rom("rom/romdisk.bin")
     {}
     
     // Address belong to ports space

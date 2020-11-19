@@ -7,9 +7,6 @@
 
 #include "Cpu.hpp"
 
-#include <iostream>
-#include <iomanip>
-
 #define ASMLOG
 #undef  ASMLOG
 

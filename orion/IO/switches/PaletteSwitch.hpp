@@ -9,11 +9,21 @@
 #define ColorSwitcher_h
 
 #include <stdio.h>
+#include "Video.hpp"
 #include "IODevice.hpp"
 
 class PaletteSwitch : public WDevice
 {
+private:
+    
+    std::shared_ptr<Video> video;
+    
 public:
+    
+    void connect(std::shared_ptr<Video> video)
+    {
+        this -> video = video;
+    }
     
     // Address belong to ports space
     virtual bool isAccept(uint16_t address) const override
@@ -25,7 +35,7 @@ public:
     // I/O
     virtual void write (const uint16_t address, uint8_t data) override
     {
-        // data & 0x03;
+        video -> setPalette(data & 0x7);
     }
 };
 

@@ -51,11 +51,43 @@ private:
     static const uint16_t begin = 0x0C000; // Start vidio memory
     static const uint16_t end   = 0x0EFFF; // End video memory
     
+    enum Palette
+    {
+        MONO    = 0,  // B/W color
+        BLANK   = 1,  // No image
+        COLOR4  = 2,  // 4 color palette
+        COLOR16 = 3   // 16 color palette
+    };
+    
+    uint32_t color16[16] =
+    {
+        0x000000, // Black
+        0x0000FF, // Blue
+        0x008000, // Green
+        0x30D5C8, // Turquoise
+        0xFF0000, // Red
+        0xC400AB, // Magenta
+        0x964B00, // Brown
+        0xD3D3D3, // Light gray
+        0x000000, // Black
+        0x00BFFF, // Light blue
+        0x99ff99, // Light green
+        0x24F2EF, // Light turquoise
+        0xFFCBDB, // Pink
+        0xD95CC9, // Light magenta
+        0xFFFF00, // Yellow
+        0xFFFFFF  // White
+    };
+    
+    Palette palette = MONO;
+    
 private:
     std::shared_ptr<const Memory> bus = nullptr;
 
     std::vector<Pixel> getLine(uint8_t row);
-    void explore(std::vector<Pixel> & line, const uint8_t & data);
+    
+    void colorisebw (std::vector<Pixel> & line, const uint8_t & data);
+    void colorise16 (std::vector<Pixel> & line, const uint8_t & data, const uint16_t & address);
     
 public:
     
@@ -65,6 +97,9 @@ public:
     
     // Connect memory bus
     void connect(std::shared_ptr<const Memory> bus);
+    
+    // Set current color palette
+    void setPalette(uint8_t data);
     
     // Return video resolution
     Resolution getResolution() const

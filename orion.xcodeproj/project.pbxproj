@@ -88,6 +88,7 @@
 		8AA63D1425619331007CF426 /* Keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
 		8AA63D1525619331007CF426 /* Keyboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
 		8AA673992562AFEA000ABA5D /* IODevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IODevice.hpp; sourceTree = "<group>"; };
+		8AB1C4382566BECD002B614A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8AB9437A254A187200636CA0 /* Cpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpu.cpp; sourceTree = "<group>"; };
 		8AB9437B254A187200636CA0 /* Cpu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cpu.hpp; sourceTree = "<group>"; };
 		8AC0C61E2543AE24008DAA6B /* orion */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = orion; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +242,7 @@
 		8AC0C6152543AE24008DAA6B = {
 			isa = PBXGroup;
 			children = (
+				8AB1C4382566BECD002B614A /* README.md */,
 				8A30157025640C400071D523 /* rom */,
 				8A24E3E4255C480700496F78 /* monitor */,
 				8A4C1E4C254B47A600ED6E1E /* materials */,

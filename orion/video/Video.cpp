@@ -17,6 +17,11 @@ void Video::connect(std::shared_ptr<const Memory> bus)
     this -> bus = bus;
 }
 
+void Video::setPalette(uint8_t data)
+{
+    this -> palette = (Palette) (data >> 1);
+}
+
 std::vector<std::vector<Pixel>> Video::output()
 {
     uint8_t row = 0x00;
@@ -45,13 +50,24 @@ std::vector<Pixel> Video::getLine(uint8_t row)
         // Each set bit match drawed point on screen.
         uint8_t  data = bus -> read(address);
         
-        explore(line, data);
+       
+        switch (palette)
+        {
+            case MONO:
+                colorisebw(line, data);
+                break;
+            case COLOR4:
+            case COLOR16:
+                colorise16(line, data, address);
+            default:
+                break;
+        }
     }
     
     return line;
 }
 
-void Video::explore(std::vector<Pixel> & line, const uint8_t & data)
+void Video::colorisebw(std::vector<Pixel> & line, const uint8_t & data)
 {
     for (uint8_t offset = 7;;offset--)
     {
@@ -63,7 +79,30 @@ void Video::explore(std::vector<Pixel> & line, const uint8_t & data)
             // White pixel if bit is set
             pixel = Pixel(0xCCCCCC);
         }
+        
+        line.push_back(pixel);
+        
+        if (offset == 0x00)
+            break;
+    }
+}
 
+void Video::colorise16(std::vector<Pixel> & line, const uint8_t & data, const uint16_t & address)
+{
+    uint8_t color = bus -> read(address, 1);
+    
+    uint32_t foreground = color16[color & 0x0F];
+    uint32_t background = color16[(color & 0xF0) >> 4];
+    
+    for (uint8_t offset = 7;;offset--)
+    {
+        Pixel pixel(background);
+        
+        if ((data & (1 << offset)))
+        {
+            pixel = Pixel(foreground);
+        }
+        
         line.push_back(pixel);
         
         if (offset == 0x00)

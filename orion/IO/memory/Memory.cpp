@@ -42,6 +42,11 @@ uint8_t Memory::read (const uint16_t address) const
     return memory[page][address];
 }
 
+uint8_t Memory::read (const uint16_t address, uint8_t page) const
+{
+    return memory[page][address];
+}
+
 void Memory::write (const uint16_t address, uint8_t data)
 {
     memory[page][address] = data;

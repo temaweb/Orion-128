@@ -26,12 +26,15 @@ Orion::Orion()
     auto io       = make_shared<IOController>();
     auto bus      = make_shared<Bus>();
     auto switcher = make_shared<MemorySwitch>();
+    auto color    = make_shared<PaletteSwitch>();
+    
+    color -> connect(video);
     
     bus -> connect<MonitorRom>();
     bus -> connect<System>();
     bus -> connect(memory);
     
-    io -> connect<PaletteSwitch>();
+    io -> connect(color);
     io -> connect<ScreenSwitch>();
     io -> connect<Disk>();
     io -> connect(keyboard);

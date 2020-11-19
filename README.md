@@ -16,4 +16,4 @@
 * Операционные системы: ORDOS 2.40/4.03, CP/M 2.2, SPDOS, DSDOS
 * Написанные любителями и адаптированные игры
 
-![alt text](materials/orion.png?raw=true)
+![alt text](materials/orion16.png?raw=true)
