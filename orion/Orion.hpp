@@ -48,6 +48,7 @@ private:
     std::unique_ptr<Cpu>     cpu = std::make_unique<Cpu>();
     std::shared_ptr<Video> video = std::make_unique<Video>();
     std::shared_ptr<Keyboard> keyboard = std::make_shared<Keyboard>();
+    std::shared_ptr<Memory>     memory = std::make_shared<Memory>();
     
 public:
     Orion();
@@ -72,6 +73,9 @@ public:
 
     // Run main loop at 2.5 MHz
     void run(int frequency = 2500000);
+    
+    // Open document
+    void openDocument(std::string path);
 };
 
 #endif /* Orion_hpp */

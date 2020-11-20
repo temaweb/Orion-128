@@ -8,6 +8,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface WindowController : NSWindowController
+
+- (IBAction)discardAction:(id)sender;
+- (IBAction)openExecutable:(id)sender;
+
 @property (readonly) NSString * title;
 @end
 

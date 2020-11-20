@@ -32,6 +32,8 @@ public:
     virtual uint8_t read (const uint16_t address, uint8_t page) const;
     virtual void   write (const uint16_t address, uint8_t data) override;
     
+    void   writeB (const uint16_t address, uint8_t data);
+    
     void switchPage(uint8_t page);
 };
 

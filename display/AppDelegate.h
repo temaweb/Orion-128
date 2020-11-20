@@ -6,6 +6,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+
+#include "Orion.hpp"
 #include "Video.hpp"
 #include "Keyboard.hpp"
 
@@ -13,6 +15,7 @@
 
 @property (nonatomic, readonly) std::shared_ptr<Video> video;
 @property (nonatomic, readonly) std::shared_ptr<Keyboard> keyboard;
+@property (nonatomic, readonly) std::shared_ptr<Orion> orion;
 
 @property (nonatomic, readonly) double freq;
 

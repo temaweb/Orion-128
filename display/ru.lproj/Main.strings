@@ -3,7 +3,7 @@
 "1UK-8n-QPP.title" = "Customize Toolbar…";
 
 /* Class = "NSMenuItem"; title = "display"; ObjectID = "1Xt-HY-uBw"; */
-"1Xt-HY-uBw.title" = "display";
+"1Xt-HY-uBw.title" = "Орион";
 
 /* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
 "1b7-l0-nxx.title" = "Find";
@@ -36,7 +36,7 @@
 "4J7-dP-txa.title" = "Enter Full Screen";
 
 /* Class = "NSMenuItem"; title = "Quit display"; ObjectID = "4sb-4s-VLi"; */
-"4sb-4s-VLi.title" = "Quit display";
+"4sb-4s-VLi.title" = "Выход";
 
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
 "5QF-Oa-p0T.title" = "Edit";
@@ -45,7 +45,7 @@
 "5Vv-lz-BsD.title" = "Copy Style";
 
 /* Class = "NSMenuItem"; title = "About display"; ObjectID = "5kV-Vb-QxS"; */
-"5kV-Vb-QxS.title" = "About display";
+"5kV-Vb-QxS.title" = "О программе";
 
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
 "6dh-zS-Vam.title" = "Redo";
@@ -360,7 +360,7 @@
 "tlD-Oa-oAM.title" = "Kern";
 
 /* Class = "NSMenu"; title = "display"; ObjectID = "uQy-DD-JDr"; */
-"uQy-DD-JDr.title" = "display";
+"uQy-DD-JDr.title" = "Орион";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
 "uRl-iY-unG.title" = "Cut";

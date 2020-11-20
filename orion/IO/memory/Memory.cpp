@@ -52,4 +52,9 @@ void Memory::write (const uint16_t address, uint8_t data)
     memory[page][address] = data;
 }
 
+void   Memory::writeB (const uint16_t address, uint8_t data)
+{
+    memory[0x01][address] = data;
+}
+
 

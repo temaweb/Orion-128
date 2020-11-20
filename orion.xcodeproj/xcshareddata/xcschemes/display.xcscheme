@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8A24E44A255C806400496F78"
-               BuildableName = "display.app"
-               BlueprintName = "display"
+               BuildableName = "Orion.app"
+               BlueprintName = "Orion"
                ReferencedContainer = "container:orion.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,11 +46,18 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8A24E44A255C806400496F78"
-            BuildableName = "display.app"
-            BlueprintName = "display"
+            BuildableName = "Orion.app"
+            BlueprintName = "Orion"
             ReferencedContainer = "container:orion.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <AdditionalOptions>
+         <AdditionalOption
+            key = "NSZombieEnabled"
+            value = "YES"
+            isEnabled = "YES">
+         </AdditionalOption>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -63,8 +70,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8A24E44A255C806400496F78"
-            BuildableName = "display.app"
-            BlueprintName = "display"
+            BuildableName = "Orion.app"
+            BlueprintName = "Orion"
             ReferencedContainer = "container:orion.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

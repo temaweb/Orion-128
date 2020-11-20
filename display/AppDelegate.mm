@@ -18,7 +18,7 @@
 
 dispatch_queue_t _globalQueue;
 id monitor;
-std::unique_ptr<Orion> orion = std::make_unique<Orion>();
+std::shared_ptr<Orion> orion = std::make_shared<Orion>();
 
 - (instancetype) init
 {
@@ -35,6 +35,10 @@ std::unique_ptr<Orion> orion = std::make_unique<Orion>();
 
 - (std::shared_ptr<Keyboard>) keyboard {
     return orion -> getKeyboard();
+}
+
+- (std::shared_ptr<Orion>) orion {
+    return orion;
 }
 
 - (double) freq {
