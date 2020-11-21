@@ -55,7 +55,7 @@ AppDelegate * appDelegate;
 - (void) open: (NSString *) path
 {
     auto pathString = std::string([path UTF8String]);
-    [appDelegate orion] -> openDocument(pathString);
+    [appDelegate orion] -> createFile(pathString);
 }
 
 - (void) keyDown:(NSEvent *) theEvent

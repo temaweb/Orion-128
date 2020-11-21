@@ -7,9 +7,9 @@
 
 #include "Orion.hpp"
 
+#include "Bus.hpp"
 #include "Memory.hpp"
 #include "Switcher.hpp"
-#include "Bus.hpp"
 #include "IOController.hpp"
 
 #include <chrono>
@@ -19,8 +19,6 @@
 #include <fstream>
 #include <vector>
 #include <cstdint>
-
-// #include "Disk.hpp"
 
 using namespace std;
 using namespace std::chrono;
@@ -121,7 +119,7 @@ double Orion::timepassed(const timepoint & start)
 }
 
 // Create document in B:
-void Orion::openDocument(std::string path)
+void Orion::createFile(std::string path)
 {
     filesystem -> create(path);
 }

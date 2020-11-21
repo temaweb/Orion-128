@@ -62,9 +62,7 @@ public:
     void keyevent(unsigned short code, bool isPressed);
     
     // Load programm into Orion
-    void openDocument(std::string path);
-    
-    
+    void createFile(std::string path);
     
     // Return video adapter
     std::shared_ptr<Video> getVideo() const

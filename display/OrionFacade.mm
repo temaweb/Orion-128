@@ -42,7 +42,7 @@ std::unique_ptr<Orion> _orion = std::make_unique<Orion>();
 - (void) load: (NSString *) path
 {
     auto pathString = std::string([path UTF8String]);
-    _orion -> openDocument(pathString);
+    _orion -> createFile(pathString);
 }
 
 @end

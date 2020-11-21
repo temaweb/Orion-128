@@ -16,24 +16,34 @@
 
 @implementation DisplayView
 
-std::shared_ptr<Video> video = nullptr;
+- (instancetype)initWithFrame:(NSRect)frameRect
+{
+    if (self = [super initWithFrame: frameRect]) {
+        [self setItemPropertiesToDefault: self];
+    }
+    
+    return self;
+}
 
-NSTimer * timer;
+- (nullable instancetype)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super initWithCoder: coder]) {
+        [self setItemPropertiesToDefault: self];
+    }
+    
+    return self;
+}
 
-CGFloat width;
-CGFloat height;
+- (void) setItemPropertiesToDefault:sender
+{
+    timer = [self createDisplayTimer];
+    video = [[AppDelegate sharedAppDelegate] video];
+}
+
 
 - (void) drawRect: (NSRect) rect
 {
     [super drawRect:rect];
-
-    if (timer == NULL) {
-        timer = [self createDisplayTimer];
-    }
-
-    if (video == nullptr) {
-        video = [[AppDelegate sharedAppDelegate] video];
-    }
 
     width  = rect.size.width;
     height = rect.size.height;
@@ -106,8 +116,9 @@ CGFloat height;
                                             repeats:YES];
 }
 
-- (void) updateTimer:(NSTimer *)theTimer {
-   [self setNeedsDisplay:YES];
+- (void) updateTimer:(NSTimer *) theTimer
+{
+    [self setNeedsDisplay:YES];
 }
 
 @end
