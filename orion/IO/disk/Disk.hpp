@@ -27,7 +27,7 @@ private:
     };
     
 public:
-    Disk() : Rom("rom/Orion128_RomDisk4.rom")
+    Disk() : Rom("rom/Orion128_RomDisk1.rom")
     {}
     
     // Address belong to ports space

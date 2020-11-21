@@ -10,30 +10,57 @@
 
 #include <stdio.h>
 #include <vector>
+#include <map>
 #include <memory>
 #include <cstdint>
+#include <typeinfo>
+#include <typeindex>
 
 #include "IODevice.hpp"
-#include "IOBus.hpp"
+#include "Bus.hpp"
 
-class IOController : public IOBus
+template <class T>
+using devices = std::vector<std::shared_ptr<T>>;
+
+class IOController : public IODevice
 {
 private:
     
     static const uint16_t begin = 0xF400;
     static const uint16_t end   = 0xFBFF;
 
+    devices<RDevice> rdevices;
+    devices<WDevice> wdevices;
+    
     std::shared_ptr<IODevice> bus = nullptr;
+    std::shared_ptr<IODevice> defaultDevice() const;
     
-protected:
+    template<class T>
+    std::shared_ptr<T> getDevice(uint16_t address, const devices<T> & devices) const
+    {
+        if (isAccept(address))
+        {
+            for (auto & device : devices)
+            {
+                if (device -> isAccept(address))
+                    return device;
+            }
+        }
+        
+        return defaultDevice();
+    }
     
-    virtual std::shared_ptr<IODevice> defaultDevice() const override final;
+public:
+    IOController();
+    
+    void connect (std::shared_ptr<Device> device);
+    void connect (std::shared_ptr<Bus> bus);
     
 public:
     
-    // Address belong to ports space
     virtual bool isAccept(uint16_t address) const override;
-    void connectBus (std::shared_ptr<IODevice> bus);
+    virtual uint8_t read (const uint16_t address) const override;
+    virtual void write (const uint16_t address, uint8_t data) override;
 };
 
 #endif /* IOController_hpp */

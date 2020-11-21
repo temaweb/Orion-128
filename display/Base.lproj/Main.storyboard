@@ -88,8 +88,9 @@
                 <windowController id="B8D-0N-5wS" customClass="WindowController" sceneMemberID="viewController">
                     <window key="window" title="Орион-128" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" fullScreenDisallowsTiling="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="312" y="240" width="884" height="600"/>
+                        <rect key="contentRect" x="436" y="229" width="1152" height="768"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
                             <binding destination="B8D-0N-5wS" name="title" keyPath="self.title" id="6TX-aq-Q3h"/>
@@ -129,7 +130,7 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" focusRingType="none" id="m2S-Jp-Qdl" customClass="DisplayView">
-                        <rect key="frame" x="0.0" y="0.0" width="1200" height="900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1152" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     </view>
                 </viewController>

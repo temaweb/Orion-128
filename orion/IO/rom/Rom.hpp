@@ -69,7 +69,7 @@ public:
     // I/O
     virtual uint8_t read (const uint16_t address) const override
     {
-        return rom[address - begin];
+        return rom[address];
     }
 };
 

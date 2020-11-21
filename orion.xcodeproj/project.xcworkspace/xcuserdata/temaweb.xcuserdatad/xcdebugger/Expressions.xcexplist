@@ -3,28 +3,18 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "EmptyDevice::read(unsigned short) const:EmptyDevice.hpp">
-         <PersistentStrings>
-            <PersistentString
-               value = "address - 0xF400">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[DisplayView setColor:]:DisplayView.mm">
-         <PersistentStrings>
-            <PersistentString
-               value = "pixel.getGreen()">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "-[DisplayView drawPixel:context:column:row:]:DisplayView.mm">
          <PersistentStrings>
+            <PersistentString
+               value = "width  - resolution.width">
+            </PersistentString>
             <PersistentString
                value = "pixel.getRed()">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "main:main.m">
       </ContextState>
       <ContextState
          contextName = "Video::colorise16(std::__1::vector&lt;Pixel, std::__1::allocator&lt;Pixel&gt; &gt;&amp;, unsigned char const&amp;, unsigned short const&amp;):Video.cpp">
@@ -41,10 +31,26 @@
          contextName = "-[DisplayView drawPixel:column:row:]:DisplayView.mm">
       </ContextState>
       <ContextState
+         contextName = "EmptyDevice::read(unsigned short) const:EmptyDevice.hpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "address - 0xF400">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[AppDelegate run]:AppDelegate.mm">
          <PersistentStrings>
             <PersistentString
                value = "elapsed.count()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[DisplayView setColor:]:DisplayView.mm">
+         <PersistentStrings>
+            <PersistentString
+               value = "pixel.getGreen()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

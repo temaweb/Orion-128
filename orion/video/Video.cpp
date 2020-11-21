@@ -41,7 +41,7 @@ std::vector<std::vector<Pixel>> Video::output()
 
 // Returns one line
 std::vector<Pixel> Video::getLine(uint8_t row)
-{
+{   
     std::vector<Pixel> line;
     
     for (uint8_t col = 0x00; col < (width / 8); col++)

@@ -12,15 +12,10 @@
 #include <chrono>
 
 #include "Cpu.hpp"
-#include "Bus.hpp"
 #include "Video.hpp"
-#include "MonitorRom.hpp"
 #include "Keyboard.hpp"
-#include "Disk.hpp"
-#include "IOController.hpp"
-
-#include "MemorySwitch.hpp"
 #include "Memory.hpp"
+#include "Filesystem.hpp"
 
 using namespace std::chrono;
 
@@ -35,23 +30,41 @@ private:
     
 private:
     
+    volatile bool isRunning = true;
+    
     double frequency = 2.5;
     double oversleep = 0;
     
     double timepassed(const timepoint & start);
     
-    void delay(const timepoint & start, const int & frequency);
     void delay();
+    void delay(const timepoint & start, const int & frequency);
     
 private:
     
-    std::unique_ptr<Cpu>     cpu = std::make_unique<Cpu>();
-    std::shared_ptr<Video> video = std::make_unique<Video>();
+    std::unique_ptr<Cpu>           cpu = std::make_unique<Cpu>();
+    std::shared_ptr<Video>       video = std::make_unique<Video>();
     std::shared_ptr<Keyboard> keyboard = std::make_shared<Keyboard>();
     std::shared_ptr<Memory>     memory = std::make_shared<Memory>();
+    std::unique_ptr<Filesystem> filesystem = nullptr;
     
 public:
     Orion();
+    
+    // Return current loop frequency
+    double getFrequency();
+
+    // Run main loop at 2.5 MHz
+    void run(int frequency = 2500000);
+    void stop();
+    
+    // Process keyboard events
+    void keyevent(unsigned short code, bool isPressed);
+    
+    // Load programm into Orion
+    void openDocument(std::string path);
+    
+    
     
     // Return video adapter
     std::shared_ptr<Video> getVideo() const
@@ -64,18 +77,6 @@ public:
     {
         return keyboard;
     }
-    
-    // Return current loop frequency
-    double getFrequency()
-    {
-        return frequency;
-    }
-
-    // Run main loop at 2.5 MHz
-    void run(int frequency = 2500000);
-    
-    // Open document
-    void openDocument(std::string path);
 };
 
 #endif /* Orion_hpp */

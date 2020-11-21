@@ -10,6 +10,27 @@
 
 #include <cstdint>
 
+struct Space
+{
+    uint16_t from;
+    uint16_t to;
+    
+    bool operator < (const Space & space) const
+    {
+        return from < space.from;
+    }
+    
+    uint16_t getDirect(uint16_t address) const
+    {
+        return address - from;
+    }
+    
+    bool inRange(uint16_t address) const
+    {
+        return !(address < from || address > to);
+    }
+};
+
 class Device
 {
 public:

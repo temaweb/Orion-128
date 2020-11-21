@@ -8,23 +8,39 @@
 #ifndef Bus_hpp
 #define Bus_hpp
 
-#include <stdio.h>
-#include <cstdint>
 #include <memory>
-#include <stdexcept>
+#include <map>
 
-#include "IOBus.hpp"
 #include "IODevice.hpp"
-#include "Empty.hpp"
+#include "MonitorRom.hpp"
+#include "System.hpp"
 
-class Bus : public IOBus
+class Bus : public IODevice
 {
-protected:
+private:
     
-    virtual std::shared_ptr<IODevice> defaultDevice() const override final
+    std::shared_ptr<MonitorRom> monitor = std::make_shared<MonitorRom>();
+    std::shared_ptr<System>     system  = std::make_shared<System>();
+    
+    std::map<Space, std::shared_ptr<RDevice>> rvector
     {
-        return Empty::getInstance();
-    }
+        { { 0xF800, 0xFFFF }, monitor },
+        { { 0xF000, 0xF7FF }, system  }
+    };
+    
+    std::map<Space, std::shared_ptr<WDevice>> wvector
+    {
+        { { 0xF000, 0xF7FF }, system  }
+    };
+    
+public:
+    
+    void connect (std::shared_ptr<IODevice> memory);
+    
+public:
+    
+    virtual uint8_t read(const uint16_t address) const override;
+    virtual void write(const uint16_t address, uint8_t data) override;
 };
 
 #endif /* Bus_hpp */

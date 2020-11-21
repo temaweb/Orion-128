@@ -9,19 +9,17 @@
 #define DisplaySwitcher_h
 
 #include "IODevice.hpp"
+#include "Video.hpp"
 
 class ScreenSwitch : public WDevice
 {
+private:
+    std::shared_ptr<Video> video;
+    
 public:
+    ScreenSwitch(std::shared_ptr<Video> video) : video(video)
+    {}
     
-    // Address belong to ports space
-    virtual bool isAccept(uint16_t address) const override
-    {
-        return address >= 0xFA00 &&
-               address <= 0xFAFF;
-    }
-    
-    // I/O
     virtual void write (const uint16_t address, uint8_t data) override
     {
         // (~value & 0x3) << 14

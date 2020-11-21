@@ -39,16 +39,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DB640899-0FE5-4BDC-8FC7-46FD54EA7F63"
+            uuid = "048A68AF-9827-48A0-9308-B4EFEA5539A2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "orion/IO/memory/Memory.cpp"
+            filePath = "orion/Orion.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "Memory::writeB(address, data)"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "Orion::openDocument(path)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

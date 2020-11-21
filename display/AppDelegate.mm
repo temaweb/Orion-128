@@ -74,8 +74,10 @@ std::shared_ptr<Orion> orion = std::make_shared<Orion>();
     orion -> run();
 }
 
-- (void) applicationWillTerminate:(NSNotification *)aNotification {
+- (void) applicationWillTerminate:(NSNotification *)aNotification
+{
     [NSEvent removeMonitor: monitor];
+    orion -> stop();
 }
 
 + (AppDelegate *) sharedAppDelegate {

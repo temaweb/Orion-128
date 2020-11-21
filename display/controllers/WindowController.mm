@@ -15,6 +15,8 @@ AppDelegate * appDelegate;
 - (void) windowDidLoad
 {
     [super windowDidLoad];
+    [self.window setAspectRatio:self.window.frame.size];
+    
     appDelegate = [AppDelegate sharedAppDelegate];
 }
 

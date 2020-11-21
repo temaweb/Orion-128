@@ -10,7 +10,10 @@
 
 #include <stdio.h>
 #include <vector>
+
 #include "Palette.hpp"
+#include "BWPalette.hpp"
+#include "Color16Palette.hpp"
 
 class Memory;
 

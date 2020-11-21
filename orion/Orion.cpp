@@ -6,12 +6,11 @@
 //
 
 #include "Orion.hpp"
+
 #include "Memory.hpp"
-#include "MemorySwitch.hpp"
-#include "PaletteSwitch.hpp"
-#include "ScreenSwitch.hpp"
-#include "RamtestRom.hpp"
-#include "System.hpp"
+#include "Switcher.hpp"
+#include "Bus.hpp"
+#include "IOController.hpp"
 
 #include <chrono>
 #include <thread>
@@ -21,34 +20,30 @@
 #include <vector>
 #include <cstdint>
 
+// #include "Disk.hpp"
+
 using namespace std;
 using namespace std::chrono;
 
 Orion::Orion()
 {
-    //auto memory   = make_shared<Memory>();
     auto bus      = make_shared<Bus>();
     auto io       = make_shared<IOController>();
-    auto switcher = make_shared<MemorySwitch>();
-    auto color    = make_shared<PaletteSwitch>();
+    auto switcher = make_shared<Switcher>();
     
-    color -> connect(video);
-    
-    bus -> connect<MonitorRom>();
-    bus -> connect<System>();
+    switcher -> connect(video);
+    switcher -> connect(memory);
+
     bus -> connect(memory);
-    
-    io -> connect(color);
-    io -> connect<ScreenSwitch>();
-    io -> connect<Disk>();
+
     io -> connect(keyboard);
     io -> connect(switcher);
-    io -> connectBus(bus);
-    
-    switcher -> connect(memory);
+    io -> connect(bus);
     
     cpu   -> connect(io);
     video -> connect(memory);
+    
+    filesystem = std::make_unique<Filesystem>(memory);
 }
 
 // Main loop at @frequency Hz
@@ -57,7 +52,7 @@ void Orion::run(int frequency)
     auto count = 0;
     auto start = steady_clock::now();
     
-    while (true)
+    while (isRunning)
     {
         if (count == cycle)
         {
@@ -70,6 +65,11 @@ void Orion::run(int frequency)
         cpu -> clock();
         count++;
     }
+}
+
+void Orion::stop()
+{
+    isRunning = false;
 }
 
 #pragma mark -
@@ -123,20 +123,16 @@ double Orion::timepassed(const timepoint & start)
 // Create document in B:
 void Orion::openDocument(std::string path)
 {
-    auto file = std::ifstream(path, std::ios::in | std::ios::binary);
-    char buffer = 0x00;
-    
-    std::vector<uint8_t> mem;
-    while (!file.eof())
-    {
-        file.read(&buffer, sizeof(buffer));
-        mem.push_back(buffer);
-    }
-    
-    file.close();
-    
-    int i = 0;
-    for (i = 0; i < mem.size(); i++) {
-        memory -> writeB(i, mem[i]);
-    }
+    filesystem -> create(path);
+}
+
+void Orion::keyevent(unsigned short code, bool isPressed)
+{
+    keyboard -> keyevent(code, isPressed);
+}
+
+// Return current loop frequency
+double Orion::getFrequency()
+{
+    return frequency;
 }

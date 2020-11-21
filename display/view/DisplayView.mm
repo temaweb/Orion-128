@@ -77,7 +77,7 @@ CGFloat height;
                row: (int) row
 {
     auto resolution = video -> getResolution();
-    
+
     CGFloat pixelHeight = (height - resolution.height) / resolution.height;
     CGFloat pixelWidth  = (width  - resolution.width)  / resolution.width;
 
