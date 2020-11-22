@@ -12,6 +12,9 @@ struct Pixel
 {
     const uint32_t color = 0x000000;
 
+    Pixel()
+    {}
+    
     Pixel(uint32_t color) : color(color)
     {  }
     

@@ -48,17 +48,17 @@ private:
 private:
     std::shared_ptr<const Memory> memory = nullptr;
 
-    std::vector<Pixel> getLine(uint8_t row);
+    std::array<Pixel, width> getLine(uint8_t row);
     
-    void colorisebw (std::vector<Pixel> & line, const uint8_t & data);
-    void colorise16 (std::vector<Pixel> & line, const uint8_t & data, const uint16_t & address);
-    void colorise   (std::vector<Pixel> & line, const uint8_t & data, const Palette & palette);
+    void colorisebw (std::array<Pixel, width> & line, size_t size, const uint8_t & data);
+    void colorise16 (std::array<Pixel, width> & line, size_t size, const uint8_t & data, const uint16_t & address);
+    void colorise   (std::array<Pixel, width> & line, size_t size, const uint8_t & data, const Palette & palette);
     
 public:
     
     // Return one frame with resolution 384 x 256 pixels
     // Each pixel has b/w color in RGB hex-format.
-    std::vector<std::vector<Pixel>> output();
+    std::array<std::array<Pixel, width>, height> output();
     
     // Connect memory bus
     void connect(std::shared_ptr<const Memory> bus);

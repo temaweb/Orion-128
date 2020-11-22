@@ -18,12 +18,10 @@
 
 @interface DisplayView : NSOpenGLView
 {
+@private
+    
     std::shared_ptr<Video> video;
-
     NSTimer * timer;
-
-    CGFloat width;
-    CGFloat height;
 }
 
 @end

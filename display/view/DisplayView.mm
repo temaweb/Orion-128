@@ -14,6 +14,7 @@
 #import "DisplayView.h"
 #import "AppDelegate.h"
 
+#include <iostream>
 #include <OpenGL/gl.h>
 
 #pragma clang diagnostic push
@@ -43,30 +44,12 @@
 {
     timer = [self createDisplayTimer];
     video = [[AppDelegate sharedAppDelegate] video];
+    
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
 #pragma mark -
 #pragma mark Drawing
-
-- (void) reshape
-{
-    [super reshape];
-    
-    NSRect bounds = [self bounds];
-    
-    width  = bounds.size.width;
-    height = bounds.size.height;
-
-    glViewport ( 0, 0, (GLint) width, (GLint) height );
-
-    glMatrixMode   ( GL_PROJECTION );
-    glLoadIdentity ();
-
-    glMatrixMode   ( GL_MODELVIEW );
-    glLoadIdentity ();
-    
-    glOrtho(0, width, 0, height, -1.0, 1.0);
-}
 
 - (void) drawRect: (NSRect) rect
 {
@@ -76,36 +59,115 @@
     glMatrixMode ( GL_MODELVIEW );
     glPushMatrix ();
     
-    glBegin(GL_QUADS);
+    glOrtho(0, NSWidth(rect), 0, NSHeight(rect), -1.0, 1.0);
     
     auto resolution   = video -> getResolution();
-
-    float pixelHeight = (height - resolution.height) / resolution.height;
-    float pixelWidth  = (width  - resolution.width)  / resolution.width;
+    
+    float pixelHeight = (NSHeight(rect) - resolution.height) / resolution.height;
+    float pixelWidth  = (NSWidth(rect)  - resolution.width)  / resolution.width;
+    
+    // Current pixel
+    int index = 0x00;
+    
+    // Total pixels
+    int total = resolution.height * resolution.width;
+    
+    // GL Arrays
+    float * vertices = nullptr;
+    float * colors   = nullptr;
+    
+    // Array size
+    uint16_t size  = 0x00;
+    uint16_t limit = 65535;
+    
+    // Shapes per pixel
+    static int shapes = 18;
     
     int row = 0;
-    for (std::vector<Pixel> & line : video -> output())
+    for (auto & line : video -> output())
     {
         int col = 0;
         for (auto & pixel : line)
         {
-            CGFloat x = (col * pixelWidth) + col;
-            CGFloat y = (height - ((row * pixelHeight) + pixelHeight)) - row;
-
-            glColor3f(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
+            if ((index * shapes) == size)
+            {
+                int max = (limit - (limit % shapes));
+                
+                if (total >= (max / shapes))
+                {
+                    size = max;
+                }
+                else
+                {
+                    size = (total * shapes);
+                }
+                
+                vertices = new float[size];
+                colors   = new float[size];
+                
+                index = 0;
+            }
             
-            glVertex2d(x, y + pixelHeight);
-            glVertex2d(x + pixelWidth, y + pixelHeight);
-            glVertex2d(x + pixelWidth, y);
-            glVertex2d(x, y);
+            CGFloat x = (col * pixelWidth) + col;
+            CGFloat y = (NSHeight(rect) - ((row * pixelHeight) + pixelHeight)) - row;
+            
+            int vertexindex = index * shapes;
+            
+            for (int i = 0, j = 0; i < 6; i++)
+            {
+                colors[vertexindex + j++] = pixel.getRed   ();
+                colors[vertexindex + j++] = pixel.getGreen ();
+                colors[vertexindex + j++] = pixel.getBlue  ();
+            }
+            
+            // Triangles vertices
+            
+            vertices[vertexindex + 0]  = x;
+            vertices[vertexindex + 1]  = y;
+            vertices[vertexindex + 2]  = 0;
 
+            vertices[vertexindex + 3]  = x;
+            vertices[vertexindex + 4]  = y + pixelHeight;
+            vertices[vertexindex + 5]  = 0;
+
+            vertices[vertexindex + 6]  = x + pixelWidth;
+            vertices[vertexindex + 7]  = y + pixelHeight;
+            vertices[vertexindex + 8]  = 0;
+
+            vertices[vertexindex + 9]  = x;
+            vertices[vertexindex + 10] = y;
+            vertices[vertexindex + 11] = 0;
+
+            vertices[vertexindex + 12] = x + pixelWidth;
+            vertices[vertexindex + 13] = y + pixelHeight;
+            vertices[vertexindex + 14] = 0;
+
+            vertices[vertexindex + 15] = x + pixelWidth;
+            vertices[vertexindex + 16] = y;
+            vertices[vertexindex + 17] = 0;
+            
+            if (--total == 0 || ((index + 1) * shapes) == size)
+            {
+                glEnableClientState(GL_VERTEX_ARRAY);
+                glVertexPointer(3, GL_FLOAT, 0, vertices);
+
+                glEnableClientState(GL_COLOR_ARRAY);
+                glColorPointer(3, GL_FLOAT, 0, colors);
+
+                glDrawArrays(GL_TRIANGLES, 0, (size / 3));
+                glDisableClientState(GL_VERTEX_ARRAY);
+                
+                delete[] vertices;
+                delete[] colors;
+            }
+            
+            index++;
             col++;
         }
 
         row++;
     }
     
-    glEnd();
     glPopMatrix ();
     glFlush ();
 }
@@ -115,7 +177,7 @@
 
 - (NSTimer *) createDisplayTimer
 {
-    return  [NSTimer scheduledTimerWithTimeInterval:0.1f
+    return  [NSTimer timerWithTimeInterval: (NSTimeInterval)(1.0 / 60.0)
                                              target:self
                                            selector:@selector(updateTimer:)
                                            userInfo:nil
