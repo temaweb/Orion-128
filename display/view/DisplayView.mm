@@ -14,6 +14,11 @@
 #import "DisplayView.h"
 #import "AppDelegate.h"
 
+#include <OpenGL/gl.h>
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+
 @implementation DisplayView
 
 - (instancetype)initWithFrame:(NSRect)frameRect
@@ -40,25 +45,43 @@
     video = [[AppDelegate sharedAppDelegate] video];
 }
 
+#pragma mark -
+#pragma mark Drawing
+
+- (void) reshape
+{
+    [super reshape];
+    
+    NSRect bounds = [self bounds];
+    
+    width  = bounds.size.width;
+    height = bounds.size.height;
+
+    glViewport ( 0, 0, (GLint) width, (GLint) height );
+
+    glMatrixMode   ( GL_PROJECTION );
+    glLoadIdentity ();
+
+    glMatrixMode   ( GL_MODELVIEW );
+    glLoadIdentity ();
+    
+    glOrtho(0, width, 0, height, -1.0, 1.0);
+}
 
 - (void) drawRect: (NSRect) rect
 {
-    [super drawRect:rect];
+    glClearColor(0, 0, 0, 0);
+    glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-    width  = rect.size.width;
-    height = rect.size.height;
+    glMatrixMode ( GL_MODELVIEW );
+    glPushMatrix ();
     
-    // Graphics
+    glBegin(GL_QUADS);
     
-    NSGraphicsContext * gcontext = [NSGraphicsContext currentContext];
-    CGContextRef context = [gcontext CGContext];
-    
-    // Background
-    
-    CGContextSetRGBFillColor(context, 0, 0, 0, 1);
-    NSRectFill(rect);
-    
-    // Draw pixels
+    auto resolution   = video -> getResolution();
+
+    float pixelHeight = (height - resolution.height) / resolution.height;
+    float pixelWidth  = (width  - resolution.width)  / resolution.width;
     
     int row = 0;
     for (std::vector<Pixel> & line : video -> output())
@@ -66,42 +89,25 @@
         int col = 0;
         for (auto & pixel : line)
         {
-            [self drawPixel:pixel
-                    context:context
-                     column:col
-                        row:row];
+            CGFloat x = (col * pixelWidth) + col;
+            CGFloat y = (height - ((row * pixelHeight) + pixelHeight)) - row;
+
+            glColor3f(pixel.getRed(), pixel.getGreen(), pixel.getBlue());
             
+            glVertex2d(x, y + pixelHeight);
+            glVertex2d(x + pixelWidth, y + pixelHeight);
+            glVertex2d(x + pixelWidth, y);
+            glVertex2d(x, y);
+
             col++;
         }
-        
+
         row++;
     }
-}
-
-#pragma mark -
-#pragma mark Draw pixel
-
-- (void) drawPixel: (Pixel) pixel
-           context: (CGContextRef) context
-            column: (int) col
-               row: (int) row
-{
-    auto resolution = video -> getResolution();
-
-    CGFloat pixelHeight = (height - resolution.height) / resolution.height;
-    CGFloat pixelWidth  = (width  - resolution.width)  / resolution.width;
-
-    CGContextSetRGBFillColor (context,
-                              pixel.getRed(),
-                              pixel.getGreen(),
-                              pixel.getBlue(),
-                              1.0f);
     
-    CGFloat x = (col * pixelWidth) + col;
-    CGFloat y = (height - ((row * pixelHeight) + pixelHeight)) - row;
-
-    CGRect rectangle = CGRectMake (x, y, pixelWidth, pixelHeight);
-    CGContextFillRect (context, rectangle);
+    glEnd();
+    glPopMatrix ();
+    glFlush ();
 }
 
 #pragma mark -
@@ -118,7 +124,9 @@
 
 - (void) updateTimer:(NSTimer *) theTimer
 {
-    [self setNeedsDisplay:YES];
+   [self setNeedsDisplay:YES];
 }
 
 @end
+
+#pragma clang diagnostic pop

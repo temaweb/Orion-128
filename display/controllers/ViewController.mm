@@ -10,9 +10,15 @@
 
 @implementation ViewController
 
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+}
+
+- (void)setupMetal
+{
+
 }
 
 - (void)setRepresentedObject:(id)representedObject

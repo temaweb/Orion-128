@@ -11,6 +11,7 @@
 		8A04D25B25684C5600891765 /* Bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A04D25925684C5600891765 /* Bus.cpp */; };
 		8A04D28225695EF100891765 /* Filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A04D28025695EF100891765 /* Filesystem.cpp */; };
 		8A04D28325695EF100891765 /* Filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A04D28025695EF100891765 /* Filesystem.cpp */; };
+		8A04D2902569C36E00891765 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A04D28F2569C36E00891765 /* OpenGL.framework */; };
 		8A07ABB82568374500C487BE /* Switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A07ABB62568374500C487BE /* Switcher.cpp */; };
 		8A07ABBB256845B800C487BE /* Switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A07ABB62568374500C487BE /* Switcher.cpp */; };
 		8A24E3E9255C4E1E00496F78 /* Video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E3E7255C4E1E00496F78 /* Video.cpp */; };
@@ -73,6 +74,9 @@
 		8A04D26F2568A5F500891765 /* Color16Palette.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Color16Palette.hpp; sourceTree = "<group>"; };
 		8A04D28025695EF100891765 /* Filesystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Filesystem.cpp; sourceTree = "<group>"; };
 		8A04D28125695EF100891765 /* Filesystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Filesystem.hpp; sourceTree = "<group>"; };
+		8A04D2872569BBEF00891765 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		8A04D2882569BBEF00891765 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		8A04D28F2569C36E00891765 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		8A07ABB62568374500C487BE /* Switcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Switcher.cpp; sourceTree = "<group>"; };
 		8A07ABB72568374500C487BE /* Switcher.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Switcher.hpp; sourceTree = "<group>"; };
 		8A24E3E2255C183500496F78 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A04D2902569C36E00891765 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +173,16 @@
 				8A04D28125695EF100891765 /* Filesystem.hpp */,
 			);
 			path = filesystem;
+			sourceTree = "<group>";
+		};
+		8A04D2862569BBEF00891765 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8A04D28F2569C36E00891765 /* OpenGL.framework */,
+				8A04D2872569BBEF00891765 /* Metal.framework */,
+				8A04D2882569BBEF00891765 /* MetalKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		8A24E3E6255C4E0A00496F78 /* video */ = {
@@ -287,6 +302,7 @@
 				8AC0C6202543AE24008DAA6B /* orion */,
 				8A24E44C255C806400496F78 /* display */,
 				8AC0C61F2543AE24008DAA6B /* Products */,
+				8A04D2862569BBEF00891765 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

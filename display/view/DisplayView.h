@@ -13,7 +13,10 @@
 
 #import "AppDelegate.h"
 
-@interface DisplayView : NSView
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+
+@interface DisplayView : NSOpenGLView
 {
     std::shared_ptr<Video> video;
 
@@ -24,3 +27,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop
