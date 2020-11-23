@@ -20,7 +20,16 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
 
+#define BUFFER_OFFSET(i) ((char*)NULL + (i))
+
 @implementation DisplayView
+{
+@private
+    
+    GLuint triangleVBO;
+    GLuint colorVBO;
+    GLuint elementbuffer;
+}
 
 - (instancetype)initWithFrame:(NSRect)frameRect
 {
@@ -50,6 +59,18 @@
 
 #pragma mark -
 #pragma mark Drawing
+
+- (void)prepareOpenGL
+{
+    [super prepareOpenGL];
+    
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    
+    glGenBuffers(1, &triangleVBO);
+    glGenBuffers(1, &colorVBO);
+    glGenBuffers(1, &elementbuffer);
+}
 
 - (void) drawRect: (NSRect) rect
 {
@@ -113,11 +134,15 @@
             
             int vertexindex = index * shapes;
             
+            float r = pixel.getRed();
+            float g = pixel.getGreen();
+            float b = pixel.getBlue();
+            
             for (int i = 0, j = 0; i < 6; i++)
             {
-                colors[vertexindex + j++] = pixel.getRed   ();
-                colors[vertexindex + j++] = pixel.getGreen ();
-                colors[vertexindex + j++] = pixel.getBlue  ();
+                colors[vertexindex + j++] = r;
+                colors[vertexindex + j++] = g;
+                colors[vertexindex + j++] = b;
             }
             
             // Triangles vertices
@@ -148,14 +173,18 @@
             
             if (--total == 0 || ((index + 1) * shapes) == size)
             {
-                glEnableClientState(GL_VERTEX_ARRAY);
-                glVertexPointer(3, GL_FLOAT, 0, vertices);
-
+                glBindBuffer(GL_ARRAY_BUFFER, triangleVBO);
+                glBufferData(GL_ARRAY_BUFFER, sizeof(*vertices) * size, vertices, GL_STREAM_DRAW);
+                glVertexPointer(3, GL_FLOAT, 0, NULL);
+                
+                glBindBuffer(GL_ARRAY_BUFFER, colorVBO);
+                glBufferData(GL_ARRAY_BUFFER, sizeof(*colors) * size, colors, GL_STREAM_DRAW);
+                
                 glEnableClientState(GL_COLOR_ARRAY);
-                glColorPointer(3, GL_FLOAT, 0, colors);
-
-                glDrawArrays(GL_TRIANGLES, 0, (size / 3));
-                glDisableClientState(GL_VERTEX_ARRAY);
+                glColorPointer(3, GL_FLOAT, 0, NULL);
+                
+                glEnableClientState(GL_VERTEX_ARRAY);
+                glDrawArrays(GL_TRIANGLES, 0, size / 3);
                 
                 delete[] vertices;
                 delete[] colors;
