@@ -100,6 +100,9 @@
 		8A6A20FB25605352009A8B71 /* Rom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rom.hpp; sourceTree = "<group>"; };
 		8A6A21002560580B009A8B71 /* MonitorRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MonitorRom.hpp; sourceTree = "<group>"; };
 		8A6A210725605A31009A8B71 /* RamtestRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RamtestRom.hpp; sourceTree = "<group>"; };
+		8A77D83F256DE02A00B0278C /* IO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IO.hpp; sourceTree = "<group>"; };
+		8A77D849256DE3BA00B0278C /* IOSplitter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOSplitter.hpp; sourceTree = "<group>"; };
+		8A9CF1A3256C30F80006FDC6 /* VideoObserver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoObserver.hpp; sourceTree = "<group>"; };
 		8AA63D1425619331007CF426 /* Keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
 		8AA63D1525619331007CF426 /* Keyboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
 		8AA673992562AFEA000ABA5D /* IODevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IODevice.hpp; sourceTree = "<group>"; };
@@ -265,6 +268,7 @@
 				8AA673992562AFEA000ABA5D /* IODevice.hpp */,
 				8AE39C802565700C009C77BC /* IOController.cpp */,
 				8AE39C812565700C009C77BC /* IOController.hpp */,
+				8A77D849256DE3BA00B0278C /* IOSplitter.hpp */,
 			);
 			path = IO;
 			sourceTree = "<group>";
@@ -276,6 +280,7 @@
 				8AE39CED2565FC5B009C77BC /* sources */,
 				8AB9437A254A187200636CA0 /* Cpu.cpp */,
 				8AB9437B254A187200636CA0 /* Cpu.hpp */,
+				8A77D83F256DE02A00B0278C /* IO.hpp */,
 				8A4C1E50254ED0EB00ED6E1E /* Cpustatus.hpp */,
 				8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */,
 				8A24E3E2255C183500496F78 /* README.md */,
@@ -332,6 +337,7 @@
 		8AE39CB22565E9C5009C77BC /* switches */ = {
 			isa = PBXGroup;
 			children = (
+				8A9CF1A3256C30F80006FDC6 /* VideoObserver.hpp */,
 				8AE39C8725657528009C77BC /* MemorySwitch.hpp */,
 				8AE39CB32565E9E1009C77BC /* PaletteSwitch.hpp */,
 				8AE39CB42565E9F0009C77BC /* ScreenSwitch.hpp */,

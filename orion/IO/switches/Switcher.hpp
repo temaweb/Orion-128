@@ -18,15 +18,14 @@
 class Switcher : public WDevice
 {
 private:
-      std::map<uint16_t, std::shared_ptr<WDevice>> devices;
+    std::map<uint16_t, std::shared_ptr<WDevice>> devices;
     
 public:
-
     void connect (std::shared_ptr<Video>  video);
     void connect (std::shared_ptr<Memory> memory);
-    
-    void insert (uint16_t address, std::shared_ptr<WDevice> device);
+        
 public:
+    void insert (uint16_t address, std::shared_ptr<WDevice> device);
     
     virtual bool isAccept(uint16_t address) const override;
     virtual void write(const uint16_t address, uint8_t data) override;

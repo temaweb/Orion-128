@@ -12,6 +12,6 @@
 - (IBAction)discardAction:(id)sender;
 - (IBAction)openExecutable:(id)sender;
 
-@property (readonly) NSString * title;
+@property (nonatomic) NSString * title;
 @end
 

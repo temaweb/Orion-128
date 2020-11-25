@@ -335,7 +335,7 @@ void Cpu::clock()
     {
         // Set additional delay?
         cycles--;
-
+        
         return;
     }
 
@@ -361,6 +361,25 @@ void Cpu::clock()
 #ifdef ASMLOG
     ::log(pcl, this);
 #endif
+}
+
+void Cpu::reset()
+{
+    writepair(BC, 0x0000);
+    writepair(DE, 0x0000);
+    writepair(HL, 0x0000);
+    
+    registers[A] = 0x00;
+    
+    stack   = 0x00;
+    counter = 0x00;
+    address = 0x00;
+    
+    cycles  = 0x00;
+    opcode  = 0x00;
+    ticks   = 0x00;
+    
+    status.SetAllFlags(0x0000);
 }
 
 void Cpu::setCounter(uint16_t counter)
@@ -410,7 +429,7 @@ void Cpu::mutatepair(uint8_t index, std::function<void(uint16_t &)> mutator)
 }
 
 #pragma mark -
-#pragma mark Bus communication
+#pragma mark Bus communications
 
 uint8_t Cpu::read()
 {
@@ -432,9 +451,17 @@ void Cpu::write(uint16_t address, uint8_t data)
     bus -> write(address, data);
 }
 
-void Cpu::connect(std::shared_ptr<IODevice> bus)
+#pragma mark -
+#pragma mark Connect
+
+void Cpu::connect(std::shared_ptr<IO> bus)
 {
     this -> bus = bus;
+}
+
+void Cpu::connectio(std::shared_ptr<IO> io)
+{
+    this -> io = io;
 }
 
 #pragma mark -
@@ -1711,10 +1738,10 @@ uint8_t Cpu::DAA  ()
 // Code: IN
 // Operation: Input
 // Flags: -
-uint8_t Cpu::IN   ()
+uint8_t Cpu::IN ()
 {
-//    uint8_t device = read();
-//    registers[A] = 0x00;
+    uint8_t device = read();
+    registers[A] = io -> read(device);
     
     return 0;
 }
@@ -1722,10 +1749,12 @@ uint8_t Cpu::IN   ()
 // Code: OUT
 // Operation: Output
 // Flags: -
-uint8_t Cpu::OUT  ()
+uint8_t Cpu::OUT ()
 {
-//    uint8_t device = read();
-//    uint8_t data = registers[A];
+    uint8_t device = read();
+    uint8_t data = registers[A];
+    
+    io -> write(device, data);
     
 #ifdef LOGTEST
     if (bus -> read(counter) == 0x00)

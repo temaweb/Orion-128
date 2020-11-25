@@ -15,6 +15,8 @@
 #include "Cpustatus.hpp"
 #include "IODevice.hpp"
 
+#include "IO.hpp"
+
 class Cpu
 {
 public:
@@ -37,7 +39,7 @@ private:
     uint64_t ticks   = 0x0L;     // Clock counter
     
     Cpustatus status;            // Status register
-    
+
     friend void log(uint16_t pcl, Cpu * cpu);
     
 private:
@@ -71,7 +73,8 @@ private:
 // Bus communication
 private:
     
-    std::shared_ptr<IODevice> bus = nullptr;
+    std::shared_ptr<IO> bus = DefaultIO::getInstance();
+    std::shared_ptr<IO> io  = DefaultIO::getInstance();
     
     uint8_t read ();
     uint8_t read (uint16_t address);
@@ -272,8 +275,12 @@ private:
 public:
     
     void clock();
+    void reset();
+
     void setCounter(uint16_t counter);
-    void connect(std::shared_ptr<IODevice> bus);
+    
+    void connect   (std::shared_ptr<IO> bus);
+    void connectio (std::shared_ptr<IO> io);
 };
 
 void log( uint16_t pcl, Cpu * cpu );

@@ -30,7 +30,7 @@ private:
     
 protected:
     
-    std::array<uint8_t, size> rom;
+    std::array<uint8_t, size> rom {};
     
 public:
     

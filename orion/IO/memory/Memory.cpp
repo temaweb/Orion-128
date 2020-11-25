@@ -9,14 +9,6 @@
 
 Memory::Memory()
 {
-    for (auto &page : memory)
-    {
-        for (auto &a : page)
-        {
-            a = 0x00;
-        }
-    }
-    
     // JMP 0xF800
     memory[0x00][0x0000] = 0xC3;
     memory[0x00][0x0001] = 0x00;
@@ -35,26 +27,38 @@ bool Memory::isAccept(uint16_t address) const
 }
 
 #pragma mark -
-#pragma mark I/O
-
-uint8_t Memory::read (const uint16_t address) const
-{
-    return memory[page][address];
-}
+#pragma mark R/W
 
 uint8_t Memory::read (const uint16_t address, uint8_t page) const
 {
     return memory[page][address];
 }
 
-void Memory::write (const uint16_t address, uint8_t data)
+void Memory::write (const uint16_t address, uint8_t data, uint8_t page)
 {
     memory[page][address] = data;
 }
 
-void   Memory::writeB (const uint16_t address, uint8_t data)
+#pragma mark -
+#pragma mark I/O
+
+uint8_t Memory::read (const uint16_t address) const
 {
-    memory[0x01][address] = data;
+    return read(address, page);
 }
 
+uint8_t Memory::readB (const uint16_t address) const
+{
+    return read(address, 0x01);
+}
+
+void Memory::write (const uint16_t address, uint8_t data)
+{
+    write(address, data, page);
+}
+
+void Memory::writeB (const uint16_t address, uint8_t data)
+{
+    write(address, data, 0x01);
+}
 

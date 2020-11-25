@@ -6,5 +6,5 @@
   
 */
 
-"title" = "Орион-128 / %.01f MHz";
+"title" = "%.03f MHz";
 "discard" = "sdfsd";

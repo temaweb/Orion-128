@@ -17,13 +17,6 @@
 #pragma clang diagnostic ignored "-Wdeprecated"
 
 @interface DisplayView : NSOpenGLView
-{
-@private
-    
-    std::shared_ptr<Video> video;
-    NSTimer * timer;
-}
-
 @end
 
 #pragma clang diagnostic pop

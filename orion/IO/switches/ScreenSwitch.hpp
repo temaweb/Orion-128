@@ -22,7 +22,7 @@ public:
     
     virtual void write (const uint16_t address, uint8_t data) override
     {
-        // (~value & 0x3) << 14
+        video -> switchScreenMode(data & 0x3);
     }
 };
 

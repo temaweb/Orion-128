@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <chrono>
 
+#include "Bus.hpp"
 #include "Cpu.hpp"
 #include "Video.hpp"
 #include "Keyboard.hpp"
@@ -25,8 +26,8 @@ class Orion
 {
 private:
     
-    static const unsigned short cycle = 10000;
-    static const unsigned int   mhz   = 1000000;
+    static const unsigned int  cycle = 10000;
+    static const unsigned int  mhz   = 1000000;
     
 private:
     
@@ -34,11 +35,14 @@ private:
     
     double frequency = 2.5;
     double oversleep = 0;
+    double currfreq  = 0.0;
     
     double timepassed(const timepoint & start);
+    double frequencyRate(const timepoint & start, const int & frequency);
     
     void delay();
     void delay(const timepoint & start, const int & frequency);
+    void reset(timepoint & start, int & clock);
     
 private:
     

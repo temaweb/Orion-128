@@ -14,12 +14,13 @@ class Filesystem
 {
 private:
     std::shared_ptr<Memory> memory;
+    std::vector<uint8_t> read(std::string path);
     
 public:
     Filesystem(std::shared_ptr<Memory> memory) : memory(memory)
     {}
     
-    void create(std::string path);
+    void create (std::string path);
 };
 
 #endif /* Filesystem_hpp */

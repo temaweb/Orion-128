@@ -10,23 +10,28 @@
 
 #import "AppDelegate.h"
 
-
-@interface AppDelegate ()
-@end
-
 @implementation AppDelegate
-
-dispatch_queue_t _globalQueue;
-id monitor;
-std::shared_ptr<Orion> orion = std::make_shared<Orion>();
+{
+@private
+    
+    id monitor;
+    
+    dispatch_queue_t _globalQueue;
+    std::shared_ptr<Orion> orion;
+}
 
 - (instancetype) init
 {
     if (self = [super init]) {
+        orion = std::make_shared<Orion>();
         _globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     }
     
     return self;
+}
+
+- (double) getFrequency {
+    return orion -> getFrequency();
 }
 
 - (std::shared_ptr<Video>) video {
@@ -39,10 +44,6 @@ std::shared_ptr<Orion> orion = std::make_shared<Orion>();
 
 - (std::shared_ptr<Orion>) orion {
     return orion;
-}
-
-- (double) freq {
-    return orion -> getFrequency();
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -81,7 +82,7 @@ std::shared_ptr<Orion> orion = std::make_shared<Orion>();
 }
 
 + (AppDelegate *) sharedAppDelegate {
-    return (AppDelegate *)[NSApplication sharedApplication].delegate;
+    return (AppDelegate *) [NSApplication sharedApplication].delegate;
 }
 
 @end

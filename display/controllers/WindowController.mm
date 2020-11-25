@@ -5,12 +5,18 @@
 //  Created by Артём Оконечников on 13.11.2020.
 //
 
+#define MHZ 1000000
+
 #import "WindowController.h"
 #import "AppDelegate.h"
 
 @implementation WindowController
-
-AppDelegate * appDelegate;
+{
+@private
+    
+    NSTimer * timer;
+    AppDelegate * appDelegate;
+}
 
 - (void) windowDidLoad
 {
@@ -18,15 +24,11 @@ AppDelegate * appDelegate;
     [self.window setAspectRatio:self.window.frame.size];
     
     appDelegate = [AppDelegate sharedAppDelegate];
+    timer = [self createTimer];
 }
 
-- (NSString *) title
-{
-    double counter = [appDelegate freq];
-    NSString * title = NSLocalizedString(@"title", nil);
-    
-    return [NSString stringWithFormat:title, counter];
-}
+#pragma mark -
+#pragma mark Actions
 
 - (IBAction) discardAction:(id)sender
 {
@@ -52,15 +54,32 @@ AppDelegate * appDelegate;
     }];
 }
 
+- (void) keyDown:(NSEvent *) theEvent
+{
+    // Allow keyboard enter and switch off keyboard sound
+}
+
 - (void) open: (NSString *) path
 {
     auto pathString = std::string([path UTF8String]);
     [appDelegate orion] -> createFile(pathString);
 }
 
-- (void) keyDown:(NSEvent *) theEvent
+- (void) refreshTitle:(NSTimer *) theTimer
 {
+    NSString * title = NSLocalizedString(@"title", nil);
+    title = [NSString stringWithFormat:title, appDelegate.frequency / MHZ];
     
+    [self setTitle:title];
+}
+
+- (NSTimer *) createTimer
+{
+    return [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                            target:self
+                                          selector:@selector(refreshTitle:)
+                                          userInfo:nil
+                                           repeats:YES];
 }
 
 @end

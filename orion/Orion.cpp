@@ -10,7 +10,9 @@
 #include "Bus.hpp"
 #include "Memory.hpp"
 #include "Switcher.hpp"
+#include "VideoObserver.hpp"
 #include "IOController.hpp"
+#include "IOSplitter.hpp"
 
 #include <chrono>
 #include <thread>
@@ -28,17 +30,21 @@ Orion::Orion()
     auto bus      = make_shared<Bus>();
     auto io       = make_shared<IOController>();
     auto switcher = make_shared<Switcher>();
+    //auto videoObs = make_shared<VideoObserver>(memory, video);
+    auto iosplitter = make_shared<IOSplitter>(io);
     
-    switcher -> connect(video);
-    switcher -> connect(memory);
-
+    switcher  -> connect(video);
+    switcher  -> connect(memory);
+    
+    // bus -> connect(videoObs);
     bus -> connect(memory);
-
-    io -> connect(keyboard);
+    
     io -> connect(switcher);
+    io -> connect(keyboard);
     io -> connect(bus);
     
     cpu   -> connect(io);
+    cpu   -> connectio(iosplitter);
     video -> connect(memory);
     
     filesystem = std::make_unique<Filesystem>(memory);
@@ -47,22 +53,54 @@ Orion::Orion()
 // Main loop at @frequency Hz
 void Orion::run(int frequency)
 {
-    auto count = 0;
+    auto clock = 0;
     auto start = steady_clock::now();
+
+    auto hzclock = 0;
+    auto hztimer = steady_clock::now();
     
+    auto frame = 0;
+
     while (isRunning)
     {
-        if (count == cycle)
+        if (clock == cycle)
         {
             delay(start, frequency);
-            
-            count = 0;
-            start = steady_clock::now();
+            reset(start, clock);
         }
 
+        if (hzclock == frequency)
+        {
+            currfreq = frequencyRate(hztimer, frequency);
+            reset(hztimer, hzclock);
+        }
+
+        // Sync ~
+        
+        if (frame == frequency / 100)
+        {
+            video -> createFrame();
+            frame = 0;
+        }
+        
         cpu -> clock();
-        count++;
+        
+        frame++;
+        clock++;
+        hzclock++;
     }
+}
+
+void Orion::reset(timepoint & start, int & clock)
+{
+    clock = 0;
+    start = steady_clock::now();
+}
+
+double Orion::frequencyRate(const timepoint & start, const int & frequency)
+{
+    auto elapsed = timepassed(start);
+    return frequency / elapsed;
 }
 
 void Orion::stop()
@@ -132,5 +170,5 @@ void Orion::keyevent(unsigned short code, bool isPressed)
 // Return current loop frequency
 double Orion::getFrequency()
 {
-    return frequency;
+    return currfreq;
 }

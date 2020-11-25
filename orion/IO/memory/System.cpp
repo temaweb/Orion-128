@@ -7,14 +7,6 @@
 
 #include "System.hpp"
 
-System::System()
-{
-    for (auto &a : ram)
-    {
-        a = 0x00;
-    }
-}
-
 bool System::isAccept(uint16_t address) const
 {
     return (address >= 0xF000 &&

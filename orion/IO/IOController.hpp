@@ -16,13 +16,14 @@
 #include <typeinfo>
 #include <typeindex>
 
+#include "IO.hpp"
 #include "IODevice.hpp"
 #include "Bus.hpp"
 
 template <class T>
 using devices = std::vector<std::shared_ptr<T>>;
 
-class IOController : public IODevice
+class IOController : public IODevice, public IO
 {
 private:
     

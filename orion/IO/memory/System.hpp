@@ -18,10 +18,9 @@ class System : public IODevice
 {
 private:
     
-    std::array<uint8_t, 2 * 1024> ram;
+    std::array<uint8_t, 2 * 1024> ram {};
     
 public:
-    System();
     
     // Address belong to ports space
     virtual bool isAccept(uint16_t address) const override;

@@ -11,11 +11,12 @@
 #include <memory>
 #include <map>
 
+#include "IO.hpp"
 #include "IODevice.hpp"
 #include "MonitorRom.hpp"
 #include "System.hpp"
 
-class Bus : public IODevice
+class Bus : public IODevice, public IO
 {
 private:
     

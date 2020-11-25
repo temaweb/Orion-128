@@ -5,44 +5,35 @@
 //  Created by Артём Оконечников on 11.11.2020.
 //
 
-#include <cstdint>
-#include <vector>
-
-#include "Video.hpp"
-#include "Keyboard.hpp"
-
 #import "DisplayView.h"
 #import "AppDelegate.h"
 
-#include <iostream>
 #include <OpenGL/gl.h>
+#include "Video.hpp"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
 
-#define BUFFER_OFFSET(i) ((char*)NULL + (i))
+#define FPS 60.0f
 
 @implementation DisplayView
 {
 @private
+    std::shared_ptr<Video> video;
+    std::shared_ptr<Orion> orion;
     
-    GLuint triangleVBO;
-    GLuint colorVBO;
-    GLuint elementbuffer;
+    // Frame timer
+    NSTimer * timer;
+    
+    // Buffer objects
+    GLuint vertexBuffer;
+    GLuint colorBuffer;
 }
 
-- (instancetype)initWithFrame:(NSRect)frameRect
+- (instancetype) initWithCoder:(NSCoder *)coder
 {
-    if (self = [super initWithFrame: frameRect]) {
-        [self setItemPropertiesToDefault: self];
-    }
-    
-    return self;
-}
-
-- (nullable instancetype)initWithCoder:(NSCoder *)coder
-{
-    if (self = [super initWithCoder: coder]) {
+    if (self = [super initWithCoder: coder])
+    {
         [self setItemPropertiesToDefault: self];
     }
     
@@ -52,7 +43,9 @@
 - (void) setItemPropertiesToDefault:sender
 {
     timer = [self createDisplayTimer];
+    
     video = [[AppDelegate sharedAppDelegate] video];
+    orion = [[AppDelegate sharedAppDelegate] orion];
     
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
@@ -60,22 +53,21 @@
 #pragma mark -
 #pragma mark Drawing
 
-- (void)prepareOpenGL
+- (void) prepareOpenGL
 {
     [super prepareOpenGL];
     
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
     
-    glGenBuffers(1, &triangleVBO);
-    glGenBuffers(1, &colorVBO);
-    glGenBuffers(1, &elementbuffer);
+    glGenBuffers(1, &vertexBuffer);
+    glGenBuffers(1, &colorBuffer);
 }
 
 - (void) drawRect: (NSRect) rect
 {
     glClearColor(0, 0, 0, 0);
-    glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+    glClear ( GL_COLOR_BUFFER_BIT );
 
     glMatrixMode ( GL_MODELVIEW );
     glPushMatrix ();
@@ -85,7 +77,7 @@
     auto resolution   = video -> getResolution();
     
     float pixelHeight = (NSHeight(rect) - resolution.height) / resolution.height;
-    float pixelWidth  = (NSWidth(rect)  - resolution.width)  / resolution.width;
+    float pixelWidth  = (NSWidth (rect) - resolution.width)  / resolution.width;
     
     // Current pixel
     int index = 0x00;
@@ -99,10 +91,10 @@
     
     // Array size
     uint16_t size  = 0x00;
-    uint16_t limit = 65535;
+    static uint16_t limit = 65535;
     
     // Shapes per pixel
-    static int shapes = 18;
+    static int shapes = 12;
     
     int row = 0;
     for (auto & line : video -> output())
@@ -129,62 +121,57 @@
                 index = 0;
             }
             
-            CGFloat x = (col * pixelWidth) + col;
-            CGFloat y = (NSHeight(rect) - ((row * pixelHeight) + pixelHeight)) - row;
-            
-            int vertexindex = index * shapes;
+            int shape = index * shapes;
             
             float r = pixel.getRed();
             float g = pixel.getGreen();
             float b = pixel.getBlue();
             
-            for (int i = 0, j = 0; i < 6; i++)
+            for (int i = 0, j = 0; i < 4; i++)
             {
-                colors[vertexindex + j++] = r;
-                colors[vertexindex + j++] = g;
-                colors[vertexindex + j++] = b;
+                colors[shape + j++] = r;
+                colors[shape + j++] = g;
+                colors[shape + j++] = b;
             }
             
-            // Triangles vertices
+            // Squad vertex
             
-            vertices[vertexindex + 0]  = x;
-            vertices[vertexindex + 1]  = y;
-            vertices[vertexindex + 2]  = 0;
+            CGFloat x = (col * pixelWidth) + col;
+            CGFloat y = (NSHeight(rect) - ((row * pixelHeight) + pixelHeight)) - row;
+            CGFloat z = 0.0f;
+            
+            vertices[shape + 0]  = x;
+            vertices[shape + 1]  = y + pixelHeight;
+            vertices[shape + 2]  = z;
 
-            vertices[vertexindex + 3]  = x;
-            vertices[vertexindex + 4]  = y + pixelHeight;
-            vertices[vertexindex + 5]  = 0;
+            vertices[shape + 3]  = x + pixelWidth;
+            vertices[shape + 4]  = y + pixelHeight;
+            vertices[shape + 5]  = z;
 
-            vertices[vertexindex + 6]  = x + pixelWidth;
-            vertices[vertexindex + 7]  = y + pixelHeight;
-            vertices[vertexindex + 8]  = 0;
+            vertices[shape + 6]  = x + pixelWidth;
+            vertices[shape + 7]  = y;
+            vertices[shape + 8]  = z;
 
-            vertices[vertexindex + 9]  = x;
-            vertices[vertexindex + 10] = y;
-            vertices[vertexindex + 11] = 0;
-
-            vertices[vertexindex + 12] = x + pixelWidth;
-            vertices[vertexindex + 13] = y + pixelHeight;
-            vertices[vertexindex + 14] = 0;
-
-            vertices[vertexindex + 15] = x + pixelWidth;
-            vertices[vertexindex + 16] = y;
-            vertices[vertexindex + 17] = 0;
+            vertices[shape + 9]  = x;
+            vertices[shape + 10] = y;
+            vertices[shape + 11] = z;
+            
+            // Draw over VBO
             
             if (--total == 0 || ((index + 1) * shapes) == size)
             {
-                glBindBuffer(GL_ARRAY_BUFFER, triangleVBO);
-                glBufferData(GL_ARRAY_BUFFER, sizeof(*vertices) * size, vertices, GL_STREAM_DRAW);
+                glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+                glBufferData(GL_ARRAY_BUFFER, sizeof(*vertices) * size, vertices, GL_STATIC_DRAW);
                 glVertexPointer(3, GL_FLOAT, 0, NULL);
                 
-                glBindBuffer(GL_ARRAY_BUFFER, colorVBO);
-                glBufferData(GL_ARRAY_BUFFER, sizeof(*colors) * size, colors, GL_STREAM_DRAW);
+                glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+                glBufferData(GL_ARRAY_BUFFER, sizeof(*colors) * size, colors, GL_STATIC_DRAW);
                 
                 glEnableClientState(GL_COLOR_ARRAY);
                 glColorPointer(3, GL_FLOAT, 0, NULL);
                 
                 glEnableClientState(GL_VERTEX_ARRAY);
-                glDrawArrays(GL_TRIANGLES, 0, size / 3);
+                glDrawArrays(GL_QUADS, 0, size / 2);
                 
                 delete[] vertices;
                 delete[] colors;
@@ -206,7 +193,7 @@
 
 - (NSTimer *) createDisplayTimer
 {
-    return  [NSTimer timerWithTimeInterval: (NSTimeInterval)(1.0 / 60.0)
+    return  [NSTimer timerWithTimeInterval: (1.0 / FPS)
                                              target:self
                                            selector:@selector(updateTimer:)
                                            userInfo:nil
@@ -215,7 +202,7 @@
 
 - (void) updateTimer:(NSTimer *) theTimer
 {
-   [self setNeedsDisplay:YES];
+    [self setNeedsDisplay: video -> isChanged()];
 }
 
 @end

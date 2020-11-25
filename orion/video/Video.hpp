@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <vector>
+#include <array>
 
 #include "Palette.hpp"
 #include "BWPalette.hpp"
@@ -33,6 +34,14 @@ private:
     static const uint16_t begin = 0x0C000; // Start vidio memory
     static const uint16_t end   = 0x0EFFF; // End video memory
     
+    typedef std::array<std::array<Pixel, width>, height> frame;
+    typedef std::array<Pixel, width> line;
+    
+    std::array<uint16_t, 12 * 1024> frameBuffer;
+    std::array<uint16_t, 12 * 1024> colorBuffer;
+    
+    bool _isChanged = true;
+    
     enum ColorMode
     {
         MONO    = 0,  // B/W color
@@ -48,11 +57,11 @@ private:
 private:
     std::shared_ptr<const Memory> memory = nullptr;
 
-    std::array<Pixel, width> getLine(uint8_t row);
+    line getLine(uint8_t row);
     
-    void colorisebw (std::array<Pixel, width> & line, size_t size, const uint8_t & data);
-    void colorise16 (std::array<Pixel, width> & line, size_t size, const uint8_t & data, const uint16_t & address);
-    void colorise   (std::array<Pixel, width> & line, size_t size, const uint8_t & data, const Palette & palette);
+    void colorisebw (line & line, size_t size, const uint8_t & data);
+    void colorise16 (line & line, size_t size, const uint8_t & data, const uint16_t & address);
+    void colorise   (line & line, size_t size, const uint8_t & data, const Palette  & palette);
     
 public:
     
@@ -60,11 +69,19 @@ public:
     // Each pixel has b/w color in RGB hex-format.
     std::array<std::array<Pixel, width>, height> output();
     
+    void createFrame();
+    
     // Connect memory bus
     void connect(std::shared_ptr<const Memory> bus);
     
     // Set current color palette
     void switchColorMode(uint8_t data);
+    
+    // Set current color palette
+    void switchScreenMode(uint8_t data);
+    
+    void markChanged();
+    bool isChanged();
     
     // Return video resolution
     Resolution getResolution() const
