@@ -46,16 +46,20 @@ void Video::switchScreenMode(uint8_t data)
 // Part of CPU → Video sync
 void Video::createFrame()
 {
+    std::unique_lock lock(_mutex);
+    
     for (uint16_t a = begin, i = 0; a <= end; a++, i = a - begin)
     {
-        frameBuffer[i] = memory -> read  (a);
-        colorBuffer[i] = memory -> readB (a);
+        frameBuffer[i] = memory -> read (a, 0x00);
+        colorBuffer[i] = memory -> read (a, 0x01);
     }
 }
 
 // Returns one frame
-std::array<std::array<Pixel, Video::width>, Video::height> Video::output()
+std::array<std::array<Pixel, Video::width>, Video::height> Video::output() const
 {
+    std::shared_lock lock(_mutex);
+    
     uint8_t row = 0x00;
     frame frame;
 
@@ -69,7 +73,7 @@ std::array<std::array<Pixel, Video::width>, Video::height> Video::output()
 }
 
 // Returns one line
-std::array<Pixel, Video::width> Video::getLine(uint8_t row)
+std::array<Pixel, Video::width> Video::getLine(uint8_t row) const
 {   
     line line;
 
@@ -99,7 +103,7 @@ std::array<Pixel, Video::width> Video::getLine(uint8_t row)
     return line;
 }
 
-void Video::colorise (line & line, size_t size, const uint8_t & data, const Palette & palette)
+void Video::colorise (line & line, size_t size, uint8_t data, const Palette & palette) const
 {
     for (uint8_t offset = 7;;offset--)
     {
@@ -119,12 +123,12 @@ void Video::colorise (line & line, size_t size, const uint8_t & data, const Pale
     }
 }
 
-void Video::colorisebw(line & line, size_t size, const uint8_t & data)
+void Video::colorisebw(line & line, size_t size, uint8_t data) const
 {
     colorise(line, size, data, bwpalette);
 }
 
-void Video::colorise16(line & line, size_t size, const uint8_t & data, const uint16_t & address)
+void Video::colorise16(line & line, size_t size, uint8_t data, uint16_t address) const
 {
     // Read data by address from second page
     // Second page store data about colors;

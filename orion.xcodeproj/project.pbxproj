@@ -25,6 +25,8 @@
 		8A24E470255C85F200496F78 /* Cpulogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */; };
 		8A3015742564251F0071D523 /* rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A30157025640C400071D523 /* rom */; };
 		8A301577256425230071D523 /* monitor in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A24E3E4255C480700496F78 /* monitor */; };
+		8A7F3E49256F39CE005BE724 /* VideoMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A7F3E47256F39CE005BE724 /* VideoMemory.cpp */; };
+		8A7F3E4A256F39CE005BE724 /* VideoMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A7F3E47256F39CE005BE724 /* VideoMemory.cpp */; };
 		8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
 		8AA63D1625619331007CF426 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA63D1425619331007CF426 /* Keyboard.cpp */; };
 		8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA63D1425619331007CF426 /* Keyboard.cpp */; };
@@ -102,6 +104,8 @@
 		8A6A210725605A31009A8B71 /* RamtestRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RamtestRom.hpp; sourceTree = "<group>"; };
 		8A77D83F256DE02A00B0278C /* IO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IO.hpp; sourceTree = "<group>"; };
 		8A77D849256DE3BA00B0278C /* IOSplitter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOSplitter.hpp; sourceTree = "<group>"; };
+		8A7F3E47256F39CE005BE724 /* VideoMemory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VideoMemory.cpp; sourceTree = "<group>"; };
+		8A7F3E48256F39CE005BE724 /* VideoMemory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoMemory.hpp; sourceTree = "<group>"; };
 		8A9CF1A3256C30F80006FDC6 /* VideoObserver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoObserver.hpp; sourceTree = "<group>"; };
 		8AA63D1425619331007CF426 /* Keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
 		8AA63D1525619331007CF426 /* Keyboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
@@ -233,6 +237,8 @@
 				8AE39C8D25658DB5009C77BC /* System.hpp */,
 				8AF548E925648732006AFB51 /* Memory.cpp */,
 				8AF548EA25648732006AFB51 /* Memory.hpp */,
+				8A7F3E47256F39CE005BE724 /* VideoMemory.cpp */,
+				8A7F3E48256F39CE005BE724 /* VideoMemory.hpp */,
 			);
 			path = memory;
 			sourceTree = "<group>";
@@ -280,9 +286,9 @@
 				8AE39CED2565FC5B009C77BC /* sources */,
 				8AB9437A254A187200636CA0 /* Cpu.cpp */,
 				8AB9437B254A187200636CA0 /* Cpu.hpp */,
-				8A77D83F256DE02A00B0278C /* IO.hpp */,
 				8A4C1E50254ED0EB00ED6E1E /* Cpustatus.hpp */,
 				8AE7F9C6255B4D4E00830F35 /* Cpulogger.cpp */,
+				8A77D83F256DE02A00B0278C /* IO.hpp */,
 				8A24E3E2255C183500496F78 /* README.md */,
 			);
 			path = cpu;
@@ -484,6 +490,7 @@
 				8A24E463255C83E400496F78 /* DisplayView.mm in Sources */,
 				8A24E45A255C806400496F78 /* main.m in Sources */,
 				8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */,
+				8A7F3E4A256F39CE005BE724 /* VideoMemory.cpp in Sources */,
 				8AE39C832565700C009C77BC /* IOController.cpp in Sources */,
 				8A24E46A255C85E600496F78 /* Video.cpp in Sources */,
 				8A24E44F255C806400496F78 /* AppDelegate.mm in Sources */,
@@ -506,6 +513,7 @@
 				8AE39C8E25658DB5009C77BC /* System.cpp in Sources */,
 				8A07ABB82568374500C487BE /* Switcher.cpp in Sources */,
 				8AE7F9D0255B50D700830F35 /* Cpulogger.cpp in Sources */,
+				8A7F3E49256F39CE005BE724 /* VideoMemory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

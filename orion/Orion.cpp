@@ -6,7 +6,6 @@
 //
 
 #include "Orion.hpp"
-
 #include "Bus.hpp"
 #include "Memory.hpp"
 #include "Switcher.hpp"
@@ -16,27 +15,19 @@
 
 #include <chrono>
 #include <thread>
-#include <cmath>
 
-#include <fstream>
-#include <vector>
-#include <cstdint>
-
-using namespace std;
 using namespace std::chrono;
 
 Orion::Orion()
 {
-    auto bus      = make_shared<Bus>();
-    auto io       = make_shared<IOController>();
-    auto switcher = make_shared<Switcher>();
-    //auto videoObs = make_shared<VideoObserver>(memory, video);
-    auto iosplitter = make_shared<IOSplitter>(io);
+    auto bus = std::make_shared<Bus>();
+    auto io = std::make_shared<IOController>();
+    auto switcher = std::make_shared<Switcher>();
+    auto iosplitter = std::make_shared<IOSplitter>(io);
     
-    switcher  -> connect(video);
-    switcher  -> connect(memory);
-    
-    // bus -> connect(videoObs);
+    switcher -> connect(video);
+    switcher -> connect(memory);
+
     bus -> connect(memory);
     
     io -> connect(switcher);
@@ -60,7 +51,7 @@ void Orion::run(int frequency)
     auto hztimer = steady_clock::now();
     
     auto frame = 0;
-
+    
     while (isRunning)
     {
         if (clock == cycle)
@@ -75,9 +66,7 @@ void Orion::run(int frequency)
             reset(hztimer, hzclock);
         }
 
-        // Sync ~
-        
-        if (frame == frequency / 100)
+        if (frame == freq)
         {
             video -> createFrame();
             frame = 0;
@@ -111,7 +100,7 @@ void Orion::stop()
 #pragma mark -
 #pragma mark Delay
 
-void Orion::delay(const timepoint & start, const int & frequency)
+void Orion::delay(const timepoint start, const int frequency)
 {
     auto elapsed  = timepassed(start);
     auto expected = (1.0 / frequency) * cycle;
@@ -135,7 +124,7 @@ void Orion::delay()
     auto start = steady_clock::now();
 
     // Sleep current thread for overrun remainder
-    this_thread::sleep_for(
+    std::this_thread::sleep_for(
        duration<double>(sleep)
     );
 
@@ -150,7 +139,7 @@ void Orion::delay()
 #pragma mark -
 #pragma mark Other
 
-double Orion::timepassed(const timepoint & start)
+double Orion::timepassed(const timepoint start)
 {
     duration<double> elapsed = steady_clock::now() - start;
     return elapsed.count();

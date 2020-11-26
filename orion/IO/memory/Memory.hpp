@@ -20,11 +20,13 @@ private:
     uint8_t page = 0x00;
     std::array<std::array<uint8_t, 60 * 1024>, 4> memory {};
     
-    uint8_t read (const uint16_t address, uint8_t page) const;
+    
     void write (const uint16_t address, uint8_t data, uint8_t page);
     
 public:
     Memory();
+    
+    uint8_t read (const uint16_t address, uint8_t page) const;
     
     // Address belong to ports space
     virtual bool isAccept(uint16_t address) const override;

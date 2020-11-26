@@ -56,12 +56,12 @@ public:
     Color16Palette(uint8_t color) : color(color)
     { }
     
-    Pixel getBackground() const override
+    virtual Pixel getBackground() const override
     {
         return getPixel((color & 0xF0) >> 4);
     }
     
-    Pixel getForeground() const override
+    virtual Pixel getForeground() const override
     {
         return getPixel(color & 0x0F);
     }

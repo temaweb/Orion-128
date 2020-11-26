@@ -11,12 +11,12 @@
 #include <stdio.h>
 #include <vector>
 #include <array>
+#include <shared_mutex>
 
+#include "Memory.hpp"
 #include "Palette.hpp"
 #include "BWPalette.hpp"
 #include "Color16Palette.hpp"
-
-class Memory;
 
 struct Resolution
 {
@@ -40,6 +40,9 @@ private:
     std::array<uint16_t, 12 * 1024> frameBuffer;
     std::array<uint16_t, 12 * 1024> colorBuffer;
     
+    static const BWPalette bwpalette;
+    mutable std::shared_mutex _mutex;
+    
     bool _isChanged = true;
     
     enum ColorMode
@@ -47,27 +50,25 @@ private:
         MONO    = 0,  // B/W color
         BLANK   = 1,  // No image
         COLOR4  = 2,  // 4 color palette
-        COLOR16 = 3   // 16 color palette
+        COLOR16 = 3   // 16 color palettex
     };
 
     ColorMode colorMode = MONO;
     
-    static const BWPalette bwpalette;
-    
 private:
     std::shared_ptr<const Memory> memory = nullptr;
 
-    line getLine(uint8_t row);
+    line getLine(uint8_t row) const;
     
-    void colorisebw (line & line, size_t size, const uint8_t & data);
-    void colorise16 (line & line, size_t size, const uint8_t & data, const uint16_t & address);
-    void colorise   (line & line, size_t size, const uint8_t & data, const Palette  & palette);
+    void colorisebw (line & line, size_t size, uint8_t data) const;
+    void colorise16 (line & line, size_t size, uint8_t data, uint16_t address) const;
+    void colorise   (line & line, size_t size, uint8_t data, const Palette & palette) const;
     
 public:
     
     // Return one frame with resolution 384 x 256 pixels
     // Each pixel has b/w color in RGB hex-format.
-    std::array<std::array<Pixel, width>, height> output();
+    std::array<std::array<Pixel, width>, height> output() const;
     
     void createFrame();
     

@@ -18,30 +18,29 @@
 #include "Memory.hpp"
 #include "Filesystem.hpp"
 
-using namespace std::chrono;
-
-typedef steady_clock::time_point timepoint;
-
 class Orion
 {
 private:
     
     static const unsigned int  cycle = 10000;
     static const unsigned int  mhz   = 1000000;
+    static const unsigned int  freq  = 5000;
+    
+    typedef std::chrono::steady_clock::time_point timepoint;
     
 private:
     
-    volatile bool isRunning = true;
+    bool isRunning = true;
     
-    double frequency = 2.5;
-    double oversleep = 0;
+    double frequency = 0.0;
+    double oversleep = 0.0;
     double currfreq  = 0.0;
     
-    double timepassed(const timepoint & start);
+    double timepassed(const timepoint start);
     double frequencyRate(const timepoint & start, const int & frequency);
     
     void delay();
-    void delay(const timepoint & start, const int & frequency);
+    void delay(const timepoint start, const int frequency);
     void reset(timepoint & start, int & clock);
     
 private:

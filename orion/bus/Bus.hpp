@@ -14,14 +14,15 @@
 #include "IO.hpp"
 #include "IODevice.hpp"
 #include "MonitorRom.hpp"
+#include "RamtestRom.hpp"
 #include "System.hpp"
 
 class Bus : public IODevice, public IO
 {
 private:
     
-    std::shared_ptr<MonitorRom> monitor = std::make_shared<MonitorRom>();
-    std::shared_ptr<System>     system  = std::make_shared<System>();
+    std::shared_ptr<RDevice>   monitor = std::make_shared<MonitorRom>();
+    std::shared_ptr<IODevice>  system  = std::make_shared<System>();
     
     std::map<Space, std::shared_ptr<RDevice>> rvector
     {

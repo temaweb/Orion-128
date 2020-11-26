@@ -14,7 +14,6 @@
 
 #include "Cpustatus.hpp"
 #include "IODevice.hpp"
-
 #include "IO.hpp"
 
 class Cpu
