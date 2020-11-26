@@ -1,0 +1,3 @@
+[submodule "orion/cpu"]
+	path = orion/cpu
+	url = https://temaweb@github.com/temaweb/8080.git
