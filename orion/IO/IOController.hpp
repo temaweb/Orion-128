@@ -23,7 +23,7 @@
 template <class T>
 using devices = std::vector<std::shared_ptr<T>>;
 
-class IOController : public IODevice, public IO
+class IOController : public IODevice, public IO<uint16_t>
 {
 private:
     

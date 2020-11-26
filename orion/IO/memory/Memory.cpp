@@ -47,18 +47,8 @@ uint8_t Memory::read (const uint16_t address) const
     return read(address, page);
 }
 
-uint8_t Memory::readB (const uint16_t address) const
-{
-    return read(address, 0x01);
-}
-
 void Memory::write (const uint16_t address, uint8_t data)
 {
     write(address, data, page);
-}
-
-void Memory::writeB (const uint16_t address, uint8_t data)
-{
-    write(address, data, 0x01);
 }
 

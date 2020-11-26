@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 
-#include "Cpustatus.hpp"
+#include "Status.hpp"
 #include "IODevice.hpp"
 #include "IO.hpp"
 
@@ -37,7 +37,7 @@ private:
     uint16_t address = 0x0000;   // Current memory pointer
     uint64_t ticks   = 0x0L;     // Clock counter
     
-    Cpustatus status;            // Status register
+    Status status;               // Status register
 
     friend void log(uint16_t pcl, Cpu * cpu);
     
@@ -69,16 +69,16 @@ private:
     void writepair    (uint8_t index, uint16_t data);
     void mutatepair   (uint8_t index, std::function<void(uint16_t &)> mutator);
     
-// Bus communication
+// Communication
 private:
     
-    std::shared_ptr<IO> bus = DefaultIO::getInstance();
-    std::shared_ptr<IO> io  = DefaultIO::getInstance();
+    std::shared_ptr<IO<uint16_t>> bus = std::make_shared<DefaultIO<uint16_t>>();
+    std::shared_ptr<IO<uint8_t>>  io  = std::make_shared<DefaultIO<uint8_t>>();
     
     uint8_t read ();
     uint8_t read (uint16_t address);
     
-    void write (uint8_t data);
+    void write (uint8_t  data);
     void write (uint16_t address, uint8_t data);
     
 private:
@@ -278,10 +278,10 @@ public:
 
     void setCounter(uint16_t counter);
     
-    void connect   (std::shared_ptr<IO> bus);
-    void connectio (std::shared_ptr<IO> io);
+    void connect (std::shared_ptr<IO<uint16_t>> bus);
+    void connect (std::shared_ptr<IO<uint8_t>>  io);
 };
 
-void log( uint16_t pcl, Cpu * cpu );
+void log(uint16_t pcl, Cpu * cpu);
 
 #endif /* i8080_hpp */

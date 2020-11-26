@@ -35,7 +35,7 @@ Orion::Orion()
     io -> connect(bus);
     
     cpu   -> connect(io);
-    cpu   -> connectio(iosplitter);
+    cpu   -> connect(iosplitter);
     video -> connect(memory);
     
     filesystem = std::make_unique<Filesystem>(memory);

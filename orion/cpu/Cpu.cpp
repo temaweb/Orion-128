@@ -454,12 +454,12 @@ void Cpu::write(uint16_t address, uint8_t data)
 #pragma mark -
 #pragma mark Connect
 
-void Cpu::connect(std::shared_ptr<IO> bus)
+void Cpu::connect(std::shared_ptr<IO<uint16_t>> bus)
 {
     this -> bus = bus;
 }
 
-void Cpu::connectio(std::shared_ptr<IO> io)
+void Cpu::connect(std::shared_ptr<IO<uint8_t>> io)
 {
     this -> io = io;
 }

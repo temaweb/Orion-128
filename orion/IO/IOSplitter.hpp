@@ -13,7 +13,7 @@
 #include "IO.hpp"
 #include "IOController.hpp"
 
-class IOSplitter : public IO
+class IOSplitter : public IO<uint8_t>
 {
 private:
     std::shared_ptr<IOController> controller;
@@ -22,14 +22,14 @@ public:
     IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
     { }
     
-    virtual uint8_t read(const uint16_t address) const override
+    virtual uint8_t read(uint8_t device) const override
     {
-        return controller -> read((address & 0x00FF) << 8 | (address & 0x00FF));
+        return controller -> read((device & 0xFF) << 8 | (device & 0xFF));
     }
     
-    virtual void write(const uint16_t address, uint8_t data) override
+    virtual void write(uint8_t device, uint8_t data) override
     {
-        controller -> write((address & 0x00FF) << 8 | (address & 0x00FF), data);
+        controller -> write((device & 0xFF) << 8 | (device & 0xFF), data);
     }
 };
 

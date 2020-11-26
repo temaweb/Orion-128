@@ -17,7 +17,7 @@
 #include "RamtestRom.hpp"
 #include "System.hpp"
 
-class Bus : public IODevice, public IO
+class Bus : public IODevice, public IO<uint16_t>
 {
 private:
     
