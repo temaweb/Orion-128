@@ -58,7 +58,6 @@
 		8A04D28F2569C36E00891765 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		8A07ABB62568374500C487BE /* Switcher.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Switcher.cpp; sourceTree = "<group>"; };
 		8A07ABB72568374500C487BE /* Switcher.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Switcher.hpp; sourceTree = "<group>"; };
-		8A24E3E2255C183500496F78 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A24E3E4255C480700496F78 /* monitor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = monitor; sourceTree = "<group>"; };
 		8A24E3E7255C4E1E00496F78 /* Video.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Video.cpp; sourceTree = "<group>"; };
 		8A24E3E8255C4E1E00496F78 /* Video.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Video.hpp; sourceTree = "<group>"; };
@@ -74,7 +73,6 @@
 		8A24E462255C83E400496F78 /* DisplayView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisplayView.mm; sourceTree = "<group>"; };
 		8A3015632563FC720071D523 /* Disk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Disk.hpp; sourceTree = "<group>"; };
 		8A30157025640C400071D523 /* rom */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rom; sourceTree = "<group>"; };
-		8A4C1E4C254B47A600ED6E1E /* materials */ = {isa = PBXFileReference; lastKnownFileType = folder; path = materials; sourceTree = "<group>"; };
 		8A4C1E50254ED0EB00ED6E1E /* Status.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Status.hpp; sourceTree = "<group>"; };
 		8A6A20FB25605352009A8B71 /* Rom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rom.hpp; sourceTree = "<group>"; };
 		8A6A21002560580B009A8B71 /* MonitorRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MonitorRom.hpp; sourceTree = "<group>"; };
@@ -91,7 +89,6 @@
 		8AB1C43D2566E1E2002B614A /* Palette.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Palette.hpp; sourceTree = "<group>"; };
 		8AB1C4402566E230002B614A /* Pixel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Pixel.hpp; sourceTree = "<group>"; };
 		8AB44F92256FE469006117B1 /* Status.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Status.cpp; sourceTree = "<group>"; };
-		8AB72CA8257034F000060BA3 /* materials */ = {isa = PBXFileReference; lastKnownFileType = folder; path = materials; sourceTree = "<group>"; };
 		8AB9437A254A187200636CA0 /* Cpu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpu.cpp; sourceTree = "<group>"; };
 		8AB9437B254A187200636CA0 /* Cpu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cpu.hpp; sourceTree = "<group>"; };
 		8AC0C639254460C8008DAA6B /* Bus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Bus.hpp; sourceTree = "<group>"; };
@@ -106,12 +103,6 @@
 		8AE39C8D25658DB5009C77BC /* System.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
 		8AE39CB32565E9E1009C77BC /* PaletteSwitch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PaletteSwitch.hpp; sourceTree = "<group>"; };
 		8AE39CB42565E9F0009C77BC /* ScreenSwitch.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScreenSwitch.hpp; sourceTree = "<group>"; };
-		8AE39CCE2565FA00009C77BC /* exerciser */ = {isa = PBXFileReference; lastKnownFileType = folder; path = exerciser; sourceTree = "<group>"; };
-		8AE39CEE2565FC79009C77BC /* 8080.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
-		8AE39CEF2565FC79009C77BC /* 8080EXER.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXER.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
-		8AE39CF02565FC79009C77BC /* 8080EXM.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EXM.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
-		8AE39CF12565FC79009C77BC /* 8080EX1.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080EX1.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
-		8AE39CF22565FC79009C77BC /* 8080PRE.asm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm.asm; path = 8080PRE.asm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.asm.arm; };
 		8AE7F9C6255B4D4E00830F35 /* Asmlog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Asmlog.cpp; sourceTree = "<group>"; };
 		8AEE66442566FCE30007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AEE664B2566FD8F0007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -178,6 +169,7 @@
 		8A24E44C255C806400496F78 /* display */ = {
 			isa = PBXGroup;
 			children = (
+				8AB72CFD2570817900060BA3 /* storyboard */,
 				8AE39CBF2565F950009C77BC /* controllers */,
 				8AE39CC22565F95B009C77BC /* view */,
 				8A04D27A2568A91000891765 /* localizable */,
@@ -185,7 +177,6 @@
 				8AEE6678256749A40007586F /* OrionFacade.mm */,
 				8A24E44D255C806400496F78 /* AppDelegate.h */,
 				8A24E44E255C806400496F78 /* AppDelegate.mm */,
-				8A24E455255C806400496F78 /* Main.storyboard */,
 				8A24E458255C806400496F78 /* Info.plist */,
 				8A24E459255C806400496F78 /* main.m */,
 			);
@@ -249,19 +240,23 @@
 			path = IO;
 			sourceTree = "<group>";
 		};
+		8AB72CFD2570817900060BA3 /* storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				8A24E455255C806400496F78 /* Main.storyboard */,
+			);
+			path = storyboard;
+			sourceTree = "<group>";
+		};
 		8AB94388254B29FD00636CA0 /* cpu */ = {
 			isa = PBXGroup;
 			children = (
-				8AB72CA8257034F000060BA3 /* materials */,
-				8AE39CCE2565FA00009C77BC /* exerciser */,
-				8AE39CED2565FC5B009C77BC /* sources */,
 				8AB9437A254A187200636CA0 /* Cpu.cpp */,
 				8AB9437B254A187200636CA0 /* Cpu.hpp */,
 				8A77D83F256DE02A00B0278C /* IO.hpp */,
 				8A4C1E50254ED0EB00ED6E1E /* Status.hpp */,
 				8AB44F92256FE469006117B1 /* Status.cpp */,
 				8AE7F9C6255B4D4E00830F35 /* Asmlog.cpp */,
-				8A24E3E2255C183500496F78 /* README.md */,
 			);
 			path = cpu;
 			sourceTree = "<group>";
@@ -281,7 +276,6 @@
 				8AB1C4382566BECD002B614A /* README.md */,
 				8A30157025640C400071D523 /* rom */,
 				8A24E3E4255C480700496F78 /* monitor */,
-				8A4C1E4C254B47A600ED6E1E /* materials */,
 				8AC0C6202543AE24008DAA6B /* orion */,
 				8A24E44C255C806400496F78 /* display */,
 				8AC0C61F2543AE24008DAA6B /* Products */,
@@ -341,18 +335,6 @@
 				8A24E462255C83E400496F78 /* DisplayView.mm */,
 			);
 			path = view;
-			sourceTree = "<group>";
-		};
-		8AE39CED2565FC5B009C77BC /* sources */ = {
-			isa = PBXGroup;
-			children = (
-				8AE39CEE2565FC79009C77BC /* 8080.asm */,
-				8AE39CF12565FC79009C77BC /* 8080EX1.asm */,
-				8AE39CEF2565FC79009C77BC /* 8080EXER.asm */,
-				8AE39CF02565FC79009C77BC /* 8080EXM.asm */,
-				8AE39CF22565FC79009C77BC /* 8080PRE.asm */,
-			);
-			path = sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
