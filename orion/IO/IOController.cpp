@@ -1,61 +1,32 @@
-//
-//  IOController.cpp
-//  orion
-//
-//  Created by Артём Оконечников on 18.11.2020.
-//
+/*
+ * This file is part of the Orion-128 distribution (https://github.com/temaweb/orion-128).
+ * Copyright (c) 2020 Artem Okonechnikov.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include "IOController.hpp"
-#include "Disk.hpp"
 
-IOController::IOController()
+Space IOController::getSpace() const
 {
-    auto disk = std::make_shared<Disk>();
-    
-    rdevices.push_back(disk);
-    wdevices.push_back(disk);
+    return
+    {
+        0xF400,
+        0xFBFF
+    };
 }
 
 std::shared_ptr<IODevice> IOController::defaultDevice() const
 {
-    return this -> bus;
+    return iobus;
 }
-
-#pragma mark -
-#pragma mark Connect
-
-void IOController::connect (std::shared_ptr<Device> device)
-{   
-    if (auto rdevice = std::dynamic_pointer_cast<RDevice>(device)) {
-        rdevices.push_back(rdevice);
-    }
-    
-    if (auto wdevice = std::dynamic_pointer_cast<WDevice>(device)) {
-        wdevices.push_back(wdevice);
-    }
-}
-
-void IOController::connect (std::shared_ptr<Bus> bus)
-{
-    this -> bus = bus;
-}
-
-#pragma mark -
-#pragma mark I/O
-
-bool IOController::isAccept(uint16_t address) const
-{
-    return address >= begin &&
-           address <= end;
-}
-
-uint8_t IOController::read (const uint16_t address) const
-{
-    return getDevice<RDevice>(address, rdevices) -> read(address);
-}
-
-void IOController::write (const uint16_t address, uint8_t data)
-{
-    getDevice<WDevice>(address, wdevices) -> write(address, data);
-}
-

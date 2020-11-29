@@ -15,23 +15,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IOSplitter_hpp
-#define IOSplitter_hpp
+#include "IOBus.hpp"
 
-#include "IO.hpp"
-#include "IOController.hpp"
-
-class IOSplitter : public IO<uint8_t>
+Space IOBus::getSpace() const
 {
-private:
-    std::shared_ptr<IOController> controller;
-    
-public:
-    IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
-    { }
-    
-    virtual uint8_t read(uint8_t device) const override;
-    virtual void write(uint8_t device, uint8_t data) override;
-};
+    return
+    {
+        0x0000,
+        0xFFFF
+    };
+}
 
-#endif /* IOSplitter_hpp */
+uint8_t IOBus::read(uint16_t address) const
+{
+    return getRDevice(address) -> read(address);
+}
+
+void IOBus::write(uint16_t address, uint8_t data)
+{
+    return getWDevice(address) -> write(address, data);
+}

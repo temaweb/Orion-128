@@ -15,23 +15,25 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IOSplitter_hpp
-#define IOSplitter_hpp
+#include "PaletteSelector.hpp"
 
-#include "IO.hpp"
-#include "IOController.hpp"
-
-class IOSplitter : public IO<uint8_t>
+Space PaletteSelector::getSpace() const
 {
-private:
-    std::shared_ptr<IOController> controller;
-    
-public:
-    IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
-    { }
-    
-    virtual uint8_t read(uint8_t device) const override;
-    virtual void write(uint8_t device, uint8_t data) override;
-};
+    return
+    {
+        0xF800,
+        0xF8FF
+    };
+}
 
-#endif /* IOSplitter_hpp */
+void PaletteSelector::write (uint16_t, uint8_t data)
+{
+    // - - 0  Palette #1
+    // - - 1  Palette #2
+    // - 0 -  Mode #1 / 16 colors
+    // - 1 -  Mode #2 / 4 colors
+    // 0 - -  Monochrome mode
+    // 1 - -  Color mode
+    
+    video -> switchColorMode(data & 0x7);
+}

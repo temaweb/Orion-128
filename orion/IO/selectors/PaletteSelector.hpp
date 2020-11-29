@@ -15,23 +15,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IOSplitter_hpp
-#define IOSplitter_hpp
+#ifndef PaletteSelector_h
+#define PaletteSelector_h
 
-#include "IO.hpp"
-#include "IOController.hpp"
+#include "Video.hpp"
+#include "IODevice.hpp"
 
-class IOSplitter : public IO<uint8_t>
+class PaletteSelector : public WDevice
 {
 private:
-    std::shared_ptr<IOController> controller;
+    std::shared_ptr<Video> video;
     
 public:
-    IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
+    PaletteSelector(std::shared_ptr<Video> video) : video(video)
     { }
-    
-    virtual uint8_t read(uint8_t device) const override;
-    virtual void write(uint8_t device, uint8_t data) override;
+
+    virtual Space getSpace() const override;
+    virtual void write (uint16_t, uint8_t data) override;
 };
 
-#endif /* IOSplitter_hpp */
+#endif /* PaletteSelector_h */

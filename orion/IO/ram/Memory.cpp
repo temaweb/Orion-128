@@ -15,23 +15,47 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IOSplitter_hpp
-#define IOSplitter_hpp
+#include "Memory.hpp"
 
-#include "IO.hpp"
-#include "IOController.hpp"
-
-class IOSplitter : public IO<uint8_t>
+Memory::Memory()
 {
-private:
-    std::shared_ptr<IOController> controller;
-    
-public:
-    IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
-    { }
-    
-    virtual uint8_t read(uint8_t device) const override;
-    virtual void write(uint8_t device, uint8_t data) override;
-};
+    // JMP to 0xF800
+    memory[0x00][0x0000] = 0xC3;
+    memory[0x00][0x0001] = 0x00;
+    memory[0x00][0x0002] = 0xF8;
+}
 
-#endif /* IOSplitter_hpp */
+void Memory::switchPage(uint8_t page)
+{
+    this -> page = page;
+}
+
+Space Memory::getSpace() const
+{
+    return
+    {
+        0x0000,
+        0xEFFF
+    };
+}
+
+uint8_t Memory::read (const uint16_t address) const
+{
+    return read(address, page);
+}
+
+uint8_t Memory::read (const uint16_t address, uint8_t page) const
+{
+    return memory[page][address];
+}
+
+void Memory::write (const uint16_t address, uint8_t data)
+{
+    write(address, data, page);
+}
+
+void Memory::write (const uint16_t address, uint8_t data, uint8_t page)
+{
+    memory[page][address] = data;
+}
+

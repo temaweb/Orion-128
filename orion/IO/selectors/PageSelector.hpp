@@ -15,23 +15,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IOSplitter_hpp
-#define IOSplitter_hpp
+#ifndef PageSelector_hpp
+#define PageSelector_hpp
 
-#include "IO.hpp"
-#include "IOController.hpp"
+#include "Memory.hpp"
+#include "IODevice.hpp"
 
-class IOSplitter : public IO<uint8_t>
+class PageSelector : public WDevice
 {
 private:
-    std::shared_ptr<IOController> controller;
+    std::shared_ptr<Memory> memory;
     
 public:
-    IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
+    PageSelector(std::shared_ptr<Memory> memory) : memory(memory)
     { }
     
-    virtual uint8_t read(uint8_t device) const override;
-    virtual void write(uint8_t device, uint8_t data) override;
+    virtual Space getSpace() const override;
+    virtual void write (uint16_t, uint8_t data) override;
 };
 
-#endif /* IOSplitter_hpp */
+#endif /* PageSelector_hpp */

@@ -1,67 +1,36 @@
-//
-//  IOController.hpp
-//  orion
-//
-//  Created by Артём Оконечников on 18.11.2020.
-//
+/*
+ * This file is part of the Orion-128 distribution (https://github.com/temaweb/orion-128).
+ * Copyright (c) 2020 Artem Okonechnikov.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef IOController_hpp
 #define IOController_hpp
 
-#include <stdio.h>
-#include <vector>
-#include <map>
-#include <memory>
-#include <cstdint>
-#include <typeinfo>
-#include <typeindex>
+#include "IOBus.hpp"
 
-#include "IO.hpp"
-#include "IODevice.hpp"
-#include "Bus.hpp"
-
-template <class T>
-using devices = std::vector<std::shared_ptr<T>>;
-
-class IOController : public IODevice, public IO<uint16_t>
+class IOController : public IOBus
 {
 private:
-    
-    static const uint16_t begin = 0xF400;
-    static const uint16_t end   = 0xFBFF;
-
-    devices<RDevice> rdevices;
-    devices<WDevice> wdevices;
-    
-    std::shared_ptr<IODevice> bus = nullptr;
-    std::shared_ptr<IODevice> defaultDevice() const;
-    
-    template<class T>
-    std::shared_ptr<T> getDevice(uint16_t address, const devices<T> & devices) const
-    {
-        if (isAccept(address))
-        {
-            for (auto & device : devices)
-            {
-                if (device -> isAccept(address))
-                    return device;
-            }
-        }
-        
-        return defaultDevice();
-    }
+    std::shared_ptr<IODevice> iobus;
     
 public:
-    IOController();
+    IOController(std::shared_ptr<IODevice> iobus) : iobus(iobus)
+    { }
     
-    void connect (std::shared_ptr<Device> device);
-    void connect (std::shared_ptr<Bus> bus);
-    
-public:
-    
-    virtual bool isAccept(uint16_t address) const override;
-    virtual uint8_t read (const uint16_t address) const override;
-    virtual void write (const uint16_t address, uint8_t data) override;
+    virtual Space getSpace() const override;
+    virtual std::shared_ptr<IODevice> defaultDevice() const override;
 };
 
 #endif /* IOController_hpp */

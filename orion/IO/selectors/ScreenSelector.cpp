@@ -15,23 +15,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IOSplitter_hpp
-#define IOSplitter_hpp
+#include "ScreenSelector.hpp"
 
-#include "IO.hpp"
-#include "IOController.hpp"
-
-class IOSplitter : public IO<uint8_t>
+Space ScreenSelector::getSpace() const
 {
-private:
-    std::shared_ptr<IOController> controller;
-    
-public:
-    IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
-    { }
-    
-    virtual uint8_t read(uint8_t device) const override;
-    virtual void write(uint8_t device, uint8_t data) override;
-};
+    return
+    {
+        0xFA00,
+        0xFAFF
+    };
+}
 
-#endif /* IOSplitter_hpp */
+void ScreenSelector::write (uint16_t, uint8_t data)
+{
+    // - 0 0  Screen #0 (0xС000 — 0xEFFF)
+    // - 0 1  Screen #1 (0x8000 — 0xAFFF)
+    // - 1 0  Screen #2 (0x4000 — 0x6FFF)
+    // - 1 1  Screen #3 (0x0000 — 0x2FFF)
+    
+    video -> switchScreenMode(data & 0x3);
+}

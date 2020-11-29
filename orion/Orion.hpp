@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <chrono>
 
-#include "Bus.hpp"
+#include "IOBus.hpp"
 #include "Cpu.hpp"
 #include "Video.hpp"
 #include "Keyboard.hpp"
@@ -49,7 +49,7 @@ private:
     std::shared_ptr<Video>       video = std::make_unique<Video>();
     std::shared_ptr<Keyboard> keyboard = std::make_shared<Keyboard>();
     std::shared_ptr<Memory>     memory = std::make_shared<Memory>();
-    std::unique_ptr<Filesystem> filesystem = nullptr;
+    std::unique_ptr<Filesystem> filesystem = std::make_unique<Filesystem>(memory);
     
 public:
     Orion();

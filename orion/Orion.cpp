@@ -5,40 +5,54 @@
 //  Created by Артём Оконечников on 14.11.2020.
 //
 
-#include "Orion.hpp"
-#include "Bus.hpp"
-#include "Memory.hpp"
-#include "Switcher.hpp"
-#include "VideoObserver.hpp"
-#include "IOController.hpp"
-#include "IOSplitter.hpp"
-
 #include <chrono>
 #include <thread>
+
+#include "Orion.hpp"
+
+#include "IOSplitter.hpp"
+#include "IOController.hpp"
+
+#include "System.hpp"
+#include "Disk.hpp"
+#include "MonitorRom.hpp"
+
+#include "PageSelector.hpp"
+#include "PaletteSelector.hpp"
+#include "ScreenSelector.hpp"
 
 using namespace std::chrono;
 
 Orion::Orion()
 {
-    auto bus = std::make_shared<Bus>();
-    auto io = std::make_shared<IOController>();
-    auto switcher = std::make_shared<Switcher>();
-    auto iosplitter = std::make_shared<IOSplitter>(io);
+    // Construct IO storages
     
-    switcher -> connect(video);
-    switcher -> connect(memory);
-
-    bus -> connect(memory);
+    auto iobus = std::make_shared<IOBus>();
+    auto iocnt = std::make_shared<IOController> (iobus);
+    auto iospl = std::make_shared<IOSplitter>   (iocnt);
     
-    io -> connect(switcher);
-    io -> connect(keyboard);
-    io -> connect(bus);
+    // Construct bus
     
-    cpu   -> connect(io);
-    cpu   -> connect(iosplitter);
+    iobus -> insertR  <MonitorRom>();
+    iobus -> insertRW <System>();
+    iobus -> insertRW (memory);
+    
+    // Constuct IO devices
+    
+    iocnt -> insertW  <PageSelector>    (memory);
+    iocnt -> insertW  <PaletteSelector> (video);
+    iocnt -> insertW  <ScreenSelector>  (video);
+    iocnt -> insertRW <Disk>();
+    iocnt -> insertRW (keyboard);
+    
+    // Connect video memory
+    
     video -> connect(memory);
     
-    filesystem = std::make_unique<Filesystem>(memory);
+    // Connect IOSplitter and IOController
+    
+    cpu   -> connect(iocnt);
+    cpu   -> connect(iospl);
 }
 
 // Main loop at @frequency Hz

@@ -15,23 +15,35 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IOSplitter_hpp
-#define IOSplitter_hpp
+#include "IOStorage.hpp"
 
-#include "IO.hpp"
-#include "IOController.hpp"
-
-class IOSplitter : public IO<uint8_t>
+std::shared_ptr<IODevice> IOStorage::defaultDevice() const
 {
-private:
-    std::shared_ptr<IOController> controller;
-    
-public:
-    IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
-    { }
-    
-    virtual uint8_t read(uint8_t device) const override;
-    virtual void write(uint8_t device, uint8_t data) override;
-};
+    return DefaultDevice::getInstance();
+}
 
-#endif /* IOSplitter_hpp */
+void IOStorage::insertR(std::shared_ptr<RDevice> device)
+{
+    insert(rdevices, device);
+}
+
+void IOStorage::insertW(std::shared_ptr<WDevice> device)
+{
+    insert(wdevices, device);
+}
+
+void IOStorage::insertRW(std::shared_ptr<IODevice> device)
+{
+    insertR(std::static_pointer_cast<RDevice>(device));
+    insertW(std::static_pointer_cast<WDevice>(device));
+}
+
+std::shared_ptr<RDevice> IOStorage::getRDevice(uint16_t address) const
+{
+    return getDevice(address, rdevices);
+}
+
+std::shared_ptr<WDevice> IOStorage::getWDevice(uint16_t address) const
+{
+    return getDevice(address, wdevices);
+}

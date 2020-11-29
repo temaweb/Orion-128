@@ -15,23 +15,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IOSplitter_hpp
-#define IOSplitter_hpp
+#include "IOSplitter.hpp"
 
-#include "IO.hpp"
-#include "IOController.hpp"
-
-class IOSplitter : public IO<uint8_t>
+uint8_t IOSplitter::read(uint8_t device) const
 {
-private:
-    std::shared_ptr<IOController> controller;
-    
-public:
-    IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
-    { }
-    
-    virtual uint8_t read(uint8_t device) const override;
-    virtual void write(uint8_t device, uint8_t data) override;
-};
+    return controller -> read((device & 0xFF) << 8 | (device & 0xFF));
+}
 
-#endif /* IOSplitter_hpp */
+void IOSplitter::write(uint8_t device, uint8_t data)
+{
+    controller -> write((device & 0xFF) << 8 | (device & 0xFF), data);
+}

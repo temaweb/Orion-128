@@ -15,63 +15,53 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Rom_hpp
-#define Rom_hpp
+#ifndef Disk_hpp
+#define Disk_hpp
 
-#include <fstream>
-#include <array>
-
+#include "Rom.hpp"
 #include "IODevice.hpp"
 
-template<size_t size = 2 * 1024>
-class Rom : public RDevice
+class Disk : public IODevice, public Rom<64 * 1024>
 {
 private:
-    std::array<uint8_t, size> rom;
+    uint16_t address = 0x0000;
+    
+    enum
+    {
+        LO = 0x01,
+        HI = 0x02
+    };
     
 public:
-
-    Rom(std::string path)
-    {
-        auto file = open(path);
-        char buffer = 0x00;
-        
-        for (auto & byte : rom)
-        {
-            if (file.eof())
-            {
-                byte = 0x00;
-            }
-            else
-            {
-                file.read(&buffer, sizeof(buffer));
-                byte = buffer;
-            }
-        }
-
-        file.close();
-    }
+    Disk() : Rom("rom/Orion128_RomDisk4.rom")
+    {}
 
     virtual Space getSpace() const override
     {
         return
         {
-            0xF800,
-            0xFFFF
+            0xF500,
+            0xF5FF
         };
     }
     
-    virtual uint8_t read (uint16_t address) const override
+    virtual uint8_t read(uint16_t) const override
     {
-        return rom[address];
+        return Rom::read(this -> address);
     }
     
-private:
-    
-    std::ifstream open(std::string path)
+    virtual void write(uint16_t address, uint8_t data) override
     {
-        return std::ifstream(path, std::ios::in | std::ios::binary);
+        int flag = address & 0x03;
+        
+        if (flag == LO) {
+            this -> address = (this -> address & 0xFF00) | data;
+        }
+        
+        if (flag == HI) {
+            this -> address = (this -> address & 0x00FF) | (data << 8);
+        }
     }
 };
 
-#endif /* Rom_hpp */
+#endif /* Disk_hpp */

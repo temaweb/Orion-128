@@ -1,14 +1,24 @@
-//
-//  Keyboard.hpp
-//  orion
-//
-//  Created by Артём Оконечников on 15.11.2020.
-//
+/*
+ * This file is part of the Orion-128 distribution (https://github.com/temaweb/orion-128).
+ * Copyright (c) 2020 Artem Okonechnikov.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef Keyboard_hpp
 #define Keyboard_hpp
 
-#include <stdio.h>
+#include <array>
 #include <Carbon/Carbon.h>
 
 #include "IODevice.hpp"
@@ -19,8 +29,8 @@ private:
     
     uint8_t key  = 0x00;
     uint8_t mask = 0x00;
-    
-    uint8_t keys[8];
+
+    std::array<uint8_t, 8> keys {};
     
     static const short None = -1;
     
@@ -37,17 +47,12 @@ private:
     };
     
 public:
-    Keyboard();
-    
-    // Address belong to ports space
-    virtual bool isAccept(uint16_t address) const override;
-    
-    // I/O
-    virtual uint8_t read (const uint16_t address) const override;
-    virtual void   write (const uint16_t address, uint8_t data) override;
-    
-public:
+
+    virtual Space getSpace() const override;
     void keyevent(unsigned short code, bool isPressed);
+    
+    virtual uint8_t read (uint16_t address) const override;
+    virtual void   write (uint16_t address, uint8_t data) override;
 };
 
 #endif /* Keyboard_hpp */
