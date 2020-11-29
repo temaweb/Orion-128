@@ -47,6 +47,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "Orion::event(int, std::__1::function&lt;void (Orion&amp;, double, int)&gt;):Orion.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "values[frequency]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[DisplayView setColor:]:DisplayView.mm">
          <PersistentStrings>
             <PersistentString

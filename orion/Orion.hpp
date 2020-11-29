@@ -1,64 +1,55 @@
-//
-//  Orion.hpp
-//  orion
-//
-//  Created by Артём Оконечников on 14.11.2020.
-//
+/*
+ * This file is part of the Orion-128 distribution (https://github.com/temaweb/orion-128).
+ * Copyright (c) 2020 Artem Okonechnikov.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef Orion_hpp
 #define Orion_hpp
 
-#include <stdio.h>
-#include <chrono>
+#include "Event.hpp"
+#include "Cpuloop.hpp"
 
-#include "IOBus.hpp"
 #include "Cpu.hpp"
 #include "Video.hpp"
 #include "Keyboard.hpp"
-#include "Memory.hpp"
 #include "Filesystem.hpp"
+
+#define ORION_FRAME_FREQUENCY   5000
+#define ORION_CPU_FREQUENCY     2500000
 
 class Orion
 {
 private:
     
-    static const unsigned int  cycle = 10000;
-    static const unsigned int  mhz   = 1000000;
-    static const unsigned int  freq  = 5000;
-    
-    typedef std::chrono::steady_clock::time_point timepoint;
-    
-private:
-    
-    bool isRunning = true;
-    
-    double frequency = 0.0;
-    double oversleep = 0.0;
-    double currfreq  = 0.0;
-    
-    double timepassed(const timepoint start);
-    double frequencyRate(const timepoint & start, const int & frequency);
-    
-    void delay();
-    void delay(const timepoint start, const int frequency);
-    void reset(timepoint & start, int & clock);
-    
-private:
-    
-    std::unique_ptr<Cpu>           cpu = std::make_unique<Cpu>();
-    std::shared_ptr<Video>       video = std::make_unique<Video>();
+    std::shared_ptr<Cpu> cpu = std::make_shared<Cpu>();
+    std::shared_ptr<Video> video = std::make_unique<Video>();
     std::shared_ptr<Keyboard> keyboard = std::make_shared<Keyboard>();
-    std::shared_ptr<Memory>     memory = std::make_shared<Memory>();
-    std::unique_ptr<Filesystem> filesystem = std::make_unique<Filesystem>(memory);
+    
+    std::unique_ptr<Cpuloop> loop = nullptr;
+    std::unique_ptr<Filesystem> filesystem = nullptr;
     
 public:
     Orion();
     
     // Return current loop frequency
-    double getFrequency();
+    double getFrequency() const;
 
-    // Run main loop at 2.5 MHz
-    void run(int frequency = 2500000);
+    // Return video adapter
+    std::shared_ptr<Video> getVideo() const;
+    
+    void run(int frequency = ORION_CPU_FREQUENCY);
     void stop();
     
     // Process keyboard events
@@ -66,18 +57,6 @@ public:
     
     // Load programm into Orion
     void createFile(std::string path);
-    
-    // Return video adapter
-    std::shared_ptr<Video> getVideo() const
-    {
-        return video;
-    }
-    
-    // Return video adapter
-    std::shared_ptr<Keyboard> getKeyboard() const
-    {
-        return keyboard;
-    }
 };
 
 #endif /* Orion_hpp */

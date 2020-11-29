@@ -1,168 +1,83 @@
-//
-//  Orion.cpp
-//  orion
-//
-//  Created by Артём Оконечников on 14.11.2020.
-//
-
-#include <chrono>
-#include <thread>
+/*
+ * This file is part of the Orion-128 distribution (https://github.com/temaweb/orion-128).
+ * Copyright (c) 2020 Artem Okonechnikov.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include "Orion.hpp"
 
 #include "IOSplitter.hpp"
 #include "IOController.hpp"
 
-#include "System.hpp"
 #include "Disk.hpp"
+#include "System.hpp"
 #include "MonitorRom.hpp"
 
 #include "PageSelector.hpp"
 #include "PaletteSelector.hpp"
 #include "ScreenSelector.hpp"
 
-using namespace std::chrono;
-
 Orion::Orion()
 {
-    // Construct IO storages
-    
+    auto memory = std::make_shared<Memory>();
+
     auto iobus = std::make_shared<IOBus>();
     auto iocnt = std::make_shared<IOController> (iobus);
     auto iospl = std::make_shared<IOSplitter>   (iocnt);
-    
-    // Construct bus
-    
+
     iobus -> insertR  <MonitorRom>();
     iobus -> insertRW <System>();
     iobus -> insertRW (memory);
-    
-    // Constuct IO devices
     
     iocnt -> insertW  <PageSelector>    (memory);
     iocnt -> insertW  <PaletteSelector> (video);
     iocnt -> insertW  <ScreenSelector>  (video);
     iocnt -> insertRW <Disk>();
     iocnt -> insertRW (keyboard);
-    
-    // Connect video memory
-    
+
     video -> connect(memory);
-    
-    // Connect IOSplitter and IOController
-    
+
     cpu   -> connect(iocnt);
     cpu   -> connect(iospl);
+
+    filesystem = std::make_unique<Filesystem>(memory);
 }
 
-// Main loop at @frequency Hz
+double Orion::getFrequency() const
+{
+    return loop -> getFrequency();
+}
+
+std::shared_ptr<Video> Orion::getVideo() const
+{
+    return video;
+}
+
 void Orion::run(int frequency)
 {
-    auto clock = 0;
-    auto start = steady_clock::now();
-
-    auto hzclock = 0;
-    auto hztimer = steady_clock::now();
+    loop = std::make_unique<Cpuloop>(frequency, cpu);
     
-    auto frame = 0;
+    loop -> add(ORION_FRAME_FREQUENCY, [this](double, int) {
+        video -> createFrame();
+    });
     
-    while (isRunning)
-    {
-        if (clock == cycle)
-        {
-            delay(start, frequency);
-            reset(start, clock);
-        }
-
-        if (hzclock == frequency)
-        {
-            currfreq = frequencyRate(hztimer, frequency);
-            reset(hztimer, hzclock);
-        }
-
-        if (frame == freq)
-        {
-            video -> createFrame();
-            frame = 0;
-        }
-        
-        cpu -> clock();
-        
-        frame++;
-        clock++;
-        hzclock++;
-    }
-}
-
-void Orion::reset(timepoint & start, int & clock)
-{
-    clock = 0;
-    start = steady_clock::now();
-}
-
-double Orion::frequencyRate(const timepoint & start, const int & frequency)
-{
-    auto elapsed = timepassed(start);
-    return frequency / elapsed;
+    loop -> run();
 }
 
 void Orion::stop()
 {
-    isRunning = false;
-}
-
-#pragma mark -
-#pragma mark Delay
-
-void Orion::delay(const timepoint start, const int frequency)
-{
-    auto elapsed  = timepassed(start);
-    auto expected = (1.0 / frequency) * cycle;
-    
-    if (elapsed >= expected)
-        return;
-        
-    double sleep = expected - elapsed;
-    
-    // If previos iteration thread was sleep more that need
-    // then current sleep time substract from this oversleep
-    if ((oversleep -= sleep) >= 0)
-        return;
-    
-    this -> delay();
-}
-
-void Orion::delay()
-{
-    auto sleep = std::abs(oversleep);
-    auto start = steady_clock::now();
-
-    // Sleep current thread for overrun remainder
-    std::this_thread::sleep_for(
-       duration<double>(sleep)
-    );
-
-    // Count overrun if thread sleep more that need
-    auto delay = timepassed(start);
-    if (delay > sleep)
-    {
-        oversleep = delay - sleep;
-    }
-}
-
-#pragma mark -
-#pragma mark Other
-
-double Orion::timepassed(const timepoint start)
-{
-    duration<double> elapsed = steady_clock::now() - start;
-    return elapsed.count();
-}
-
-// Create document in B:
-void Orion::createFile(std::string path)
-{
-    filesystem -> create(path);
+    loop -> hold();
 }
 
 void Orion::keyevent(unsigned short code, bool isPressed)
@@ -170,8 +85,9 @@ void Orion::keyevent(unsigned short code, bool isPressed)
     keyboard -> keyevent(code, isPressed);
 }
 
-// Return current loop frequency
-double Orion::getFrequency()
+void Orion::createFile(std::string path)
 {
-    return currfreq;
+    filesystem -> create(path);
 }
+
+

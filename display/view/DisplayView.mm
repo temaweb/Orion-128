@@ -202,7 +202,7 @@
 
 - (void) updateTimer:(NSTimer *) theTimer
 {
-    [self setNeedsDisplay: video -> isChanged()];
+    //[self setNeedsDisplay: video -> isChanged()];
 }
 
 @end

@@ -38,10 +38,6 @@
     return orion -> getVideo();
 }
 
-- (std::shared_ptr<Keyboard>) keyboard {
-    return orion -> getKeyboard();
-}
-
 - (std::shared_ptr<Orion>) orion {
     return orion;
 }
@@ -57,7 +53,7 @@
     id monitorHandler = ^NSEvent * (NSEvent * theEvent)
     {
         bool isPressed = [theEvent type] == NSEventTypeKeyDown;
-        [_self keyboard] -> keyevent([theEvent keyCode], isPressed);
+        [_self orion] -> keyevent([theEvent keyCode], isPressed);
         
         // Return the event, a new event, or, to stop
         // the event from being dispatched, nil
