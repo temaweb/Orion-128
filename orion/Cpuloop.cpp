@@ -22,19 +22,27 @@
 
 Cpuloop::Cpuloop(int frequency, std::shared_ptr<Cpu> cpu) : frequency(frequency), cpu(cpu)
 {
-    add(cpuloop, &Cpuloop::estimateDelay);
+    add(cpuloop,   &Cpuloop::estimateDelay);
     add(frequency, &Cpuloop::estimateFrequency);
 }
 
 void Cpuloop::run ()
 {
+    int counter = 0;
+    
     while (isRunning)
     {
+        counter++;
         cpu -> clock();
         
+        if (counter != loopFreq)
+            continue;
+        
         for (auto & event : events) {
-            event -> lookup();
+            event -> lookup(counter);
         }
+        
+        counter = 0;
     }
 }
 
@@ -80,12 +88,12 @@ void Cpuloop::delay()
 
 void Cpuloop::estimateFrequency (double elapsed, int ticks)
 {
-    loopFrequency = ticks / elapsed;
+    currFreq = ticks / elapsed;
 }
 
 double Cpuloop::getFrequency() const
 {
-    return loopFrequency;
+    return currFreq;
 }
 
 void Cpuloop::add (int ticks, void (Cpuloop::*event)(double, int))
@@ -97,6 +105,9 @@ void Cpuloop::add (int ticks, void (Cpuloop::*event)(double, int))
 
 void Cpuloop::add(int ticks, Event::action command)
 {
+    if (loopFreq == 0 || loopFreq > ticks)
+        loopFreq = ticks;
+    
     auto event = std::make_unique<Event>(ticks, command);
     events.push_back(std::move(event));
 }

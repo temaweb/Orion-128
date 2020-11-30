@@ -37,8 +37,8 @@ private:
     typedef std::array<std::array<Pixel, width>, height> frame;
     typedef std::array<Pixel, width> line;
     
-    std::array<uint16_t, 12 * 1024> frameBuffer;
-    std::array<uint16_t, 12 * 1024> colorBuffer;
+    std::array<uint8_t, 12 * 1024> frameBuffer;
+    std::array<uint8_t, 12 * 1024> colorBuffer;
     
     static const BWPalette bwpalette;
     mutable std::shared_mutex _mutex;

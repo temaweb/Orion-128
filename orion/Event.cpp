@@ -23,9 +23,11 @@ void Event::execute () const
     callback(elapsed, limit);
 }
 
-void Event::lookup ()
+void Event::lookup (short counter)
 {
-    if (count++ < limit)
+    count += counter;
+    
+    if (count < limit)
         return;
     
     execute();
@@ -38,4 +40,9 @@ double Event::timepassed(time start)
 {
     duration<double> elapsed = steady_clock::now() - start;
     return elapsed.count();
+}
+
+int Event::getLimit()
+{
+    return limit;
 }

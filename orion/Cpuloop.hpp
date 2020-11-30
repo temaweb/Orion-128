@@ -32,9 +32,10 @@ private:
     // Estimate cpu delay after @cpuloop cycles
     static const int cpuloop = 10000;
 
-    int    frequency     = 0;
-    double oversleep     = 0.0;
-    double loopFrequency = 0.0;
+    int    frequency = 0;
+    int    loopFreq  = 0;
+    double oversleep = 0.0;
+    double currFreq  = 0.0;
     
     volatile bool isRunning = true;
     

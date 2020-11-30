@@ -27,17 +27,12 @@ struct Space
     
     bool operator < (const Space & space) const
     {
-        return from < space.from;
+        return !(from < space.from || to < space.to);
     }
-    
+
     uint16_t getDirect(uint16_t address) const
     {
         return address - from;
-    }
-    
-    bool inRange(uint16_t address) const
-    {
-        return !(address < from || address > to);
     }
 };
 
@@ -53,12 +48,6 @@ public:
             0x0000,
             0xFFFF
         };
-    }
-    
-    // Device should be proccess the address range
-    virtual bool isAccept(uint16_t address) const
-    {
-        return getSpace().inRange(address);
     }
 };
 
@@ -93,9 +82,10 @@ public:
     DefaultDevice  (DefaultDevice const &) = delete;
     void operator= (DefaultDevice const &) = delete;
     
-    static std::shared_ptr<DefaultDevice> getInstance()
+    template<class T>
+    static const std::shared_ptr<T> & getInstance()
     {
-        static std::shared_ptr<DefaultDevice> instance(new DefaultDevice);
+        static const std::shared_ptr<T> instance(new DefaultDevice);
         return instance;
     }
     

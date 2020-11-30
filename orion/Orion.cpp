@@ -18,7 +18,6 @@
 #include "Orion.hpp"
 
 #include "IOSplitter.hpp"
-#include "IOController.hpp"
 
 #include "Disk.hpp"
 #include "System.hpp"
@@ -33,22 +32,22 @@ Orion::Orion()
     auto memory = std::make_shared<Memory>();
 
     auto iobus = std::make_shared<IOBus>();
-    auto iocnt = std::make_shared<IOController> (iobus);
-    auto iospl = std::make_shared<IOSplitter>   (iocnt);
-
-    iobus -> insertR  <MonitorRom>();
+    auto iospl = std::make_shared<IOSplitter> (iobus);
+    
+    iobus -> insertR <MonitorRom> ();
+    
+    iobus -> insertRW <Disk>();
+    iobus -> insertRW (keyboard);
     iobus -> insertRW <System>();
     iobus -> insertRW (memory);
     
-    iocnt -> insertW  <PageSelector>    (memory);
-    iocnt -> insertW  <PaletteSelector> (video);
-    iocnt -> insertW  <ScreenSelector>  (video);
-    iocnt -> insertRW <Disk>();
-    iocnt -> insertRW (keyboard);
-
+    iobus -> insertW  <PageSelector>    (memory);
+    iobus -> insertW  <PaletteSelector> (video);
+    iobus -> insertW  <ScreenSelector>  (video);
+    
     video -> connect(memory);
 
-    cpu   -> connect(iocnt);
+    cpu   -> connect(iobus);
     cpu   -> connect(iospl);
 
     filesystem = std::make_unique<Filesystem>(memory);

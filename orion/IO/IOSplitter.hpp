@@ -19,15 +19,15 @@
 #define IOSplitter_hpp
 
 #include "IO.hpp"
-#include "IOController.hpp"
+#include "IOBus.hpp"
 
 class IOSplitter : public IO<uint8_t>
 {
 private:
-    std::shared_ptr<IOController> controller;
+    std::shared_ptr<IOBus> controller;
     
 public:
-    IOSplitter(std::shared_ptr<IOController> controller) : controller(controller)
+    IOSplitter(std::shared_ptr<IOBus> controller) : controller(controller)
     { }
     
     virtual uint8_t read(uint8_t device) const override;

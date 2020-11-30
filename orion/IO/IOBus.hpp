@@ -18,11 +18,13 @@
 #ifndef IOBus_hpp
 #define IOBus_hpp
 
+#include <map>
+
 #include "IO.hpp"
 #include "IODevice.hpp"
-#include "IOStorage.hpp"
+#include "MonitorRom.hpp"
 
-class IOBus : public IOStorage, public IODevice, public IO<uint16_t>
+class IOBus : public IODevice, public IO<uint16_t>
 {
 private:
     
@@ -33,6 +35,33 @@ private:
     template<class T, class D>
     // Alias for device operation like as read or write
     using operation = std::function<T(std::shared_ptr<D>, uint16_t)>;
+    
+    template<class T>
+    using devmap = std::map<Space, std::shared_ptr<T>>;
+    
+    devmap<RDevice> rdevices;
+    devmap<WDevice> wdevices;
+    
+    template<class T>
+    void insert(devmap<T> & map, std::shared_ptr<T> device)
+    {
+        map.emplace(device -> getSpace(), device);
+    }
+
+    template<class T>
+    const std::shared_ptr<T> & getDevice(uint16_t address, const devmap<T> & map) const
+    {
+        for (auto const & [space, device] : map)
+        {
+            if (address < space.from)
+                continue;
+
+            if (address <= space.to)
+                return device;
+        }
+
+        return DefaultDevice::getInstance<T>();
+    }
     
 private:
     
@@ -60,6 +89,30 @@ public:
     
     virtual uint8_t read(uint16_t address) const override;
     virtual void write(uint16_t address, uint8_t data) override;
+
+    void insertR  (std::shared_ptr<RDevice>  device);
+    void insertW  (std::shared_ptr<WDevice>  device);
+    void insertRW (std::shared_ptr<IODevice> device);
+    
+public:
+    
+    template<class T, class ...Args>
+    void insertR (Args&& ...args)
+    {
+        insertR(std::make_shared<T>(std::forward<Args>(args)...));
+    }
+    
+    template<class T, class ...Args>
+    void insertW (Args&& ...args)
+    {
+        insertW(std::make_shared<T>(std::forward<Args>(args)...));
+    }
+    
+    template<class T, class ...Args>
+    void insertRW (Args&& ...args)
+    {
+        insertRW(std::make_shared<T>(std::forward<Args>(args)...));
+    }
 };
 
 #endif /* IOBus_hpp */

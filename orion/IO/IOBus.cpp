@@ -15,20 +15,45 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <map>
 #include "IOBus.hpp"
 
 uint8_t IOBus::read(uint16_t address) const
 {
-    return localCall<uint8_t, RDevice>(address, &IOBus::getRDevice, [](auto device, auto local)
-    {
-        return device -> read(local);
-    });
+    const auto & device = getDevice<RDevice>(address, rdevices);
+    auto space  = device -> getSpace();
+    
+    // Return local adress
+    auto direct = space.getDirect(address);
+    
+    // Execute device read/write operation
+    return device -> read(direct);
 }
 
 void IOBus::write(uint16_t address, uint8_t data)
 {
-    localCall<void, WDevice>(address, &IOBus::getWDevice, [&data](auto device, auto local)
-    {
-        device -> write(local, data);
-    });
+    const auto & device = getDevice<WDevice>(address, wdevices);
+    auto space  = device -> getSpace();
+
+    // Return local adress
+    auto direct = space.getDirect(address);
+
+    // Execute device read/write operation
+    return device -> write(direct, data);
+}
+
+void IOBus::insertR(std::shared_ptr<RDevice> device)
+{
+    insert(rdevices, device);
+}
+
+void IOBus::insertW(std::shared_ptr<WDevice> device)
+{
+    insert(wdevices, device);
+}
+
+void IOBus::insertRW(std::shared_ptr<IODevice> device)
+{
+    insertR(std::static_pointer_cast<RDevice>(device));
+    insertW(std::static_pointer_cast<WDevice>(device));
 }

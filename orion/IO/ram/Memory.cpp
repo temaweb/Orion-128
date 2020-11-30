@@ -59,3 +59,24 @@ void Memory::write (const uint16_t address, uint8_t data, uint8_t page)
     memory[page][address] = data;
 }
 
+std::array<uint8_t, 12 * 1024> Memory::getFrameBuffer() const
+{
+    return getVideoBuffer(0x00);
+}
+
+std::array<uint8_t, 12 * 1024> Memory::getColorBuffer() const
+{
+    return getVideoBuffer(0x01);
+}
+
+std::array<uint8_t, 12 * 1024> Memory::getVideoBuffer(uint8_t page) const
+{
+    std::array<uint8_t, 12 * 1024> tmp;
+    
+    auto begin = memory[page].begin();
+    auto end   = memory[page].end();
+    
+    std::copy (begin + video, end, tmp.begin());
+    
+    return tmp;
+}

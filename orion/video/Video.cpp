@@ -26,7 +26,7 @@ void Video::markChanged()
 
 bool Video::isChanged()
 {
-    return _isChanged; // TODO: Fix video observer
+    return false; // TODO: Fix video observer
 }
 
 #pragma mark -
@@ -48,11 +48,8 @@ void Video::createFrame()
 {
     std::unique_lock lock(_mutex);
     
-    for (uint16_t a = begin, i = 0; a <= end; a++, i = a - begin)
-    {
-        frameBuffer[i] = memory -> read (a, 0x00);
-        colorBuffer[i] = memory -> read (a, 0x01);
-    }
+    frameBuffer = memory -> getFrameBuffer();
+    colorBuffer = memory -> getColorBuffer();
 }
 
 // Returns one frame

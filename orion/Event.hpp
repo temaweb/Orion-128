@@ -45,8 +45,10 @@ public:
     Event(int limit, action callback) : limit(limit), callback(callback)
     { }
     
-    void lookup ();
+    void lookup (short counter);
     static double timepassed(time start);
+    
+    int getLimit();
 };
 
 #endif /* Event_hpp */

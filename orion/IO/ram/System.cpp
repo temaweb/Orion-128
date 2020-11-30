@@ -22,7 +22,7 @@ Space System::getSpace() const
     return
     {
         0xF000,
-        0xF7FF
+        0xF3FF
     };
 }
 
