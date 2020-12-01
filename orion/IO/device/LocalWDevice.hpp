@@ -15,22 +15,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RLocalDevice_hpp
-#define RLocalDevice_hpp
+#ifndef WLocalDevice_hpp
+#define WLocalDevice_hpp
 
 #include "LocalDevice.hpp"
 
-class RLocalDevice final : public LocalDevice<RDevice>, public RDevice
+class LocalWDevice final : public LocalDevice<WDevice>, public WDevice
 {
 public:
-    RLocalDevice(std::shared_ptr<RDevice> device) : LocalDevice(device)
+    LocalWDevice(std::shared_ptr<WDevice> device) : LocalDevice(device)
     { }
     
-    virtual uint8_t read(uint16_t address) const override
+    virtual void write(uint16_t address, uint8_t data) override
     {
         auto local = getLocal(address);
-        return device -> read(local);
+        return device -> write(local, data);
     }
 };
 
-#endif /* RLocalDevice_hpp */
+#endif /* WLocalDevice_hpp */

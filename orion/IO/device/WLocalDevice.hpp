@@ -20,10 +20,10 @@
 
 #include "LocalDevice.hpp"
 
-class WLocalDevice final : public LocalDevice<WDevice>, public WDevice
+class LocalWDevice final : public LocalDevice<WDevice>, public WDevice
 {
 public:
-    WLocalDevice(std::shared_ptr<WDevice> device) : LocalDevice(device)
+    LocalWDevice(std::shared_ptr<WDevice> device) : LocalDevice(device)
     { }
     
     virtual void write(uint16_t address, uint8_t data) override

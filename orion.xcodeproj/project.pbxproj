@@ -17,7 +17,6 @@
 		8A24E463255C83E400496F78 /* DisplayView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E462255C83E400496F78 /* DisplayView.mm */; };
 		8A24E46A255C85E600496F78 /* Video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E3E7255C4E1E00496F78 /* Video.cpp */; };
 		8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* Cpu.cpp */; };
-		8A24E470255C85F200496F78 /* Asmlog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE7F9C6255B4D4E00830F35 /* Asmlog.cpp */; };
 		8A3015742564251F0071D523 /* rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A30157025640C400071D523 /* rom */; };
 		8A301577256425230071D523 /* monitor in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A24E3E4255C480700496F78 /* monitor */; };
 		8A5ADB19257437C100E71FB4 /* Cpuloop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB18257437C100E71FB4 /* Cpuloop.cpp */; };
@@ -78,8 +77,8 @@
 		8A5ADB18257437C100E71FB4 /* Cpuloop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpuloop.cpp; sourceTree = "<group>"; };
 		8A5ADB1E25744FF100E71FB4 /* Event.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
 		8A5ADB2B2575AC2400E71FB4 /* LocalDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LocalDevice.hpp; sourceTree = "<group>"; };
-		8A5ADB322575BBE700E71FB4 /* RLocalDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RLocalDevice.hpp; sourceTree = "<group>"; };
-		8A5ADB362575BC2A00E71FB4 /* WLocalDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WLocalDevice.hpp; sourceTree = "<group>"; };
+		8A5ADB322575BBE700E71FB4 /* LocalRDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LocalRDevice.hpp; sourceTree = "<group>"; };
+		8A5ADB362575BC2A00E71FB4 /* LocalWDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LocalWDevice.hpp; sourceTree = "<group>"; };
 		8A5ADB3A2575BCC200E71FB4 /* DefaultDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultDevice.cpp; sourceTree = "<group>"; };
 		8A5ADB3B2575BCC200E71FB4 /* DefaultDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DefaultDevice.hpp; sourceTree = "<group>"; };
 		8A5ADB3F2575BE7F00E71FB4 /* AddressSpace.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AddressSpace.hpp; sourceTree = "<group>"; };
@@ -113,7 +112,6 @@
 		8AE39C8D25658DB5009C77BC /* System.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
 		8AE39CB32565E9E1009C77BC /* PaletteSelector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PaletteSelector.hpp; sourceTree = "<group>"; };
 		8AE39CB42565E9F0009C77BC /* ScreenSelector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScreenSelector.hpp; sourceTree = "<group>"; };
-		8AE7F9C6255B4D4E00830F35 /* Asmlog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Asmlog.cpp; sourceTree = "<group>"; };
 		8AEE66442566FCE30007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AEE664B2566FD8F0007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		8AEE66502566FF6B0007586F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -202,17 +200,16 @@
 			path = ram;
 			sourceTree = "<group>";
 		};
-		8A5ADB2F2575BBB600E71FB4 /* local */ = {
+		8A5ADB2F2575BBB600E71FB4 /* device */ = {
 			isa = PBXGroup;
 			children = (
 				8A5ADB2B2575AC2400E71FB4 /* LocalDevice.hpp */,
-				8A5ADB322575BBE700E71FB4 /* RLocalDevice.hpp */,
-				8A5ADB362575BC2A00E71FB4 /* WLocalDevice.hpp */,
+				8A5ADB322575BBE700E71FB4 /* LocalRDevice.hpp */,
+				8A5ADB362575BC2A00E71FB4 /* LocalWDevice.hpp */,
 				8A5ADB3A2575BCC200E71FB4 /* DefaultDevice.cpp */,
 				8A5ADB3B2575BCC200E71FB4 /* DefaultDevice.hpp */,
-				8A5ADB3F2575BE7F00E71FB4 /* AddressSpace.hpp */,
 			);
-			path = local;
+			path = device;
 			sourceTree = "<group>";
 		};
 		8A6A20F92560533E009A8B71 /* rom */ = {
@@ -242,13 +239,14 @@
 				8A6A20F92560533E009A8B71 /* rom */,
 				8A301589256453CF0071D523 /* ram */,
 				8AA63D132561931E007CF426 /* keyboard */,
-				8A5ADB2F2575BBB600E71FB4 /* local */,
+				8A5ADB2F2575BBB600E71FB4 /* device */,
 				8AC0C639254460C8008DAA6B /* IOBus.hpp */,
 				8A04D25925684C5600891765 /* IOBus.cpp */,
 				8AA673992562AFEA000ABA5D /* IODevice.hpp */,
 				8A77D849256DE3BA00B0278C /* IOSplitter.hpp */,
 				8AA8BA772572678100A53B56 /* IOSplitter.cpp */,
 				8A5ADB472575D12F00E71FB4 /* IOStorage.hpp */,
+				8A5ADB3F2575BE7F00E71FB4 /* AddressSpace.hpp */,
 			);
 			path = IO;
 			sourceTree = "<group>";
@@ -269,7 +267,6 @@
 				8A77D83F256DE02A00B0278C /* IO.hpp */,
 				8A4C1E50254ED0EB00ED6E1E /* Status.hpp */,
 				8AB44F92256FE469006117B1 /* Status.cpp */,
-				8AE7F9C6255B4D4E00830F35 /* Asmlog.cpp */,
 			);
 			path = cpu;
 			sourceTree = "<group>";
@@ -347,6 +344,22 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXLegacyTarget section */
+		8ADB767E2576984B0059CA0B /* Makefile */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 8ADB767F2576984B0059CA0B /* Build configuration list for PBXLegacyTarget "Makefile" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = Makefile;
+			passBuildSettingsInEnvironment = 1;
+			productName = Makefile;
+		};
+/* End PBXLegacyTarget section */
+
 /* Begin PBXNativeTarget section */
 		8A24E44A255C806400496F78 /* Orion */ = {
 			isa = PBXNativeTarget;
@@ -377,6 +390,9 @@
 					8A24E44A255C806400496F78 = {
 						CreatedOnToolsVersion = 12.1;
 					};
+					8ADB767E2576984B0059CA0B = {
+						CreatedOnToolsVersion = 12.2;
+					};
 				};
 			};
 			buildConfigurationList = 8AC0C6192543AE24008DAA6B /* Build configuration list for PBXProject "orion" */;
@@ -394,6 +410,7 @@
 			projectRoot = "";
 			targets = (
 				8A24E44A255C806400496F78 /* Orion */,
+				8ADB767E2576984B0059CA0B /* Makefile */,
 			);
 		};
 /* End PBXProject section */
@@ -418,7 +435,6 @@
 				8A04D25B25684C5600891765 /* IOBus.cpp in Sources */,
 				8AE39C8F25658DB5009C77BC /* System.cpp in Sources */,
 				8A24E452255C806400496F78 /* ViewController.mm in Sources */,
-				8A24E470255C85F200496F78 /* Asmlog.cpp in Sources */,
 				8AA8BA652571DB9200A53B56 /* ScreenSelector.cpp in Sources */,
 				8AEE6679256749A40007586F /* OrionFacade.mm in Sources */,
 				8AA8BA612571D92400A53B56 /* PaletteSelector.cpp in Sources */,
@@ -615,6 +631,33 @@
 			};
 			name = Release;
 		};
+		8ADB76802576984B0059CA0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8ADB76812576984B0059CA0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -632,6 +675,15 @@
 			buildConfigurations = (
 				8AC0C6232543AE24008DAA6B /* Debug */,
 				8AC0C6242543AE24008DAA6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8ADB767F2576984B0059CA0B /* Build configuration list for PBXLegacyTarget "Makefile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8ADB76802576984B0059CA0B /* Debug */,
+				8ADB76812576984B0059CA0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -24,18 +24,11 @@
 #include "IODevice.hpp"
 #include "IOStorage.hpp"
 
-#include "RLocalDevice.hpp"
-#include "WLocalDevice.hpp"
-
 class IOBus : public IODevice, public IO<uint16_t>
 {
 private:
-    
-    template<class T, class D>
-    using storage = std::unique_ptr<IOStorage<T, D>>;
-    
-    storage<RDevice, RLocalDevice> rstorage;
-    storage<WDevice, WLocalDevice> wstorage;
+    std::unique_ptr<IORStorage> rstorage;
+    std::unique_ptr<IOWStorage> wstorage;
     
 public:
     IOBus();
@@ -65,12 +58,6 @@ public:
     void insertRW (Args&& ...args)
     {
         insertRW(std::make_shared<T>(std::forward<Args>(args)...));
-    }
-    
-    template<class T, class D>
-    const std::shared_ptr<T> & getDevice(uint16_t address, const storage<T, D> & storage) const
-    {
-        return storage -> getDevice(address);
     }
 };
 

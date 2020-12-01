@@ -15,36 +15,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "IOBus.hpp"
+#ifndef RLocalDevice_hpp
+#define RLocalDevice_hpp
 
-IOBus::IOBus()
-{
-    rstorage = std::make_unique<IORStorage>();
-    wstorage = std::make_unique<IOWStorage>();
-}
+#include "LocalDevice.hpp"
 
-uint8_t IOBus::read(uint16_t address) const
+class LocalRDevice final : public LocalDevice<RDevice>, public RDevice
 {
-    return rstorage -> read(address);
-}
+public:
+    LocalRDevice(std::shared_ptr<RDevice> device) : LocalDevice(device)
+    { }
+    
+    virtual uint8_t read(uint16_t address) const override
+    {
+        auto local = getLocal(address);
+        return device -> read(local);
+    }
+};
 
-void IOBus::write(uint16_t address, uint8_t data)
-{
-    return wstorage -> write(address, data);
-}
-
-void IOBus::insertR(std::shared_ptr<RDevice> device)
-{
-    rstorage -> insert(device);
-}
-
-void IOBus::insertW(std::shared_ptr<WDevice> device)
-{
-    wstorage -> insert(device);
-}
-
-void IOBus::insertRW(std::shared_ptr<IODevice> device)
-{
-    insertR(std::static_pointer_cast<RDevice>(device));
-    insertW(std::static_pointer_cast<WDevice>(device));
-}
+#endif /* RLocalDevice_hpp */
