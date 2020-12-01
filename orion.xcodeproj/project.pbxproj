@@ -29,6 +29,7 @@
 		8AA8BA782572678100A53B56 /* IOSplitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8BA772572678100A53B56 /* IOSplitter.cpp */; };
 		8AB44F94256FE469006117B1 /* Status.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB44F92256FE469006117B1 /* Status.cpp */; };
 		8AC54EAD257322A400FBBA97 /* PageSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8BA5D2571D0B900A53B56 /* PageSelector.cpp */; };
+		8ADB76902576A5750059CA0B /* IOStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB768F2576A5750059CA0B /* IOStorage.cpp */; };
 		8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5B6255DF8410048C4DE /* WindowController.mm */; };
 		8AE39C8F25658DB5009C77BC /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C8C25658DB5009C77BC /* System.cpp */; };
 		8AEE66432566FCE30007586F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AEE66452566FCE30007586F /* Localizable.strings */; };
@@ -103,6 +104,7 @@
 		8AB9437B254A187200636CA0 /* Cpu.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cpu.hpp; sourceTree = "<group>"; };
 		8AC0C639254460C8008DAA6B /* IOBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOBus.hpp; sourceTree = "<group>"; };
 		8AC54EB1257427C600FBBA97 /* Event.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
+		8ADB768F2576A5750059CA0B /* IOStorage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IOStorage.cpp; sourceTree = "<group>"; };
 		8ADCB5B5255DF8410048C4DE /* WindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
 		8ADCB5B6255DF8410048C4DE /* WindowController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WindowController.mm; sourceTree = "<group>"; };
 		8ADCB5CF255F48B00048C4DE /* Orion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Orion.cpp; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				8A77D849256DE3BA00B0278C /* IOSplitter.hpp */,
 				8AA8BA772572678100A53B56 /* IOSplitter.cpp */,
 				8A5ADB472575D12F00E71FB4 /* IOStorage.hpp */,
+				8ADB768F2576A5750059CA0B /* IOStorage.cpp */,
 				8A5ADB3F2575BE7F00E71FB4 /* AddressSpace.hpp */,
 			);
 			path = IO;
@@ -439,6 +442,7 @@
 				8AEE6679256749A40007586F /* OrionFacade.mm in Sources */,
 				8AA8BA612571D92400A53B56 /* PaletteSelector.cpp in Sources */,
 				8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */,
+				8ADB76902576A5750059CA0B /* IOStorage.cpp in Sources */,
 				8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */,
 				8A5ADB19257437C100E71FB4 /* Cpuloop.cpp in Sources */,
 				8AF548EC25648732006AFB51 /* Memory.cpp in Sources */,

@@ -47,27 +47,23 @@ public:
         return DefaultDevice::getInstance<T>();
     }
 
-    void insert(std::shared_ptr<T> device)
+    void addDevice(std::shared_ptr<T> device)
     {
-        auto decorator = std::make_shared<D>(device);
-        map.emplace(device -> getSpace(), decorator);
+        auto local = std::make_shared<D>(device);
+        map.emplace(device -> getSpace(), local);
     }
 };
 
 class IORStorage : public IOStorage<RDevice, LocalRDevice>, public RDevice
 {
 public:
-    virtual uint8_t read(uint16_t address) const override {
-        return getDevice(address) -> read(address);
-    }
+    virtual uint8_t read(uint16_t address) const override;
 };
 
 class IOWStorage : public IOStorage<WDevice, LocalWDevice>, public WDevice
 {
 public:
-    virtual void write(uint16_t address, uint8_t data) override {
-        return getDevice(address) -> write(address, data);
-    }
+    virtual void write(uint16_t address, uint8_t data) override;
 };
 
 #endif /* IOStorage_hpp */

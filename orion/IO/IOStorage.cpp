@@ -15,22 +15,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef WLocalDevice_hpp
-#define WLocalDevice_hpp
+#include "IOStorage.hpp"
 
-#include "LocalDevice.hpp"
-
-class LocalWDevice final : public LocalDevice<WDevice>, public WDevice
+uint8_t IORStorage::read(uint16_t address) const
 {
-public:
-    LocalWDevice(std::shared_ptr<WDevice> device) : LocalDevice(device)
-    { }
-    
-    virtual void write(uint16_t address, uint8_t data) override
-    {
-        auto local = getLocal(address);
-        return device -> write(local, data);
-    }
-};
+    return getDevice(address) -> read(address);
+}
 
-#endif /* WLocalDevice_hpp */
+void IOWStorage::write(uint16_t address, uint8_t data)
+{
+    return getDevice(address) -> write(address, data);
+}

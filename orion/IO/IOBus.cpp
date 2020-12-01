@@ -35,12 +35,12 @@ void IOBus::write(uint16_t address, uint8_t data)
 
 void IOBus::insertR(std::shared_ptr<RDevice> device)
 {
-    rstorage -> insert(device);
+    rstorage -> addDevice(device);
 }
 
 void IOBus::insertW(std::shared_ptr<WDevice> device)
 {
-    wstorage -> insert(device);
+    wstorage -> addDevice(device);
 }
 
 void IOBus::insertRW(std::shared_ptr<IODevice> device)
