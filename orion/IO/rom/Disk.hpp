@@ -36,7 +36,7 @@ public:
     Disk() : Rom("rom/Orion128_RomDisk4.rom")
     {}
 
-    virtual Space getSpace() const override
+    virtual AddressSpace getSpace() const override
     {
         return
         {

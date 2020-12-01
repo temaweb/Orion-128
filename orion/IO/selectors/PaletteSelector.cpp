@@ -17,7 +17,7 @@
 
 #include "PaletteSelector.hpp"
 
-Space PaletteSelector::getSpace() const
+AddressSpace PaletteSelector::getSpace() const
 {
     return
     {

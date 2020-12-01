@@ -30,7 +30,7 @@ void Memory::switchPage(uint8_t page)
     this -> page = page;
 }
 
-Space Memory::getSpace() const
+AddressSpace Memory::getSpace() const
 {
     return
     {

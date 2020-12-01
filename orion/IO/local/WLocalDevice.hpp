@@ -15,47 +15,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IODevice_hpp
-#define IODevice_hpp
+#ifndef WLocalDevice_hpp
+#define WLocalDevice_hpp
 
-#include <cstdint>
-#include <memory>
+#include "LocalDevice.hpp"
 
-#include "AddressSpace.hpp"
-
-class Device
+class WLocalDevice final : public LocalDevice<WDevice>, public WDevice
 {
 public:
+    WLocalDevice(std::shared_ptr<WDevice> device) : LocalDevice(device)
+    { }
     
-    // Device should be process data in the space
-    virtual AddressSpace getSpace() const
+    virtual void write(uint16_t address, uint8_t data) override
     {
-        return
-        {
-            0x0000,
-            0xFFFF
-        };
+        auto local = getLocal(address);
+        return device -> write(local, data);
     }
 };
 
-// Read-only devices
-class RDevice : virtual public Device
-{
-public:
-    virtual uint8_t read(uint16_t address) const = 0;
-};
-
-// Write-only devices
-class WDevice : virtual public Device
-{
-public:
-    virtual void write(uint16_t address, uint8_t data) = 0;
-};
-
-// R/W device
-class IODevice : public RDevice, public WDevice
-{
-
-};
-
-#endif /* IODevice_hpp */
+#endif /* WLocalDevice_hpp */

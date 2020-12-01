@@ -17,7 +17,7 @@
 
 #include "ScreenSelector.hpp"
 
-Space ScreenSelector::getSpace() const
+AddressSpace ScreenSelector::getSpace() const
 {
     return
     {

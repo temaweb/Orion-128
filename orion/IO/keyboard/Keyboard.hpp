@@ -48,7 +48,7 @@ private:
     
 public:
 
-    virtual Space getSpace() const override;
+    virtual AddressSpace getSpace() const override;
     void keyevent(unsigned short code, bool isPressed);
     
     virtual uint8_t read (uint16_t address) const override;

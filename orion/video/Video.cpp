@@ -26,7 +26,7 @@ void Video::markChanged()
 
 bool Video::isChanged()
 {
-    return false; // TODO: Fix video observer
+    return true; // TODO: Fix video observer
 }
 
 #pragma mark -

@@ -22,68 +22,16 @@
 
 #include "IO.hpp"
 #include "IODevice.hpp"
-#include "MonitorRom.hpp"
+#include "DefaultDevice.hpp"
 
 class IOBus : public IODevice, public IO<uint16_t>
 {
 private:
-    
     template<class T>
-    // Alias for return device function like as getWDevice or getRDevice
-    using factory = std::function<std::shared_ptr<T>(const IOBus &, uint16_t)>;
+    using devicemap = std::map<AddressSpace, std::shared_ptr<T>>;
     
-    template<class T, class D>
-    // Alias for device operation like as read or write
-    using operation = std::function<T(std::shared_ptr<D>, uint16_t)>;
-    
-    template<class T>
-    using devmap = std::map<Space, std::shared_ptr<T>>;
-    
-    devmap<RDevice> rdevices;
-    devmap<WDevice> wdevices;
-    
-    template<class T>
-    void insert(devmap<T> & map, std::shared_ptr<T> device)
-    {
-        map.emplace(device -> getSpace(), device);
-    }
-
-    template<class T>
-    const std::shared_ptr<T> & getDevice(uint16_t address, const devmap<T> & map) const
-    {
-        for (auto const & [space, device] : map)
-        {
-            if (address < space.from)
-                continue;
-
-            if (address <= space.to)
-                return device;
-        }
-
-        return DefaultDevice::getInstance<T>();
-    }
-    
-private:
-    
-    // Execute read/write device action with address
-    // in device local space
-    //
-    // Example:
-    //
-    // If device space is 0x0A00 - 0x0AFF and incoming address is 0x0A0F
-    // then device funciton will be call with 0x000F
-    template<class T, class D>
-    T localCall (uint16_t address, factory<D> getDevice, operation<T, D> operation) const
-    {
-        auto device = getDevice(*this, address);
-        auto space  = device -> getSpace();
-        
-        // Return local adress
-        auto direct = space.getDirect(address);
-        
-        // Execute device read/write operation
-        return operation(device, direct);
-    }
+    devicemap<RDevice> rdevices;
+    devicemap<WDevice> wdevices;
     
 public:
     
@@ -112,6 +60,30 @@ public:
     void insertRW (Args&& ...args)
     {
         insertRW(std::make_shared<T>(std::forward<Args>(args)...));
+    }
+    
+private:
+    
+    template<class T>
+    const std::shared_ptr<T> & getDevice(uint16_t address, const devicemap<T> & map) const
+    {
+        for (auto const & [space, device] : map)
+        {
+            if (address < space.from)
+                continue;
+
+            if (address <= space.to)
+                return device;
+        }
+
+        return DefaultDevice::getInstance<T>();
+    }
+    
+    template<class T, class D>
+    void insert(devicemap<T> & map, std::shared_ptr<T> device)
+    {
+        auto decorator = std::make_shared<D>(device);
+        map.emplace(device -> getSpace(), decorator);
     }
 };
 

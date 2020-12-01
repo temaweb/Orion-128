@@ -15,47 +15,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IODevice_hpp
-#define IODevice_hpp
+#ifdef DEBUG
+    #include <inttypes.h>
+#endif
 
-#include <cstdint>
-#include <memory>
+#include "DefaultDevice.hpp"
 
-#include "AddressSpace.hpp"
-
-class Device
+uint8_t DefaultDevice::read(uint16_t address) const
 {
-public:
+#ifdef DEBUG
+    printf("Read from default device: 0x%.4X\n", address);
+#endif
     
-    // Device should be process data in the space
-    virtual AddressSpace getSpace() const
-    {
-        return
-        {
-            0x0000,
-            0xFFFF
-        };
-    }
-};
+    return value;
+}
 
-// Read-only devices
-class RDevice : virtual public Device
+void DefaultDevice::write(uint16_t address, uint8_t data)
 {
-public:
-    virtual uint8_t read(uint16_t address) const = 0;
-};
-
-// Write-only devices
-class WDevice : virtual public Device
-{
-public:
-    virtual void write(uint16_t address, uint8_t data) = 0;
-};
-
-// R/W device
-class IODevice : public RDevice, public WDevice
-{
-
-};
-
-#endif /* IODevice_hpp */
+#ifdef DEBUG
+    printf("Write to default device: 0x%.4X $%.2X\n", address, data);
+#endif
+}

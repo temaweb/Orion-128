@@ -35,7 +35,7 @@ void Cpuloop::run ()
         counter++;
         cpu -> clock();
         
-        if (counter != loopFreq)
+        if (counter != lookup)
             continue;
         
         for (auto & event : events) {
@@ -105,8 +105,8 @@ void Cpuloop::add (int ticks, void (Cpuloop::*event)(double, int))
 
 void Cpuloop::add(int ticks, Event::action command)
 {
-    if (loopFreq == 0 || loopFreq > ticks)
-        loopFreq = ticks;
+    if (lookup == 0 || lookup > ticks)
+        lookup = ticks;
     
     auto event = std::make_unique<Event>(ticks, command);
     events.push_back(std::move(event));

@@ -17,7 +17,7 @@
 
 #include "PageSelector.hpp"
 
-Space PageSelector::getSpace() const
+AddressSpace PageSelector::getSpace() const
 {
     return
     {

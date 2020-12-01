@@ -52,7 +52,7 @@ public:
         file.close();
     }
 
-    virtual Space getSpace() const override
+    virtual AddressSpace getSpace() const override
     {
         return
         {

@@ -17,7 +17,7 @@
 
 #include "System.hpp"
 
-Space System::getSpace() const
+AddressSpace System::getSpace() const
 {
     return
     {

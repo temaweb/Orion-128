@@ -33,7 +33,7 @@ private:
     static const int cpuloop = 10000;
 
     int    frequency = 0;
-    int    loopFreq  = 0;
+    int    lookup  = 0;
     double oversleep = 0.0;
     double currFreq  = 0.0;
     

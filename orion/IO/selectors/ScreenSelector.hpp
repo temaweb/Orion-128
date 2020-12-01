@@ -30,7 +30,7 @@ public:
     ScreenSelector(std::shared_ptr<Video> video) : video(video)
     { }
   
-    virtual Space getSpace() const override;
+    virtual AddressSpace getSpace() const override;
     virtual void write (uint16_t, uint8_t data) override;
 };
 

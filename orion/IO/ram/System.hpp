@@ -28,7 +28,7 @@ private:
     
 public:
 
-    virtual Space getSpace() const override;
+    virtual AddressSpace getSpace() const override;
 
     virtual uint8_t read (uint16_t address) const override;
     virtual void write (uint16_t address, uint8_t data) override;

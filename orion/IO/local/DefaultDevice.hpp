@@ -15,47 +15,31 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IODevice_hpp
-#define IODevice_hpp
+#ifndef DefaultDevice_hpp
+#define DefaultDevice_hpp
 
-#include <cstdint>
-#include <memory>
+#include "IODevice.hpp"
 
-#include "AddressSpace.hpp"
-
-class Device
+class DefaultDevice : public IODevice
 {
-public:
+private:
+    DefaultDevice() = default;
+    static const uint8_t value = 0x00;
     
-    // Device should be process data in the space
-    virtual AddressSpace getSpace() const
+public:
+    DefaultDevice  (DefaultDevice const &) = delete;
+    void operator= (DefaultDevice const &) = delete;
+    
+    template<class T>
+    static const std::shared_ptr<T> & getInstance()
     {
-        return
-        {
-            0x0000,
-            0xFFFF
-        };
+        static const std::shared_ptr<T> instance(new DefaultDevice);
+        return instance;
     }
-};
-
-// Read-only devices
-class RDevice : virtual public Device
-{
+    
 public:
-    virtual uint8_t read(uint16_t address) const = 0;
+    virtual uint8_t read(uint16_t) const override;
+    virtual void write(uint16_t, uint8_t) override;
 };
 
-// Write-only devices
-class WDevice : virtual public Device
-{
-public:
-    virtual void write(uint16_t address, uint8_t data) = 0;
-};
-
-// R/W device
-class IODevice : public RDevice, public WDevice
-{
-
-};
-
-#endif /* IODevice_hpp */
+#endif /* DefaultDevice_hpp */

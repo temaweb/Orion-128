@@ -33,7 +33,7 @@ private:
 public:
     Memory();
     
-    virtual Space getSpace() const override;
+    virtual AddressSpace getSpace() const override;
     
     uint8_t read (uint16_t address) const override;
     uint8_t read (uint16_t address, uint8_t page) const;

@@ -15,47 +15,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef IODevice_hpp
-#define IODevice_hpp
+#ifndef AddressSpace_hpp
+#define AddressSpace_hpp
 
-#include <cstdint>
-#include <memory>
-
-#include "AddressSpace.hpp"
-
-class Device
+struct AddressSpace
 {
-public:
+    uint16_t from = 0x0000;
+    uint16_t to   = 0x0000;
     
-    // Device should be process data in the space
-    virtual AddressSpace getSpace() const
+    bool operator < (const AddressSpace & space) const
     {
-        return
-        {
-            0x0000,
-            0xFFFF
-        };
+        return !(from < space.from || to < space.to);
+    }
+
+    // Returns device local address
+    inline uint16_t getLocal(uint16_t address) const
+    {
+        return address - from;
     }
 };
 
-// Read-only devices
-class RDevice : virtual public Device
-{
-public:
-    virtual uint8_t read(uint16_t address) const = 0;
-};
-
-// Write-only devices
-class WDevice : virtual public Device
-{
-public:
-    virtual void write(uint16_t address, uint8_t data) = 0;
-};
-
-// R/W device
-class IODevice : public RDevice, public WDevice
-{
-
-};
-
-#endif /* IODevice_hpp */
+#endif /* AddressSpace_hpp */

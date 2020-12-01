@@ -30,7 +30,7 @@ public:
     PageSelector(std::shared_ptr<Memory> memory) : memory(memory)
     { }
     
-    virtual Space getSpace() const override;
+    virtual AddressSpace getSpace() const override;
     virtual void write (uint16_t, uint8_t data) override;
 };
 

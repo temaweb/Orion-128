@@ -34,12 +34,12 @@ Orion::Orion()
     auto iobus = std::make_shared<IOBus>();
     auto iospl = std::make_shared<IOSplitter> (iobus);
     
-    iobus -> insertR <MonitorRom> ();
-    
-    iobus -> insertRW <Disk>();
-    iobus -> insertRW (keyboard);
+    iobus -> insertR  <MonitorRom> ();
     iobus -> insertRW <System>();
     iobus -> insertRW (memory);
+    iobus -> insertRW (keyboard);
+    
+    iobus -> insertRW <Disk>();
     
     iobus -> insertW  <PageSelector>    (memory);
     iobus -> insertW  <PaletteSelector> (video);

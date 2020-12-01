@@ -22,6 +22,7 @@
 		8A301577256425230071D523 /* monitor in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A24E3E4255C480700496F78 /* monitor */; };
 		8A5ADB19257437C100E71FB4 /* Cpuloop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB18257437C100E71FB4 /* Cpuloop.cpp */; };
 		8A5ADB1F25744FF100E71FB4 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB1E25744FF100E71FB4 /* Event.cpp */; };
+		8A5ADB3C2575BCC200E71FB4 /* DefaultDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB3A2575BCC200E71FB4 /* DefaultDevice.cpp */; };
 		8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
 		8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA63D1425619331007CF426 /* Keyboard.cpp */; };
 		8AA8BA612571D92400A53B56 /* PaletteSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8BA602571D92400A53B56 /* PaletteSelector.cpp */; };
@@ -76,6 +77,12 @@
 		8A5ADB17257437C100E71FB4 /* Cpuloop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cpuloop.hpp; sourceTree = "<group>"; };
 		8A5ADB18257437C100E71FB4 /* Cpuloop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpuloop.cpp; sourceTree = "<group>"; };
 		8A5ADB1E25744FF100E71FB4 /* Event.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
+		8A5ADB2B2575AC2400E71FB4 /* LocalDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LocalDevice.hpp; sourceTree = "<group>"; };
+		8A5ADB322575BBE700E71FB4 /* RLocalDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RLocalDevice.hpp; sourceTree = "<group>"; };
+		8A5ADB362575BC2A00E71FB4 /* WLocalDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WLocalDevice.hpp; sourceTree = "<group>"; };
+		8A5ADB3A2575BCC200E71FB4 /* DefaultDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultDevice.cpp; sourceTree = "<group>"; };
+		8A5ADB3B2575BCC200E71FB4 /* DefaultDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DefaultDevice.hpp; sourceTree = "<group>"; };
+		8A5ADB3F2575BE7F00E71FB4 /* AddressSpace.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AddressSpace.hpp; sourceTree = "<group>"; };
 		8A6A20FB25605352009A8B71 /* Rom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rom.hpp; sourceTree = "<group>"; };
 		8A6A21002560580B009A8B71 /* MonitorRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MonitorRom.hpp; sourceTree = "<group>"; };
 		8A6A210725605A31009A8B71 /* RamtestRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RamtestRom.hpp; sourceTree = "<group>"; };
@@ -194,6 +201,19 @@
 			path = ram;
 			sourceTree = "<group>";
 		};
+		8A5ADB2F2575BBB600E71FB4 /* local */ = {
+			isa = PBXGroup;
+			children = (
+				8A5ADB2B2575AC2400E71FB4 /* LocalDevice.hpp */,
+				8A5ADB322575BBE700E71FB4 /* RLocalDevice.hpp */,
+				8A5ADB362575BC2A00E71FB4 /* WLocalDevice.hpp */,
+				8A5ADB3A2575BCC200E71FB4 /* DefaultDevice.cpp */,
+				8A5ADB3B2575BCC200E71FB4 /* DefaultDevice.hpp */,
+				8A5ADB3F2575BE7F00E71FB4 /* AddressSpace.hpp */,
+			);
+			path = local;
+			sourceTree = "<group>";
+		};
 		8A6A20F92560533E009A8B71 /* rom */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +241,7 @@
 				8A6A20F92560533E009A8B71 /* rom */,
 				8A301589256453CF0071D523 /* ram */,
 				8AA63D132561931E007CF426 /* keyboard */,
+				8A5ADB2F2575BBB600E71FB4 /* local */,
 				8AC0C639254460C8008DAA6B /* IOBus.hpp */,
 				8A04D25925684C5600891765 /* IOBus.cpp */,
 				8AA673992562AFEA000ABA5D /* IODevice.hpp */,
@@ -411,6 +432,7 @@
 				8AC54EAD257322A400FBBA97 /* PageSelector.cpp in Sources */,
 				8AB44F94256FE469006117B1 /* Status.cpp in Sources */,
 				8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */,
+				8A5ADB3C2575BCC200E71FB4 /* DefaultDevice.cpp in Sources */,
 				8A24E46A255C85E600496F78 /* Video.cpp in Sources */,
 				8AA8BA782572678100A53B56 /* IOSplitter.cpp in Sources */,
 				8A24E44F255C806400496F78 /* AppDelegate.mm in Sources */,

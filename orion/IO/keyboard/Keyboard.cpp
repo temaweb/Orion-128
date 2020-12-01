@@ -17,7 +17,7 @@
 
 #include "Keyboard.hpp"
 
-Space Keyboard::getSpace() const
+AddressSpace Keyboard::getSpace() const
 {
     return
     {
