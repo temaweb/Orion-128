@@ -22,18 +22,23 @@
 
 #include "IO.hpp"
 #include "IODevice.hpp"
-#include "DefaultDevice.hpp"
+#include "IOStorage.hpp"
+
+#include "RLocalDevice.hpp"
+#include "WLocalDevice.hpp"
 
 class IOBus : public IODevice, public IO<uint16_t>
 {
 private:
-    template<class T>
-    using devicemap = std::map<AddressSpace, std::shared_ptr<T>>;
     
-    devicemap<RDevice> rdevices;
-    devicemap<WDevice> wdevices;
+    template<class T, class D>
+    using storage = std::unique_ptr<IOStorage<T, D>>;
+    
+    storage<RDevice, RLocalDevice> rstorage;
+    storage<WDevice, WLocalDevice> wstorage;
     
 public:
+    IOBus();
     
     virtual uint8_t read(uint16_t address) const override;
     virtual void write(uint16_t address, uint8_t data) override;
@@ -62,28 +67,10 @@ public:
         insertRW(std::make_shared<T>(std::forward<Args>(args)...));
     }
     
-private:
-    
-    template<class T>
-    const std::shared_ptr<T> & getDevice(uint16_t address, const devicemap<T> & map) const
-    {
-        for (auto const & [space, device] : map)
-        {
-            if (address < space.from)
-                continue;
-
-            if (address <= space.to)
-                return device;
-        }
-
-        return DefaultDevice::getInstance<T>();
-    }
-    
     template<class T, class D>
-    void insert(devicemap<T> & map, std::shared_ptr<T> device)
+    const std::shared_ptr<T> & getDevice(uint16_t address, const storage<T, D> & storage) const
     {
-        auto decorator = std::make_shared<D>(device);
-        map.emplace(device -> getSpace(), decorator);
+        return storage -> getDevice(address);
     }
 };
 

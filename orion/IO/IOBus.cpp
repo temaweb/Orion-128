@@ -17,27 +17,30 @@
 
 #include "IOBus.hpp"
 
-#include "RLocalDevice.hpp"
-#include "WLocalDevice.hpp"
+IOBus::IOBus()
+{
+    rstorage = std::make_unique<IOStorage<RDevice, RLocalDevice>>();
+    wstorage = std::make_unique<IOStorage<WDevice, WLocalDevice>>();
+}
 
 uint8_t IOBus::read(uint16_t address) const
 {
-    return getDevice(address, rdevices) -> read(address);
+    return getDevice(address, rstorage) -> read(address);
 }
 
 void IOBus::write(uint16_t address, uint8_t data)
 {
-    return getDevice(address, wdevices) -> write(address, data);
+    return getDevice(address, wstorage) -> write(address, data);
 }
 
 void IOBus::insertR(std::shared_ptr<RDevice> device)
 {
-    insert<RDevice, RLocalDevice>(rdevices, device);
+    rstorage -> insert(device);
 }
 
 void IOBus::insertW(std::shared_ptr<WDevice> device)
 {
-    insert<WDevice, WLocalDevice>(wdevices, device);
+    wstorage -> insert(device);
 }
 
 void IOBus::insertRW(std::shared_ptr<IODevice> device)

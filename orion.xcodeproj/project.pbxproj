@@ -83,6 +83,7 @@
 		8A5ADB3A2575BCC200E71FB4 /* DefaultDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultDevice.cpp; sourceTree = "<group>"; };
 		8A5ADB3B2575BCC200E71FB4 /* DefaultDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DefaultDevice.hpp; sourceTree = "<group>"; };
 		8A5ADB3F2575BE7F00E71FB4 /* AddressSpace.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AddressSpace.hpp; sourceTree = "<group>"; };
+		8A5ADB472575D12F00E71FB4 /* IOStorage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOStorage.hpp; sourceTree = "<group>"; };
 		8A6A20FB25605352009A8B71 /* Rom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rom.hpp; sourceTree = "<group>"; };
 		8A6A21002560580B009A8B71 /* MonitorRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MonitorRom.hpp; sourceTree = "<group>"; };
 		8A6A210725605A31009A8B71 /* RamtestRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RamtestRom.hpp; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 				8AA673992562AFEA000ABA5D /* IODevice.hpp */,
 				8A77D849256DE3BA00B0278C /* IOSplitter.hpp */,
 				8AA8BA772572678100A53B56 /* IOSplitter.cpp */,
+				8A5ADB472575D12F00E71FB4 /* IOStorage.hpp */,
 			);
 			path = IO;
 			sourceTree = "<group>";
