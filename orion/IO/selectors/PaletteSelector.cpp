@@ -35,5 +35,5 @@ void PaletteSelector::write (uint16_t, uint8_t data)
     // 0 - -  Monochrome mode
     // 1 - -  Color mode
     
-    video -> switchColorMode(data & 0x7);
+    video -> setColorMode (data & 0x7);
 }

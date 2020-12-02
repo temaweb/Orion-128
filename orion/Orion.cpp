@@ -32,10 +32,12 @@
 #include "IOSplitter.hpp"
 
 Orion::Orion()
-{
+{   
     // IO Splitter process requests from CPU IN/OUT instructions
-    auto iospl  = std::make_shared<IOSplitter> (iobus);
+    auto iospl = std::make_shared<IOSplitter> (iobus);
     
+    // Video memory space
+    vram  = std::make_shared<VideoRam>(memory);
     
     // Create basic memory
     //
@@ -70,7 +72,7 @@ Orion::Orion()
     // 0x4000 — 0x6FFF - Screen #2
     // 0x0000 — 0x2FFF - Screen #3
     
-    video -> connect(memory);
+    video -> connect(vram);
     
 
     // Connect bus and splitter to CPU
@@ -81,7 +83,7 @@ Orion::Orion()
     cpu   -> connect(iobus);
     cpu   -> connect(iospl);
 
-    // ORDOS filesystem 
+    // CP/M filesystem
     filesystem = std::make_unique<Filesystem>(memory);
 }
 
@@ -145,7 +147,7 @@ void Orion::createSwitches()
     // System #3
     // 0xFA00 - 0xFAFF (W/O)
     
-    iobus -> createW  <ScreenSelector>  (video);
+    iobus -> createW  <ScreenSelector>  (vram);
 }
 
 // Return current loop frequency

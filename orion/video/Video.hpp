@@ -8,12 +8,10 @@
 #ifndef Video_hpp
 #define Video_hpp
 
-#include <stdio.h>
-#include <vector>
 #include <array>
 #include <shared_mutex>
 
-#include "Memory.hpp"
+#include "VideoRam.hpp"
 #include "Palette.hpp"
 #include "BWPalette.hpp"
 #include "Color16Palette.hpp"
@@ -30,20 +28,11 @@ private:
     
     static const int width  = 384;         // H points
     static const int height = 256;         // V points
-
-    static const uint16_t begin = 0x0C000; // Start vidio memory
-    static const uint16_t end   = 0x0EFFF; // End video memory
     
     typedef std::array<std::array<Pixel, width>, height> frame;
     typedef std::array<Pixel, width> line;
     
-    std::array<uint8_t, 12 * 1024> frameBuffer;
-    std::array<uint8_t, 12 * 1024> colorBuffer;
-    
     static const BWPalette bwpalette;
-    mutable std::shared_mutex _mutex;
-    
-    bool _isChanged = true;
     
     enum ColorMode
     {
@@ -51,12 +40,16 @@ private:
         BLANK   = 1,  // No image
         COLOR4  = 2,  // 4 color palette
         COLOR16 = 3   // 16 color palettex
-    };
-
-    ColorMode colorMode = MONO;
+    }
+    colorMode;
+    
+    VideoRam::buffer frameBuffer {};
+    VideoRam::buffer colorBuffer {};
+    
+    mutable std::shared_mutex _mutex;
     
 private:
-    std::shared_ptr<const Memory> memory = nullptr;
+    std::shared_ptr<const VideoRam> memory = nullptr;
 
     line getLine(uint8_t row) const;
     
@@ -69,19 +62,13 @@ public:
     // Return one frame with resolution 384 x 256 pixels
     // Each pixel has b/w color in RGB hex-format.
     std::array<std::array<Pixel, width>, height> output() const;
-    
-    void createFrame();
-    
+
     // Connect memory bus
-    void connect(std::shared_ptr<const Memory> bus);
+    void connect(std::shared_ptr<const VideoRam> memory);
+
+    void updateBuffers ();
+    void setColorMode  (uint8_t mode);
     
-    // Set current color palette
-    void switchColorMode(uint8_t data);
-    
-    // Set current color palette
-    void switchScreenMode(uint8_t data);
-    
-    void markChanged();
     bool isChanged();
     
     // Return video resolution

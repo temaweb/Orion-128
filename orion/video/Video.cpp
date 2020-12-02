@@ -14,42 +14,27 @@
 
 const BWPalette Video::bwpalette = BWPalette();
 
-void Video::connect(std::shared_ptr<const Memory> memory)
+void Video::connect(std::shared_ptr<const VideoRam> memory)
 {
     this -> memory = memory;
 }
 
-void Video::markChanged()
-{
-    this -> _isChanged = true;
-}
-
 bool Video::isChanged()
 {
-    return true; // TODO: Fix video observer
+    return true;
 }
 
-#pragma mark -
-#pragma mark Switchers
-
-void Video::switchColorMode(uint8_t data)
+void Video::setColorMode  (uint8_t mode)
 {
-    this -> colorMode = (ColorMode) (data >> 1);
+    colorMode = (ColorMode) (mode >> 1);
 }
 
-void Video::switchScreenMode(uint8_t data)
-{
-    // TODO: Switch screen memory
-}
-
-// Copy video memory in temporary buffer
-// Part of CPU → Video sync
-void Video::createFrame()
+void Video::updateBuffers ()
 {
     std::unique_lock lock(_mutex);
     
-    frameBuffer = memory -> getFrameBuffer();
-    colorBuffer = memory -> getColorBuffer();
+    memory -> readFrame(frameBuffer.begin());
+    memory -> readColor(colorBuffer.begin());
 }
 
 // Returns one frame
@@ -73,7 +58,7 @@ std::array<std::array<Pixel, Video::width>, Video::height> Video::output() const
 std::array<Pixel, Video::width> Video::getLine(uint8_t row) const
 {   
     line line;
-
+    
     for (uint8_t col = 0x00; col < (width / 8); col++)
     {
         // Each video address in Orion has store column

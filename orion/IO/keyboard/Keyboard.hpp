@@ -32,7 +32,7 @@ private:
 
     std::array<uint8_t, 8> keys {};
     
-    static const short None = -1;
+    static const short None = 1;
     
     const short matrix[8][8] =
     {

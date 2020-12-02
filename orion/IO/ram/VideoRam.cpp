@@ -15,23 +15,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ScreenSelector.hpp"
+#include "VideoRam.hpp"
 
-AddressSpace ScreenSelector::getSpace() const
+VideoRam::VideoRam(std::shared_ptr<const Memory> memory) : memory(memory)
+{ }
+
+void VideoRam::setScreenMode (uint8_t mode)
 {
-    return
-    {
-        0xFA00,
-        0xFAFF
-    };
+    screen = mode;
 }
 
-void ScreenSelector::write (uint16_t, uint8_t data)
+void VideoRam::readFrame (uint8_t * begin) const
 {
-    // - 0 0  Screen #0 (0xС000 — 0xEFFF)
-    // - 0 1  Screen #1 (0x8000 — 0xAFFF)
-    // - 1 0  Screen #2 (0x4000 — 0x6FFF)
-    // - 1 1  Screen #3 (0x0000 — 0x2FFF)
-    
-    video -> setScreenMode (data & 0x3);
+    copy (begin, 0x00);
+}
+
+void VideoRam::readColor (uint8_t * begin) const
+{
+    copy (begin, 0x01);
+}
+
+void VideoRam::copy (uint8_t * begin, uint8_t page) const
+{
+    auto screenSpace = screenSpaces[screen];
+    memory -> copy(screenSpace, begin, page);
 }

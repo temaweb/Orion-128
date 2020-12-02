@@ -26,6 +26,7 @@
 
 #include "IOBus.hpp"
 #include "Memory.hpp"
+#include "VideoRam.hpp"
 
 #define ORION_CPU_FREQUENCY 2500000
 
@@ -46,6 +47,7 @@ private:
     
     std::unique_ptr<Loop> loop = nullptr;
     std::unique_ptr<Filesystem> filesystem = nullptr;
+    std::shared_ptr<VideoRam> vram = nullptr;
     
     int actualFrequency = 0;
 

@@ -22,6 +22,7 @@
 		8A5ADB19257437C100E71FB4 /* Loop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB18257437C100E71FB4 /* Loop.cpp */; };
 		8A5ADB1F25744FF100E71FB4 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB1E25744FF100E71FB4 /* Event.cpp */; };
 		8A5ADB3C2575BCC200E71FB4 /* DefaultDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB3A2575BCC200E71FB4 /* DefaultDevice.cpp */; };
+		8AA40DB42577628B00172CE0 /* VideoRam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA40DB22577628B00172CE0 /* VideoRam.cpp */; };
 		8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
 		8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA63D1425619331007CF426 /* Keyboard.cpp */; };
 		8AA8BA612571D92400A53B56 /* PaletteSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8BA602571D92400A53B56 /* PaletteSelector.cpp */; };
@@ -34,6 +35,7 @@
 		8ADB76B62576ED380059CA0B /* FreqEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB76B52576ED380059CA0B /* FreqEvent.cpp */; };
 		8ADB76BB2576F2780059CA0B /* FrameEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB76BA2576F2780059CA0B /* FrameEvent.cpp */; };
 		8ADB76BE2576F4A80059CA0B /* Broadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB76BD2576F4A80059CA0B /* Broadcast.cpp */; };
+		8ADB76CA25775B7A0059CA0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ADB76C925775B7A0059CA0B /* Images.xcassets */; };
 		8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5B6255DF8410048C4DE /* WindowController.mm */; };
 		8AE39C8F25658DB5009C77BC /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C8C25658DB5009C77BC /* System.cpp */; };
 		8AEE66432566FCE30007586F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AEE66452566FCE30007586F /* Localizable.strings */; };
@@ -93,6 +95,8 @@
 		8A6A210725605A31009A8B71 /* RamtestRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RamtestRom.hpp; sourceTree = "<group>"; };
 		8A77D83F256DE02A00B0278C /* IO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IO.hpp; sourceTree = "<group>"; };
 		8A77D849256DE3BA00B0278C /* IOSplitter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOSplitter.hpp; sourceTree = "<group>"; };
+		8AA40DB22577628B00172CE0 /* VideoRam.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VideoRam.cpp; sourceTree = "<group>"; };
+		8AA40DB32577628B00172CE0 /* VideoRam.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoRam.hpp; sourceTree = "<group>"; };
 		8AA63D1425619331007CF426 /* Keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
 		8AA63D1525619331007CF426 /* Keyboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Keyboard.hpp; sourceTree = "<group>"; };
 		8AA673992562AFEA000ABA5D /* IODevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IODevice.hpp; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 		8ADB76B52576ED380059CA0B /* FreqEvent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FreqEvent.cpp; sourceTree = "<group>"; };
 		8ADB76BA2576F2780059CA0B /* FrameEvent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FrameEvent.cpp; sourceTree = "<group>"; };
 		8ADB76BD2576F4A80059CA0B /* Broadcast.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Broadcast.cpp; sourceTree = "<group>"; };
+		8ADB76C925775B7A0059CA0B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8ADCB5B5255DF8410048C4DE /* WindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
 		8ADCB5B6255DF8410048C4DE /* WindowController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WindowController.mm; sourceTree = "<group>"; };
 		8ADCB5CF255F48B00048C4DE /* Orion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Orion.cpp; sourceTree = "<group>"; };
@@ -156,13 +161,19 @@
 			path = localizable;
 			sourceTree = "<group>";
 		};
-		8A04D27F25695EDD00891765 /* filesystem */ = {
+		8A04D27F25695EDD00891765 /* system */ = {
 			isa = PBXGroup;
 			children = (
-				8A04D28125695EF100891765 /* Filesystem.hpp */,
-				8A04D28025695EF100891765 /* Filesystem.cpp */,
+				8ADB76B32576ED210059CA0B /* events */,
+				8ADB76C62577286A0059CA0B /* cpm */,
+				8AC54EB1257427C600FBBA97 /* Event.hpp */,
+				8A5ADB1E25744FF100E71FB4 /* Event.cpp */,
+				8ADB76A32576C8B10059CA0B /* Broadcast.hpp */,
+				8ADB76BD2576F4A80059CA0B /* Broadcast.cpp */,
+				8A5ADB17257437C100E71FB4 /* Loop.hpp */,
+				8A5ADB18257437C100E71FB4 /* Loop.cpp */,
 			);
-			path = filesystem;
+			path = system;
 			sourceTree = "<group>";
 		};
 		8A04D2862569BBEF00891765 /* Frameworks */ = {
@@ -199,6 +210,7 @@
 				8A24E44E255C806400496F78 /* AppDelegate.mm */,
 				8A24E458255C806400496F78 /* Info.plist */,
 				8A24E459255C806400496F78 /* main.m */,
+				8ADB76C925775B7A0059CA0B /* Images.xcassets */,
 			);
 			path = display;
 			sourceTree = "<group>";
@@ -210,6 +222,8 @@
 				8AE39C8C25658DB5009C77BC /* System.cpp */,
 				8AF548EA25648732006AFB51 /* Memory.hpp */,
 				8AF548E925648732006AFB51 /* Memory.cpp */,
+				8AA40DB32577628B00172CE0 /* VideoRam.hpp */,
+				8AA40DB22577628B00172CE0 /* VideoRam.cpp */,
 			);
 			path = ram;
 			sourceTree = "<group>";
@@ -310,29 +324,14 @@
 		8AC0C6202543AE24008DAA6B /* orion */ = {
 			isa = PBXGroup;
 			children = (
-				8A04D27F25695EDD00891765 /* filesystem */,
 				8AA673972562AFD7000ABA5D /* IO */,
+				8A04D27F25695EDD00891765 /* system */,
 				8A24E3E6255C4E0A00496F78 /* video */,
 				8AB94388254B29FD00636CA0 /* cpu */,
 				8ADCB5D0255F48B00048C4DE /* Orion.hpp */,
 				8ADCB5CF255F48B00048C4DE /* Orion.cpp */,
-				8ADB76B02576EB080059CA0B /* loop */,
 			);
 			path = orion;
-			sourceTree = "<group>";
-		};
-		8ADB76B02576EB080059CA0B /* loop */ = {
-			isa = PBXGroup;
-			children = (
-				8ADB76B32576ED210059CA0B /* events */,
-				8AC54EB1257427C600FBBA97 /* Event.hpp */,
-				8A5ADB1E25744FF100E71FB4 /* Event.cpp */,
-				8ADB76A32576C8B10059CA0B /* Broadcast.hpp */,
-				8ADB76BD2576F4A80059CA0B /* Broadcast.cpp */,
-				8A5ADB17257437C100E71FB4 /* Loop.hpp */,
-				8A5ADB18257437C100E71FB4 /* Loop.cpp */,
-			);
-			path = loop;
 			sourceTree = "<group>";
 		};
 		8ADB76B32576ED210059CA0B /* events */ = {
@@ -346,6 +345,15 @@
 				8ADB76BA2576F2780059CA0B /* FrameEvent.cpp */,
 			);
 			path = events;
+			sourceTree = "<group>";
+		};
+		8ADB76C62577286A0059CA0B /* cpm */ = {
+			isa = PBXGroup;
+			children = (
+				8A04D28125695EF100891765 /* Filesystem.hpp */,
+				8A04D28025695EF100891765 /* Filesystem.cpp */,
+			);
+			path = cpm;
 			sourceTree = "<group>";
 		};
 		8AE39CB22565E9C5009C77BC /* selectors */ = {
@@ -459,6 +467,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ADB76CA25775B7A0059CA0B /* Images.xcassets in Resources */,
 				8A24E457255C806400496F78 /* Main.storyboard in Resources */,
 				8AEE66432566FCE30007586F /* Localizable.strings in Resources */,
 			);
@@ -483,6 +492,7 @@
 				8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */,
 				8A5ADB19257437C100E71FB4 /* Loop.cpp in Sources */,
 				8AF548EC25648732006AFB51 /* Memory.cpp in Sources */,
+				8AA40DB42577628B00172CE0 /* VideoRam.cpp in Sources */,
 				8A5ADB1F25744FF100E71FB4 /* Event.cpp in Sources */,
 				8A04D28325695EF100891765 /* Filesystem.cpp in Sources */,
 				8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */,
@@ -529,6 +539,7 @@
 		8A24E45D255C806400496F78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -547,6 +558,7 @@
 		8A24E45E255C806400496F78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;

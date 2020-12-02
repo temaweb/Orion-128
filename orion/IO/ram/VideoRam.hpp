@@ -15,23 +15,40 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ScreenSelector_h
-#define ScreenSelector_h
+#ifndef VideoRam_hpp
+#define VideoRam_hpp
 
-#include "Video.hpp"
+#include "Memory.hpp"
 #include "IODevice.hpp"
 
-class ScreenSelector : public WDevice
+class VideoRam
 {
+public:
+    typedef std::array<uint8_t, 12 * 1024> buffer;
+    
 private:
-    std::shared_ptr<VideoRam> video;
+    std::shared_ptr<const Memory> memory;
+    std::array<AddressSpace, 4> screenSpaces
+    {{
+        { 0xC000, 0xEFFF }, // Screen #0 (Default)
+        { 0x8000, 0xAFFF }, // Screen #1
+        { 0x4000, 0x6FFF }, // Screen #2
+        { 0x0000, 0x2FFF }  // Screen #3
+    }};
+    
+    uint8_t screen = 0x00;
     
 public:
-    ScreenSelector(std::shared_ptr<VideoRam> video) : video(video)
-    { }
-  
-    virtual AddressSpace getSpace() const override;
-    virtual void write (uint16_t, uint8_t data) override;
+    
+    VideoRam(std::shared_ptr<const Memory> memory);
+    
+    void readFrame (uint8_t * begin) const;
+    void readColor (uint8_t * begin) const;
+
+    void setScreenMode (uint8_t mode);
+    
+private:
+    void copy (uint8_t * begin, uint8_t page) const;
 };
 
-#endif /* ScreenSelector_h */
+#endif /* VideoRam_hpp */
