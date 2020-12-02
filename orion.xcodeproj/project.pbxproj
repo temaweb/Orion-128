@@ -19,7 +19,7 @@
 		8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* Cpu.cpp */; };
 		8A3015742564251F0071D523 /* rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A30157025640C400071D523 /* rom */; };
 		8A301577256425230071D523 /* monitor in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A24E3E4255C480700496F78 /* monitor */; };
-		8A5ADB19257437C100E71FB4 /* Cpuloop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB18257437C100E71FB4 /* Cpuloop.cpp */; };
+		8A5ADB19257437C100E71FB4 /* Loop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB18257437C100E71FB4 /* Loop.cpp */; };
 		8A5ADB1F25744FF100E71FB4 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB1E25744FF100E71FB4 /* Event.cpp */; };
 		8A5ADB3C2575BCC200E71FB4 /* DefaultDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB3A2575BCC200E71FB4 /* DefaultDevice.cpp */; };
 		8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
@@ -30,6 +30,10 @@
 		8AB44F94256FE469006117B1 /* Status.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB44F92256FE469006117B1 /* Status.cpp */; };
 		8AC54EAD257322A400FBBA97 /* PageSelector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA8BA5D2571D0B900A53B56 /* PageSelector.cpp */; };
 		8ADB76902576A5750059CA0B /* IOStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB768F2576A5750059CA0B /* IOStorage.cpp */; };
+		8ADB76952576BEBC0059CA0B /* DelayEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB76932576BEBC0059CA0B /* DelayEvent.cpp */; };
+		8ADB76B62576ED380059CA0B /* FreqEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB76B52576ED380059CA0B /* FreqEvent.cpp */; };
+		8ADB76BB2576F2780059CA0B /* FrameEvent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB76BA2576F2780059CA0B /* FrameEvent.cpp */; };
+		8ADB76BE2576F4A80059CA0B /* Broadcast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADB76BD2576F4A80059CA0B /* Broadcast.cpp */; };
 		8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5B6255DF8410048C4DE /* WindowController.mm */; };
 		8AE39C8F25658DB5009C77BC /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C8C25658DB5009C77BC /* System.cpp */; };
 		8AEE66432566FCE30007586F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AEE66452566FCE30007586F /* Localizable.strings */; };
@@ -74,8 +78,8 @@
 		8A3015632563FC720071D523 /* Disk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Disk.hpp; sourceTree = "<group>"; };
 		8A30157025640C400071D523 /* rom */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rom; sourceTree = "<group>"; };
 		8A4C1E50254ED0EB00ED6E1E /* Status.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Status.hpp; sourceTree = "<group>"; };
-		8A5ADB17257437C100E71FB4 /* Cpuloop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cpuloop.hpp; sourceTree = "<group>"; };
-		8A5ADB18257437C100E71FB4 /* Cpuloop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cpuloop.cpp; sourceTree = "<group>"; };
+		8A5ADB17257437C100E71FB4 /* Loop.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Loop.hpp; sourceTree = "<group>"; };
+		8A5ADB18257437C100E71FB4 /* Loop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Loop.cpp; sourceTree = "<group>"; };
 		8A5ADB1E25744FF100E71FB4 /* Event.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
 		8A5ADB2B2575AC2400E71FB4 /* LocalDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LocalDevice.hpp; sourceTree = "<group>"; };
 		8A5ADB322575BBE700E71FB4 /* LocalRDevice.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LocalRDevice.hpp; sourceTree = "<group>"; };
@@ -105,6 +109,14 @@
 		8AC0C639254460C8008DAA6B /* IOBus.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOBus.hpp; sourceTree = "<group>"; };
 		8AC54EB1257427C600FBBA97 /* Event.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
 		8ADB768F2576A5750059CA0B /* IOStorage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IOStorage.cpp; sourceTree = "<group>"; };
+		8ADB76932576BEBC0059CA0B /* DelayEvent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DelayEvent.cpp; sourceTree = "<group>"; };
+		8ADB76942576BEBC0059CA0B /* DelayEvent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DelayEvent.hpp; sourceTree = "<group>"; };
+		8ADB76992576C0CB0059CA0B /* FreqEvent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FreqEvent.hpp; sourceTree = "<group>"; };
+		8ADB769E2576C1BB0059CA0B /* FrameEvent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FrameEvent.hpp; sourceTree = "<group>"; };
+		8ADB76A32576C8B10059CA0B /* Broadcast.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Broadcast.hpp; sourceTree = "<group>"; };
+		8ADB76B52576ED380059CA0B /* FreqEvent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FreqEvent.cpp; sourceTree = "<group>"; };
+		8ADB76BA2576F2780059CA0B /* FrameEvent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FrameEvent.cpp; sourceTree = "<group>"; };
+		8ADB76BD2576F4A80059CA0B /* Broadcast.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Broadcast.cpp; sourceTree = "<group>"; };
 		8ADCB5B5255DF8410048C4DE /* WindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
 		8ADCB5B6255DF8410048C4DE /* WindowController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WindowController.mm; sourceTree = "<group>"; };
 		8ADCB5CF255F48B00048C4DE /* Orion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Orion.cpp; sourceTree = "<group>"; };
@@ -302,14 +314,38 @@
 				8AA673972562AFD7000ABA5D /* IO */,
 				8A24E3E6255C4E0A00496F78 /* video */,
 				8AB94388254B29FD00636CA0 /* cpu */,
-				8ADCB5CF255F48B00048C4DE /* Orion.cpp */,
 				8ADCB5D0255F48B00048C4DE /* Orion.hpp */,
-				8AC54EB1257427C600FBBA97 /* Event.hpp */,
-				8A5ADB1E25744FF100E71FB4 /* Event.cpp */,
-				8A5ADB17257437C100E71FB4 /* Cpuloop.hpp */,
-				8A5ADB18257437C100E71FB4 /* Cpuloop.cpp */,
+				8ADCB5CF255F48B00048C4DE /* Orion.cpp */,
+				8ADB76B02576EB080059CA0B /* loop */,
 			);
 			path = orion;
+			sourceTree = "<group>";
+		};
+		8ADB76B02576EB080059CA0B /* loop */ = {
+			isa = PBXGroup;
+			children = (
+				8ADB76B32576ED210059CA0B /* events */,
+				8AC54EB1257427C600FBBA97 /* Event.hpp */,
+				8A5ADB1E25744FF100E71FB4 /* Event.cpp */,
+				8ADB76A32576C8B10059CA0B /* Broadcast.hpp */,
+				8ADB76BD2576F4A80059CA0B /* Broadcast.cpp */,
+				8A5ADB17257437C100E71FB4 /* Loop.hpp */,
+				8A5ADB18257437C100E71FB4 /* Loop.cpp */,
+			);
+			path = loop;
+			sourceTree = "<group>";
+		};
+		8ADB76B32576ED210059CA0B /* events */ = {
+			isa = PBXGroup;
+			children = (
+				8ADB76942576BEBC0059CA0B /* DelayEvent.hpp */,
+				8ADB76932576BEBC0059CA0B /* DelayEvent.cpp */,
+				8ADB76992576C0CB0059CA0B /* FreqEvent.hpp */,
+				8ADB76B52576ED380059CA0B /* FreqEvent.cpp */,
+				8ADB769E2576C1BB0059CA0B /* FrameEvent.hpp */,
+				8ADB76BA2576F2780059CA0B /* FrameEvent.cpp */,
+			);
+			path = events;
 			sourceTree = "<group>";
 		};
 		8AE39CB22565E9C5009C77BC /* selectors */ = {
@@ -443,16 +479,20 @@
 				8AA8BA612571D92400A53B56 /* PaletteSelector.cpp in Sources */,
 				8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */,
 				8ADB76902576A5750059CA0B /* IOStorage.cpp in Sources */,
+				8ADB76952576BEBC0059CA0B /* DelayEvent.cpp in Sources */,
 				8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */,
-				8A5ADB19257437C100E71FB4 /* Cpuloop.cpp in Sources */,
+				8A5ADB19257437C100E71FB4 /* Loop.cpp in Sources */,
 				8AF548EC25648732006AFB51 /* Memory.cpp in Sources */,
 				8A5ADB1F25744FF100E71FB4 /* Event.cpp in Sources */,
 				8A04D28325695EF100891765 /* Filesystem.cpp in Sources */,
 				8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */,
+				8ADB76B62576ED380059CA0B /* FreqEvent.cpp in Sources */,
 				8A24E463255C83E400496F78 /* DisplayView.mm in Sources */,
 				8A24E45A255C806400496F78 /* main.m in Sources */,
 				8AC54EAD257322A400FBBA97 /* PageSelector.cpp in Sources */,
+				8ADB76BE2576F4A80059CA0B /* Broadcast.cpp in Sources */,
 				8AB44F94256FE469006117B1 /* Status.cpp in Sources */,
+				8ADB76BB2576F2780059CA0B /* FrameEvent.cpp in Sources */,
 				8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */,
 				8A5ADB3C2575BCC200E71FB4 /* DefaultDevice.cpp in Sources */,
 				8A24E46A255C85E600496F78 /* Video.cpp in Sources */,

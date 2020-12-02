@@ -18,39 +18,54 @@
 #ifndef Orion_hpp
 #define Orion_hpp
 
-#include "Event.hpp"
-#include "Cpuloop.hpp"
-
 #include "Cpu.hpp"
 #include "Video.hpp"
 #include "Keyboard.hpp"
+#include "Loop.hpp"
 #include "Filesystem.hpp"
 
-#define ORION_FRAME_FREQUENCY   5000
-#define ORION_CPU_FREQUENCY     2500000
+#include "IOBus.hpp"
+#include "Memory.hpp"
+
+#define ORION_CPU_FREQUENCY 2500000
+
+#define DEVICE(type, name) \
+    std::shared_ptr<type> name = std::make_shared<type>()
 
 class Orion
 {
 private:
     
-    std::shared_ptr<Cpu> cpu = std::make_shared<Cpu>();
-    std::shared_ptr<Video> video = std::make_unique<Video>();
-    std::shared_ptr<Keyboard> keyboard = std::make_shared<Keyboard>();
+    DEVICE(Cpu, cpu);
+    DEVICE(Video, video);
+    DEVICE(Keyboard, keyboard);
+    DEVICE(Memory, memory);
+    DEVICE(IOBus, iobus);
     
-    std::unique_ptr<Cpuloop> loop = nullptr;
+private:
+    
+    std::unique_ptr<Loop> loop = nullptr;
     std::unique_ptr<Filesystem> filesystem = nullptr;
+    
+    int actualFrequency = 0;
+
+private:
+    
+    void createMemory();
+    void createDevices();
+    void createSwitches();
     
 public:
     Orion();
     
     // Return current loop frequency
     double getFrequency() const;
-
+    
     // Return video adapter
     std::shared_ptr<Video> getVideo() const;
     
-    void run(int frequency = ORION_CPU_FREQUENCY);
-    void stop();
+    void run  (int frequency = ORION_CPU_FREQUENCY);
+    void stop ();
     
     // Process keyboard events
     void keyevent(unsigned short code, bool isPressed);

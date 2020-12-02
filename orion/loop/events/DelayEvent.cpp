@@ -16,42 +16,10 @@
  */
 
 #include <thread>
-#include <functional>
 
-#include "Cpuloop.hpp"
+#include "DelayEvent.hpp"
 
-Cpuloop::Cpuloop(int frequency, std::shared_ptr<Cpu> cpu) : frequency(frequency), cpu(cpu)
-{
-    add(cpuloop,   &Cpuloop::estimateDelay);
-    add(frequency, &Cpuloop::estimateFrequency);
-}
-
-void Cpuloop::run ()
-{
-    int counter = 0;
-    
-    while (isRunning)
-    {
-        counter++;
-        cpu -> clock();
-        
-        if (counter != lookup)
-            continue;
-        
-        for (auto & event : events) {
-            event -> lookup(counter);
-        }
-        
-        counter = 0;
-    }
-}
-
-void Cpuloop::hold()
-{
-    isRunning = false;
-}
-
-void Cpuloop::estimateDelay(double elapsed, int ticks)
+void DelayEvent::execute(double elapsed, int ticks)
 {
     auto expected = (1.0 / frequency) * ticks;
     
@@ -68,7 +36,7 @@ void Cpuloop::estimateDelay(double elapsed, int ticks)
     this -> delay();
 }
 
-void Cpuloop::delay()
+void DelayEvent::delay()
 {
     auto sleep = std::abs(oversleep);
     auto start = steady_clock::now();
@@ -79,35 +47,14 @@ void Cpuloop::delay()
     );
 
     // Count overrun if thread sleep more that need
-    auto delay = Event::timepassed(start);
+    auto delay = timepassed(start);
     if (delay > sleep)
     {
         oversleep = delay - sleep;
     }
 }
 
-void Cpuloop::estimateFrequency (double elapsed, int ticks)
+int DelayEvent::getLimit()
 {
-    currFreq = ticks / elapsed;
-}
-
-double Cpuloop::getFrequency() const
-{
-    return currFreq;
-}
-
-void Cpuloop::add (int ticks, void (Cpuloop::*event)(double, int))
-{
-    add(ticks, [=] (double elapsed, int ticks) {
-        (this->*event)(elapsed, ticks);
-    });
-}
-
-void Cpuloop::add(int ticks, Event::action command)
-{
-    if (lookup == 0 || lookup > ticks)
-        lookup = ticks;
-    
-    auto event = std::make_unique<Event>(ticks, command);
-    events.push_back(std::move(event));
+    return ORION_DELAY_CYCLES;
 }

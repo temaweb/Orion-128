@@ -17,8 +17,6 @@
 
 #include "Orion.hpp"
 
-#include "IOSplitter.hpp"
-
 #include "Disk.hpp"
 #include "System.hpp"
 #include "MonitorRom.hpp"
@@ -27,35 +25,133 @@
 #include "PaletteSelector.hpp"
 #include "ScreenSelector.hpp"
 
+#include "DelayEvent.hpp"
+#include "FrameEvent.hpp"
+#include "FreqEvent.hpp"
+
+#include "IOSplitter.hpp"
+
 Orion::Orion()
 {
-    auto memory = std::make_shared<Memory>();
-
-    auto iobus = std::make_shared<IOBus>();
-    auto iospl = std::make_shared<IOSplitter> (iobus);
+    // IO Splitter process requests from CPU IN/OUT instructions
+    auto iospl  = std::make_shared<IOSplitter> (iobus);
     
-    iobus -> insertR  <MonitorRom> ();
-    iobus -> insertRW <System>();
-    iobus -> insertRW (memory);
-    iobus -> insertRW (keyboard);
     
-    iobus -> insertRW <Disk>();
+    // Create basic memory
+    //
+    // 0x0000 - 0xF000 - 4 x 60 KB RAM
+    // 0xF000 - 0xF400 - System RAM
+    // 0xF800 - 0XFFFF - ROM BIOS (Monitor)
     
-    iobus -> insertW  <PageSelector>    (memory);
-    iobus -> insertW  <PaletteSelector> (video);
-    iobus -> insertW  <ScreenSelector>  (video);
+    createMemory();
+    
+    
+    // Create devices
+    //
+    // 0xF400 - 0xF4FF - Keyboard (8x8 keys)
+    // 0xF500 - 0xF5FF - ROM Disk (ORDOS)
+    
+    createDevices();
+    
+    
+    // Create system switches
+    //
+    // 0xF800 - 0xF8FF - Color mode selector
+    // 0xF900 - 0xF9FF - Memory pages switcher
+    // 0xFA00 - 0xFAFF - Screen selector
+    
+    createSwitches();
+    
+    
+    // Connect video memory to video out
+    //
+    // 0xС000 — 0xEFFF - Screen #0 (Default)
+    // 0x8000 — 0xAFFF - Screen #1
+    // 0x4000 — 0x6FFF - Screen #2
+    // 0x0000 — 0x2FFF - Screen #3
     
     video -> connect(memory);
+    
 
+    // Connect bus and splitter to CPU
+    //
+    // ALL    instructions → bus
+    // IN/OUT instructions → splitter → bus
+    
     cpu   -> connect(iobus);
     cpu   -> connect(iospl);
 
+    // ORDOS filesystem 
     filesystem = std::make_unique<Filesystem>(memory);
 }
 
+void Orion::createMemory()
+{
+    // Monitor ROM (BIOS)
+    //
+    // 2 KB
+    // 0xF800 - 0XFFFF (R/O)
+    
+    iobus -> createR  <MonitorRom> ();
+    
+    // System memory (System stack, etc)
+    //
+    // 2 KB
+    // 0xF000 - 0xF400 (R/W)
+    
+    iobus -> createRW <System>();
+    
+    // Paged RAM (contains video memory)
+    //
+    // 4 x 60 KB
+    // 0x0000 - 0xF000 (R/W)
+    
+    iobus -> insertRW (memory);
+}
+
+void Orion::createDevices()
+{
+    // Keyboard (8 x 8 matrix)
+    //
+    // 0xF400 - 0xF4FF (R/W)
+    
+    iobus -> insertRW (keyboard);
+    
+    // ROM disk (ORDOS)
+    //
+    // 0xF500 - 0xF5FF (R/W)
+    
+    iobus -> createRW <Disk>();
+}
+
+void Orion::createSwitches()
+{
+    // Color mode selector (B/W, Color4, 16...)
+    //
+    // System #1
+    // 0xF800 - 0xF8FF (W/O)
+    
+    iobus -> createW  <PaletteSelector> (video);
+    
+    // Memory pages switcher
+    //
+    // System #2
+    // 0xF900 - 0xF9FF (W/O)
+    
+    iobus -> createW  <PageSelector> (memory);
+    
+    // Video screen selector
+    //
+    // System #3
+    // 0xFA00 - 0xFAFF (W/O)
+    
+    iobus -> createW  <ScreenSelector>  (video);
+}
+
+// Return current loop frequency
 double Orion::getFrequency() const
 {
-    return loop -> getFrequency();
+    return actualFrequency;
 }
 
 std::shared_ptr<Video> Orion::getVideo() const
@@ -65,12 +161,22 @@ std::shared_ptr<Video> Orion::getVideo() const
 
 void Orion::run(int frequency)
 {
-    loop = std::make_unique<Cpuloop>(frequency, cpu);
+    // Create main CPU loop and add routines
+    loop = std::make_unique<Loop>(cpu);
     
-    loop -> add(ORION_FRAME_FREQUENCY, [this](double, int) {
-        video -> createFrame();
-    });
+    // This event emulate 2.5 MHz loop (see @frequency)
+    // Call every 10000 CPU clock
+    loop -> create<DelayEvent> (frequency);
     
+    // This event calculate actual loop frequency
+    // Call every @frequency CPU clock
+    loop -> create<FreqEvent>  (frequency, actualFrequency);
+    
+    // This event create video frame
+    // Call every 5000 CPU clock
+    loop -> create<FrameEvent> (video);
+
+    // CPU run
     loop -> run();
 }
 
@@ -88,5 +194,3 @@ void Orion::createFile(std::string path)
 {
     filesystem -> create(path);
 }
-
-

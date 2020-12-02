@@ -15,48 +15,37 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Cpuloop_hpp
-#define Cpuloop_hpp
-
-#include <chrono>
-#include <vector>
-#include <functional>
+#ifndef Loop_hpp
+#define Loop_hpp
 
 #include "Cpu.hpp"
 #include "Event.hpp"
+#include "Broadcast.hpp"
 
-class Cpuloop
+class Loop
 {
 private:
-    
-    // Estimate cpu delay after @cpuloop cycles
-    static const int cpuloop = 10000;
-
-    int    frequency = 0;
-    int    lookup  = 0;
-    double oversleep = 0.0;
-    double currFreq  = 0.0;
+    int lookup  = 0;
     
     volatile bool isRunning = true;
     
     std::shared_ptr<Cpu> cpu;
-    std::vector<std::unique_ptr<Event>> events;
-
-    void delay ();
-    void estimateDelay     (double elapsed, int ticks);
-    void estimateFrequency (double elapsed, int ticks);
+    Broadcast broadcast;
     
-    void add (int ticks, void (Cpuloop::*event)(double, int));
+    void insert (const std::shared_ptr<Event> & event);
     
 public:
-    Cpuloop(int frequency, std::shared_ptr<Cpu> cpu);
-    
-    double getFrequency() const;
-    
+    Loop(std::shared_ptr<Cpu> cpu) : cpu(cpu)
+    { }
+
     void run ();
     void hold ();
-    
-    void add (int ticks, Event::action event);
+
+    template<class T, class ...Args>
+    void create (Args&& ...args)
+    {
+        insert(std::make_shared<T>(std::forward<Args>(args)...));
+    }
 };
 
-#endif /* Cpuloop_hpp */
+#endif /* Loop_hpp */

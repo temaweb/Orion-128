@@ -15,34 +15,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Event.hpp"
+#include "FreqEvent.hpp"
 
-void Event::execute () const
+void FreqEvent::execute(double elapsed, int ticks)
 {
-    double elapsed = timepassed(start);
-    callback(elapsed, limit);
+    actual = ticks / elapsed;
 }
 
-void Event::lookup (short counter)
+int FreqEvent::getLimit()
 {
-    count += counter;
-    
-    if (count < limit)
-        return;
-    
-    execute();
-
-    count = 0;
-    start = steady_clock::now();
-}
-
-double Event::timepassed(time start)
-{
-    duration<double> elapsed = steady_clock::now() - start;
-    return elapsed.count();
-}
-
-int Event::getLimit()
-{
-    return limit;
+    return frequency;
 }

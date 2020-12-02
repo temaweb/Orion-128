@@ -15,40 +15,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Event_hpp
-#define Event_hpp
+#ifndef DelayEvent_hpp
+#define DelayEvent_hpp
 
-#include <chrono>
-#include <functional>
+#define ORION_DELAY_CYCLES 10000
 
-using namespace std::chrono;
+#include "Event.hpp"
 
-class Event
+class DelayEvent : public Event
 {
-public:
-    typedef std::function<void(double, int)> action;
-    
 private:
-    
-    using time = steady_clock::time_point;
-    
-    int count = 0;
-    int limit = 0;
+    double oversleep = 0.0;
+    int frequency = 0;
 
-    Event::action callback = nullptr;
-    time start = steady_clock::now();
-    
-    void execute () const;
+    void delay();
     
 public:
-
-    Event(int limit, action callback) : limit(limit), callback(callback)
+    DelayEvent(int frequency) : frequency(frequency)
     { }
     
-    void lookup (short counter);
-    static double timepassed(time start);
-    
-    int getLimit();
+    virtual int getLimit() override;
+    virtual void execute(double elapsed, int ticks) override;
 };
 
-#endif /* Event_hpp */
+#endif /* DelayEvent_hpp */
