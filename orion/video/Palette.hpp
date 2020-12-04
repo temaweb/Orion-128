@@ -8,7 +8,6 @@
 #ifndef Palette_h
 #define Palette_h
 
-#include <cstdint>
 #include "Pixel.hpp"
 
 class Palette

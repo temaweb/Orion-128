@@ -25,12 +25,11 @@ struct Resolution
 class Video
 {
 private:
+    static const int width  = 384; // H points
+    static const int height = 256; // V points
     
-    static const int width  = 384;         // H points
-    static const int height = 256;         // V points
-    
-    typedef std::array<std::array<Pixel, width>, height> frame;
     typedef std::array<Pixel, width> line;
+    typedef std::array<line, height> frame;
     
     static const BWPalette bwpalette;
     
@@ -43,13 +42,18 @@ private:
     }
     colorMode;
     
-    VideoRam::buffer frameBuffer {};
-    VideoRam::buffer colorBuffer {};
+    // Video buffer
+    vbuffer pixelBuffer {};
+    vbuffer colorBuffer {};
+    
+    // Frame buffer
+    vbuffer framePixelBuffer {};
+    vbuffer frameColorBuffer {};
     
     mutable std::shared_mutex _mutex;
     
 private:
-    std::shared_ptr<const VideoRam> memory = nullptr;
+    std::shared_ptr<const VideoRam> videoRam;
 
     line getLine(uint8_t row) const;
     
@@ -57,19 +61,23 @@ private:
     void colorise16 (line & line, size_t size, uint8_t data, uint16_t address) const;
     void colorise   (line & line, size_t size, uint8_t data, const Palette & palette) const;
     
+    void swapBuffers ();
+    
 public:
+    Video(std::shared_ptr<const VideoRam> videoRam) : videoRam(videoRam)
+    { }
     
     // Return one frame with resolution 384 x 256 pixels
     // Each pixel has b/w color in RGB hex-format.
-    std::array<std::array<Pixel, width>, height> output() const;
+    std::array<std::array<Pixel, width>, height> output();
 
     // Connect memory bus
-    void connect(std::shared_ptr<const VideoRam> memory);
+    void connect(std::shared_ptr<const VideoRam> videoRam);
 
-    void updateBuffers ();
+    void refreshBuffer ();
     void setColorMode  (uint8_t mode);
     
-    bool isChanged();
+    bool isChanged() const;
     
     // Return video resolution
     Resolution getResolution() const

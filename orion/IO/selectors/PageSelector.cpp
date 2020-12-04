@@ -33,5 +33,5 @@ void PageSelector::write (uint16_t, uint8_t data)
     // - 1 0  additional page #2
     // - 1 1  additional page #3
     
-    memory -> switchPage(data & 0x03);
+    memory -> setPage((Memory::Page)(data & 0x03));
 }

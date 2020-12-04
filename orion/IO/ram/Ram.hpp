@@ -15,14 +15,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "FrameEvent.hpp"
+#ifndef Ram_hpp
+#define Ram_hpp
 
-void FrameEvent::execute(double elapsed, int ticks)
-{
-    video -> refreshBuffer();
-}
+#include <array>
+#include <cstdint>
 
-int FrameEvent::getLimit()
-{
-    return ORION_FRAME_CYCLES;
-}
+typedef std::array<uint8_t, 60 * 1024> pagetype;
+typedef std::array<uint8_t, 12 * 1024> vbuffer;
+
+#endif /* Ram_hpp */

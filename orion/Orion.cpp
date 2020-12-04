@@ -20,6 +20,7 @@
 #include "Disk.hpp"
 #include "System.hpp"
 #include "MonitorRom.hpp"
+#include "RamtestRom.hpp"
 
 #include "PageSelector.hpp"
 #include "PaletteSelector.hpp"
@@ -32,12 +33,11 @@
 #include "IOSplitter.hpp"
 
 Orion::Orion()
-{   
+{
+    vram  = memory -> getVideoRam();
+    
     // IO Splitter process requests from CPU IN/OUT instructions
     auto iospl = std::make_shared<IOSplitter> (iobus);
-    
-    // Video memory space
-    vram  = std::make_shared<VideoRam>(memory);
     
     // Create basic memory
     //
@@ -56,15 +56,6 @@ Orion::Orion()
     createDevices();
     
     
-    // Create system switches
-    //
-    // 0xF800 - 0xF8FF - Color mode selector
-    // 0xF900 - 0xF9FF - Memory pages switcher
-    // 0xFA00 - 0xFAFF - Screen selector
-    
-    createSwitches();
-    
-    
     // Connect video memory to video out
     //
     // 0xС000 — 0xEFFF - Screen #0 (Default)
@@ -72,7 +63,16 @@ Orion::Orion()
     // 0x4000 — 0x6FFF - Screen #2
     // 0x0000 — 0x2FFF - Screen #3
     
-    video -> connect(vram);
+    video = std::make_shared<Video>(vram);
+    
+    
+    // Create system switches
+    //
+    // 0xF800 - 0xF8FF - Color mode selector
+    // 0xF900 - 0xF9FF - Memory pages switcher
+    // 0xFA00 - 0xFAFF - Screen selector
+    
+    createSwitches();
     
 
     // Connect bus and splitter to CPU
@@ -83,6 +83,9 @@ Orion::Orion()
     cpu   -> connect(iobus);
     cpu   -> connect(iospl);
 
+    // Set programm counter to begin of ROM
+    cpu   -> setCounter (Rom<>::begin);
+    
     // CP/M filesystem
     filesystem = std::make_unique<Filesystem>(memory);
 }
@@ -147,7 +150,7 @@ void Orion::createSwitches()
     // System #3
     // 0xFA00 - 0xFAFF (W/O)
     
-    iobus -> createW  <ScreenSelector>  (vram);
+    iobus -> createW  <ScreenSelector> (vram);
 }
 
 // Return current loop frequency

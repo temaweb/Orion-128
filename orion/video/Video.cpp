@@ -14,14 +14,12 @@
 
 const BWPalette Video::bwpalette = BWPalette();
 
-void Video::connect(std::shared_ptr<const VideoRam> memory)
+bool Video::isChanged() const
 {
-    this -> memory = memory;
-}
-
-bool Video::isChanged()
-{
-    return true;
+    if (pixelBuffer != framePixelBuffer)
+        return true;
+    
+    return colorBuffer != frameColorBuffer;
 }
 
 void Video::setColorMode  (uint8_t mode)
@@ -29,18 +27,25 @@ void Video::setColorMode  (uint8_t mode)
     colorMode = (ColorMode) (mode >> 1);
 }
 
-void Video::updateBuffers ()
+void Video::refreshBuffer ()
 {
     std::unique_lock lock(_mutex);
     
-    memory -> readFrame(frameBuffer.begin());
-    memory -> readColor(colorBuffer.begin());
+    videoRam -> readPixel(pixelBuffer.begin());
+    videoRam -> readColor(colorBuffer.begin());
+}
+
+void Video::swapBuffers()
+{
+    framePixelBuffer = pixelBuffer;
+    frameColorBuffer = colorBuffer;
 }
 
 // Returns one frame
-std::array<std::array<Pixel, Video::width>, Video::height> Video::output() const
+std::array<std::array<Pixel, Video::width>, Video::height> Video::output()
 {
     std::shared_lock lock(_mutex);
+    swapBuffers();
     
     uint8_t row = 0x00;
     frame frame;
@@ -67,7 +72,7 @@ std::array<Pixel, Video::width> Video::getLine(uint8_t row) const
         
         // One byte video data has 8 points on screen
         // Each set bit match drawed point on screen.
-        uint8_t data = frameBuffer[address];
+        uint8_t data = framePixelBuffer[address];
         
         switch (colorMode)
         {
@@ -114,7 +119,7 @@ void Video::colorise16(line & line, size_t size, uint8_t data, uint16_t address)
 {
     // Read data by address from second page
     // Second page store data about colors;
-    auto color = colorBuffer[address];
+    auto color = frameColorBuffer[address];
     auto palette = Color16Palette(color);
     
     colorise(line, size, data, palette);

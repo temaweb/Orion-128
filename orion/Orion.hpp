@@ -38,7 +38,6 @@ class Orion
 private:
     
     DEVICE(Cpu, cpu);
-    DEVICE(Video, video);
     DEVICE(Keyboard, keyboard);
     DEVICE(Memory, memory);
     DEVICE(IOBus, iobus);
@@ -47,7 +46,8 @@ private:
     
     std::unique_ptr<Loop> loop = nullptr;
     std::unique_ptr<Filesystem> filesystem = nullptr;
-    std::shared_ptr<VideoRam> vram = nullptr;
+    std::shared_ptr<VideoRam> vram;
+    std::shared_ptr<Video> video;
     
     int actualFrequency = 0;
 

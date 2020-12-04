@@ -18,37 +18,41 @@
 #ifndef VideoRam_hpp
 #define VideoRam_hpp
 
-#include "Memory.hpp"
+#include <array>
+
+#include "Ram.hpp"
 #include "IODevice.hpp"
 
 class VideoRam
 {
-public:
-    typedef std::array<uint8_t, 12 * 1024> buffer;
+private:
+    constexpr static std::array<AddressSpace, 4> spaces
+    {{
+        { 0xC000, 0xFFFF }, // Screen #0 (Default)
+        { 0x8000, 0xB000 }, // Screen #1
+        { 0x4000, 0x7000 }, // Screen #2
+        { 0x0000, 0x3000 }  // Screen #3
+    }};
+
+    AddressSpace screen;
+    
+    pagetype::const_iterator frame;
+    pagetype::const_iterator color;
     
 private:
-    std::shared_ptr<const Memory> memory;
-    std::array<AddressSpace, 4> screenSpaces
-    {{
-        { 0xC000, 0xEFFF }, // Screen #0 (Default)
-        { 0x8000, 0xAFFF }, // Screen #1
-        { 0x4000, 0x6FFF }, // Screen #2
-        { 0x0000, 0x2FFF }  // Screen #3
-    }};
-    
-    uint8_t screen = 0x00;
+    void copy (pagetype::const_iterator page, vbuffer::iterator begin) const;
     
 public:
+
+    VideoRam (
+        pagetype::const_iterator frame,
+        pagetype::const_iterator color
+    );
     
-    VideoRam(std::shared_ptr<const Memory> memory);
-    
-    void readFrame (uint8_t * begin) const;
-    void readColor (uint8_t * begin) const;
+    void readPixel (vbuffer::iterator buffer) const;
+    void readColor (vbuffer::iterator buffer) const;
 
     void setScreenMode (uint8_t mode);
-    
-private:
-    void copy (uint8_t * begin, uint8_t page) const;
 };
 
 #endif /* VideoRam_hpp */

@@ -17,26 +17,32 @@
 
 #include "VideoRam.hpp"
 
-VideoRam::VideoRam(std::shared_ptr<const Memory> memory) : memory(memory)
-{ }
+VideoRam::VideoRam (
+   pagetype::const_iterator frame,
+   pagetype::const_iterator color) : frame(frame), color(color)
+{
+    setScreenMode(0x00);
+}
 
 void VideoRam::setScreenMode (uint8_t mode)
 {
-    screen = mode;
+    screen = spaces[mode];
 }
 
-void VideoRam::readFrame (uint8_t * begin) const
+void VideoRam::readPixel (vbuffer::iterator buffer) const
 {
-    copy (begin, 0x00);
+    copy (frame, buffer);
 }
 
-void VideoRam::readColor (uint8_t * begin) const
+void VideoRam::readColor (vbuffer::iterator buffer) const
 {
-    copy (begin, 0x01);
+    copy (color, buffer);
 }
 
-void VideoRam::copy (uint8_t * begin, uint8_t page) const
+void VideoRam::copy (pagetype::const_iterator page, vbuffer::iterator buffer) const
 {
-    auto screenSpace = screenSpaces[screen];
-    memory -> copy(screenSpace, begin, page);
+    auto from = std::next(page, screen.from);
+    auto to   = std::next(page, screen.to);
+
+    std::copy (from, to, buffer);
 }

@@ -95,6 +95,7 @@
 		8A6A210725605A31009A8B71 /* RamtestRom.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = RamtestRom.hpp; sourceTree = "<group>"; };
 		8A77D83F256DE02A00B0278C /* IO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IO.hpp; sourceTree = "<group>"; };
 		8A77D849256DE3BA00B0278C /* IOSplitter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = IOSplitter.hpp; sourceTree = "<group>"; };
+		8A86BFE9257A194B00D5261E /* Ram.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ram.hpp; sourceTree = "<group>"; };
 		8AA40DB22577628B00172CE0 /* VideoRam.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VideoRam.cpp; sourceTree = "<group>"; };
 		8AA40DB32577628B00172CE0 /* VideoRam.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoRam.hpp; sourceTree = "<group>"; };
 		8AA63D1425619331007CF426 /* Keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
@@ -218,6 +219,7 @@
 		8A301589256453CF0071D523 /* ram */ = {
 			isa = PBXGroup;
 			children = (
+				8A86BFE9257A194B00D5261E /* Ram.hpp */,
 				8AE39C8D25658DB5009C77BC /* System.hpp */,
 				8AE39C8C25658DB5009C77BC /* System.cpp */,
 				8AF548EA25648732006AFB51 /* Memory.hpp */,

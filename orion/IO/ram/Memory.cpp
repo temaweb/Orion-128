@@ -19,15 +19,22 @@
 
 Memory::Memory()
 {
-    // JMP to 0xF800
-    memory[0x00][0x0000] = 0xC3;
-    memory[0x00][0x0001] = 0x00;
-    memory[0x00][0x0002] = 0xF8;
+    setPage(A);
+    
+    auto video = ram[A].begin();
+    auto color = ram[B].begin();
+    
+    videoRam = std::make_shared<VideoRam>(video, color);
 }
 
-void Memory::switchPage(uint8_t page)
+void Memory::setPage(Page mode)
 {
-    this -> page = page;
+    page = ram[mode].begin();
+}
+
+std::shared_ptr<VideoRam> Memory::getVideoRam() const
+{
+    return videoRam;
 }
 
 AddressSpace Memory::getSpace() const
@@ -41,30 +48,15 @@ AddressSpace Memory::getSpace() const
 
 uint8_t Memory::read (const uint16_t address) const
 {
-    return read(address, page);
-}
-
-uint8_t Memory::read (const uint16_t address, uint8_t page) const
-{
-    return memory[page][address];
+    return page[address];
 }
 
 void Memory::write (const uint16_t address, uint8_t data)
 {
-    write(address, data, page);
+    page[address] = data;
 }
 
-void Memory::write (const uint16_t address, uint8_t data, uint8_t page)
+void Memory::writeB (uint16_t address, uint8_t data)
 {
-    memory[page][address] = data;
-}
-
-void Memory::copy(AddressSpace space, uint8_t * begin, uint8_t page) const
-{
-    auto ram = memory[page];
-    
-    auto from = std::next(ram.begin(), space.from);
-    auto to   = std::prev(ram.end(),   getSpace().to - space.to);
-    
-    std::copy (from, to, begin);
+    ram[B][address] = data;
 }

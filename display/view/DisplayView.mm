@@ -97,7 +97,7 @@
     static int shapes = 12;
     
     int row = 0;
-    for (auto & line : video -> output())
+    for (auto line : video -> output())
     {
         int col = 0;
         for (auto & pixel : line)

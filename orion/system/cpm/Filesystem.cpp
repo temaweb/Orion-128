@@ -53,8 +53,8 @@ void Filesystem::create(std::string path)
     
     for (uint16_t i = 0; i < len; i++)
     {
-        memory -> write(i, *ptr++, 0x01);
+        memory -> writeB(i, *ptr++);
     }
     
-    memory -> write(len, 0xff, 0x01);
+    memory -> writeB(len, 0xff);
 }

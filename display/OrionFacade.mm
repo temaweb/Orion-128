@@ -13,7 +13,7 @@
 #pragma mark -
 #pragma mark private
 
-std::unique_ptr<Orion> _orion = std::make_unique<Orion>();
+std::unique_ptr<Orion> _orion; // = std::make_unique<Orion>();
 
 #pragma mark -
 #pragma mark public
