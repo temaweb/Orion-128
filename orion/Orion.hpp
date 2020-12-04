@@ -44,12 +44,12 @@ private:
     
 private:
     
-    std::unique_ptr<Loop> loop = nullptr;
-    std::unique_ptr<Filesystem> filesystem = nullptr;
-    std::shared_ptr<VideoRam> vram;
+    std::unique_ptr<Loop> loop;
+    std::unique_ptr<Filesystem> filesystem;
     std::shared_ptr<Video> video;
+    std::shared_ptr<VideoRam> vram;
     
-    int actualFrequency = 0;
+    int actual = 0;
 
 private:
     

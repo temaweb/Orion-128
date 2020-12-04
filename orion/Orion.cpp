@@ -82,9 +82,11 @@ Orion::Orion()
     
     cpu   -> connect(iobus);
     cpu   -> connect(iospl);
+    
 
-    // Set programm counter to begin of ROM
+    // Set program counter at the beginning of ROM
     cpu   -> setCounter (Rom<>::begin);
+    
     
     // CP/M filesystem
     filesystem = std::make_unique<Filesystem>(memory);
@@ -156,7 +158,7 @@ void Orion::createSwitches()
 // Return current loop frequency
 double Orion::getFrequency() const
 {
-    return actualFrequency;
+    return actual;
 }
 
 std::shared_ptr<Video> Orion::getVideo() const
@@ -175,7 +177,7 @@ void Orion::run(int frequency)
     
     // This event calculate actual loop frequency
     // Call every @frequency CPU clock
-    loop -> create<FreqEvent>  (frequency, actualFrequency);
+    loop -> create<FreqEvent>  (frequency, &actual);
     
     // This event create video frame
     // Call every 5000 CPU clock

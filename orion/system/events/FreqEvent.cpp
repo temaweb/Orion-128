@@ -19,7 +19,7 @@
 
 void FreqEvent::execute(double elapsed, int ticks)
 {
-    actual = ticks / elapsed;
+    *actual = ticks / elapsed;
 }
 
 int FreqEvent::getLimit()
