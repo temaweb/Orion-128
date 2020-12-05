@@ -7,12 +7,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-#include <cstdint>
-#include <vector>
-#include "Video.hpp"
-
-#import "AppDelegate.h"
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated"
 

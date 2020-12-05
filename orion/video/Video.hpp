@@ -57,15 +57,6 @@ public:
     
     // Returns true if frame buffer differs from video buffer
     bool isChanged() const;
-    
-    struct Resolution
-    {
-        const int width;
-        const int height;
-    };
-    
-    // Return video resolution
-    static Resolution getResolution();
 };
 
 #endif /* Video_hpp */

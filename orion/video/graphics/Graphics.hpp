@@ -15,37 +15,35 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Buffer.hpp"
+#ifndef Graphics_hpp
+#define Graphics_hpp
 
-vbuffer::iterator Buffer::getPixelsIterator()
+#include "GraphicsContext.hpp"
+#include "Video.hpp"
+
+class Graphics
 {
-    return pixels.begin();
-}
+private:
+    std::shared_ptr<Video> video;
+    std::unique_ptr<GraphicsContext> context;
+    
+    static const short pixelVertices;
+    
+public:
+    Graphics(std::shared_ptr<Video> video);
+    
+    void initialize();
+    void render (double width, double height);
+    
+private:
+    
+    void renderPixels (float width, float height);
+    void renderPixels (float width, float height, int total);
+    
+    void drawColor (float * colors, Pixel pixel);
+    void drawPixel (float * pixels, int col, int row, float width, float height);
+    
+    uint16_t getSize(int total);
+};
 
-vbuffer::iterator Buffer::getColorsIterator()
-{
-    return colors.begin();
-}
-
-bool Buffer::operator==(const Buffer & buffer) const
-{
-    if (pixels != buffer.pixels)
-        return false;
-
-    return colors == buffer.colors;
-}
-
-bool Buffer::operator!=(const Buffer & buffer) const
-{
-    return !(*this == buffer);
-}
-
-uint8_t Buffer::readFrame(uint16_t address) const
-{
-    return pixels[address];
-}
-
-uint8_t Buffer::readColor(uint16_t address) const
-{
-    return colors[address];
-}
+#endif /* Graphics_hpp */

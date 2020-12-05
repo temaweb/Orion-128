@@ -25,8 +25,8 @@ struct Buffer
     vbuffer pixels {};
     vbuffer colors {};
     
-    vbuffer::iterator getPixel();
-    vbuffer::iterator getColor();
+    vbuffer::iterator getPixelsIterator();
+    vbuffer::iterator getColorsIterator();
     
     bool operator==(const Buffer & buffer) const;
     bool operator!=(const Buffer & buffer) const;

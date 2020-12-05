@@ -31,8 +31,8 @@ void VideoRam::setScreenMode (uint8_t mode)
 
 void VideoRam::read (Buffer & buffer) const
 {
-    copy (frame, buffer.getPixel());
-    copy (color, buffer.getColor());
+    copy (frame, buffer.getPixelsIterator());
+    copy (color, buffer.getColorsIterator());
 }
 
 void VideoRam::copy (pagetype::const_iterator page, vbuffer::iterator buffer) const

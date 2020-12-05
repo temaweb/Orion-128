@@ -15,37 +15,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Buffer.hpp"
+#ifndef Keys_h
+#define Keys_h
 
-vbuffer::iterator Buffer::getPixelsIterator()
+enum Keys
 {
-    return pixels.begin();
-}
+    
+};
 
-vbuffer::iterator Buffer::getColorsIterator()
-{
-    return colors.begin();
-}
-
-bool Buffer::operator==(const Buffer & buffer) const
-{
-    if (pixels != buffer.pixels)
-        return false;
-
-    return colors == buffer.colors;
-}
-
-bool Buffer::operator!=(const Buffer & buffer) const
-{
-    return !(*this == buffer);
-}
-
-uint8_t Buffer::readFrame(uint16_t address) const
-{
-    return pixels[address];
-}
-
-uint8_t Buffer::readColor(uint16_t address) const
-{
-    return colors[address];
-}
+#endif /* Keys_h */

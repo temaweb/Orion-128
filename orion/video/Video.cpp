@@ -71,12 +71,3 @@ Renderer::frame Video::output()
     swapBuffer();
     return renderer -> renderFrame(&frameBuffer);
 }
-
-Video::Resolution Video::getResolution()
-{
-    return
-    {
-        Renderer::width,
-        Renderer::height
-    };
-}

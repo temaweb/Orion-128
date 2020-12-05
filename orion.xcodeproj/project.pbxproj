@@ -17,6 +17,7 @@
 		8A24E463255C83E400496F78 /* DisplayView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E462255C83E400496F78 /* DisplayView.mm */; };
 		8A24E46A255C85E600496F78 /* Video.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A24E3E7255C4E1E00496F78 /* Video.cpp */; };
 		8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AB9437A254A187200636CA0 /* Cpu.cpp */; };
+		8A2D2CE4257C337B00F2DCC3 /* GraphicsContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A2D2CE2257C337B00F2DCC3 /* GraphicsContext.cpp */; };
 		8A3015742564251F0071D523 /* rom in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A30157025640C400071D523 /* rom */; };
 		8A301577256425230071D523 /* monitor in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A24E3E4255C480700496F78 /* monitor */; };
 		8A5ADB19257437C100E71FB4 /* Loop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB18257437C100E71FB4 /* Loop.cpp */; };
@@ -45,6 +46,7 @@
 		8AEE1D94257AEFF200E69FFA /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1D92257AEFF200E69FFA /* Buffer.cpp */; };
 		8AEE1D99257BA19500E69FFA /* Pixel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1D98257BA19500E69FFA /* Pixel.cpp */; };
 		8AEE1DB1257BEE6A00E69FFA /* BlankPalette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1DAF257BEE6A00E69FFA /* BlankPalette.cpp */; };
+		8AEE1DC2257C1B0300E69FFA /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1DC0257C1B0300E69FFA /* Graphics.cpp */; };
 		8AEE66432566FCE30007586F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AEE66452566FCE30007586F /* Localizable.strings */; };
 		8AEE6679256749A40007586F /* OrionFacade.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE6678256749A40007586F /* OrionFacade.mm */; };
 		8AF548EC25648732006AFB51 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AF548E925648732006AFB51 /* Memory.cpp */; };
@@ -84,6 +86,8 @@
 		8A24E459255C806400496F78 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8A24E461255C83E400496F78 /* DisplayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		8A24E462255C83E400496F78 /* DisplayView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisplayView.mm; sourceTree = "<group>"; };
+		8A2D2CE2257C337B00F2DCC3 /* GraphicsContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GraphicsContext.cpp; sourceTree = "<group>"; };
+		8A2D2CE3257C337B00F2DCC3 /* GraphicsContext.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GraphicsContext.hpp; sourceTree = "<group>"; };
 		8A3015632563FC720071D523 /* Disk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Disk.hpp; sourceTree = "<group>"; };
 		8A30157025640C400071D523 /* rom */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rom; sourceTree = "<group>"; };
 		8A4C1E50254ED0EB00ED6E1E /* Status.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Status.hpp; sourceTree = "<group>"; };
@@ -151,6 +155,9 @@
 		8AEE1D98257BA19500E69FFA /* Pixel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Pixel.cpp; sourceTree = "<group>"; };
 		8AEE1DAF257BEE6A00E69FFA /* BlankPalette.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BlankPalette.cpp; sourceTree = "<group>"; };
 		8AEE1DB0257BEE6A00E69FFA /* BlankPalette.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlankPalette.hpp; sourceTree = "<group>"; };
+		8AEE1DBE257C191000E69FFA /* Keys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Keys.h; sourceTree = "<group>"; };
+		8AEE1DC0257C1B0300E69FFA /* Graphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Graphics.cpp; sourceTree = "<group>"; };
+		8AEE1DC1257C1B0300E69FFA /* Graphics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Graphics.hpp; sourceTree = "<group>"; };
 		8AEE66442566FCE30007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AEE664B2566FD8F0007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		8AEE66502566FF6B0007586F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -207,6 +214,7 @@
 		8A24E3E6255C4E0A00496F78 /* video */ = {
 			isa = PBXGroup;
 			children = (
+				8AEE1DBF257C1A8B00E69FFA /* graphics */,
 				8AEE1D84257ADB6800E69FFA /* renderer */,
 				8AEE1D93257AEFF200E69FFA /* Buffer.hpp */,
 				8AEE1D92257AEFF200E69FFA /* Buffer.cpp */,
@@ -278,6 +286,7 @@
 			children = (
 				8AA63D1525619331007CF426 /* Keyboard.hpp */,
 				8AA63D1425619331007CF426 /* Keyboard.cpp */,
+				8AEE1DBE257C191000E69FFA /* Keys.h */,
 			);
 			path = keyboard;
 			sourceTree = "<group>";
@@ -438,6 +447,17 @@
 			path = palette;
 			sourceTree = "<group>";
 		};
+		8AEE1DBF257C1A8B00E69FFA /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				8AEE1DC0257C1B0300E69FFA /* Graphics.cpp */,
+				8AEE1DC1257C1B0300E69FFA /* Graphics.hpp */,
+				8A2D2CE2257C337B00F2DCC3 /* GraphicsContext.cpp */,
+				8A2D2CE3257C337B00F2DCC3 /* GraphicsContext.hpp */,
+			);
+			path = graphics;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
@@ -537,8 +557,10 @@
 				8AEE1D89257ADD7800E69FFA /* Color16Renderer.cpp in Sources */,
 				8AA8BA612571D92400A53B56 /* PaletteSelector.cpp in Sources */,
 				8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */,
+				8A2D2CE4257C337B00F2DCC3 /* GraphicsContext.cpp in Sources */,
 				8ADB76902576A5750059CA0B /* IOStorage.cpp in Sources */,
 				8ADB76952576BEBC0059CA0B /* DelayEvent.cpp in Sources */,
+				8AEE1DC2257C1B0300E69FFA /* Graphics.cpp in Sources */,
 				8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */,
 				8AEE1D99257BA19500E69FFA /* Pixel.cpp in Sources */,
 				8A5ADB19257437C100E71FB4 /* Loop.cpp in Sources */,

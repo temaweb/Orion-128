@@ -15,37 +15,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Buffer.hpp"
+#ifndef GraphicsContext_hpp
+#define GraphicsContext_hpp
 
-vbuffer::iterator Buffer::getPixelsIterator()
+#include <OpenGL/gl.h>
+
+class GraphicsContext
 {
-    return pixels.begin();
-}
+private:
+    GLuint vertexBuffer;
+    GLuint colorBuffer;
 
-vbuffer::iterator Buffer::getColorsIterator()
-{
-    return colors.begin();
-}
+public:
+    void initialize();
+    void initializeLayout(GLdouble width, GLdouble height);
+    
+    void flush();
+    void flushBuffers (float * pixels, float * colors, uint16_t size);
+};
 
-bool Buffer::operator==(const Buffer & buffer) const
-{
-    if (pixels != buffer.pixels)
-        return false;
-
-    return colors == buffer.colors;
-}
-
-bool Buffer::operator!=(const Buffer & buffer) const
-{
-    return !(*this == buffer);
-}
-
-uint8_t Buffer::readFrame(uint16_t address) const
-{
-    return pixels[address];
-}
-
-uint8_t Buffer::readColor(uint16_t address) const
-{
-    return colors[address];
-}
+#endif /* GraphicsContext_hpp */
