@@ -15,12 +15,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "BWColorizer.hpp"
+#ifndef GenericRenderer_hpp
+#define GenericRenderer_hpp
 
-BWColorizer::BWColorizer(std::shared_ptr<const VideoBuffer> buffer) : Colorizer(buffer)
-{ }
+#include "Renderer.hpp"
 
-std::shared_ptr<Palette> BWColorizer::getPalette(uint16_t) const
+template<class T>
+class GenericRenderer : public Renderer
 {
-    return bwpalette;
-}
+private:
+    std::shared_ptr<T> palette = std::make_shared<T>();
+    
+public:
+    virtual std::shared_ptr<Palette> getPalette(Buffer *, uint16_t) const override
+    {
+        return palette;
+    }
+};
+
+#endif /* GenericRenderer_hpp */

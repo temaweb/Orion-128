@@ -21,11 +21,11 @@
 #include <array>
 
 #include "Ram.hpp"
-#include "VideoBuffer.hpp"
+#include "Buffer.hpp"
 #include "Pixel.hpp"
 #include "Palette.hpp"
 
-class Colorizer
+class Renderer
 {
 public:
     
@@ -38,21 +38,21 @@ public:
 private:
     
     // Return 256 pixel frame line
-    frameline getLine(uint8_t row) const;
+    frameline getLine(Buffer * buffer, uint8_t row) const;
     
     // Colorize 8 pixels
-    void colorise (frameline::iterator & line, uint8_t data, uint16_t address) const;
+    void colorise (frameline::iterator & line, uint8_t data, std::shared_ptr<Palette> palette) const;
     
 public:
-    Colorizer(std::shared_ptr<const VideoBuffer> buffer);
-    virtual ~Colorizer() = default;
+    
+    virtual ~Renderer() = default;
     
     // Return one frame with resolution 384 x 256 pixels
-    frame getFrame() const;
+    frame renderFrame(Buffer * buffer) const;
     
 protected:
-    std::shared_ptr<const VideoBuffer> buffer;
-    virtual std::shared_ptr<Palette> getPalette(uint16_t address) const = 0;
+    Buffer buffer;
+    virtual std::shared_ptr<Palette> getPalette(Buffer * buffer, uint16_t address) const = 0;
 };
 
 #endif /* Colorizer_hpp */

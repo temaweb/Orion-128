@@ -23,53 +23,49 @@
 #include <shared_mutex>
 
 #include "VideoRam.hpp"
-#include "Colorizer.hpp"
-
-struct Resolution
-{
-    const int width;
-    const int height;
-};
+#include "Renderer.hpp"
 
 class Video
 {
 private:
-    enum ColorMode
-    {
-        MONO    = 0,  // B/W color
-        BLANK   = 1,  // No image
-        COLOR4  = 2,  // 4 color palette
-        COLOR16 = 3   // 16 color palettex
-    };
-    
-    std::unique_ptr<Colorizer> colorizer;
-    std::shared_mutex mutex;
+    static const std::array<std::shared_ptr<const Renderer>, 4> renders;
     
 private:
+    std::shared_mutex mutex;
+    
     std::shared_ptr<const VideoRam> vram;
-    std::shared_ptr<VideoBuffer> buffer;
+    std::shared_ptr<const Renderer> renderer;
+    
+    Buffer videoBuffer {};
+    Buffer frameBuffer {};
+    
+    // Set video buffer as current frame buffer
+    void swapBuffer ();
     
 public:
     Video(std::shared_ptr<const VideoRam> vram);
     
     // Return one frame with resolution 384 x 256 pixels
     // Each pixel has color in RGB hex-format.
-    Colorizer::frame output();
+    Renderer::frame output();
 
-    void refreshBuffer ();
+    // Update video buffer
+    void refresh ();
+    
+    // Change color palette
     void setColorMode  (uint8_t mode);
     
+    // Returns true if frame buffer differs from video buffer
     bool isChanged() const;
     
-    // Return video resolution
-    Resolution getResolution() const
+    struct Resolution
     {
-        return
-        {
-            Colorizer::width,
-            Colorizer::height
-        };
-    }
+        const int width;
+        const int height;
+    };
+    
+    // Return video resolution
+    static Resolution getResolution();
 };
 
 #endif /* Video_hpp */

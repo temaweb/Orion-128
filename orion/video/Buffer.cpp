@@ -27,7 +27,7 @@ vbuffer::iterator Buffer::getColor()
     return colors.begin();
 }
 
-bool Buffer::operator==(const Buffer & buffer)
+bool Buffer::operator==(const Buffer & buffer) const
 {
     if (pixels != buffer.pixels)
         return false;
@@ -35,7 +35,17 @@ bool Buffer::operator==(const Buffer & buffer)
     return colors == buffer.colors;
 }
 
-bool Buffer::operator!=(const Buffer & buffer)
+bool Buffer::operator!=(const Buffer & buffer) const
 {
     return !(*this == buffer);
+}
+
+uint8_t Buffer::readFrame(uint16_t address) const
+{
+    return pixels[address];
+}
+
+uint8_t Buffer::readColor(uint16_t address) const
+{
+    return colors[address];
 }

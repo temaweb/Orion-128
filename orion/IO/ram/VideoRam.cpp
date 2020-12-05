@@ -29,14 +29,10 @@ void VideoRam::setScreenMode (uint8_t mode)
     screen = spaces[mode];
 }
 
-void VideoRam::readPixel (vbuffer::iterator buffer) const
+void VideoRam::read (Buffer & buffer) const
 {
-    copy (frame, buffer);
-}
-
-void VideoRam::readColor (vbuffer::iterator buffer) const
-{
-    copy (color, buffer);
+    copy (frame, buffer.getPixel());
+    copy (color, buffer.getColor());
 }
 
 void VideoRam::copy (pagetype::const_iterator page, vbuffer::iterator buffer) const

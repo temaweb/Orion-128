@@ -15,21 +15,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BWColorizer_hpp
-#define BWColorizer_hpp
+#include "Color16Renderer.hpp"
+#include "Color16Palette.hpp"
 
-#include "Colorizer.hpp"
-#include "BWPalette.hpp"
-
-class BWColorizer : public Colorizer
+std::shared_ptr<Palette> Color16Renderer::getPalette(Buffer * buffer, uint16_t address) const
 {
-private:
-    std::shared_ptr<Palette> bwpalette = std::make_shared<BWPalette>();
+    auto color = buffer -> readColor(address);
+    auto palette = std::make_shared<Color16Palette>(color);
     
-public:
-    BWColorizer(std::shared_ptr<const VideoBuffer> buffer);
-    
-    virtual std::shared_ptr<Palette> getPalette(uint16_t) const override;
-};
-
-#endif /* BWColorizer_hpp */
+    return palette;
+}

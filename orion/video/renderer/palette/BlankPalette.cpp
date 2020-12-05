@@ -15,18 +15,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Color16Colorizer_hpp
-#define Color16Colorizer_hpp
+#include "BlankPalette.hpp"
 
-#include "Colorizer.hpp"
-#include "Color16Palette.hpp"
-
-class Color16Colorizer : public Colorizer
+Pixel BlankPalette::getBackground() const
 {
-public:
-    Color16Colorizer(std::shared_ptr<const VideoBuffer> buffer);
-    
-    virtual std::shared_ptr<Palette> getPalette(uint16_t address) const override;
-};
+    return Pixel();
+}
 
-#endif /* Color16Colorizer_hpp */
+Pixel BlankPalette::getForeground() const
+{
+    return getBackground();
+}

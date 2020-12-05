@@ -24,7 +24,7 @@
 		8A5ADB3C2575BCC200E71FB4 /* DefaultDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A5ADB3A2575BCC200E71FB4 /* DefaultDevice.cpp */; };
 		8A86BFEF257AB85B00D5261E /* Color16Palette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A86BFEE257AB85B00D5261E /* Color16Palette.cpp */; };
 		8A86BFF2257AB93C00D5261E /* BWPalette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A86BFF1257AB93C00D5261E /* BWPalette.cpp */; };
-		8A86BFF8257AC03A00D5261E /* Colorizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A86BFF6257AC03A00D5261E /* Colorizer.cpp */; };
+		8A86BFF8257AC03A00D5261E /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A86BFF6257AC03A00D5261E /* Renderer.cpp */; };
 		8AA40DB42577628B00172CE0 /* VideoRam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA40DB22577628B00172CE0 /* VideoRam.cpp */; };
 		8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5CF255F48B00048C4DE /* Orion.cpp */; };
 		8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AA63D1425619331007CF426 /* Keyboard.cpp */; };
@@ -41,11 +41,10 @@
 		8ADB76CA25775B7A0059CA0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ADB76C925775B7A0059CA0B /* Images.xcassets */; };
 		8ADCB5B7255DF8410048C4DE /* WindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8ADCB5B6255DF8410048C4DE /* WindowController.mm */; };
 		8AE39C8F25658DB5009C77BC /* System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AE39C8C25658DB5009C77BC /* System.cpp */; };
-		8AEE1D7D257ACD5900E69FFA /* VideoBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1D7B257ACD5900E69FFA /* VideoBuffer.cpp */; };
-		8AEE1D82257ADB5D00E69FFA /* BWColorizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1D80257ADB5D00E69FFA /* BWColorizer.cpp */; };
-		8AEE1D89257ADD7800E69FFA /* Color16Colorizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1D87257ADD7800E69FFA /* Color16Colorizer.cpp */; };
+		8AEE1D89257ADD7800E69FFA /* Color16Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1D87257ADD7800E69FFA /* Color16Renderer.cpp */; };
 		8AEE1D94257AEFF200E69FFA /* Buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1D92257AEFF200E69FFA /* Buffer.cpp */; };
 		8AEE1D99257BA19500E69FFA /* Pixel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1D98257BA19500E69FFA /* Pixel.cpp */; };
+		8AEE1DB1257BEE6A00E69FFA /* BlankPalette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1DAF257BEE6A00E69FFA /* BlankPalette.cpp */; };
 		8AEE66432566FCE30007586F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AEE66452566FCE30007586F /* Localizable.strings */; };
 		8AEE6679256749A40007586F /* OrionFacade.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE6678256749A40007586F /* OrionFacade.mm */; };
 		8AF548EC25648732006AFB51 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AF548E925648732006AFB51 /* Memory.cpp */; };
@@ -106,8 +105,8 @@
 		8A86BFE9257A194B00D5261E /* Ram.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Ram.hpp; sourceTree = "<group>"; };
 		8A86BFEE257AB85B00D5261E /* Color16Palette.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Color16Palette.cpp; sourceTree = "<group>"; };
 		8A86BFF1257AB93C00D5261E /* BWPalette.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BWPalette.cpp; sourceTree = "<group>"; };
-		8A86BFF6257AC03A00D5261E /* Colorizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Colorizer.cpp; sourceTree = "<group>"; };
-		8A86BFF7257AC03A00D5261E /* Colorizer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Colorizer.hpp; sourceTree = "<group>"; };
+		8A86BFF6257AC03A00D5261E /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		8A86BFF7257AC03A00D5261E /* Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Renderer.hpp; sourceTree = "<group>"; };
 		8AA40DB22577628B00172CE0 /* VideoRam.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VideoRam.cpp; sourceTree = "<group>"; };
 		8AA40DB32577628B00172CE0 /* VideoRam.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoRam.hpp; sourceTree = "<group>"; };
 		8AA63D1425619331007CF426 /* Keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Keyboard.cpp; sourceTree = "<group>"; };
@@ -144,15 +143,14 @@
 		8AE39C8D25658DB5009C77BC /* System.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = System.hpp; sourceTree = "<group>"; };
 		8AE39CB32565E9E1009C77BC /* PaletteSelector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PaletteSelector.hpp; sourceTree = "<group>"; };
 		8AE39CB42565E9F0009C77BC /* ScreenSelector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ScreenSelector.hpp; sourceTree = "<group>"; };
-		8AEE1D7B257ACD5900E69FFA /* VideoBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VideoBuffer.cpp; sourceTree = "<group>"; };
-		8AEE1D7C257ACD5900E69FFA /* VideoBuffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VideoBuffer.hpp; sourceTree = "<group>"; };
-		8AEE1D80257ADB5D00E69FFA /* BWColorizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BWColorizer.cpp; sourceTree = "<group>"; };
-		8AEE1D81257ADB5D00E69FFA /* BWColorizer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BWColorizer.hpp; sourceTree = "<group>"; };
-		8AEE1D87257ADD7800E69FFA /* Color16Colorizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Color16Colorizer.cpp; sourceTree = "<group>"; };
-		8AEE1D88257ADD7800E69FFA /* Color16Colorizer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Color16Colorizer.hpp; sourceTree = "<group>"; };
+		8AEE1D81257ADB5D00E69FFA /* GenericRenderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GenericRenderer.hpp; sourceTree = "<group>"; };
+		8AEE1D87257ADD7800E69FFA /* Color16Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Color16Renderer.cpp; sourceTree = "<group>"; };
+		8AEE1D88257ADD7800E69FFA /* Color16Renderer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Color16Renderer.hpp; sourceTree = "<group>"; };
 		8AEE1D92257AEFF200E69FFA /* Buffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Buffer.cpp; sourceTree = "<group>"; };
 		8AEE1D93257AEFF200E69FFA /* Buffer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Buffer.hpp; sourceTree = "<group>"; };
 		8AEE1D98257BA19500E69FFA /* Pixel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Pixel.cpp; sourceTree = "<group>"; };
+		8AEE1DAF257BEE6A00E69FFA /* BlankPalette.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BlankPalette.cpp; sourceTree = "<group>"; };
+		8AEE1DB0257BEE6A00E69FFA /* BlankPalette.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BlankPalette.hpp; sourceTree = "<group>"; };
 		8AEE66442566FCE30007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AEE664B2566FD8F0007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		8AEE66502566FF6B0007586F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -209,16 +207,13 @@
 		8A24E3E6255C4E0A00496F78 /* video */ = {
 			isa = PBXGroup;
 			children = (
-				8A86BFEC257AB74300D5261E /* palette */,
-				8AEE1D84257ADB6800E69FFA /* colorize */,
-				8A24E3E8255C4E1E00496F78 /* Video.hpp */,
-				8A24E3E7255C4E1E00496F78 /* Video.cpp */,
-				8AB1C4402566E230002B614A /* Pixel.hpp */,
-				8AEE1D98257BA19500E69FFA /* Pixel.cpp */,
-				8AEE1D7C257ACD5900E69FFA /* VideoBuffer.hpp */,
-				8AEE1D7B257ACD5900E69FFA /* VideoBuffer.cpp */,
+				8AEE1D84257ADB6800E69FFA /* renderer */,
 				8AEE1D93257AEFF200E69FFA /* Buffer.hpp */,
 				8AEE1D92257AEFF200E69FFA /* Buffer.cpp */,
+				8AB1C4402566E230002B614A /* Pixel.hpp */,
+				8AEE1D98257BA19500E69FFA /* Pixel.cpp */,
+				8A24E3E8255C4E1E00496F78 /* Video.hpp */,
+				8A24E3E7255C4E1E00496F78 /* Video.cpp */,
 			);
 			path = video;
 			sourceTree = "<group>";
@@ -276,18 +271,6 @@
 				8A6A210725605A31009A8B71 /* RamtestRom.hpp */,
 			);
 			path = rom;
-			sourceTree = "<group>";
-		};
-		8A86BFEC257AB74300D5261E /* palette */ = {
-			isa = PBXGroup;
-			children = (
-				8AB1C43D2566E1E2002B614A /* Palette.hpp */,
-				8A04D2672568A5DF00891765 /* BWPalette.hpp */,
-				8A86BFF1257AB93C00D5261E /* BWPalette.cpp */,
-				8A04D26F2568A5F500891765 /* Color16Palette.hpp */,
-				8A86BFEE257AB85B00D5261E /* Color16Palette.cpp */,
-			);
-			path = palette;
 			sourceTree = "<group>";
 		};
 		8AA63D132561931E007CF426 /* keyboard */ = {
@@ -428,17 +411,31 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		8AEE1D84257ADB6800E69FFA /* colorize */ = {
+		8AEE1D84257ADB6800E69FFA /* renderer */ = {
 			isa = PBXGroup;
 			children = (
-				8A86BFF7257AC03A00D5261E /* Colorizer.hpp */,
-				8A86BFF6257AC03A00D5261E /* Colorizer.cpp */,
-				8AEE1D81257ADB5D00E69FFA /* BWColorizer.hpp */,
-				8AEE1D80257ADB5D00E69FFA /* BWColorizer.cpp */,
-				8AEE1D88257ADD7800E69FFA /* Color16Colorizer.hpp */,
-				8AEE1D87257ADD7800E69FFA /* Color16Colorizer.cpp */,
+				8AEE1DA9257BED9100E69FFA /* palette */,
+				8A86BFF7257AC03A00D5261E /* Renderer.hpp */,
+				8A86BFF6257AC03A00D5261E /* Renderer.cpp */,
+				8AEE1D81257ADB5D00E69FFA /* GenericRenderer.hpp */,
+				8AEE1D88257ADD7800E69FFA /* Color16Renderer.hpp */,
+				8AEE1D87257ADD7800E69FFA /* Color16Renderer.cpp */,
 			);
-			path = colorize;
+			path = renderer;
+			sourceTree = "<group>";
+		};
+		8AEE1DA9257BED9100E69FFA /* palette */ = {
+			isa = PBXGroup;
+			children = (
+				8AB1C43D2566E1E2002B614A /* Palette.hpp */,
+				8A04D2672568A5DF00891765 /* BWPalette.hpp */,
+				8A86BFF1257AB93C00D5261E /* BWPalette.cpp */,
+				8A04D26F2568A5F500891765 /* Color16Palette.hpp */,
+				8A86BFEE257AB85B00D5261E /* Color16Palette.cpp */,
+				8AEE1DB0257BEE6A00E69FFA /* BlankPalette.hpp */,
+				8AEE1DAF257BEE6A00E69FFA /* BlankPalette.cpp */,
+			);
+			path = palette;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -536,9 +533,8 @@
 				8AE39C8F25658DB5009C77BC /* System.cpp in Sources */,
 				8A24E452255C806400496F78 /* ViewController.mm in Sources */,
 				8AA8BA652571DB9200A53B56 /* ScreenSelector.cpp in Sources */,
-				8AEE1D82257ADB5D00E69FFA /* BWColorizer.cpp in Sources */,
 				8AEE6679256749A40007586F /* OrionFacade.mm in Sources */,
-				8AEE1D89257ADD7800E69FFA /* Color16Colorizer.cpp in Sources */,
+				8AEE1D89257ADD7800E69FFA /* Color16Renderer.cpp in Sources */,
 				8AA8BA612571D92400A53B56 /* PaletteSelector.cpp in Sources */,
 				8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */,
 				8ADB76902576A5750059CA0B /* IOStorage.cpp in Sources */,
@@ -553,7 +549,6 @@
 				8A5ADB1F25744FF100E71FB4 /* Event.cpp in Sources */,
 				8A04D28325695EF100891765 /* Filesystem.cpp in Sources */,
 				8A24E46D255C85EB00496F78 /* Cpu.cpp in Sources */,
-				8AEE1D7D257ACD5900E69FFA /* VideoBuffer.cpp in Sources */,
 				8ADB76B62576ED380059CA0B /* FreqEvent.cpp in Sources */,
 				8A24E463255C83E400496F78 /* DisplayView.mm in Sources */,
 				8A24E45A255C806400496F78 /* main.m in Sources */,
@@ -561,8 +556,9 @@
 				8ADB76BE2576F4A80059CA0B /* Broadcast.cpp in Sources */,
 				8AB44F94256FE469006117B1 /* Status.cpp in Sources */,
 				8ADB76BB2576F2780059CA0B /* FrameEvent.cpp in Sources */,
+				8AEE1DB1257BEE6A00E69FFA /* BlankPalette.cpp in Sources */,
 				8AA63D0D25605DC9007CF426 /* Orion.cpp in Sources */,
-				8A86BFF8257AC03A00D5261E /* Colorizer.cpp in Sources */,
+				8A86BFF8257AC03A00D5261E /* Renderer.cpp in Sources */,
 				8A5ADB3C2575BCC200E71FB4 /* DefaultDevice.cpp in Sources */,
 				8A24E46A255C85E600496F78 /* Video.cpp in Sources */,
 				8AA8BA782572678100A53B56 /* IOSplitter.cpp in Sources */,

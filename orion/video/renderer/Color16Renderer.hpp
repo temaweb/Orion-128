@@ -15,33 +15,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "VideoBuffer.hpp"
+#ifndef Color16Renderer_hpp
+#define Color16Renderer_hpp
 
-VideoBuffer::VideoBuffer(std::shared_ptr<const VideoRam> vram) : vram(vram)
-{ }
+#include "Renderer.hpp"
 
-void VideoBuffer::refreshBuffer()
+class Color16Renderer : public Renderer
 {
-    vram -> readPixel(videoBuffer.getPixel());
-    vram -> readColor(videoBuffer.getColor());
-}
+public:
+    virtual std::shared_ptr<Palette> getPalette(Buffer * buffer, uint16_t address) const override;
+};
 
-void VideoBuffer::exchangeBuffer()
-{
-    frameBuffer = videoBuffer;
-}
-
-bool VideoBuffer::isChanged()
-{
-    return frameBuffer != videoBuffer;
-}
-
-uint8_t VideoBuffer::readFrameBuffer(uint16_t address) const
-{
-    return frameBuffer.pixels[address];
-}
-
-uint8_t VideoBuffer::readColorBuffer(uint16_t address) const
-{
-    return frameBuffer.colors[address];
-}
+#endif /* Color16Renderer_hpp */

@@ -15,26 +15,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Colorizer.hpp"
+#include "Renderer.hpp"
 
-Colorizer::Colorizer(std::shared_ptr<const VideoBuffer> buffer) : buffer(buffer)
-{ }
-
-Colorizer::frame Colorizer::getFrame() const
+Renderer::frame Renderer::renderFrame(Buffer * buffer) const
 {
     uint8_t row = 0x00;
     frame frame;
 
     do
     {
-        frameline line = getLine(row);
+        frameline line = getLine(buffer, row);
         frame[row] = line;
     }
     while (row++ != height - 1);
     return frame;
 }
 
-Colorizer::frameline Colorizer::getLine(uint8_t row) const
+Renderer::frameline Renderer::getLine(Buffer * buffer, uint8_t row) const
 {
     frameline line;
     frameline::iterator lineit = line.begin();
@@ -47,19 +44,21 @@ Colorizer::frameline Colorizer::getLine(uint8_t row) const
         
         // One byte video data has 8 points on screen
         // Each set bit match drawed point on screen.
-        uint8_t data = buffer -> readFrameBuffer(address);
+        uint8_t data = buffer -> readFrame(address);
 
+        // Get current palette
+        // TODO: Bad design. Palette should be one of whole frame
+        auto palette = getPalette(buffer, address);
+        
         // Colorize pixel data by palettes
-        colorise(lineit, data, address);
+        colorise(lineit, data, palette);
     }
     
     return line;
 }
 
-void Colorizer::colorise (frameline::iterator & line, uint8_t data, uint16_t address) const
+void Renderer::colorise (frameline::iterator & line, uint8_t data, std::shared_ptr<Palette> palette) const
 {
-    auto palette = getPalette(address);
-    
     for (uint8_t offset = 0x08; offset > 0x00;)
     {
         // Background pixel by default if no data

@@ -18,7 +18,7 @@
 #ifndef Buffer_hpp
 #define Buffer_hpp
 
-#include "VideoRam.hpp"
+#include "Ram.hpp"
 
 struct Buffer
 {
@@ -28,8 +28,11 @@ struct Buffer
     vbuffer::iterator getPixel();
     vbuffer::iterator getColor();
     
-    bool operator==(const Buffer & buffer);
-    bool operator!=(const Buffer & buffer);
+    bool operator==(const Buffer & buffer) const;
+    bool operator!=(const Buffer & buffer) const;
+    
+    uint8_t readFrame(uint16_t address) const;
+    uint8_t readColor(uint16_t address) const;
 };
 
 #endif /* Buffer_hpp */

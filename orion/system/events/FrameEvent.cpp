@@ -19,7 +19,7 @@
 
 void FrameEvent::execute(double elapsed, int ticks)
 {
-    video -> refreshBuffer();
+    video -> refresh();
 }
 
 int FrameEvent::getLimit()

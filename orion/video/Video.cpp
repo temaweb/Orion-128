@@ -17,42 +17,66 @@
 
 #include "Video.hpp"
 
-#include "Color16Colorizer.hpp"
-#include "BWColorizer.hpp"
+#include "Color16Renderer.hpp"
+#include "GenericRenderer.hpp"
+
+#include "BWPalette.hpp"
+#include "BlankPalette.hpp"
+
+const std::array<std::shared_ptr<const Renderer>, 4> Video::renders
+{
+    // B/W color
+    std::make_shared<GenericRenderer<BWPalette>>(),
+    
+    // No image
+    std::make_shared<GenericRenderer<BlankPalette>>(),
+    
+    // 4 color palette (not supported)
+    std::make_shared<GenericRenderer<BWPalette>>(),
+    
+    // 16 color palette
+    std::make_shared<Color16Renderer>()
+};
 
 Video::Video(std::shared_ptr<const VideoRam> vram) : vram(vram)
 {
-    buffer = std::make_shared<VideoBuffer>(vram);
+    // Set B/W as default
     setColorMode(0x00);
 }
 
 void Video::setColorMode (uint8_t mode)
 {
-    switch ((ColorMode) (mode >> 1))
-    {
-        case COLOR16:
-            colorizer = std::make_unique<Color16Colorizer>(buffer);
-            break;
-        default:
-            colorizer = std::make_unique<BWColorizer>(buffer);
-    }
+    renderer = renders[(mode >> 1)];
 }
 
 bool Video::isChanged() const
 {
-    return buffer -> isChanged();
+    return frameBuffer != videoBuffer;
 }
 
-void Video::refreshBuffer ()
+void Video::swapBuffer ()
 {
     std::unique_lock lock(mutex);
-    buffer -> refreshBuffer();
+    frameBuffer = videoBuffer;
 }
 
-Colorizer::frame Video::output()
+void Video::refresh ()
 {
-    std::shared_lock lock(mutex);
-    buffer -> exchangeBuffer();
-    
-    return colorizer -> getFrame();
+    std::unique_lock lock(mutex);
+    vram -> read(videoBuffer);
+}
+
+Renderer::frame Video::output()
+{
+    swapBuffer();
+    return renderer -> renderFrame(&frameBuffer);
+}
+
+Video::Resolution Video::getResolution()
+{
+    return
+    {
+        Renderer::width,
+        Renderer::height
+    };
 }
