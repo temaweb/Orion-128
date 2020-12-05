@@ -15,25 +15,33 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Pixel_hpp
-#define Pixel_hpp
+#include "Pixel.hpp"
 
-#include <new>
-#include <cstdint>
+Pixel::Pixel() : Pixel(0x000000)
+{ }
 
-struct Pixel
+Pixel::Pixel(uint32_t color) : color(color)
+{ }
+
+Pixel::Pixel(const Pixel & pixel) : Pixel(pixel.color)
+{ }
+
+Pixel& Pixel::operator=(const Pixel & pixel)
 {
-    const uint32_t color;
+    return *new(this) Pixel(pixel);
+}
 
-    Pixel();
-    Pixel(uint32_t color);
-    Pixel(const Pixel & pixel);
-    
-    Pixel& operator=(const Pixel & pixel);
-    
-    float getRed()   const;
-    float getGreen() const;
-    float getBlue()  const;
-};
+float Pixel::getRed() const
+{
+    return (float) ((color & 0xFF0000) >> 16) / 255.0;
+}
 
-#endif /* Pixel_hpp */
+float Pixel::getGreen() const
+{
+    return (float) ((color & 0x00FF00) >> 8) / 255.0;
+}
+
+float Pixel::getBlue() const
+{
+    return (float) (color & 0x0000FF) / 255.0;
+}

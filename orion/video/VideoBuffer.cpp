@@ -15,25 +15,33 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Pixel_hpp
-#define Pixel_hpp
+#include "VideoBuffer.hpp"
 
-#include <new>
-#include <cstdint>
+VideoBuffer::VideoBuffer(std::shared_ptr<const VideoRam> vram) : vram(vram)
+{ }
 
-struct Pixel
+void VideoBuffer::refreshBuffer()
 {
-    const uint32_t color;
+    vram -> readPixel(videoBuffer.getPixel());
+    vram -> readColor(videoBuffer.getColor());
+}
 
-    Pixel();
-    Pixel(uint32_t color);
-    Pixel(const Pixel & pixel);
-    
-    Pixel& operator=(const Pixel & pixel);
-    
-    float getRed()   const;
-    float getGreen() const;
-    float getBlue()  const;
-};
+void VideoBuffer::exchangeBuffer()
+{
+    frameBuffer = videoBuffer;
+}
 
-#endif /* Pixel_hpp */
+bool VideoBuffer::isChanged()
+{
+    return frameBuffer != videoBuffer;
+}
+
+uint8_t VideoBuffer::readFrameBuffer(uint16_t address) const
+{
+    return frameBuffer.pixels[address];
+}
+
+uint8_t VideoBuffer::readColorBuffer(uint16_t address) const
+{
+    return frameBuffer.colors[address];
+}

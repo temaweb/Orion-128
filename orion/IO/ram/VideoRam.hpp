@@ -28,7 +28,7 @@ class VideoRam
 private:
     constexpr static std::array<AddressSpace, 4> spaces
     {{
-        { 0xC000, 0xFFFF }, // Screen #0 (Default)
+        { 0xC000, 0xF000 }, // Screen #0 (Default)
         { 0x8000, 0xB000 }, // Screen #1
         { 0x4000, 0x7000 }, // Screen #2
         { 0x0000, 0x3000 }  // Screen #3

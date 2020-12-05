@@ -1,20 +1,29 @@
-//
-//  Video.hpp
-//  orion
-//
-//  Created by Артём Оконечников on 11.11.2020.
-//
+/*
+ * This file is part of the Orion-128 distribution (https://github.com/temaweb/orion-128).
+ * Copyright (c) 2020 Artem Okonechnikov.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #ifndef Video_hpp
 #define Video_hpp
 
 #include <array>
+#include <cstdint>
 #include <shared_mutex>
 
 #include "VideoRam.hpp"
-#include "Palette.hpp"
-#include "BWPalette.hpp"
-#include "Color16Palette.hpp"
+#include "Colorizer.hpp"
 
 struct Resolution
 {
@@ -25,54 +34,27 @@ struct Resolution
 class Video
 {
 private:
-    static const int width  = 384; // H points
-    static const int height = 256; // V points
-    
-    typedef std::array<Pixel, width> line;
-    typedef std::array<line, height> frame;
-    
-    static const BWPalette bwpalette;
-    
     enum ColorMode
     {
         MONO    = 0,  // B/W color
         BLANK   = 1,  // No image
         COLOR4  = 2,  // 4 color palette
         COLOR16 = 3   // 16 color palettex
-    }
-    colorMode;
+    };
     
-    // Video buffer
-    vbuffer pixelBuffer {};
-    vbuffer colorBuffer {};
-    
-    // Frame buffer
-    vbuffer framePixelBuffer {};
-    vbuffer frameColorBuffer {};
-    
-    mutable std::shared_mutex _mutex;
+    std::unique_ptr<Colorizer> colorizer;
+    std::shared_mutex mutex;
     
 private:
-    std::shared_ptr<const VideoRam> videoRam;
-
-    line getLine(uint8_t row) const;
-    
-    void colorisebw (line & line, size_t size, uint8_t data) const;
-    void colorise16 (line & line, size_t size, uint8_t data, uint16_t address) const;
-    void colorise   (line & line, size_t size, uint8_t data, const Palette & palette) const;
-    
-    void swapBuffers ();
+    std::shared_ptr<const VideoRam> vram;
+    std::shared_ptr<VideoBuffer> buffer;
     
 public:
-    Video(std::shared_ptr<const VideoRam> videoRam) : videoRam(videoRam)
-    { }
+    Video(std::shared_ptr<const VideoRam> vram);
     
     // Return one frame with resolution 384 x 256 pixels
-    // Each pixel has b/w color in RGB hex-format.
-    std::array<std::array<Pixel, width>, height> output();
-
-    // Connect memory bus
-    void connect(std::shared_ptr<const VideoRam> videoRam);
+    // Each pixel has color in RGB hex-format.
+    Colorizer::frame output();
 
     void refreshBuffer ();
     void setColorMode  (uint8_t mode);
@@ -84,8 +66,8 @@ public:
     {
         return
         {
-            width,
-            height
+            Colorizer::width,
+            Colorizer::height
         };
     }
 };

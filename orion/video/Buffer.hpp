@@ -15,25 +15,21 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Pixel_hpp
-#define Pixel_hpp
+#ifndef Buffer_hpp
+#define Buffer_hpp
 
-#include <new>
-#include <cstdint>
+#include "VideoRam.hpp"
 
-struct Pixel
+struct Buffer
 {
-    const uint32_t color;
-
-    Pixel();
-    Pixel(uint32_t color);
-    Pixel(const Pixel & pixel);
+    vbuffer pixels {};
+    vbuffer colors {};
     
-    Pixel& operator=(const Pixel & pixel);
+    vbuffer::iterator getPixel();
+    vbuffer::iterator getColor();
     
-    float getRed()   const;
-    float getGreen() const;
-    float getBlue()  const;
+    bool operator==(const Buffer & buffer);
+    bool operator!=(const Buffer & buffer);
 };
 
-#endif /* Pixel_hpp */
+#endif /* Buffer_hpp */

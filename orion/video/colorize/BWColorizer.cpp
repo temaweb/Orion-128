@@ -15,25 +15,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Pixel_hpp
-#define Pixel_hpp
+#include "BWColorizer.hpp"
 
-#include <new>
-#include <cstdint>
+BWColorizer::BWColorizer(std::shared_ptr<const VideoBuffer> buffer) : Colorizer(buffer)
+{ }
 
-struct Pixel
+std::shared_ptr<Palette> BWColorizer::getPalette(uint16_t) const
 {
-    const uint32_t color;
-
-    Pixel();
-    Pixel(uint32_t color);
-    Pixel(const Pixel & pixel);
-    
-    Pixel& operator=(const Pixel & pixel);
-    
-    float getRed()   const;
-    float getGreen() const;
-    float getBlue()  const;
-};
-
-#endif /* Pixel_hpp */
+    return bwpalette;
+}

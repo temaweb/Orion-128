@@ -15,25 +15,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Pixel_hpp
-#define Pixel_hpp
+#include "Buffer.hpp"
 
-#include <new>
-#include <cstdint>
-
-struct Pixel
+vbuffer::iterator Buffer::getPixel()
 {
-    const uint32_t color;
+    return pixels.begin();
+}
 
-    Pixel();
-    Pixel(uint32_t color);
-    Pixel(const Pixel & pixel);
-    
-    Pixel& operator=(const Pixel & pixel);
-    
-    float getRed()   const;
-    float getGreen() const;
-    float getBlue()  const;
-};
+vbuffer::iterator Buffer::getColor()
+{
+    return colors.begin();
+}
 
-#endif /* Pixel_hpp */
+bool Buffer::operator==(const Buffer & buffer)
+{
+    if (pixels != buffer.pixels)
+        return false;
+
+    return colors == buffer.colors;
+}
+
+bool Buffer::operator!=(const Buffer & buffer)
+{
+    return !(*this == buffer);
+}

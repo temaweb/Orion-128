@@ -15,25 +15,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Pixel_hpp
-#define Pixel_hpp
+#include "Color16Colorizer.hpp"
 
-#include <new>
-#include <cstdint>
+Color16Colorizer::Color16Colorizer(std::shared_ptr<const VideoBuffer> buffer) : Colorizer(buffer)
+{ }
 
-struct Pixel
+std::shared_ptr<Palette> Color16Colorizer::getPalette(uint16_t address) const
 {
-    const uint32_t color;
-
-    Pixel();
-    Pixel(uint32_t color);
-    Pixel(const Pixel & pixel);
+    auto color = buffer -> readColorBuffer(address);
+    auto palette = std::make_shared<Color16Palette>(color);
     
-    Pixel& operator=(const Pixel & pixel);
-    
-    float getRed()   const;
-    float getGreen() const;
-    float getBlue()  const;
-};
-
-#endif /* Pixel_hpp */
+    return palette;
+}

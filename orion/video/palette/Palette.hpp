@@ -15,25 +15,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Pixel_hpp
-#define Pixel_hpp
+#ifndef Palette_hpp
+#define Palette_hpp
 
-#include <new>
-#include <cstdint>
+#include "Pixel.hpp"
 
-struct Pixel
+class Palette
 {
-    const uint32_t color;
-
-    Pixel();
-    Pixel(uint32_t color);
-    Pixel(const Pixel & pixel);
-    
-    Pixel& operator=(const Pixel & pixel);
-    
-    float getRed()   const;
-    float getGreen() const;
-    float getBlue()  const;
+public:
+    virtual Pixel getBackground() const = 0;
+    virtual Pixel getForeground() const = 0;
 };
 
-#endif /* Pixel_hpp */
+#endif /* Palette_hpp */

@@ -15,25 +15,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Pixel_hpp
-#define Pixel_hpp
+#include "Color16Palette.hpp"
 
-#include <new>
-#include <cstdint>
+Color16Palette::Color16Palette(uint8_t color) : color(color)
+{ }
 
-struct Pixel
+Pixel Color16Palette::getBackground() const
 {
-    const uint32_t color;
+    return getPixel((color & 0xF0) >> 4);
+}
 
-    Pixel();
-    Pixel(uint32_t color);
-    Pixel(const Pixel & pixel);
-    
-    Pixel& operator=(const Pixel & pixel);
-    
-    float getRed()   const;
-    float getGreen() const;
-    float getBlue()  const;
-};
+Pixel Color16Palette::getForeground() const
+{
+    return getPixel(color & 0x0F);
+}
 
-#endif /* Pixel_hpp */
+Pixel Color16Palette::getPixel(uint8_t code) const
+{
+    auto color = palette[code];
+    return Pixel(color);
+}
