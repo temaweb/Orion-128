@@ -1,0 +1,3 @@
+[submodule "emulator/cpu"]
+	path = emulator/cpu
+	url = https://temaweb@github.com/temaweb/8080.git
