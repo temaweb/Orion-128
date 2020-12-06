@@ -37,7 +37,10 @@ void Graphics::initialize()
 
 void Graphics::render(double width, double height)
 {
+    // Clear buffer, set coordinates mode
     context -> initializeLayout(width, height);
+    
+    // Render pixels frame
     renderPixels(width, height);
 }
 
@@ -63,13 +66,13 @@ void Graphics::renderPixels(float width, float height, int total)
     int index = 0;
     
     // Buffer size
-    uint16_t size  = 0x0000;
+    uint16_t size = 0;
     
     // Frame
-    auto output = video -> output();
+    auto frame = video -> output();
     
     int row = 0;
-    for (auto line = output.rbegin(); line != output.rend(); line++)
+    for (auto line = frame.rbegin(); line != frame.rend(); line++)
     {
         int col = 0;
         for (auto & pixel : *line)
@@ -89,7 +92,7 @@ void Graphics::renderPixels(float width, float height, int total)
             drawColor(&colors[shape], pixel);
             drawPixel(&pixels[shape], col, row, width, height);
             
-            if (--total == 0 || ((index + 1) * pixelVertices) == size)
+            if (--total == 0 || (shape + pixelVertices) == size)
             {
                 context -> flushBuffers(pixels, colors, size);
                 
@@ -143,7 +146,8 @@ void Graphics::drawPixel (float * pixels, int col, int row, float width, float h
 
 uint16_t Graphics::getSize(int total, short vertices)
 {
-    int max = (USHRT_MAX - (USHRT_MAX % vertices));
+    int lim = std::numeric_limits<uint16_t>::max();
+    int max = (lim - (lim % vertices));
     
     if (total >= (max / vertices))
         return max;

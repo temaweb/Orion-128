@@ -24,8 +24,7 @@ Renderer::frame Renderer::renderFrame(Buffer * buffer) const
 
     do
     {
-        frameline line = getLine(buffer, row);
-        frame[row] = line;
+        frame[row] = getLine(buffer, row);
     }
     while (row++ != height - 1);
     return frame;

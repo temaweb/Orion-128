@@ -48,7 +48,6 @@
 		8AEE1DB1257BEE6A00E69FFA /* BlankPalette.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1DAF257BEE6A00E69FFA /* BlankPalette.cpp */; };
 		8AEE1DC2257C1B0300E69FFA /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE1DC0257C1B0300E69FFA /* Graphics.cpp */; };
 		8AEE66432566FCE30007586F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AEE66452566FCE30007586F /* Localizable.strings */; };
-		8AEE6679256749A40007586F /* OrionFacade.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE6678256749A40007586F /* OrionFacade.mm */; };
 		8AF548EC25648732006AFB51 /* Memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AF548E925648732006AFB51 /* Memory.cpp */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +87,8 @@
 		8A24E462255C83E400496F78 /* DisplayView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DisplayView.mm; sourceTree = "<group>"; };
 		8A2D2CE2257C337B00F2DCC3 /* GraphicsContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GraphicsContext.cpp; sourceTree = "<group>"; };
 		8A2D2CE3257C337B00F2DCC3 /* GraphicsContext.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GraphicsContext.hpp; sourceTree = "<group>"; };
+		8A2D2CE7257D388C00F2DCC3 /* Selectors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Selectors.h; sourceTree = "<group>"; };
+		8A2D2CE9257D38F400F2DCC3 /* Events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Events.h; sourceTree = "<group>"; };
 		8A3015632563FC720071D523 /* Disk.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Disk.hpp; sourceTree = "<group>"; };
 		8A30157025640C400071D523 /* rom */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rom; sourceTree = "<group>"; };
 		8A4C1E50254ED0EB00ED6E1E /* Status.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Status.hpp; sourceTree = "<group>"; };
@@ -162,8 +163,6 @@
 		8AEE664B2566FD8F0007586F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		8AEE66502566FF6B0007586F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8AEE66562566FFE00007586F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		8AEE6677256749A40007586F /* OrionFacade.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrionFacade.h; sourceTree = "<group>"; };
-		8AEE6678256749A40007586F /* OrionFacade.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OrionFacade.mm; sourceTree = "<group>"; };
 		8AF548E925648732006AFB51 /* Memory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Memory.cpp; sourceTree = "<group>"; };
 		8AF548EA25648732006AFB51 /* Memory.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -233,8 +232,6 @@
 				8AE39CBF2565F950009C77BC /* controllers */,
 				8AE39CC22565F95B009C77BC /* view */,
 				8A04D27A2568A91000891765 /* localizable */,
-				8AEE6677256749A40007586F /* OrionFacade.h */,
-				8AEE6678256749A40007586F /* OrionFacade.mm */,
 				8A24E44D255C806400496F78 /* AppDelegate.h */,
 				8A24E44E255C806400496F78 /* AppDelegate.mm */,
 				8A24E458255C806400496F78 /* Info.plist */,
@@ -368,6 +365,7 @@
 		8ADB76B32576ED210059CA0B /* events */ = {
 			isa = PBXGroup;
 			children = (
+				8A2D2CE9257D38F400F2DCC3 /* Events.h */,
 				8ADB76942576BEBC0059CA0B /* DelayEvent.hpp */,
 				8ADB76932576BEBC0059CA0B /* DelayEvent.cpp */,
 				8ADB76992576C0CB0059CA0B /* FreqEvent.hpp */,
@@ -390,6 +388,7 @@
 		8AE39CB22565E9C5009C77BC /* selectors */ = {
 			isa = PBXGroup;
 			children = (
+				8A2D2CE7257D388C00F2DCC3 /* Selectors.h */,
 				8AE39C8725657528009C77BC /* PageSelector.hpp */,
 				8AA8BA5D2571D0B900A53B56 /* PageSelector.cpp */,
 				8AE39CB32565E9E1009C77BC /* PaletteSelector.hpp */,
@@ -553,7 +552,6 @@
 				8AE39C8F25658DB5009C77BC /* System.cpp in Sources */,
 				8A24E452255C806400496F78 /* ViewController.mm in Sources */,
 				8AA8BA652571DB9200A53B56 /* ScreenSelector.cpp in Sources */,
-				8AEE6679256749A40007586F /* OrionFacade.mm in Sources */,
 				8AEE1D89257ADD7800E69FFA /* Color16Renderer.cpp in Sources */,
 				8AA8BA612571D92400A53B56 /* PaletteSelector.cpp in Sources */,
 				8AA63D1925619683007CF426 /* Keyboard.cpp in Sources */,

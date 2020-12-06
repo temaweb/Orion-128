@@ -22,18 +22,14 @@
 #include "MonitorRom.hpp"
 #include "RamtestRom.hpp"
 
-#include "PageSelector.hpp"
-#include "PaletteSelector.hpp"
-#include "ScreenSelector.hpp"
-
-#include "DelayEvent.hpp"
-#include "FrameEvent.hpp"
-#include "FreqEvent.hpp"
+#include "Events.h"
+#include "Selectors.h"
 
 #include "IOSplitter.hpp"
 
 Orion::Orion()
 {
+    // Video RAM
     vram  = memory -> getVideoRam();
     
     // IO Splitter process requests from CPU IN/OUT instructions
@@ -99,7 +95,7 @@ void Orion::createMemory()
     // 2 KB
     // 0xF800 - 0XFFFF (R/O)
     
-    iobus -> createR  <MonitorRom> ();
+    iobus -> createR  <RamtestRom> ();
     
     // System memory (System stack, etc)
     //

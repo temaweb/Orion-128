@@ -16,11 +16,6 @@
     [super viewDidLoad];
 }
 
-- (void)setupMetal
-{
-
-}
-
 - (void)setRepresentedObject:(id)representedObject
 {
     [super setRepresentedObject:representedObject];
