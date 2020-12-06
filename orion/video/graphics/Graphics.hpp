@@ -43,7 +43,7 @@ private:
     void drawColor (float * colors, Pixel pixel);
     void drawPixel (float * pixels, int col, int row, float width, float height);
     
-    uint16_t getSize(int total);
+    uint16_t getSize(int total, short vertices);
 };
 
 #endif /* Graphics_hpp */

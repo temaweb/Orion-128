@@ -15,7 +15,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstddef>
 #include "GraphicsContext.hpp"
 
 #pragma clang diagnostic push
@@ -49,18 +48,22 @@ void GraphicsContext::flush()
 
 void GraphicsContext::flushBuffers(float * pixels, float * colors, uint16_t size)
 {
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(*pixels) * size, pixels, GL_STATIC_DRAW);
-    glVertexPointer(3, GL_FLOAT, 0, NULL);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(*colors) * size, colors, GL_STATIC_DRAW);
+    bindBuffer(vertexBuffer, pixels, size);
+    glVertexPointer(3, GL_FLOAT, 0, nullptr);
+
+    bindBuffer(colorBuffer, colors, size);
     
     glEnableClientState(GL_COLOR_ARRAY);
-    glColorPointer(3, GL_FLOAT, 0, NULL);
+    glColorPointer(3, GL_FLOAT, 0, nullptr);
     
     glEnableClientState(GL_VERTEX_ARRAY);
     glDrawArrays(GL_QUADS, 0, size / 2);
+}
+
+void GraphicsContext::bindBuffer (GLuint & vbo, float * buffer, uint16_t size)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(*buffer) * size, buffer, GL_STATIC_DRAW);
 }
 
 #pragma clang diagnostic pop

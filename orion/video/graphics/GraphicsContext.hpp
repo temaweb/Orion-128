@@ -32,6 +32,7 @@ public:
     
     void flush();
     void flushBuffers (float * pixels, float * colors, uint16_t size);
+    void bindBuffer   (GLuint & vbo,   float * buffer, uint16_t size);
 };
 
 #endif /* GraphicsContext_hpp */

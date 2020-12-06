@@ -450,10 +450,10 @@
 		8AEE1DBF257C1A8B00E69FFA /* graphics */ = {
 			isa = PBXGroup;
 			children = (
-				8AEE1DC0257C1B0300E69FFA /* Graphics.cpp */,
 				8AEE1DC1257C1B0300E69FFA /* Graphics.hpp */,
-				8A2D2CE2257C337B00F2DCC3 /* GraphicsContext.cpp */,
+				8AEE1DC0257C1B0300E69FFA /* Graphics.cpp */,
 				8A2D2CE3257C337B00F2DCC3 /* GraphicsContext.hpp */,
+				8A2D2CE2257C337B00F2DCC3 /* GraphicsContext.cpp */,
 			);
 			path = graphics;
 			sourceTree = "<group>";

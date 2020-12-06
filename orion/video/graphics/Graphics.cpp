@@ -55,16 +55,17 @@ void Graphics::renderPixels (float width, float height)
 
 void Graphics::renderPixels(float width, float height, int total)
 {
-    // GL Arrays
+    // Vertex buffers
     float * pixels = nullptr;
     float * colors = nullptr;
     
-    // Current GL array index
+    // Current vertex buffer index
     int index = 0;
     
-    // Array size
+    // Buffer size
     uint16_t size  = 0x0000;
     
+    // Frame
     auto output = video -> output();
     
     int row = 0;
@@ -76,7 +77,7 @@ void Graphics::renderPixels(float width, float height, int total)
             int shape = index * pixelVertices;
             if (shape == size)
             {
-                size = getSize(total);
+                size = getSize(total, pixelVertices);
                 
                 pixels = new float[size];
                 colors = new float[size];
@@ -140,14 +141,14 @@ void Graphics::drawPixel (float * pixels, int col, int row, float width, float h
     }
 }
 
-uint16_t Graphics::getSize(int total)
+uint16_t Graphics::getSize(int total, short vertices)
 {
-    int max = (USHRT_MAX - (USHRT_MAX % pixelVertices));
+    int max = (USHRT_MAX - (USHRT_MAX % vertices));
     
-    if (total >= (max / pixelVertices))
+    if (total >= (max / vertices))
         return max;
     
-    return total * pixelVertices;
+    return total * vertices;
 }
 
 #pragma clang diagnostic pop
