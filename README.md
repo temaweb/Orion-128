@@ -16,11 +16,3 @@
 * Операционные системы: ORDOS 2.40/4.03, CP/M 2.2, SPDOS, DSDOS
 * Написанные любителями и адаптированные игры
 
-ORDOS
-
-![alt text](materials/orion16.png?raw=true)
-
-Игра Zoo
-
-![alt text](materials/zoo.png?raw=true)
-
