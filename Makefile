@@ -5,33 +5,30 @@ CC=g++
 TARGET=libemulator.so
 
 # Buld directory
-BUILDDIR=build
 SOURCEDIR=emulator
 
 # Compiller flags
-CFLAGS=-std=c++17 -c -Wall -I/**
+CFLAGS=-std=c++17 -c -Wall $(INCDIRS)
 
 # Linker flags
-LDFLAGS=-lstdc++
+LDFLAGS=-lstdc++ -framework OpenGL
 
-SOURCES=$(wildcard $(SOURCEDIR)/*.cpp)
-OBJECTS=$(patsubst $(SOURCEDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
+SOURCES = $(shell find $(SOURCEDIR) -type f -iname '*.cpp')
+OBJECTS = $(foreach x, $(basename $(SOURCES)), $(x).o)
+INCDIRS = $(addprefix -I,$(shell find $(SOURCEDIR) -type d -print))
 
-all: dir $(SOURCES) $(BUILDDIR)/$(TARGET)
+all: $(SOURCES) $(TARGET)
 
-dir:
-	mkdir -p $(BUILDDIR)
-    
 .PHONY: all clean
 
-$(BUILDDIR)/$(TARGET): $(OBJECTS)
-	$(CC) $^ -shared -o $@
+$(TARGET): $(OBJECTS)
+	$(CC) $(LDFLAGS) $^ -shared -o $@
 
-$(OBJECTS): $(BUILDDIR)/%.o : $(SOURCEDIR)/%.cpp
-	$(CC) $(CFLAGS) $< -o $@
+%.o: %.cpp
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
-	rm -f $(BUILDDIR)/*o $(BUILDDIR)/$(TARGET)
-	
+	rm -f $(TARGET) $(OBJECTS)
+
 run: all
-	@./$(BUILDDIR)/$(TARGET)
+	@./$(TARGET)

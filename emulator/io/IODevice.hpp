@@ -27,6 +27,8 @@ class Device
 {
 public:
     
+    virtual ~Device() = default;
+    
     // Device should be process data in the space
     virtual AddressSpace getSpace() const
     {
