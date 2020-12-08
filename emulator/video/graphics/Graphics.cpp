@@ -35,6 +35,11 @@ void Graphics::initialize()
     context -> initialize();
 }
 
+bool Graphics::isChanged() const
+{
+    return video -> isChanged();
+}
+
 void Graphics::render(double width, double height)
 {
     // Clear buffer, set coordinates mode

@@ -17,7 +17,11 @@ public:
 
 private slots:
     void on_action_triggered();
-
+    void onUpdateTitle(double frequency);
+    
+signals:
+    void openFile(std::string path);
+    
 private:
     Ui::MainWindow *ui;
 };

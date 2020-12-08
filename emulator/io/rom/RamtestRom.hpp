@@ -23,7 +23,7 @@
 class RamtestRom : public Rom<>
 {
 public:
-    RamtestRom() : Rom("monitor/RAM_TEST.BIN")
+    RamtestRom() : Rom("rom/RAM_TEST.BIN")
     {}
 };
 

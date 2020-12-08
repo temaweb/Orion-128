@@ -95,7 +95,7 @@ void Orion::createMemory()
     // 2 KB
     // 0xF800 - 0XFFFF (R/O)
     
-    iobus -> createR  <RamtestRom> ();
+    iobus -> createR  <MonitorRom> ();
     
     // System memory (System stack, etc)
     //
@@ -154,12 +154,12 @@ void Orion::createSwitches()
 // Return current loop frequency
 double Orion::getFrequency() const
 {
-    return actual;
+    return actual / 1000000.0;
 }
 
-std::shared_ptr<Video> Orion::getVideo() const
+std::shared_ptr<Graphics> Orion::createGraphics() const
 {
-    return video;
+    return std::make_shared<Graphics>(video);
 }
 
 void Orion::run(int frequency)
@@ -188,7 +188,7 @@ void Orion::stop()
     loop -> hold();
 }
 
-void Orion::keyevent(unsigned short code, bool isPressed)
+void Orion::keyevent(int code, bool isPressed)
 {
     keyboard -> keyevent(code, isPressed);
 }

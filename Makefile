@@ -11,7 +11,7 @@ SOURCEDIR=emulator
 CFLAGS=-std=c++17 -c -Wall $(INCDIRS)
 
 # Linker flags
-LDFLAGS=-lstdc++ -framework OpenGL
+LDFLAGS=-lstdc++ -shared -framework OpenGL
 
 SOURCES = $(shell find $(SOURCEDIR) -type f -iname '*.cpp')
 OBJECTS = $(foreach x, $(basename $(SOURCES)), $(x).o)
@@ -22,7 +22,7 @@ all: $(SOURCES) $(TARGET)
 .PHONY: all clean
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(LDFLAGS) $^ -shared -o $@
+	$(CC) $(LDFLAGS) $^ -o $@
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) $^ -o $@

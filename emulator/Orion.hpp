@@ -26,6 +26,7 @@
 
 #include "IOBus.hpp"
 #include "Memory.hpp"
+#include "Graphics.hpp"
 #include "VideoRam.hpp"
 
 #define ORION_CPU_FREQUENCY 2500000
@@ -64,13 +65,13 @@ public:
     double getFrequency() const;
     
     // Return video adapter
-    std::shared_ptr<Video> getVideo() const;
+    std::shared_ptr<Graphics> createGraphics() const;
     
     void run  (int frequency = ORION_CPU_FREQUENCY);
     void stop ();
     
     // Process keyboard events
-    void keyevent(unsigned short code, bool isPressed);
+    void keyevent(int code, bool isPressed);
     
     // Load programm into Orion
     void createFile(std::string path);

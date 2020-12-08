@@ -23,7 +23,7 @@
 class MonitorRom : public Rom<>
 {
 public:
-    MonitorRom() : Rom("monitor/Orion128_M2.rom")
+    MonitorRom() : Rom("rom/Orion128_M2.rom")
     {}
 };
 
