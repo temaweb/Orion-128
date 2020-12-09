@@ -6,6 +6,7 @@
 //
 
 #include "Filesystem.hpp"
+#include "Environment.hpp"
 
 #include <fstream>
 #include <vector>
@@ -13,7 +14,7 @@
 
 std::vector<uint8_t> Filesystem::read(std::string path)
 {
-    auto file = std::ifstream(path, std::ios::in | std::ios::binary);
+    auto file = Environment::openBinaryResource(path);
     char buffer = 0x00;
     
     std::vector<uint8_t> content;

@@ -19,9 +19,11 @@
 #define Rom_hpp
 
 #include <fstream>
+#include <iostream>
 #include <array>
 
 #include "IODevice.hpp"
+#include "Environment.hpp"
 
 template<size_t size = 2 * 1024>
 class Rom : public RDevice
@@ -36,7 +38,7 @@ public:
     
     Rom(std::string path)
     {
-        auto file = open(path);
+        auto file = Environment::openBinaryResource(path);
         char buffer = 0x00;
         
         for (auto & byte : rom)
@@ -63,13 +65,6 @@ public:
     virtual uint8_t read (uint16_t address) const override
     {
         return rom[address];
-    }
-    
-private:
-    
-    std::ifstream open(std::string path)
-    {
-        return std::ifstream(path, std::ios::in | std::ios::binary);
     }
 };
 

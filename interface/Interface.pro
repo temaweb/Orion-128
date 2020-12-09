@@ -31,9 +31,23 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../release/ -lemulator
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../debug/ -lemulator
-else:unix: LIBS += -L$$PWD/../ -lemulator
+
+ROM.files = $$PWD/../rom
+ROM.path  = Contents/Resources
+
+LIB.files = $$PWD/../libemulator.dylib
+LIB.path = Contents/Frameworks
+
+QMAKE_BUNDLE_DATA += ROM LIB
+#QMAKE_RPATHDIR += @executable_path/../Frameworks
+
+LIBS += -L$$PWD/../ -lemulator
+
+#LIBS += -L$$OUT_PWD/Orion.app/Contents/Frameworks -lemulator
+
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../ -lemulator
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../ -lemulatord
+#else:unix: LIBS += -L$$PWD/../ -lemulator
 
 unix:INCLUDEPATH += $$system(find ../emulator -type d -print)
 unix:DEPENDPATH  += $$system(find ../emulator -type d -print)
