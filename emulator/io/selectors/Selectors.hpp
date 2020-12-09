@@ -15,11 +15,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Events_h
-#define Events_h
+#ifndef Selectors_hpp
+#define Selectors_hpp
 
-#include "DelayEvent.hpp"
-#include "FrameEvent.hpp"
-#include "FreqEvent.hpp"
+#include "PageSelector.hpp"
+#include "PaletteSelector.hpp"
+#include "ScreenSelector.hpp"
 
-#endif /* Events_h */
+#endif /* Selectors_hpp */

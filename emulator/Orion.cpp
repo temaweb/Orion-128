@@ -22,8 +22,8 @@
 #include "MonitorRom.hpp"
 #include "RamtestRom.hpp"
 
-#include "Events.h"
-#include "Selectors.h"
+#include "Events.hpp"
+#include "Selectors.hpp"
 
 #include "IOSplitter.hpp"
 
