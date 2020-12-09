@@ -26,8 +26,6 @@
 class Keyboard : public IODevice
 {
 private:
-    
-    uint8_t key  = 0x00;
     uint8_t mask = 0x00;
 
     std::array<uint8_t, 8> keys {};

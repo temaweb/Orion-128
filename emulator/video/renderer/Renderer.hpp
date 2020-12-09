@@ -18,6 +18,7 @@
 #ifndef Colorizer_hpp
 #define Colorizer_hpp
 
+#include <memory>
 #include <array>
 
 #include "Ram.hpp"

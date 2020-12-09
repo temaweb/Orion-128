@@ -8,6 +8,7 @@
 #ifndef Filesystem_hpp
 #define Filesystem_hpp
 
+#include <vector>
 #include "Memory.hpp"
 
 class Filesystem

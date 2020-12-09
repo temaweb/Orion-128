@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 void MainWindow::onUpdateTitle(double frequency)
 {
     auto freq  = QString::number(frequency, 'f', 3);
-    auto title = QString("%1 MHz").arg(freq);
+    auto title = QString(tr("i8080 @ %1 MHz")).arg(freq);
     
     this -> setWindowTitle(title);
 }

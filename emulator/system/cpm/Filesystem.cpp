@@ -34,8 +34,8 @@ void Filesystem::create(std::string path)
     auto content = read(path);
     uint8_t * ptr = content.data();
 
-    auto offset = 0;
-    auto size = content.size();
+    size_t offset = 0;
+    size_t size = content.size();
 
     int len = (ptr[0x0b] << 8) | ptr[0x0a];;
     if (len == 0)

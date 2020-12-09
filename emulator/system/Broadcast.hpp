@@ -18,7 +18,9 @@
 #ifndef EventDelegate_hpp
 #define EventDelegate_hpp
 
+#include <memory>
 #include <list>
+
 #include "Event.hpp"
 
 class Broadcast
