@@ -14,7 +14,7 @@
 
 std::vector<uint8_t> Filesystem::read(std::string path)
 {
-    auto file = Environment::openBinaryResource(path);
+    auto file = Environment::openBinaryFile(path);
     char buffer = 0x00;
     
     std::vector<uint8_t> content;
