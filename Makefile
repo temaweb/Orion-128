@@ -38,7 +38,7 @@ endif
 ifeq ($(detected_OS),Linux)
 
 	TARGET = libemulator.so
-	CFLAGS += -D LINUX -DGL_GLEXT_PROTOTYPES
+	CFLAGS += -D LINUX -DGL_GLEXT_PROTOTYPES -fPIC
 	
     LDFLAGS += \
 		-shared \
