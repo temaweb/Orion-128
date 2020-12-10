@@ -15,7 +15,6 @@ jobs:
       run: git submodule update --init --recursive
     - name: install dependencies
       run: |
-        sudo apt-file update
         sudo apt-get install libmesa-dev
     - name: make
       run: make
