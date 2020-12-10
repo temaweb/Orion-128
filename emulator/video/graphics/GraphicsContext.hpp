@@ -18,7 +18,11 @@
 #ifndef GraphicsContext_hpp
 #define GraphicsContext_hpp
 
-#include <OpenGL/gl.h>
+#ifdef __APPLE__
+    #include <OpenGL/gl.h>
+#elif
+    #include <GL/gl.h>
+#endif
 
 class GraphicsContext
 {
