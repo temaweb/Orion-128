@@ -5,7 +5,7 @@ CC=g++
 TARGET=libemulator.so
 
 # Buld directory
-SOURCEDIR=emulator
+SOURCEDIR=.
 
 # Compiller flags
 CFLAGS = -std=c++17 -O3 -c -Wno-unknown-pragmas -Wall $(INCDIRS)

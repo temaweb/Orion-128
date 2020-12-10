@@ -3,6 +3,7 @@ QT       += core gui opengl
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17 sdk_no_version_check
+TEMPLATE = app
 TARGET = Orion
 
 ICON = icon.icns
@@ -23,26 +24,42 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    about.ui \
     mainwindow.ui
 
+LIBEMULATORNAME   = libemulator
+LIBEMULATORDIR    = $$PWD/../emulator
+ROMDIR            = $$PWD/../rom
+
+unix:LIBEMULATOR  = $$LIBEMULATORDIR/$$LIBEMULATORNAME.so
+macos:LIBEMULATOR = $$LIBEMULATORDIR/$$LIBEMULATORNAME.dylib
+
+macos
+{
+    !exists( $$LIBEMULATORDIR/libemulator.dylib ) {
+        system( cd $$LIBEMULATORDIR && make )
+    }
+
+    RES.files = $$ROMDIR
+    RES.path  = Contents/Resources
+
+    FRW.files = $$LIBEMULATORDIR/libemulator.dylib
+    FRW.path  = Contents/Frameworks
+
+    QMAKE_BUNDLE_DATA += RES FRW
+}
+
+LIBS += -L$$LIBEMULATORDIR -lemulator
+
+unix:INCLUDEPATH += $$system(find $$LIBEMULATORDIR -type d -print)
+unix:DEPENDPATH  += $$system(find $$LIBEMULATORDIR -type d -print)
+
+TRANSLATIONS += $$PWD/translation/language_ru.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-macos {
-
-    ROM.files = $$PWD/../rom
-    ROM.path  = Contents/Resources
-
-    LIB.files = $$PWD/../libemulator.dylib
-    LIB.path = Contents/Frameworks
-
-    QMAKE_BUNDLE_DATA += ROM LIB
-}
-
-LIBS += -L$$PWD/../ -lemulator
-
-unix:INCLUDEPATH += $$system(find ../emulator -type d -print)
-unix:DEPENDPATH  += $$system(find ../emulator -type d -print)
+RESOURCES += \
+    interface.qrc

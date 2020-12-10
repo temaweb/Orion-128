@@ -8,8 +8,7 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
     orion = std::make_shared<Orion>();
     graphics = orion -> createGraphics();
 
-    auto run = [this]()
-    {
+    auto run = [this]() {
         orion -> run();
     };
     
@@ -28,8 +27,10 @@ CentralWidget::CentralWidget(QWidget *parent) : QWidget(parent)
 void CentralWidget::onTimer()
 {
     if (graphics -> isChanged())
+    {
         emit updateFrame();
-    
+    }
+
     emit updateFrequency(orion -> getFrequency());
 }
 

@@ -16,12 +16,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_action_triggered();
+    void on_Upload_triggered();
+    void on_UploadRun_triggered();
     void onUpdateTitle(double frequency);
     
 signals:
     void openFile(std::string path);
-    
+
 private:
     Ui::MainWindow *ui;
 };

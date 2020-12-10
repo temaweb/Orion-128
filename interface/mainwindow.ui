@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Орион-128</string>
+   <string/>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -56,15 +56,22 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>Файл</string>
+     <string>File</string>
     </property>
-    <addaction name="action"/>
+    <addaction name="Upload"/>
+    <addaction name="UploadRun"/>
    </widget>
    <addaction name="menu"/>
   </widget>
-  <action name="action">
+  <action name="Upload">
    <property name="text">
-    <string>Открыть</string>
+    <string>Upload to B:</string>
+   </property>
+   <property name="iconText">
+    <string>Upload to B:</string>
+   </property>
+   <property name="toolTip">
+    <string>Upload ORDOS files to B: drive</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -77,6 +84,17 @@
    </property>
    <property name="shortcutVisibleInContextMenu">
     <bool>true</bool>
+   </property>
+  </action>
+  <action name="UploadRun">
+   <property name="text">
+    <string>Execute...</string>
+   </property>
+   <property name="toolTip">
+    <string>Upload ORDOS files to memory and execute it</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
  </widget>

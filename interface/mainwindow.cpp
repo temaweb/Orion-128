@@ -16,12 +16,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 void MainWindow::onUpdateTitle(double frequency)
 {
     auto freq  = QString::number(frequency, 'f', 3);
-    auto title = QString(tr("i8080 @ %1 MHz")).arg(freq);
+    auto title = tr("i8080 @ %1 MHz").arg(freq);
     
     this -> setWindowTitle(title);
 }
 
-void MainWindow::on_action_triggered()
+void MainWindow::on_Upload_triggered()
 {
     QFileDialog dialog(this);
     
@@ -44,4 +44,9 @@ void MainWindow::on_action_triggered()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_UploadRun_triggered()
+{
+
 }
