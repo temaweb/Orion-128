@@ -20,7 +20,7 @@
 
 #ifdef __APPLE__
     #include <OpenGL/gl.h>
-#elif
+#else
     #include <GL/gl.h>
 #endif
 
