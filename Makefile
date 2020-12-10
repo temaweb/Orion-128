@@ -42,7 +42,7 @@ ifeq ($(detected_OS),Linux)
 	
     LDFLAGS += \
 		-shared \
-		-lopengl
+		-lGL
 		
 endif
 
