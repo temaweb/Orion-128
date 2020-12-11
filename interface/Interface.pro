@@ -46,7 +46,10 @@ macos
     FRW.files = $$LIBEMULATORDIR/libemulator.dylib
     FRW.path  = Contents/Frameworks
 
-    QMAKE_BUNDLE_DATA += RES FRW
+    LOC.files = locversion.plist InfoPlist.strings
+    LOC.path  = COntents/Resources/ru.lproj
+
+    QMAKE_BUNDLE_DATA += RES FRW LOC
 }
 
 LIBS += -L$$LIBEMULATORDIR -lemulator
