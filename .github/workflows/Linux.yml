@@ -16,5 +16,9 @@ jobs:
     - name: install dependencies
       run: |
         sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+    - name: qmake
+      run: qmake interface/Interface.pro
     - name: make
       run: make
