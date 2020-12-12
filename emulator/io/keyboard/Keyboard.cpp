@@ -62,7 +62,8 @@ uint8_t Keyboard::read(uint16_t address) const
 {
     std::shared_lock lock(mutex);
     
-    switch (address & 0x03){
+    switch (address & 0x03)
+    {
         case 0:
             return 0x00;
         case 1:

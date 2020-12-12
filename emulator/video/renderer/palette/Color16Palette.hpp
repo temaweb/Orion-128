@@ -37,19 +37,20 @@ private:
     constexpr static std::array<uint32_t, 16> palette
     {
         0x000000, // Black
-        0x0000FF, // Blue
-        0x008000, // Green
-        0x30D5C8, // Turquoise
+        0x0000CD, // Blue
+        0x3CB371, // Green
+        0x48D1CC, // Turquoise
         0xFF0000, // Red
-        0xC400AB, // Magenta
-        0x964B00, // Brown
+        0x8B008B, // Magenta
+        0xA52A2A, // Brown
         0xD3D3D3, // Light gray
+
         0x000000, // Black
-        0x00BFFF, // Light blue
-        0x99ff99, // Light green
-        0x24F2EF, // Light turquoise
-        0xFFCBDB, // Pink
-        0xD95CC9, // Light magenta
+        0x0000FF, // Light blue
+        0x008000, // Light green
+        0x40E0D0, // Light turquoise
+        0xFF69B4, // Pink
+        0xFF00FF, // Light magenta
         0xFFFF00, // Yellow
         0xFFFFFF  // White
     };
