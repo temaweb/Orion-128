@@ -18,20 +18,6 @@
 * Операционные системы: ORDOS 2.40/4.03, CP/M 2.2, SPDOS, DSDOS
 * Написанные любителями и адаптированные игры
 
-<p align="center">
-  <i>Операционная система ORDOS</i>
-</p>
-
 ![ORDOS](https://user-images.githubusercontent.com/534434/101978459-31840b00-3c66-11eb-8544-d3736255e56b.png)
-
-<p align="center">
-  <i>Игра Almaz 2</i>
-</p>
-
 ![ALMAZ](https://user-images.githubusercontent.com/534434/101978463-35179200-3c66-11eb-9eff-f985665d3b72.png)
-
-<p align="center">
-  <i>Заставка игры Zoo</i>
-</p>
-
 ![ZOO](https://user-images.githubusercontent.com/534434/101978577-0817af00-3c67-11eb-9174-54fb27100b4c.png)
