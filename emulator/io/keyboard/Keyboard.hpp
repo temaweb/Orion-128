@@ -19,6 +19,7 @@
 #define Keyboard_hpp
 
 #include <array>
+#include <shared_mutex>
 
 #include "Keys.hpp"
 #include "IODevice.hpp"
@@ -27,8 +28,11 @@ class Keyboard : public IODevice
 {
 private:
     uint8_t mask = 0x00;
-
-    std::array<uint8_t, 8> keys {};
+    uint8_t extraKeys  = 0x00;
+    
+    std::array<uint8_t, 8> matrixKeys {};
+    
+    mutable std::shared_mutex mutex;
     
     constexpr static int matrix[8][8] =
     {
@@ -42,6 +46,15 @@ private:
         {    X,        Y,        Z,         BLeft,        BSlash,    BRight,    Circum,    Space    }
     };
     
+    constexpr static int extra[8] =
+    {
+        0x00, 0x00, 0x00, 0x00, 0x00, Shift, Control, Alt
+    };
+    
+private:
+    uint8_t getMatrixKeys() const;
+    uint8_t getExtraKeys() const;
+
 public:
     void keyevent(int code, bool isPressed);
     

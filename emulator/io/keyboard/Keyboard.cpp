@@ -28,6 +28,8 @@ AddressSpace Keyboard::getSpace() const
 
 void Keyboard::keyevent(int code, bool isPressed)
 {
+    std::unique_lock lock(mutex);
+    
     for (int i = 0; i < 8; i++)
     for (int j = 0; j < 8; j++)
     {
@@ -35,31 +37,68 @@ void Keyboard::keyevent(int code, bool isPressed)
             continue;
             
         if (isPressed)
-            keys[i] |= (1 << j);
+            matrixKeys[i] |=  (1 << j);
         else
-            keys[i] &= ~(1 << j);
+            matrixKeys[i] &= ~(1 << j);
+        
+        return;
+    }
+    
+    for (int i = 0; i < 8; i++)
+    {
+        if (extra[i] != code)
+            continue;
+        
+        if (isPressed)
+            extraKeys |=  (1 << i);
+        else
+            extraKeys &= ~(1 << i);
         
         break;
     }
 }
 
-uint8_t Keyboard::read(uint16_t) const
+uint8_t Keyboard::read(uint16_t address) const
 {
-    uint8_t val  = 0x00;
-    uint8_t mask = this -> mask;
+    std::shared_lock lock(mutex);
+    
+    switch (address & 0x03){
+        case 0:
+            return 0x00;
+        case 1:
+            return getMatrixKeys();
+        case 2:
+            return getExtraKeys();
+        default:
+            return 0xFF;
+    }
+}
+
+void Keyboard::write(uint16_t adrress, uint8_t data)
+{
+    if ((adrress & 0x03) > 0)
+        return;
+        
+    mask = ~data;
+}
+
+uint8_t Keyboard::getMatrixKeys() const
+{
+    uint8_t value = 0x00;
+    uint8_t mask  = this -> mask;
     
     for (int i = 0; i < 8; i++)
     {
         if (mask & 1)
-            val |= keys[i];
+            value |= matrixKeys[i];
         
         mask >>= 1;
     }
     
-    return ~val;
+    return ~value;
 }
 
-void Keyboard::write(uint16_t, uint8_t data)
+uint8_t Keyboard::getExtraKeys() const
 {
-    mask = ~data;
+    return ~extraKeys;
 }
