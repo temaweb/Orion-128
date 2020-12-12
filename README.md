@@ -19,4 +19,4 @@
 * Написанные любителями и адаптированные игры
 
 ![ORDOS](https://user-images.githubusercontent.com/534434/101707855-203bd280-3a9d-11eb-8418-e24e93d42cc2.png)
-![ALMAZ](https://user-images.githubusercontent.com/534434/101707727-d521bf80-3a9c-11eb-8c8f-93f58d8fa870.png)
+![ALMAZ](https://user-images.githubusercontent.com/534434/101970849-ef46d380-3c3d-11eb-9f94-affacf03b0a5.png)
