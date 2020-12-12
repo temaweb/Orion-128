@@ -18,5 +18,5 @@
 * Операционные системы: ORDOS 2.40/4.03, CP/M 2.2, SPDOS, DSDOS
 * Написанные любителями и адаптированные игры
 
-![ORDOS](https://user-images.githubusercontent.com/534434/101707855-203bd280-3a9d-11eb-8418-e24e93d42cc2.png)
-![ALMAZ](https://user-images.githubusercontent.com/534434/101970849-ef46d380-3c3d-11eb-9f94-affacf03b0a5.png)
+![ORDOS](https://user-images.githubusercontent.com/534434/101978459-31840b00-3c66-11eb-8544-d3736255e56b.png)
+![ALMAZ](https://user-images.githubusercontent.com/534434/101978463-35179200-3c66-11eb-9eff-f985665d3b72.png)
