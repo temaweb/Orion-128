@@ -23,7 +23,7 @@
 class Color16Renderer : public Renderer
 {
 public:
-    virtual std::shared_ptr<Palette> getPalette(Buffer * buffer, uint16_t address) const override;
+    virtual std::shared_ptr<Palette> getPalette(VideoBuffer * buffer, uint16_t address) const override;
 };
 
 #endif /* Color16Renderer_hpp */

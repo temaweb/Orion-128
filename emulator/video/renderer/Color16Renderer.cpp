@@ -18,7 +18,7 @@
 #include "Color16Renderer.hpp"
 #include "Color16Palette.hpp"
 
-std::shared_ptr<Palette> Color16Renderer::getPalette(Buffer * buffer, uint16_t address) const
+std::shared_ptr<Palette> Color16Renderer::getPalette(VideoBuffer * buffer, uint16_t address) const
 {
     auto color = buffer -> readColor(address);
     return std::make_shared<Color16Palette>(color);

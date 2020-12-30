@@ -36,8 +36,8 @@ private:
     std::shared_ptr<const VideoRam> vram;
     std::shared_ptr<const Renderer> renderer;
     
-    Buffer videoBuffer;
-    Buffer frameBuffer;
+    VideoBuffer videoBuffer;
+    VideoBuffer frameBuffer;
     
     // Set video buffer as current frame buffer
     void swapBuffer ();

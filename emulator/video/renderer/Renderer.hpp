@@ -22,7 +22,7 @@
 #include <array>
 
 #include "Ram.hpp"
-#include "Buffer.hpp"
+#include "VideoBuffer.hpp"
 #include "Pixel.hpp"
 #include "Palette.hpp"
 
@@ -37,17 +37,17 @@ public:
     
 private:
     // Return 256 pixel frame line
-    frameline getLine(Buffer * buffer, uint8_t row) const;
+    frameline getLine(VideoBuffer * buffer, uint8_t row) const;
     
     // Colorize 8 pixels
     void colorise (frameline::iterator & line, uint8_t data, std::shared_ptr<Palette> palette) const;
     
 protected:
-    virtual std::shared_ptr<Palette> getPalette(Buffer * buffer, uint16_t address) const = 0;
+    virtual std::shared_ptr<Palette> getPalette(VideoBuffer * buffer, uint16_t address) const = 0;
     
 public:
     // Return one frame with resolution 384 x 256 pixels
-    frame renderFrame(Buffer * buffer) const;
+    frame renderFrame(VideoBuffer * buffer) const;
     
     virtual ~Renderer() = default;
 };

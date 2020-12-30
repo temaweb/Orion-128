@@ -15,19 +15,19 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Buffer.hpp"
+#include "VideoBuffer.hpp"
 
-vbuffer::iterator Buffer::getPixelsIterator()
+vbuffer::iterator VideoBuffer::getPixelsIterator()
 {
     return pixels.begin();
 }
 
-vbuffer::iterator Buffer::getColorsIterator()
+vbuffer::iterator VideoBuffer::getColorsIterator()
 {
     return colors.begin();
 }
 
-bool Buffer::operator==(const Buffer & buffer) const
+bool VideoBuffer::operator==(const VideoBuffer & buffer) const
 {
     if (pixels != buffer.pixels)
         return false;
@@ -35,17 +35,17 @@ bool Buffer::operator==(const Buffer & buffer) const
     return colors == buffer.colors;
 }
 
-bool Buffer::operator!=(const Buffer & buffer) const
+bool VideoBuffer::operator!=(const VideoBuffer & buffer) const
 {
     return !(*this == buffer);
 }
 
-uint8_t Buffer::readFrame(uint16_t address) const
+uint8_t VideoBuffer::readFrame(uint16_t address) const
 {
     return pixels[address];
 }
 
-uint8_t Buffer::readColor(uint16_t address) const
+uint8_t VideoBuffer::readColor(uint16_t address) const
 {
     return colors[address];
 }

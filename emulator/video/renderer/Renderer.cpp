@@ -17,7 +17,7 @@
 
 #include "Renderer.hpp"
 
-Renderer::frame Renderer::renderFrame(Buffer * buffer) const
+Renderer::frame Renderer::renderFrame(VideoBuffer * buffer) const
 {
     uint8_t row = 0x00;
     frame frame;
@@ -30,7 +30,7 @@ Renderer::frame Renderer::renderFrame(Buffer * buffer) const
     return frame;
 }
 
-Renderer::frameline Renderer::getLine(Buffer * buffer, uint8_t row) const
+Renderer::frameline Renderer::getLine(VideoBuffer * buffer, uint8_t row) const
 {
     frameline line;
     frameline::iterator lineit = line.begin();

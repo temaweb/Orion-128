@@ -27,7 +27,7 @@ private:
     std::shared_ptr<T> palette = std::make_shared<T>();
     
 public:
-    virtual std::shared_ptr<Palette> getPalette(Buffer *, uint16_t) const override
+    virtual std::shared_ptr<Palette> getPalette(VideoBuffer *, uint16_t) const override
     {
         return palette;
     }

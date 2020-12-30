@@ -39,14 +39,14 @@ public:
     static std::ifstream openBinaryFile(std::string path);
     
 #ifdef TARGET_OS_MAC
+    
 private:
     static const CFStringBuiltInEncodings encoding = kCFStringEncodingUTF8;
-
-private:
     static std::string createResourcePath(CFStringRef path);
     
     static CFStringRef toString(std::string string);
     static std::string toString(CFStringRef string);
+    
 #endif
 };
 

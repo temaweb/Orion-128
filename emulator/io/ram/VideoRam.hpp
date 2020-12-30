@@ -21,7 +21,7 @@
 #include <array>
 
 #include "Ram.hpp"
-#include "Buffer.hpp"
+#include "VideoBuffer.hpp"
 #include "IODevice.hpp"
 
 class VideoRam
@@ -50,7 +50,7 @@ public:
         pagetype::const_iterator color
     );
     
-    void read (Buffer & buffer) const;
+    void read (VideoBuffer & buffer) const;
     void setScreenMode (uint8_t mode);
 };
 

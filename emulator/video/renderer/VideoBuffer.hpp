@@ -15,12 +15,12 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef Buffer_hpp
-#define Buffer_hpp
+#ifndef VideoBuffer_hpp
+#define VideoBuffer_hpp
 
 #include "Ram.hpp"
 
-struct Buffer
+struct VideoBuffer
 {
     vbuffer pixels {};
     vbuffer colors {};
@@ -28,11 +28,11 @@ struct Buffer
     vbuffer::iterator getPixelsIterator();
     vbuffer::iterator getColorsIterator();
     
-    bool operator==(const Buffer & buffer) const;
-    bool operator!=(const Buffer & buffer) const;
+    bool operator==(const VideoBuffer & buffer) const;
+    bool operator!=(const VideoBuffer & buffer) const;
     
     uint8_t readFrame(uint16_t address) const;
     uint8_t readColor(uint16_t address) const;
 };
 
-#endif /* Buffer_hpp */
+#endif /* VideoBuffer_hpp */
