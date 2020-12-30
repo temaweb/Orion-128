@@ -24,5 +24,5 @@ void FrameEvent::execute(double elapsed, int ticks)
 
 int FrameEvent::getLimit()
 {
-    return ORION_FRAME_CYCLES;
+    return frameCycles;
 }

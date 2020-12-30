@@ -27,14 +27,9 @@
 class Memory : public IODevice
 {
 private:
- 
     std::array<pagetype, 4> ram {};
     std::shared_ptr<VideoRam> videoRam;
-    
-    pagetype::iterator page = nullptr;
-    
-public:
-    Memory();
+    pagetype::iterator page;
     
     enum Page
     {
@@ -44,8 +39,11 @@ public:
         D = 0x03
     };
     
-    void setPage (Page page);
-    std::shared_ptr<VideoRam> getVideoRam() const;
+public:
+    Memory();
+    
+    void setPage (uint8_t page);
+    const std::shared_ptr<VideoRam> & getVideoRam() const;
     
 // I/O
 public:
@@ -53,7 +51,9 @@ public:
     virtual AddressSpace getSpace() const override;
     virtual uint8_t read (uint16_t address) const override;
     virtual void write   (uint16_t address, uint8_t data) override;
-    virtual void writeB  (uint16_t address, uint8_t data);
+    
+    // Write to second memory page direct
+    void writeB  (uint16_t address, uint8_t data);
 };
 
 #endif /* Memory_hpp */

@@ -33,7 +33,7 @@ void Keyboard::keyevent(int code, bool isPressed)
     for (int i = 0; i < 8; i++)
     for (int j = 0; j < 8; j++)
     {
-        if (matrix[i][j] != code)
+        if (matrix[i][j] != (Keys) code)
             continue;
             
         if (isPressed)
@@ -46,7 +46,7 @@ void Keyboard::keyevent(int code, bool isPressed)
     
     for (int i = 0; i < 8; i++)
     {
-        if (extra[i] != code)
+        if (extra[i] != (Keys) code)
             continue;
         
         if (isPressed)

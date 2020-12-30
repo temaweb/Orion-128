@@ -23,13 +23,12 @@
 class LocalRDevice final : public LocalDevice<RDevice>, public RDevice
 {
 public:
-    LocalRDevice(std::shared_ptr<RDevice> device) : LocalDevice(device)
-    { }
+    using LocalDevice::LocalDevice;
     
     virtual uint8_t read(uint16_t address) const override
     {
         auto local = getLocal(address);
-        return device -> read(local);
+        return getDevice() -> read(local);
     }
 };
 

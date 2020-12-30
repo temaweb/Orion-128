@@ -47,11 +47,13 @@ public:
         return DefaultDevice::getInstance<T>();
     }
 
-    void addDevice(std::shared_ptr<T> device)
+    void addDevice(const std::shared_ptr<T> & device)
     {
         auto local = std::make_shared<D>(device);
         map.emplace(device -> getSpace(), local);
     }
+    
+    virtual ~IOStorage() = default;
 };
 
 class IORStorage : public IOStorage<RDevice, LocalRDevice>, public RDevice

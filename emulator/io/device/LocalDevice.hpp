@@ -20,13 +20,24 @@
 
 #include "IODevice.hpp"
 
-template <class T>
-class LocalDevice : virtual public Device
+template <typename T>
+class LocalDevice : public Device
 {
-protected:
+private:
     AddressSpace space;
     std::shared_ptr<T> device;
 
+protected:
+    const std::shared_ptr<T> & getDevice() const
+    {
+        return device;
+    }
+    
+    uint16_t getLocal(uint16_t address) const
+    {
+        return space.getLocal(address);
+    }
+    
 public:
     LocalDevice(std::shared_ptr<T> device) : device(device)
     {
@@ -36,11 +47,6 @@ public:
     virtual AddressSpace getSpace() const override final
     {
         return space;
-    }
-    
-    uint16_t getLocal(uint16_t address) const
-    {
-        return space.getLocal(address);
     }
 };
 

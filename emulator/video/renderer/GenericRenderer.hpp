@@ -20,7 +20,7 @@
 
 #include "Renderer.hpp"
 
-template<class T>
+template<typename T>
 class GenericRenderer : public Renderer
 {
 private:

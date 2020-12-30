@@ -36,8 +36,8 @@ public:
     void render (double width, double height);
     
     bool isChanged() const;
-private:
     
+private:
     void renderPixels (float width, float height);
     void renderPixels (float width, float height, int total);
     

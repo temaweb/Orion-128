@@ -23,13 +23,12 @@
 class LocalWDevice final : public LocalDevice<WDevice>, public WDevice
 {
 public:
-    LocalWDevice(std::shared_ptr<WDevice> device) : LocalDevice(device)
-    { }
+    using LocalDevice::LocalDevice;
     
     virtual void write(uint16_t address, uint8_t data) override
     {
         auto local = getLocal(address);
-        return device -> write(local, data);
+        return getDevice() -> write(local, data);
     }
 };
 

@@ -36,12 +36,12 @@ protected:
     static double timepassed(time start);
     
 public:
-    virtual ~Event() = default;
-    
     void lookup (short counter);
     
     virtual int getLimit() = 0;
     virtual void execute(double elapsed, int ticks) = 0;
+    
+    virtual ~Event() = default;
 };
 
 #endif /* Event_hpp */

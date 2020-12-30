@@ -29,15 +29,12 @@
 #include "Graphics.hpp"
 #include "VideoRam.hpp"
 
-#define ORION_CPU_FREQUENCY 2500000
-
 #define DEVICE(type, name) \
     std::shared_ptr<type> name = std::make_shared<type>()
 
 class Orion
 {
 private:
-    
     DEVICE(Cpu, cpu);
     DEVICE(Keyboard, keyboard);
     DEVICE(Memory, memory);
@@ -50,13 +47,15 @@ private:
     std::shared_ptr<Video> video;
     std::shared_ptr<VideoRam> vram;
     
-    int actual = 0;
+    double actual = 0;
 
 private:
     
     void createMemory();
     void createDevices();
     void createSwitches();
+    
+    static const int defaultFrequency = 2500000;
     
 public:
     Orion();
@@ -67,7 +66,7 @@ public:
     // Return video adapter
     std::shared_ptr<Graphics> createGraphics() const;
     
-    void run  (int frequency = ORION_CPU_FREQUENCY);
+    void run  (int frequency = defaultFrequency);
     void stop ();
     
     // Process keyboard events

@@ -23,7 +23,7 @@
 
 #include "Event.hpp"
 
-class Broadcast
+class Broadcast final
 {
 private:
     std::list<std::shared_ptr<Event>> events;

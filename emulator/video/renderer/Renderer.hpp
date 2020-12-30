@@ -29,31 +29,27 @@
 class Renderer
 {
 public:
-    
     static const int width  = 384; // H points
     static const int height = 256; // V points
     
-    typedef std::array<Pixel, width> frameline;
-    typedef std::array<frameline, height> frame;
+    using frameline = std::array<Pixel, width>;
+    using frame = std::array<frameline, height>;
     
 private:
-    
     // Return 256 pixel frame line
     frameline getLine(Buffer * buffer, uint8_t row) const;
     
     // Colorize 8 pixels
     void colorise (frameline::iterator & line, uint8_t data, std::shared_ptr<Palette> palette) const;
     
+protected:
+    virtual std::shared_ptr<Palette> getPalette(Buffer * buffer, uint16_t address) const = 0;
+    
 public:
-    
-    virtual ~Renderer() = default;
-    
     // Return one frame with resolution 384 x 256 pixels
     frame renderFrame(Buffer * buffer) const;
     
-protected:
-    Buffer buffer;
-    virtual std::shared_ptr<Palette> getPalette(Buffer * buffer, uint16_t address) const = 0;
+    virtual ~Renderer() = default;
 };
 
 #endif /* Colorizer_hpp */

@@ -32,7 +32,6 @@ private:
     // LO nibble - foreground color
     uint8_t color = 0x0000;
     
-    
     // Orion 16 color palette
     constexpr static std::array<uint32_t, 16> palette
     {

@@ -32,24 +32,22 @@
 class Environment
 {
 public:
+    using bufferType = std::ifstream::char_type;
+    
+public:
     static std::ifstream openBinaryResource(std::string path);
     static std::ifstream openBinaryFile(std::string path);
     
-private:
-    
 #ifdef TARGET_OS_MAC
+private:
     static const CFStringBuiltInEncodings encoding = kCFStringEncodingUTF8;
-#endif
 
 private:
-    
-#ifdef TARGET_OS_MAC
     static std::string createResourcePath(CFStringRef path);
     
     static CFStringRef toString(std::string string);
     static std::string toString(CFStringRef string);
 #endif
-    
 };
 
 #endif /* Environment_hpp */

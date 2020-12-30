@@ -20,17 +20,17 @@
 
 #include "IODevice.hpp"
 
-class DefaultDevice : public IODevice
+class DefaultDevice final : public IODevice
 {
 private:
     DefaultDevice() = default;
     static const uint8_t value = 0x00;
     
 public:
-    DefaultDevice  (DefaultDevice const &) = delete;
-    void operator= (DefaultDevice const &) = delete;
+    DefaultDevice  (const DefaultDevice &) = delete;
+    void operator= (const DefaultDevice &) = delete;
     
-    template<class T>
+    template<typename T>
     static const std::shared_ptr<T> & getInstance()
     {
         static const std::shared_ptr<T> instance(new DefaultDevice);

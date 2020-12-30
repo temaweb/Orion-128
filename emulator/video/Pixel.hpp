@@ -29,7 +29,7 @@ struct Pixel
     Pixel(uint32_t color);
     Pixel(const Pixel & pixel);
     
-    Pixel& operator=(const Pixel & pixel);
+    Pixel & operator=(const Pixel & pixel);
     
     float getRed()   const;
     float getGreen() const;

@@ -31,13 +31,13 @@ private:
     static const std::array<std::shared_ptr<const Renderer>, 4> renders;
     
 private:
-    std::shared_mutex mutex;
+    std::mutex mutex;
     
     std::shared_ptr<const VideoRam> vram;
     std::shared_ptr<const Renderer> renderer;
     
-    Buffer videoBuffer {};
-    Buffer frameBuffer {};
+    Buffer videoBuffer;
+    Buffer frameBuffer;
     
     // Set video buffer as current frame buffer
     void swapBuffer ();

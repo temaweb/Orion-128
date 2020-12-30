@@ -23,10 +23,10 @@
 class Palette
 {
 public:
-    virtual ~Palette() = default;
-    
     virtual Pixel getBackground() const = 0;
     virtual Pixel getForeground() const = 0;
+    
+    virtual ~Palette() = default;
 };
 
 #endif /* Palette_hpp */

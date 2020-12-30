@@ -25,10 +25,10 @@ class FreqEvent : public Event
 {
 private:
     int frequency = 0;
-    int * actual;
+    double & actual;
     
 public:
-    FreqEvent(int frequency, int * actual) : frequency(frequency), actual(actual)
+    FreqEvent(int frequency, double & actual) : frequency(frequency), actual(actual)
     { }
     
     virtual int getLimit() override;

@@ -27,12 +27,12 @@ Memory::Memory()
     videoRam = std::make_shared<VideoRam>(video, color);
 }
 
-void Memory::setPage(Page mode)
+void Memory::setPage(uint8_t mode)
 {
-    page = ram[mode].begin();
+    page = ram[(Page) mode].begin();
 }
 
-std::shared_ptr<VideoRam> Memory::getVideoRam() const
+const std::shared_ptr<VideoRam> & Memory::getVideoRam() const
 {
     return videoRam;
 }

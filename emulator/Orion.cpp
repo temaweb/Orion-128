@@ -154,7 +154,7 @@ void Orion::createSwitches()
 // Return current loop frequency
 double Orion::getFrequency() const
 {
-    return actual / 1000000.0;
+    return actual;
 }
 
 std::shared_ptr<Graphics> Orion::createGraphics() const
@@ -173,7 +173,7 @@ void Orion::run(int frequency)
     
     // This event calculate actual loop frequency
     // Call every @frequency CPU clock
-    loop -> create<FreqEvent>  (frequency, &actual);
+    loop -> create<FreqEvent>  (frequency, actual);
     
     // This event create video frame
     // Call every 5000 CPU clock

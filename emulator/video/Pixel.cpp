@@ -26,7 +26,7 @@ Pixel::Pixel(uint32_t color) : color(color)
 Pixel::Pixel(const Pixel & pixel) : Pixel(pixel.color)
 { }
 
-Pixel& Pixel::operator=(const Pixel & pixel)
+Pixel & Pixel::operator=(const Pixel & pixel)
 {
     return *new(this) Pixel(pixel);
 }

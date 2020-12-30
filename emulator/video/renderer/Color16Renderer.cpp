@@ -21,7 +21,5 @@
 std::shared_ptr<Palette> Color16Renderer::getPalette(Buffer * buffer, uint16_t address) const
 {
     auto color = buffer -> readColor(address);
-    auto palette = std::make_shared<Color16Palette>(color);
-    
-    return palette;
+    return std::make_shared<Color16Palette>(color);
 }

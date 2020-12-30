@@ -36,9 +36,9 @@ public:
     virtual uint8_t read(uint16_t address) const override;
     virtual void write(uint16_t address, uint8_t data) override;
 
-    void insertR  (std::shared_ptr<RDevice>  device);
-    void insertW  (std::shared_ptr<WDevice>  device);
-    void insertRW (std::shared_ptr<IODevice> device);
+    void insertR  (const std::shared_ptr<RDevice>  & device);
+    void insertW  (const std::shared_ptr<WDevice>  & device);
+    void insertRW (const std::shared_ptr<IODevice> & device);
     
 public:
     

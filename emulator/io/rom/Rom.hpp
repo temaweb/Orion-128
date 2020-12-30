@@ -29,7 +29,7 @@ template<size_t size = 2 * 1024>
 class Rom : public RDevice
 {
 private:
-    std::array<uint8_t, size> rom;
+    std::array<uint8_t, size> rom {};
     
 public:
     
@@ -39,21 +39,8 @@ public:
     Rom(std::string path)
     {
         auto file = Environment::openBinaryResource(path);
-        char buffer = 0x00;
         
-        for (auto & byte : rom)
-        {
-            if (file.eof())
-            {
-                byte = 0x00;
-            }
-            else
-            {
-                file.read(&buffer, sizeof(buffer));
-                byte = buffer;
-            }
-        }
-
+        file.read((Environment::bufferType *) rom.begin(), rom.size());
         file.close();
     }
 

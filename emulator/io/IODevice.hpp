@@ -26,9 +26,6 @@
 class Device
 {
 public:
-    
-    virtual ~Device() = default;
-    
     // Device should be process data in the space
     virtual AddressSpace getSpace() const
     {
@@ -38,6 +35,8 @@ public:
             0xFFFF
         };
     }
+    
+    virtual ~Device() = default;
 };
 
 // Read-only devices

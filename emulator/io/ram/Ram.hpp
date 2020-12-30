@@ -21,7 +21,7 @@
 #include <array>
 #include <cstdint>
 
-typedef std::array<uint8_t, 60 * 1024> pagetype;
-typedef std::array<uint8_t, 12 * 1024> vbuffer;
+using pagetype = std::array<uint8_t, 60 * 1024>;
+using vbuffer  = std::array<uint8_t, 12 * 1024>;
 
 #endif /* Ram_hpp */

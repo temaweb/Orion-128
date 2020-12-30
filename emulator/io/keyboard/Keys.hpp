@@ -18,8 +18,10 @@
 #ifndef Keys_h
 #define Keys_h
 
-enum Keys
+enum class Keys
 {
+    None      = 0x00000000,
+    
     Home      = 0x01000010,
     Clear     = 0x0100000B,
     Escape    = 0x01000000,

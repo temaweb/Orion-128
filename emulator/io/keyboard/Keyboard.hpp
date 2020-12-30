@@ -27,29 +27,37 @@
 class Keyboard : public IODevice
 {
 private:
-    uint8_t mask = 0x00;
+    constexpr static Keys matrix[8][8]
+    {
+        { Keys::Home,  Keys::Clear,  Keys::Escape,  Keys::F1,         Keys::F2,      Keys::F3,      Keys::F4,      Keys::F5    },
+        { Keys::Tab,   Keys::F6,     Keys::Return,  Keys::Backspace,  Keys::Left,    Keys::Up,      Keys::Right,   Keys::Down  },
+        { Keys::K0,    Keys::K1,     Keys::K2,      Keys::K3,         Keys::K4,      Keys::K5,      Keys::K6,      Keys::K7    },
+        { Keys::K8,    Keys::K9,     Keys::Colon,   Keys::Semicolon,  Keys::Comma,   Keys::Minus,   Keys::Period,  Keys::Slash },
+        { Keys::At,    Keys::A,      Keys::B,       Keys::C,          Keys::D,       Keys::E,       Keys::F,       Keys::G     },
+        { Keys::H,     Keys::I,      Keys::J,       Keys::K,          Keys::L,       Keys::M,       Keys::N,       Keys::O     },
+        { Keys::P,     Keys::Q,      Keys::R,       Keys::S,          Keys::T,       Keys::U,       Keys::V,       Keys::W     },
+        { Keys::X,     Keys::Y,      Keys::Z,       Keys::BLeft,      Keys::BSlash,  Keys::BRight,  Keys::Circum,  Keys::Space }
+    };
+    
+    constexpr static Keys extra[8]
+    {
+        Keys::None,
+        Keys::None,
+        Keys::None,
+        Keys::None,
+        Keys::None,
+        
+        Keys::Shift,
+        Keys::Control,
+        Keys::Alt
+    };
+    
+private:
+    uint8_t mask       = 0x00;
     uint8_t extraKeys  = 0x00;
     
     std::array<uint8_t, 8> matrixKeys {};
-    
     mutable std::shared_mutex mutex;
-    
-    constexpr static int matrix[8][8] =
-    {
-        {    Home,     Clear,    Escape,    F1,           F2,        F3,        F4,        F5       },
-        {    Tab,      F6,       Return,    Backspace,    Left,      Up,        Right,     Down     },
-        {    K0,       K1,       K2,        K3,           K4,        K5,        K6,        K7       },
-        {    K8,       K9,       Colon,     Semicolon,    Comma,     Minus,     Period,    Slash    },
-        {    At,       A,        B,         C,            D,         E,         F,         G        },
-        {    H,        I,        J,         K,            L,         M,         N,         O        },
-        {    P,        Q,        R,         S,            T,         U,         V,         W        },
-        {    X,        Y,        Z,         BLeft,        BSlash,    BRight,    Circum,    Space    }
-    };
-    
-    constexpr static int extra[8] =
-    {
-        0x00, 0x00, 0x00, 0x00, 0x00, Shift, Control, Alt
-    };
     
 private:
     uint8_t getMatrixKeys() const;

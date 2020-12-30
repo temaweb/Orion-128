@@ -26,8 +26,7 @@ class Loop
 {
 private:
     int lookup  = 0;
-    
-    volatile bool isRunning = true;
+    bool isRunning = true;
     
     std::shared_ptr<Cpu> cpu;
     Broadcast broadcast;

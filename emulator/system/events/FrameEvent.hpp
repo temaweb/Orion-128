@@ -21,10 +21,11 @@
 #include "Event.hpp"
 #include "Video.hpp"
 
-#define ORION_FRAME_CYCLES 5000
-
 class FrameEvent : public Event
 {
+private:
+    static const int frameCycles = 5000;
+    
 private:
     std::shared_ptr<Video> video;
     

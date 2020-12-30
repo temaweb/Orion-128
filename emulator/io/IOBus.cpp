@@ -33,18 +33,18 @@ void IOBus::write(uint16_t address, uint8_t data)
     return wstorage -> write(address, data);
 }
 
-void IOBus::insertR(std::shared_ptr<RDevice> device)
+void IOBus::insertR(const std::shared_ptr<RDevice> & device)
 {
     rstorage -> addDevice(device);
 }
 
-void IOBus::insertW(std::shared_ptr<WDevice> device)
+void IOBus::insertW(const std::shared_ptr<WDevice> & device)
 {
     wstorage -> addDevice(device);
 }
 
-void IOBus::insertRW(std::shared_ptr<IODevice> device)
+void IOBus::insertRW(const std::shared_ptr<IODevice> & device)
 {
-    insertR(std::static_pointer_cast<RDevice>(device));
-    insertW(std::static_pointer_cast<WDevice>(device));
+    insertR(device);
+    insertW(device);
 }
