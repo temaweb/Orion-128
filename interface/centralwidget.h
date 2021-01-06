@@ -7,6 +7,8 @@
 
 #include "Orion.hpp"
 
+void somefunc();
+
 class CentralWidget : public QWidget
 {
     Q_OBJECT

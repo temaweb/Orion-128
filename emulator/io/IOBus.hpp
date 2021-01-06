@@ -42,19 +42,19 @@ public:
     
 public:
     
-    template<class T, class ...Args>
+    template<typename T, typename ...Args>
     void createR (Args&& ...args)
     {
         insertR(std::make_shared<T>(std::forward<Args>(args)...));
     }
     
-    template<class T, class ...Args>
+    template<typename T, typename ...Args>
     void createW (Args&& ...args)
     {
         insertW(std::make_shared<T>(std::forward<Args>(args)...));
     }
     
-    template<class T, class ...Args>
+    template<typename T, typename ...Args>
     void createRW (Args&& ...args)
     {
         insertRW(std::make_shared<T>(std::forward<Args>(args)...));

@@ -19,6 +19,7 @@
 #define Memory_hpp
 
 #include <array>
+#include <map>
 
 #include "Ram.hpp"
 #include "VideoRam.hpp"
@@ -31,7 +32,7 @@ private:
     std::shared_ptr<VideoRam> videoRam;
     pagetype::iterator page;
     
-    enum Page
+    enum
     {
         A = 0x00,
         B = 0x01,

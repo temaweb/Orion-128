@@ -36,7 +36,7 @@ public:
     static const uint16_t begin = 0xF800;
     static const uint16_t end   = 0xFFFF;
     
-    Rom(std::string path)
+    explicit Rom(std::string path)
     {
         auto file = Environment::openBinaryResource(path);
         

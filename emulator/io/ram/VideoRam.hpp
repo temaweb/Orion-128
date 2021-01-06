@@ -27,6 +27,11 @@
 class VideoRam
 {
 private:
+    
+    // Screen #0 (Default)
+    static const int defaultScreen = 0x00;
+    
+    // Supported video screen spaces
     constexpr static std::array<AddressSpace, 4> spaces
     {{
         { 0xC000, 0xF000 }, // Screen #0 (Default)
@@ -34,7 +39,7 @@ private:
         { 0x4000, 0x7000 }, // Screen #2
         { 0x0000, 0x3000 }  // Screen #3
     }};
-
+    
     AddressSpace screen;
     
     pagetype::const_iterator frame;

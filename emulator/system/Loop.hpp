@@ -40,7 +40,7 @@ public:
     void run ();
     void hold ();
 
-    template<class T, class ...Args>
+    template<typename T, typename ...Args>
     void create (Args&& ...args)
     {
         insert(std::make_shared<T>(std::forward<Args>(args)...));

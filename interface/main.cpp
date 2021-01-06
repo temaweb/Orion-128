@@ -1,10 +1,10 @@
 #include <QApplication>
 #include <QTranslator>
-
 #include "mainwindow.h"
 
 int main(int argc, char *argv[])
 {
+
     QApplication application(argc, argv);
 
     const QString lang = "ru";

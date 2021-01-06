@@ -15,6 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdexcept>
 #include "Memory.hpp"
 
 Memory::Memory()
@@ -29,7 +30,7 @@ Memory::Memory()
 
 void Memory::setPage(uint8_t mode)
 {
-    page = ram[(Page) mode].begin();
+    page = ram.at(mode).begin();
 }
 
 const std::shared_ptr<VideoRam> & Memory::getVideoRam() const

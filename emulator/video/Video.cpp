@@ -15,6 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdexcept>
 #include "Video.hpp"
 
 #include "Color16Renderer.hpp"
@@ -46,7 +47,7 @@ Video::Video(std::shared_ptr<const VideoRam> vram) : vram(vram)
 
 void Video::setColorMode (uint8_t mode)
 {
-    renderer = renders[(mode >> 1)];
+    renderer = renders.at(mode >> 1);
 }
 
 bool Video::isChanged() const

@@ -21,7 +21,7 @@ VideoRam::VideoRam (
    pagetype::const_iterator frame,
    pagetype::const_iterator color) : frame(frame), color(color)
 {
-    setScreenMode(0x00);
+    setScreenMode(defaultScreen);
 }
 
 void VideoRam::setScreenMode (uint8_t mode)
