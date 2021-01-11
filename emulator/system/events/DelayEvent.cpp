@@ -56,5 +56,5 @@ void DelayEvent::delay()
 
 int DelayEvent::getLimit()
 {
-    return ORION_DELAY_CYCLES;
+    return delayCycles;
 }

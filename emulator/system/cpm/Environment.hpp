@@ -28,15 +28,22 @@
 
 #include <string>
 #include <fstream>
+#include <functional>
 
 class Environment
 {
 public:
-    using bufferType = std::ifstream::char_type;
+    using bufftype = std::ifstream::char_type;
     
 public:
+    static void readBinaryResource(std::string path, std::ifstream::char_type * begin);
+    static void readBinaryFile(std::string path, std::vector<uint8_t> & vector);
+
+private:
+    static const std::ios_base::openmode defaultMode = std::ios::in | std::ios::binary | std::ios::ate;
+    
     static std::ifstream openBinaryResource(std::string path);
-    static std::ifstream openBinaryFile(std::string path);
+    static std::ifstream openBinaryFile(std::string path, std::ios_base::openmode mode = defaultMode);
     
 #ifdef TARGET_OS_MAC
     

@@ -1,61 +1,59 @@
-//
-//  Filesystem.cpp
-//  orion
-//
-//  Created by Артём Оконечников on 21.11.2020.
-//
+/*
+ * This file is part of the Orion-128 distribution (https://github.com/temaweb/orion-128).
+ * Copyright (c) 2020 Artem Okonechnikov.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include "Filesystem.hpp"
 #include "Environment.hpp"
 
-#include <fstream>
-#include <vector>
-#include <cstdint>
+Filesystem::Filesystem(std::shared_ptr<Memory> memory) : memory(memory)
+{}
 
-std::vector<uint8_t> Filesystem::read(std::string path)
+int Filesystem::getLength(std::vector<uint8_t>::const_iterator & begin, std::vector<uint8_t>::size_type size)
 {
-    auto file = Environment::openBinaryFile(path);
-    char buffer = 0x00;
-    
-    std::vector<uint8_t> content;
-    while (!file.eof())
+    int length = (begin[0x0B] << 8) | begin[0x0A];
+    if (length == 0)
     {
-        file.read(&buffer, sizeof(buffer));
-        content.push_back(buffer);
+        const int offset = 0x4D;
+
+        if (size < offset + 32) {
+            return 0;
+        }
+
+        begin = std::next(begin, offset);
+        length = (begin[0x0B] << 8) | begin[0x0A];
     }
-    
-    file.close();
-    
-    return content;
+
+    return (((length - 1) | 0xF ) + 17);
 }
 
 void Filesystem::create(std::string path)
 {
-    auto content = read(path);
-    uint8_t * ptr = content.data();
-
-    size_t offset = 0;
-    size_t size = content.size();
-
-    int len = (ptr[0x0b] << 8) | ptr[0x0a];;
-    if (len == 0)
-    {
-        offset = 0x4d;
-
-        if (size < offset + 32) {
-            return;
-        }
-
-        ptr += offset;
-        len = (ptr[0x0b] << 8) | ptr[0x0a];
-    }
-
-    len = (((len - 1) | 0xf ) + 17);
+    std::vector<uint8_t> content;
+    Environment::readBinaryFile(path, content);
     
-    for (uint16_t i = 0; i < len; i++)
+    auto begin = content.cbegin();
+    auto size  = content.size();
+
+    auto length = getLength(begin, size);
+    
+    for (uint16_t i = 0; i < length; i++)
     {
-        memory -> writeB(i, *ptr++);
+        memory -> writeB(i, *begin++);
     }
     
-    memory -> writeB(len, 0xff);
+    // Add end byte
+    memory -> writeB(length, 0xFF);
 }

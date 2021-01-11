@@ -16,6 +16,8 @@
  */
 
 #include <iostream>
+#include <vector>
+
 #include "Environment.hpp"
 
 std::ifstream Environment::openBinaryResource(std::string path)
@@ -28,9 +30,32 @@ std::ifstream Environment::openBinaryResource(std::string path)
     return openBinaryFile(path);
 }
 
-std::ifstream Environment::openBinaryFile(std::string path)
+std::ifstream Environment::openBinaryFile(std::string path, std::ios_base::openmode mode)
 {
-    return std::ifstream(path, std::ios::in | std::ios::binary);
+    return std::ifstream(path, mode);
+}
+
+void Environment::readBinaryResource(std::string path, std::ifstream::char_type * begin)
+{
+    auto stream = openBinaryResource(path);
+
+    std::streamsize size = stream.tellg();
+
+    stream.seekg(0, std::ios::beg);
+    stream.read(begin, size);
+    stream.close();
+}
+
+void Environment::readBinaryFile(std::string path, std::vector<uint8_t> & vector)
+{
+    auto stream = openBinaryFile(path, std::ios::in | std::ios::binary);
+
+    std::copy (
+      std::istreambuf_iterator<char>(stream),
+      std::istreambuf_iterator<char>(),
+      std::back_inserter(vector));
+
+    stream.close();
 }
 
 #ifdef TARGET_OS_MAC

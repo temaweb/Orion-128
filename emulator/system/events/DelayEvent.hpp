@@ -17,13 +17,13 @@
 
 #ifndef DelayEvent_hpp
 #define DelayEvent_hpp
-
-#define ORION_DELAY_CYCLES 10000
-
 #include "Event.hpp"
 
 class DelayEvent : public Event
 {
+private:
+    static const int delayCycles = 10000;
+    
 private:
     double oversleep = 0.0;
     int frequency = 0;

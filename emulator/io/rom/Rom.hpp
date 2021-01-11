@@ -38,10 +38,7 @@ public:
     
     explicit Rom(std::string path)
     {
-        auto file = Environment::openBinaryResource(path);
-        
-        file.read((Environment::bufferType *) rom.begin(), rom.size());
-        file.close();
+        Environment::readBinaryResource(path, (Environment::bufftype *) rom.begin());
     }
 
     virtual AddressSpace getSpace() const override

@@ -60,8 +60,8 @@ private:
     mutable std::shared_mutex mutex;
     
 private:
-    uint8_t getMatrixKeys() const;
-    uint8_t getExtraKeys() const;
+    uint8_t getKeyboardKeys() const;
+    uint8_t getAdditionalKeys() const;
 
 public:
     void keyevent(int code, bool isPressed);

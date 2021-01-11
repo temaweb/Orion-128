@@ -67,9 +67,10 @@ uint8_t Keyboard::read(uint16_t address) const
         case 0:
             return 0x00;
         case 1:
-            return getMatrixKeys();
+            return getKeyboardKeys();
         case 2:
-            return getExtraKeys();
+            return getAdditionalKeys();
+            
         default:
             return 0xFF;
     }
@@ -83,7 +84,7 @@ void Keyboard::write(uint16_t adrress, uint8_t data)
     mask = ~data;
 }
 
-uint8_t Keyboard::getMatrixKeys() const
+uint8_t Keyboard::getKeyboardKeys() const
 {
     uint8_t value = 0x00;
     uint8_t mask  = this -> mask;
@@ -99,7 +100,7 @@ uint8_t Keyboard::getMatrixKeys() const
     return ~value;
 }
 
-uint8_t Keyboard::getExtraKeys() const
+uint8_t Keyboard::getAdditionalKeys() const
 {
     return ~extraKeys;
 }
