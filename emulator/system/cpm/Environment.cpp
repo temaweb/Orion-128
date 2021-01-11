@@ -46,8 +46,9 @@ void Environment::readBinaryResource(std::string path, std::ifstream::char_type 
     stream.close();
 }
 
-void Environment::readBinaryFile(std::string path, std::vector<uint8_t> & vector)
+std::vector<uint8_t> Environment::readBinaryFile(std::string path)
 {
+    std::vector<uint8_t> vector {};
     auto stream = openBinaryFile(path, std::ios::in | std::ios::binary);
 
     std::copy (
@@ -56,6 +57,8 @@ void Environment::readBinaryFile(std::string path, std::vector<uint8_t> & vector
       std::back_inserter(vector));
 
     stream.close();
+    
+    return vector;
 }
 
 #ifdef TARGET_OS_MAC

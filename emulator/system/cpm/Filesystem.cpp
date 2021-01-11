@@ -21,33 +21,40 @@
 Filesystem::Filesystem(std::shared_ptr<Memory> memory) : memory(memory)
 {}
 
-int Filesystem::getLength(std::vector<uint8_t>::const_iterator & begin, std::vector<uint8_t>::size_type size)
+int Filesystem::readLength(buffer::const_iterator & begin)
 {
-    int length = (begin[0x0B] << 8) | begin[0x0A];
-    if (length == 0)
-    {
-        const int offset = 0x4D;
+    return (begin[0x0B] << 8) | begin[0x0A];
+}
 
-        if (size < offset + 32) {
-            return 0;
-        }
-
-        begin = std::next(begin, offset);
-        length = (begin[0x0B] << 8) | begin[0x0A];
+int Filesystem::correctLength(buffer::const_iterator & begin, buffer::size_type size)
+{
+    if (size < rkoOffset + 32) {
+        return 0;
     }
 
-    return (((length - 1) | 0xF ) + 17);
+    begin = std::next(begin, rkoOffset);
+    return readLength(begin);
+}
+
+int Filesystem::defineLength(buffer::const_iterator & begin, buffer::size_type size)
+{
+    int length = readLength(begin);
+    
+    if (length == 0) {
+        length = correctLength(begin, size);
+    }
+
+    return ((length - 1) | 0xF ) + 17;
 }
 
 void Filesystem::create(std::string path)
 {
-    std::vector<uint8_t> content;
-    Environment::readBinaryFile(path, content);
+    auto content = Environment::readBinaryFile(path);
     
     auto begin = content.cbegin();
     auto size  = content.size();
 
-    auto length = getLength(begin, size);
+    auto length = defineLength(begin, size);
     
     for (uint16_t i = 0; i < length; i++)
     {

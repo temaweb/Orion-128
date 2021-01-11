@@ -23,12 +23,18 @@
 
 class Filesystem
 {
+public:
+    using buffer = std::vector<uint8_t>;
+    
+    static const int rkoOffset = 0x4D;
+    
 private:
     std::shared_ptr<Memory> memory;
-
-    int getLength(
-          std::vector<uint8_t>::const_iterator & iterator,
-          std::vector<uint8_t>::size_type size);
+    
+    int readLength(buffer::const_iterator & begin);
+    
+    int correctLength(buffer::const_iterator & begin, buffer::size_type size);
+    int defineLength (buffer::const_iterator & iterator, buffer::size_type size);
     
 public:
     Filesystem(std::shared_ptr<Memory> memory);

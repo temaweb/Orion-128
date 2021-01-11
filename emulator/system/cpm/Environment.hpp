@@ -37,7 +37,7 @@ public:
     
 public:
     static void readBinaryResource(std::string path, std::ifstream::char_type * begin);
-    static void readBinaryFile(std::string path, std::vector<uint8_t> & vector);
+    static std::vector<uint8_t> readBinaryFile(std::string path);
 
 private:
     static const std::ios_base::openmode defaultMode = std::ios::in | std::ios::binary | std::ios::ate;
