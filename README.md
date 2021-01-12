@@ -18,6 +18,18 @@
 * Операционные системы: ORDOS 2.40/4.03, CP/M 2.2, SPDOS, DSDOS
 * Написанные любителями и адаптированные игры
 
+### Скриншоты
+
+_Файловый менеджер и ORDOS_
 ![ORDOS](https://user-images.githubusercontent.com/534434/101978459-31840b00-3c66-11eb-8544-d3736255e56b.png)
+
+_Игра «Алмаз 2»_
 ![ALMAZ](https://user-images.githubusercontent.com/534434/101978463-35179200-3c66-11eb-9eff-f985665d3b72.png)
+
+_Заставка игры «Зоопарк»_
 ![ZOO](https://user-images.githubusercontent.com/534434/101978577-0817af00-3c67-11eb-9174-54fb27100b4c.png)
+
+### Тест RAM
+
+Тестирование банков памяти. [Описание](http://www.emuverse.ru/wiki/Орион-128/Радио_02-91/Новая_клавиатура) в журнале «Радио» от 02.1991
+![RAM_TEST](https://user-images.githubusercontent.com/534434/104318821-fc7f0880-54f0-11eb-92c7-3634a0fa4a84.png)
