@@ -23,7 +23,7 @@
 _Файловый менеджер и ORDOS_
 ![ORDOS](https://user-images.githubusercontent.com/534434/101978459-31840b00-3c66-11eb-8544-d3736255e56b.png)
 
-_Игра «Алмаз 2»_
+_Игра «Алмаз 2» (Клон Boulder Dash)_
 ![ALMAZ](https://user-images.githubusercontent.com/534434/101978463-35179200-3c66-11eb-9eff-f985665d3b72.png)
 
 _Заставка игры «Зоопарк»_
