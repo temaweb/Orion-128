@@ -4,6 +4,8 @@
 
 «Орион-128» — любительский 8-разрядный персональный компьютер. Разработан радиолюбителями из подмосковья — Вячеславом Сафроновым, Владиславом Сугоняко, Константином Коненковым. Схема и описание компьютера были опубликованы в журнале «Радио» № 1/1990, другие материалы по теме публиковались в этом журнале до 1996 года.
 
+![b 1989-10 000](https://user-images.githubusercontent.com/534434/120391126-4436ed00-c337-11eb-956b-640f49100f76.jpg)
+
 ### Технические характеристики
 
 * Процессор: КР580ВМ80А (Intel 8080) на частоте 2,5 МГц, быстродействие 625 тысяч оп/сек.
@@ -20,16 +22,19 @@
 
 ### Скриншоты
 
-_Файловый менеджер и ORDOS_
-![ORDOS](https://user-images.githubusercontent.com/534434/101978459-31840b00-3c66-11eb-8544-d3736255e56b.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/534434/101978459-31840b00-3c66-11eb-8544-d3736255e56b.png" alt="ORDOS" />
+  <i>Файловый менеджер и ORDOS</i>
+</p>
+<br />
 
-_Игра «Алмаз 2» (Клон Boulder Dash)_
-![ALMAZ](https://user-images.githubusercontent.com/534434/101978463-35179200-3c66-11eb-9eff-f985665d3b72.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/534434/101978463-35179200-3c66-11eb-9eff-f985665d3b72.png" alt="ALMAZ" />
+  <i>Игра «Алмаз 2» (Клон Boulder Dash)</i>
+</p>
+<br />
 
-_Заставка игры «Зоопарк»_
-![ZOO](https://user-images.githubusercontent.com/534434/101978577-0817af00-3c67-11eb-9174-54fb27100b4c.png)
-
-### Тест RAM
-
-Тестирование банков памяти. [Описание](http://www.emuverse.ru/wiki/Орион-128/Радио_02-91/Новая_клавиатура) в журнале «Радио» от 02.1991
-![RAM_TEST](https://user-images.githubusercontent.com/534434/104318821-fc7f0880-54f0-11eb-92c7-3634a0fa4a84.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/534434/101978577-0817af00-3c67-11eb-9174-54fb27100b4c.png" alt="ZOO" />
+  <i>Заставка игры «Зоопарк»</i>
+</p>
